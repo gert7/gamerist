@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gamerist</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
+	<title>Gamerist</title>
+	<%= stylesheet_link_tag    "gr", media: "all", "data-turbolinks-track" => true %>
+	<%= csrf_meta_tags %>
 </head>
 <body>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-<%= yield %>
 
+	<%= render "elements/header" %>
+	<div id="main">
+
+	<%= render "elements/headbar" %>
+
+	<div id="content">
+		<p class="notice"><%= notice %></p>
+		<p class="alert"><%= alert %></p>
+		<%= yield %>
+	</div>
+	</div>
+<?php echo $this->element('sql_dump'); ?>
+<?php echo $this->Js->writeBuffer(); ?>
 </body>
 </html>
