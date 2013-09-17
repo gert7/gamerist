@@ -20,13 +20,15 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
+  
 test:
   adapter: mysql2
   encoding: utf8
-  database: gamerist_test
-  pool: 5
   username: root
   password:
+  min_messages: ERROR
+  pool: 16
+  timeout: 5000
   host: localhost
 
 production:
