@@ -46,6 +46,7 @@ src: url('/html/fonts/blue highway rg.ttf')
 #UserUsername {height:32px; width:300px;}
 
 label {display:block; }
+p {margin:0; padding:0;}
 
 .floatleft {float: left;}
 .floatright {float: right;}
