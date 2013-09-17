@@ -2,3 +2,9 @@ language: ruby
 rvm:
   - 1.9.3
   - jruby-19mode # JRuby in 1.9 mode
+env:
+  - DB=mysql
+script:
+  - RAILS_ENV=test bundle exec rake --trace db:migrate test
+before_script:
+  - mysql -e 'create database myapp_test'
