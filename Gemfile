@@ -3,8 +3,13 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-# Use mysql as the database for Active Record
-gem 'mysql2', github: 'brianmario/mysql2', tag: '0.3.11'
+group :development do
+  gem 'mysql2', github: 'brianmario/mysql2', tag: '0.3.11'
+end
+
+group :test do
+  gem 'mysql2'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
