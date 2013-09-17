@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-gem 'unicorn'
-
 # Mysql Windows
 gem 'mysql2', github: 'brianmario/mysql2', tag: '0.3.11'
 
