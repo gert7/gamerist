@@ -6,6 +6,8 @@ gem 'rails', '4.0.0'
 # Mysql Windows
 gem 'mysql2', github: 'brianmario/mysql2', tag: '0.3.11'
 
+gem 'pg'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
