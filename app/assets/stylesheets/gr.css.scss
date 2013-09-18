@@ -4,33 +4,33 @@ body {text-align:center; background:black; background-image:image-url('backgroun
 @font-face
 {
 font-family: "Blue Highway Regular";
-src: asset_url("blue_highway_rg.ttf", fonts)
+src: font-url("blue_highway_rg.ttf")
 }
 
 #header {margin:0; width:100%; text-align:center; height:4px; background:#d30;}
 #headermain {text-align:left; width:1012px; margin:auto;}
 
-#headbar {width:1024px; height:58px; margin-top:16px; background-repeat:repeat-x; background-image: asset_url("head_gradient.png");}
-#headbarlogo {background-image:asset_url("gamerist.png"); float:left; width:397px; height:58px;}
+#headbar {width:1024px; height:58px; margin-top:16px; background-repeat:repeat-x; background-image: image-url("head_gradient.png");}
+#headbarlogo {background-image:image-url("gamerist.png"); float:left; width:397px; height:58px;}
 #headbarlogo_link {width:397px; height:58px;}
 #headbar_right {float:right; margin-top:16px;margin-right:15px; font-family:"Blue Highway Regular", sans-serif; font-size:18px; color:white;}
 
 #content {width:1024px; margin:auto; background:white;}
 #content_body {padding:16px;}
 
-#frosted_glass {width:1024px; height:256px; background-image:asset_url("crystal_field.png");}
+#frosted_glass {width:1024px; height:256px; background-image:image-url("crystal_field.png");}
 #win_games {padding:32px; font-family:"Blue Highway Regular", sans-serif; font-size:32px; color:#ff000c; text-shadow: 4px 4px #000000;}
 #win_games_mini {font-family:"Blue Highway Regular", sans-serif; font-size:26px; color:#ff000c; padding-left:32px; width:400px; text-shadow: 2px 2px #000000;}
 #frosted_glass_left {display:inline-block; width:600px; vertical-align:top;}
 #frosted_glass_right {display:inline-block; width:300px; vertical-align:top;}
 #fg_slideshow {margin:16px;}
-#fg_slideshow_image {height:200px; width:355px; background:black; background-image:asset_url("slide_game_screenshots.jpg");}
+#fg_slideshow_image {height:200px; width:355px; background:black; background-image:image-url("slide_game_screenshots.jpg");}
 #fg_slideshow_text_outer {margin-top:-24px; margin-left:-16px;}
 #fg_slideshow_text_inner {background:#222; height:40px; width:300px; box-shadow:-4px 4px #952;}
 #fg_slideshow_text_inner_content1 {}
 #fg_slideshow_text_inner_content2 {display:none;}
 .fg_slide_title {padding-left:64px; padding-top:6px; color:white; font-size:18px; font-family:"Blue Highway Regular"; position:absolute;}
-#fg_slideshow_icon {height:48px; width:48px; background-image:asset_url("game_logos_48.png"); background-position:0px 0px; margin-top:-44px; margin-left:4px;}
+#fg_slideshow_icon {height:48px; width:48px; background-image:image-url("game_logos_48.png"); background-position:0px 0px; margin-top:-44px; margin-left:4px;}
 
 #adduser_outer {width:960px; padding:32px;}
 #adduser_inner {background:#555; padding:32px; border:1px solid #888; box-shadow:4px 4px #444;}
