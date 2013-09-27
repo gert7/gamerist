@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree ./sitewide
+//= require_tree .
 //= require ./welcome/jquery.animate-shadow-min
 //= require ./welcome/welcome
