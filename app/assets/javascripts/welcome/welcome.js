@@ -14,3 +14,20 @@ $("#fg_slideshow_icon").ready(function () {
 	}, 5000)
 }
 );
+
+var gameristColor = "#e9ff00";
+
+function randomColor() {
+	return '#'+Math.floor(Math.random()*16777215).toString(16);
+}
+
+function recolor() {
+	gameristColor = randomColor();
+	$(".commoncolor_text").animate({"color": gameristColor}, 1000);
+	$(".commoncolor_bg").animate({"background-color": gameristColor}, 1000);
+}
+
+$("#header").ready(function() {
+	setInterval(recolor, 2000);
+}
+);

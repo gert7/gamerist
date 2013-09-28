@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require_tree .
 //= require ./welcome/jquery.animate-shadow-min
+//= require_tree ./sitewide
 //= require ./welcome/welcome

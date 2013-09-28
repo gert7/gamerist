@@ -21,7 +21,7 @@ body {
     width: 100%;
     text-align: center;
     height: 4px;
-    background: #e9ff00;
+    background-color: #e9ff00;
 }
 #headermain {
     text-align: left;
@@ -42,11 +42,10 @@ body {
 }
 #headbarlogo {
     float: left;
-    background-image: image-url("gamerist.png");
-    background-position: 320px;
-    background-repeat: no-repeat;
+
     width: 681px;
     height: 81px;
+	
 }
 #headbar_right {
     width: 330px;
@@ -70,6 +69,14 @@ body {
     width: 361px;
     height: 81px;
     float: right;
+    background-repeat: no-repeat;
+	background-image: image-url("gamerist.png");
+}
+#headbarlogo_link_mask {
+	width:361px;
+	height:81px;
+	-webkit-mask-box-image: image-url("gamerist_mask.png");
+	background-color:#e9ff00;
 }
 #content {
     width: 1024px;
