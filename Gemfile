@@ -34,8 +34,13 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Devise
+# Gamerist-specific
 gem 'devise'
+gem 'omniauth'
+gem 'net-ssh'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'paypal-sdk-rest'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

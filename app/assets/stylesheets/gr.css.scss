@@ -28,6 +28,8 @@ body {
     width: 1012px;
     margin: auto;
 }
+
+/* headbar */
 #headbar {
     width: 100%;
     height: 81px;
@@ -58,25 +60,51 @@ body {
     font-size: 20px;
     color: white;
     text-align: right;
-    padding-top: 32px;
-    padding-right: 8px;
+    padding-top: 27px;
+}
+#headbar_points {
+	background-image: image-url("green_diamond.png");
+	background-repeat: no-repeat;
+	display:inline;
+	padding-left:22px;
 }
 #headbar_left {
     width: 320px;
     height: 81px;
     float: left;
 }
+#headbar_left_content {
+	font-family: "Blue Highway Regular", sans-serif;
+    font-size: 20px;
+    color: white;
+    text-align: left;
+    padding-top: 27px;
+}
 #headbarlogo_link {
     width: 361px;
     height: 81px;
     float: right;
 }
+#headbar_loggedin_name :link {
+	color:white;
+}
+#headbar_loggedin_name :visited {
+	color:white;
+}
+#headbar_loggedin_name :hover {
+	text-decoration:none;
+}
+
+
+/* Content core */
 #content {
     width: 1024px;
     margin: auto;
     background: white;
 }
 #content_body { padding: 16px }
+
+/* Front page */
 #frosted_glass {
     width: 1024px;
     height: 256px;
@@ -142,6 +170,8 @@ body {
     margin-top: -44px;
     margin-left: 4px;
 }
+
+/* Registration */
 #adduser_outer {
     width: 960px;
     padding: 32px;
@@ -164,11 +194,7 @@ body {
     vertical-align: top;
     padding-left: 12px;
 }
-#flashMessage {
-    width: 960px;
-    padding: 32px;
-    background: #d77;
-}
+
 #login_page_outer { }
 #login_page_inner { padding: 32px }
 #login_email_username { padding: 32px }
@@ -181,6 +207,13 @@ label { display: block }
 p {
     margin: 0;
     padding: 0;
+}
+
+.alert, .notice {
+	padding:18px;
+    background: #d77;
+	font-family:"Blue Highway Regular", sans-serif;
+	font-size:1.5em;
 }
 .floatleft { float: left }
 .floatright { float: right }
