@@ -14,6 +14,7 @@
 	<%= render "elements/headbar" %>
 	<div id="main">
 	<div id="content">
+		<div id="content_body">
 		<%if(notice)%>
 		  <p class="notice"><%= notice %></p>
 		<%end%>
@@ -21,6 +22,7 @@
 		  <p class="alert"><%= alert %></p>
 		<%end%>
 		<%= yield %>
+		</div>
 	</div>
 	</div>
 </body>
