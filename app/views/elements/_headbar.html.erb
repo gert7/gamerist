@@ -5,7 +5,7 @@
 				<div id="headbar_left_content">
 					<%if (user_signed_in?)%>
 					  <div id="headbar_loggedin_name">
-						<%=link_to "Sign out", destroy_user_session_path, :method => :delete %> | <%= current_user %>
+						<%=link_to "Sign out", destroy_user_session_path, :method => :delete %> | <%= current_user.email %>
 					  </div>
 					<%else%>
 					  <div id="headbar_loggedin_name">
