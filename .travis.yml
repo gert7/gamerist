@@ -2,10 +2,10 @@ language: ruby
 rvm:
   - 1.9.3
 env:
-  - DB=mysql
+  - DB=postgres
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
 gemfile:
   - Gemfile_test
 before_script:
-  - mysql -e 'create database gamerist_test'
+  - psql -e 'create database gamerist_test'
