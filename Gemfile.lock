@@ -43,11 +43,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    delayed_job (4.0.0)
-      activesupport (>= 3.0, < 4.1)
-    delayed_job_active_record (4.0.0)
-      activerecord (>= 3.0, < 4.1)
-      delayed_job (>= 3.0, < 4.1)
     devise (3.1.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -55,6 +50,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    eventmachine (1.0.3-x86-mingw32)
     execjs (2.0.1)
     hashie (2.0.5)
     hike (1.2.3)
@@ -86,6 +82,8 @@ GEM
     pg (0.17.0-x86-mingw32)
     polyglot (0.3.3)
     rack (1.5.2)
+    rack-cache (1.2)
+      rack (>= 0.4)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.0)
@@ -104,6 +102,23 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    redis (3.0.5)
+    redis-actionpack (4.0.0)
+      actionpack (~> 4)
+      redis-rack (~> 1.5.0)
+      redis-store (~> 1.1.0)
+    redis-activesupport (4.0.0)
+      activesupport (~> 4)
+      redis-store (~> 1.1.0)
+    redis-rack (1.5.0)
+      rack (~> 1.5)
+      redis-store (~> 1.1.0)
+    redis-rails (4.0.0)
+      redis-actionpack (~> 4)
+      redis-activesupport (~> 4)
+      redis-store (~> 1.1.0)
+    redis-store (1.1.4)
+      redis (>= 2.2)
     sass (3.2.10)
     sass-rails (4.0.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -144,9 +159,8 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
-  delayed_job
-  delayed_job_active_record
   devise
+  eventmachine
   jbuilder (~> 1.2)
   jquery-rails
   mysql2!
@@ -154,7 +168,10 @@ DEPENDENCIES
   omniauth
   paypal-sdk-rest
   pg
+  rack-cache
   rails (= 4.0.0)
+  redis
+  redis-rails
   sass-rails (~> 4.0.0)
   sdoc
   turbolinks
