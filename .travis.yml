@@ -3,6 +3,8 @@ rvm:
   - 1.9.3
 env:
   - DB=postgresql
+before_install:
+  - cd www/rails
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
   - bundle exec rake db:test:prepare
