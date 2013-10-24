@@ -124,3 +124,68 @@ Started GET "/assets/slide_game_screenshots.jpg" for 192.168.1.100 at 2013-10-23
 
 
 Started GET "/assets/blue_highway_rg.ttf" for 192.168.1.100 at 2013-10-23 18:02:56 +0300
+
+
+Started GET "/" for 192.168.1.100 at 2013-10-24 15:39:37 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (22.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (23.0ms)
+  Rendered elements/_header.html.erb (0.8ms)
+  Rendered elements/_headbar.html.erb (33.9ms)
+Completed 200 OK in 384ms (Views: 284.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+
+
+Started GET "/assets/users.js?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+
+Started GET "/assets/application.js?body=1" for 192.168.1.100 at 2013-10-24 15:39:38 +0300
+
+
+Started GET "/assets/background.png" for 192.168.1.100 at 2013-10-24 15:39:39 +0300
+
+
+Started GET "/assets/head_gradient.png" for 192.168.1.100 at 2013-10-24 15:39:39 +0300
+
+
+Started GET "/assets/gamerist.png" for 192.168.1.100 at 2013-10-24 15:39:39 +0300
+
+
+Started GET "/assets/crystal_field.png" for 192.168.1.100 at 2013-10-24 15:39:39 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 192.168.1.100 at 2013-10-24 15:39:39 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 192.168.1.100 at 2013-10-24 15:39:39 +0300
+
+
+Started GET "/assets/blue_highway_rg.ttf" for 192.168.1.100 at 2013-10-24 15:39:39 +0300
