@@ -189,3 +189,790 @@ Started GET "/assets/slide_game_screenshots.jpg" for 192.168.1.100 at 2013-10-24
 
 
 Started GET "/assets/blue_highway_rg.ttf" for 192.168.1.100 at 2013-10-24 15:39:39 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 12:07:05 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (12.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (14.5ms)
+  Rendered elements/_header.html.erb (1.7ms)
+  Rendered elements/_headbar.html.erb (139.9ms)
+Completed 200 OK in 819ms (Views: 764.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 12:07:07 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 12:07:08 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 12:07:08 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 12:07:08 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 12:07:08 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 12:07:08 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 12:07:08 +0300
+
+
+Started GET "/assets/blue_highway_rg.ttf" for 127.0.0.1 at 2013-10-25 12:07:08 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 12:25:40 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (76.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+Completed 500 Internal Server Error in 90ms
+
+NoMethodError (undefined method `has_key?' for "localhost:6379":String):
+  app/controllers/welcome_controller.rb:3:in `index'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.9ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.2ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (3.7ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (65.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 12:27:31 +0300
+Processing by WelcomeController#index as HTML
+Completed 500 Internal Server Error in 2ms
+
+NoMethodError (undefined method `has_key?' for "localhost:6379":String):
+  app/controllers/welcome_controller.rb:3:in `new'
+  app/controllers/welcome_controller.rb:3:in `index'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.6ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.0ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (3.2ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (53.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 12:28:16 +0300
+Processing by WelcomeController#index as HTML
+Completed 500 Internal Server Error in 3ms
+
+NoMethodError (undefined method `has_key?' for "localhost:6379":String):
+  app/controllers/welcome_controller.rb:5:in `new'
+  app/controllers/welcome_controller.rb:5:in `index'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.4ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.3ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.9ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (39.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 12:28:17 +0300
+Processing by WelcomeController#index as HTML
+Completed 500 Internal Server Error in 1ms
+
+NoMethodError (undefined method `has_key?' for "localhost:6379":String):
+  app/controllers/welcome_controller.rb:5:in `new'
+  app/controllers/welcome_controller.rb:5:in `index'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (3.0ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.2ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (3.8ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (52.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 12:28:30 +0300
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (1.1ms)
+  Rendered elements/_header.html.erb (1.2ms)
+  Rendered elements/_headbar.html.erb (31.9ms)
+Completed 200 OK in 432ms (Views: 427.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 12:28:31 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 12:28:32 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 12:28:32 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 12:28:32 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 12:28:32 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 12:28:32 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 12:28:32 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 12:50:57 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (1.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (2.7ms)
+  Rendered elements/_header.html.erb (1.5ms)
+  Rendered elements/_headbar.html.erb (36.4ms)
+Completed 200 OK in 285ms (Views: 239.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+
+
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 12:50:58 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (2.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 12:50:59 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 12:50:59 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 12:50:59 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 12:50:59 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 12:50:59 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 12:50:59 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 12:52:30 +0300
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (3.8ms)
+  Rendered elements/_header.html.erb (1.2ms)
+  Rendered elements/_headbar.html.erb (24.2ms)
+Completed 200 OK in 317ms (Views: 219.2ms | ActiveRecord: 0.0ms)
+
+
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 12:52:30 +0300
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 12:52:30 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 12:52:30 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 12:52:30 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 12:52:30 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 12:52:31 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 13:09:13 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (3.4ms)
+  Rendered elements/_header.html.erb (1.0ms)
+  Rendered elements/_headbar.html.erb (23.6ms)
+Completed 200 OK in 282ms (Views: 212.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 13:09:14 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 13:10:59 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (2.7ms)
+  Rendered elements/_header.html.erb (0.7ms)
+  Rendered elements/_headbar.html.erb (28.8ms)
+Completed 200 OK in 255ms (Views: 205.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (1.2ms)
+  Rendered elements/_headbar.html.erb (6.2ms)
+Completed 200 OK in 39ms (Views: 36.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 13:11:01 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (3.8ms)
+Completed 200 OK in 198ms (Views: 195.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 13:11:06 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 13:11:22 +0300
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (7.3ms)
+Completed 200 OK in 666ms (Views: 663.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 13:11:23 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 13:44:54 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (3.9ms)
+  Rendered elements/_header.html.erb (1.3ms)
+  Rendered elements/_headbar.html.erb (34.4ms)
+Completed 200 OK in 343ms (Views: 288.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 13:44:55 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 13:52:01 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (1.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (3.7ms)
+  Rendered elements/_header.html.erb (0.7ms)
+  Rendered elements/_headbar.html.erb (26.2ms)
+Completed 200 OK in 574ms (Views: 199.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:02 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 13:52:03 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 13:52:03 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 13:52:03 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 13:52:03 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 13:52:03 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 13:52:03 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 13:52:06 +0300
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (3.2ms)
+Completed 200 OK in 24ms (Views: 21.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 13:52:07 +0300
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-25 13:52:58 +0300
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  Rendered elements/_header.html.erb (0.2ms)
+  Rendered elements/_headbar.html.erb (7.6ms)
+Completed 200 OK in 836ms (Views: 832.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-25 13:53:00 +0300
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-25 13:53:01 +0300
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-25 13:53:01 +0300
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-25 13:53:01 +0300
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-25 13:53:01 +0300
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 13:53:01 +0300
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 13:53:01 +0300

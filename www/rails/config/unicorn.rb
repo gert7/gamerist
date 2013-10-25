@@ -1,7 +1,7 @@
 # config/unicorn.rb
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
 timeout 15
-preload_app true
+preload_app false
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
@@ -17,6 +17,13 @@ after_fork do |server, worker|
   Signal.trap 'TERM' do
     puts 'Unicorn worker intercepting TERM and doing nothing. Wait for master to send QUIT'
   end
+	Thread.new {
+		EventMachine.stop
+		EventMachine.run
+	}
+	sleep(0.25)
+	EventMachine::Hiredis.connect("localhost:6379")
+	
 
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.establish_connection
