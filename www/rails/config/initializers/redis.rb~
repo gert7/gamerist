@@ -1,8 +1,8 @@
-require 'em-hiredis'
+require 'em-websocket'
 
 EM.next_tick do
-	redis = EM::Hiredis.connect("redis://127.0.0.1:6379")
-	#redis.pubsub.subscribe "gamerist_node" do |msg|
-	#	print msg
-	#end
+	EM::Websocket.run(:host => "127.0.0.1", :port => 9991) do |s|
+		s.onmessage do |msg|
+		end
+	end
 end
