@@ -42,8 +42,9 @@ gem 'redis'
 gem 'redis-rails'
 gem 'rack-cache'
 gem 'eventmachine'
-gem 'em-websocket'
 gem 'amqp'
+
+gem 'rails-backbone'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

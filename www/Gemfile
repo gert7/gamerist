@@ -44,10 +44,11 @@ gem 'rack-cache'
 gem 'eventmachine'
 gem 'amqp'
 
+gem 'rails-backbone'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Use unicorn as the app server
 gem 'thin'
 
 # Use Capistrano for deployment
