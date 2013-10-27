@@ -3,6 +3,9 @@ rvm:
   - 1.9.3
   - 2.0.0
   - jruby-19mode
+gemfile:
+  - Gemfile
+  - Gemfile_java
 env:
   - DB=postgresql
 before_install:
@@ -14,3 +17,7 @@ script:
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database gamerist_test' -U postgres
+matrix:
+  include:
+    - rvm: jruby-19mode
+      Gemfile_java
