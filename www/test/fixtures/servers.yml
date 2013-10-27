@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  number: 1
+  server_address: MyString
+  dispatch_address: MyString
+  dispatch_version: 1
+
+two:
+  number: 1
+  server_address: MyString
+  dispatch_address: MyString
+  dispatch_version: 1

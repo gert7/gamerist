@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131001095044) do
+ActiveRecord::Schema.define(version: 20131027101222) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -28,6 +28,22 @@ ActiveRecord::Schema.define(version: 20131001095044) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "games", force: true do |t|
+    t.string   "prettyname"
+    t.string   "enum"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "servers", force: true do |t|
+    t.integer  "number"
+    t.string   "server_address"
+    t.string   "dispatch_address"
+    t.integer  "dispatch_version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

@@ -976,3 +976,1102 @@ Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-25 13:
 
 
 Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-25 13:53:01 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (22.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateGames (20131027094504)
+  [1m[35m (0.8ms)[0m  BEGIN
+  [1m[36m (405.8ms)[0m  [1mCREATE TABLE "games" ("id" serial primary key, "prettyname" character varying(255), "enum" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (30.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131027094504"]]
+  [1m[36m (3.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateServers (20131027100938)
+  [1m[35m (1.1ms)[0m  BEGIN
+  [1m[36m (0.9ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateServers (20131027101222)
+  [1m[35m (1.1ms)[0m  BEGIN
+  [1m[36m (293.1ms)[0m  [1mCREATE TABLE "servers" ("id" serial primary key, "number" integer, "server_address" character varying(255), "dispatch_address" character varying(255), "dispatch_version" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (4.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131027101222"]]
+  [1m[36m (8.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.6ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+
+
+Started GET "/games/index.html" for 127.0.0.1 at 2013-10-27 12:29:28 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by GamesController#show as HTML
+  Parameters: {"id"=>"index"}
+  [1m[35mGame Load (4.0ms)[0m  SELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT 1  [["id", "index"]]
+Completed 404 Not Found in 78ms
+
+ActiveRecord::RecordNotFound (Couldn't find Game with id=index):
+  app/controllers/games_controller.rb:67:in `set_game'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.6ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.1ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.2ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (56.4ms)
+
+
+Started GET "/games/index" for 127.0.0.1 at 2013-10-27 12:29:36 +0200
+Processing by GamesController#show as HTML
+  Parameters: {"id"=>"index"}
+  [1m[36mGame Load (1.7ms)[0m  [1mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT 1[0m  [["id", "index"]]
+Completed 404 Not Found in 4ms
+
+ActiveRecord::RecordNotFound (Couldn't find Game with id=index):
+  app/controllers/games_controller.rb:67:in `set_game'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.7ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (66.2ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (3.9ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (108.7ms)
+
+
+Started GET "/games/add" for 127.0.0.1 at 2013-10-27 12:29:53 +0200
+Processing by GamesController#show as HTML
+  Parameters: {"id"=>"add"}
+  [1m[35mGame Load (2.0ms)[0m  SELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT 1  [["id", "add"]]
+Completed 404 Not Found in 5ms
+
+ActiveRecord::RecordNotFound (Couldn't find Game with id=add):
+  app/controllers/games_controller.rb:67:in `set_game'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.4ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.8ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.6ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (54.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-27 12:30:08 +0200
+Processing by WelcomeController#index as HTML
+Completed 500 Internal Server Error in 23ms
+
+Redis::CannotConnectError (Error connecting to Redis on 127.0.0.1:6379 (ECONNREFUSED)):
+  app/controllers/welcome_controller.rb:6:in `index'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.6ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.4ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.1ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (40.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-27 12:31:12 +0200
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (1.9ms)
+Completed 500 Internal Server Error in 702ms
+
+ActionView::Template::Error (SyntaxError: unexpected }
+  (in /home/gert/gamerist/www/app/assets/javascripts/backbone/models/users.js.coffee)):
+    3: <head>
+    4: 	<title>Gamerist</title>
+    5: 	<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    6: 	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    7: 	<%= csrf_meta_tags %>
+    8: </head>
+    9: <body>
+  app/views/layouts/application.html.erb:6:in `_app_views_layouts_application_html_erb__689025622_92393660'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.9ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.4ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (25.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-27 12:38:43 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (2.6ms)
+  Rendered elements/_header.html.erb (1.0ms)
+  Rendered elements/_headbar.html.erb (24.2ms)
+Completed 200 OK in 617ms (Views: 563.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/games.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/assets/blue_highway_rg.ttf" for 127.0.0.1 at 2013-10-27 12:38:45 +0200
+
+
+Started GET "/users" for 127.0.0.1 at 2013-10-27 12:40:21 +0200
+
+ActionController::RoutingError (No route matches [GET] "/users"):
+  actionpack (4.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.0.0) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `block in call'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `block in tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:25:in `tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `tagged'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  activesupport (4.0.0) lib/active_support/cache/strategy/local_cache.rb:83:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/static.rb:64:in `call'
+  railties (4.0.0) lib/rails/engine.rb:511:in `call'
+  railties (4.0.0) lib/rails/application.rb:97:in `call'
+  thin (1.6.0) lib/thin/connection.rb:82:in `block in pre_process'
+  thin (1.6.0) lib/thin/connection.rb:80:in `catch'
+  thin (1.6.0) lib/thin/connection.rb:80:in `pre_process'
+  thin (1.6.0) lib/thin/connection.rb:55:in `process'
+  thin (1.6.0) lib/thin/connection.rb:41:in `receive_data'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run'
+  thin (1.6.0) lib/thin/backends/base.rb:73:in `start'
+  thin (1.6.0) lib/thin/server.rb:162:in `start'
+  thin (1.6.0) lib/thin/controllers/controller.rb:87:in `start'
+  thin (1.6.0) lib/thin/runner.rb:204:in `run_command'
+  thin (1.6.0) lib/thin/runner.rb:156:in `run!'
+  thin (1.6.0) bin/thin:6:in `<top (required)>'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/thin:23:in `load'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/thin:23:in `<main>'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/ruby_executable_hooks:15:in `eval'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/ruby_executable_hooks:15:in `<main>'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.8ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_route.html.erb (8.8ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_table.html.erb (47.5ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (202.2ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at 2013-10-27 12:40:33 +0200
+
+ActionController::RoutingError (No route matches [GET] "/users/new"):
+  actionpack (4.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.0.0) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `block in call'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `block in tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:25:in `tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `tagged'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  activesupport (4.0.0) lib/active_support/cache/strategy/local_cache.rb:83:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/static.rb:64:in `call'
+  railties (4.0.0) lib/rails/engine.rb:511:in `call'
+  railties (4.0.0) lib/rails/application.rb:97:in `call'
+  thin (1.6.0) lib/thin/connection.rb:82:in `block in pre_process'
+  thin (1.6.0) lib/thin/connection.rb:80:in `catch'
+  thin (1.6.0) lib/thin/connection.rb:80:in `pre_process'
+  thin (1.6.0) lib/thin/connection.rb:55:in `process'
+  thin (1.6.0) lib/thin/connection.rb:41:in `receive_data'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run'
+  thin (1.6.0) lib/thin/backends/base.rb:73:in `start'
+  thin (1.6.0) lib/thin/server.rb:162:in `start'
+  thin (1.6.0) lib/thin/controllers/controller.rb:87:in `start'
+  thin (1.6.0) lib/thin/runner.rb:204:in `run_command'
+  thin (1.6.0) lib/thin/runner.rb:156:in `run!'
+  thin (1.6.0) bin/thin:6:in `<top (required)>'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/thin:23:in `load'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/thin:23:in `<main>'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/ruby_executable_hooks:15:in `eval'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/ruby_executable_hooks:15:in `<main>'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (65.4ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_route.html.erb (7.8ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_table.html.erb (2.8ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (212.0ms)
+
+
+Started GET "/games/new" for 127.0.0.1 at 2013-10-27 12:40:45 +0200
+Processing by GamesController#new as HTML
+  Rendered games/_form.html.erb (226.8ms)
+  Rendered games/new.html.erb within layouts/application (230.1ms)
+  Rendered elements/_header.html.erb (0.2ms)
+  Rendered elements/_headbar.html.erb (3.5ms)
+Completed 200 OK in 292ms (Views: 277.8ms | ActiveRecord: 6.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-27 12:40:45 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-27 12:40:45 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/games.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-27 12:40:46 +0200
+
+
+Started POST "/games" for 127.0.0.1 at 2013-10-27 12:41:29 +0200
+Processing by GamesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TOJxm7v0jsJFpIDbxSynHrBpmO9XerKAHB8d/Hyl6mg=", "game"=>{"prettyname"=>"Team Fortress 2", "enum"=>"SERVER_TF2"}, "commit"=>"Create Game"}
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36mSQL (465.8ms)[0m  [1mINSERT INTO "games" ("created_at", "enum", "prettyname", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Sun, 27 Oct 2013 10:41:29 UTC +00:00], ["enum", "SERVER_TF2"], ["prettyname", "Team Fortress 2"], ["updated_at", Sun, 27 Oct 2013 10:41:29 UTC +00:00]]
+  [1m[35m (13.5ms)[0m  COMMIT
+Redirected to http://127.0.0.1:3000/games/1
+Completed 302 Found in 491ms (ActiveRecord: 481.3ms)
+
+
+Started GET "/games/1" for 127.0.0.1 at 2013-10-27 12:41:30 +0200
+Processing by GamesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mGame Load (2.0ms)[0m  [1mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  Rendered games/show.html.erb within layouts/application (2.1ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (3.4ms)
+Completed 200 OK in 105ms (Views: 98.9ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-27 12:41:30 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/games.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:31 +0200
+
+
+Started GET "/games" for 127.0.0.1 at 2013-10-27 12:41:33 +0200
+Processing by GamesController#index as HTML
+  [1m[35mGame Load (1.6ms)[0m  SELECT "games".* FROM "games"
+  Rendered games/index.html.erb within layouts/application (6.8ms)
+  Rendered elements/_header.html.erb (0.8ms)
+  Rendered elements/_headbar.html.erb (5.6ms)
+Completed 200 OK in 50ms (Views: 46.4ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/games/new" for 127.0.0.1 at 2013-10-27 12:41:34 +0200
+Processing by GamesController#new as HTML
+  Rendered games/_form.html.erb (8.5ms)
+  Rendered games/new.html.erb within layouts/application (11.6ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (4.6ms)
+Completed 200 OK in 48ms (Views: 45.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/games" for 127.0.0.1 at 2013-10-27 12:41:56 +0200
+Processing by GamesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TOJxm7v0jsJFpIDbxSynHrBpmO9XerKAHB8d/Hyl6mg=", "game"=>{"prettyname"=>"Counter-Strike: Source", "enum"=>"SERVER_CSS"}, "commit"=>"Create Game"}
+  [1m[36m (146.5ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.9ms)[0m  INSERT INTO "games" ("created_at", "enum", "prettyname", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", Sun, 27 Oct 2013 10:41:56 UTC +00:00], ["enum", "SERVER_CSS"], ["prettyname", "Counter-Strike: Source"], ["updated_at", Sun, 27 Oct 2013 10:41:56 UTC +00:00]]
+  [1m[36m (5.7ms)[0m  [1mCOMMIT[0m
+Redirected to http://127.0.0.1:3000/games/2
+Completed 302 Found in 163ms (ActiveRecord: 154.1ms)
+
+
+Started GET "/games/2" for 127.0.0.1 at 2013-10-27 12:41:56 +0200
+Processing by GamesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mGame Load (1.1ms)[0m  SELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT 1  [["id", "2"]]
+  Rendered games/show.html.erb within layouts/application (1.3ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (3.4ms)
+Completed 200 OK in 29ms (Views: 24.7ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-27 12:41:56 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-27 12:41:56 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:56 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:56 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:56 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:56 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:56 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/assets/games.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-27 12:41:57 +0200
+
+
+Started GET "/games" for 127.0.0.1 at 2013-10-27 12:41:58 +0200
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (140.9ms)[0m  [1mSELECT "games".* FROM "games"[0m
+  Rendered games/index.html.erb within layouts/application (145.8ms)
+  Rendered elements/_header.html.erb (0.2ms)
+  Rendered elements/_headbar.html.erb (4.2ms)
+Completed 200 OK in 177ms (Views: 34.1ms | ActiveRecord: 140.9ms)
+
+
+Started GET "/games/new" for 127.0.0.1 at 2013-10-27 12:42:00 +0200
+Processing by GamesController#new as HTML
+  Rendered games/_form.html.erb (6.5ms)
+  Rendered games/new.html.erb within layouts/application (8.3ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (4.1ms)
+Completed 200 OK in 38ms (Views: 36.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/games" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+Processing by GamesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TOJxm7v0jsJFpIDbxSynHrBpmO9XerKAHB8d/Hyl6mg=", "game"=>{"prettyname"=>"Warsow", "enum"=>"SERVER_WARSOW"}, "commit"=>"Create Game"}
+  [1m[35m (0.8ms)[0m  BEGIN
+  [1m[36mSQL (1.5ms)[0m  [1mINSERT INTO "games" ("created_at", "enum", "prettyname", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Sun, 27 Oct 2013 10:42:09 UTC +00:00], ["enum", "SERVER_WARSOW"], ["prettyname", "Warsow"], ["updated_at", Sun, 27 Oct 2013 10:42:09 UTC +00:00]]
+  [1m[35m (63.2ms)[0m  COMMIT
+Redirected to http://127.0.0.1:3000/games/3
+Completed 302 Found in 72ms (ActiveRecord: 65.5ms)
+
+
+Started GET "/games/3" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+Processing by GamesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mGame Load (1.2ms)[0m  [1mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT 1[0m  [["id", "3"]]
+  Rendered games/show.html.erb within layouts/application (1.3ms)
+  Rendered elements/_header.html.erb (0.3ms)
+  Rendered elements/_headbar.html.erb (3.1ms)
+Completed 200 OK in 28ms (Views: 24.4ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/games.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-27 12:42:09 +0200
+
+
+Started GET "/games" for 127.0.0.1 at 2013-10-27 12:42:11 +0200
+Processing by GamesController#index as HTML
+  [1m[35mGame Load (1.5ms)[0m  SELECT "games".* FROM "games"
+  Rendered games/index.html.erb within layouts/application (5.6ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (63.0ms)
+Completed 200 OK in 96ms (Views: 93.3ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.2ms)
+  Rendered elements/_header.html.erb (0.2ms)
+  Rendered elements/_headbar.html.erb (4.9ms)
+Completed 200 OK in 34ms (Views: 30.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/games.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-27 12:43:05 +0200
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2013-10-27 12:43:07 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/shared/_links.erb (3.3ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (50.5ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (3.7ms)
+Completed 200 OK in 179ms (Views: 90.0ms | ActiveRecord: 6.3ms)
+
+
+Started GET "/" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.2ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (3.5ms)
+Completed 200 OK in 83ms (Views: 80.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/games.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/users.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:39 +0200
+
+
+Started GET "/assets/application.js?body=1" for 192.168.1.100 at 2013-10-27 12:43:40 +0200
+
+
+Started GET "/assets/background.png" for 192.168.1.100 at 2013-10-27 12:43:40 +0200
+
+
+Started GET "/assets/head_gradient.png" for 192.168.1.100 at 2013-10-27 12:43:40 +0200
+
+
+Started GET "/assets/gamerist.png" for 192.168.1.100 at 2013-10-27 12:43:40 +0200
+
+
+Started GET "/assets/crystal_field.png" for 192.168.1.100 at 2013-10-27 12:43:40 +0200
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 192.168.1.100 at 2013-10-27 12:43:40 +0200
+
+
+Started GET "/assets/game_logos_48.png" for 192.168.1.100 at 2013-10-27 12:43:40 +0200
+
+
+Started GET "/assets/blue_highway_rg.ttf" for 192.168.1.100 at 2013-10-27 12:43:40 +0200
+
+
+Started GET "/games" for 192.168.1.100 at 2013-10-27 12:43:46 +0200
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (1.9ms)[0m  [1mSELECT "games".* FROM "games"[0m
+  Rendered games/index.html.erb within layouts/application (11.5ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (5.2ms)
+Completed 200 OK in 48ms (Views: 42.7ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.2ms)
+  Rendered elements/_header.html.erb (0.2ms)
+  Rendered elements/_headbar.html.erb (5.2ms)
+Completed 200 OK in 34ms (Views: 30.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/games.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/users.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/application.js?body=1" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/background.png" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/head_gradient.png" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/gamerist.png" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/crystal_field.png" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/slide_game_screenshots.jpg" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/game_logos_48.png" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/assets/blue_highway_rg.ttf" for 192.168.1.100 at 2013-10-27 12:44:39 +0200
+
+
+Started GET "/users" for 127.0.0.1 at 2013-10-27 12:46:55 +0200
+
+ActionController::RoutingError (No route matches [GET] "/users"):
+  actionpack (4.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.0.0) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `block in call'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `block in tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:25:in `tagged'
+  activesupport (4.0.0) lib/active_support/tagged_logging.rb:67:in `tagged'
+  railties (4.0.0) lib/rails/rack/logger.rb:21:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  activesupport (4.0.0) lib/active_support/cache/strategy/local_cache.rb:83:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  actionpack (4.0.0) lib/action_dispatch/middleware/static.rb:64:in `call'
+  railties (4.0.0) lib/rails/engine.rb:511:in `call'
+  railties (4.0.0) lib/rails/application.rb:97:in `call'
+  thin (1.6.0) lib/thin/connection.rb:82:in `block in pre_process'
+  thin (1.6.0) lib/thin/connection.rb:80:in `catch'
+  thin (1.6.0) lib/thin/connection.rb:80:in `pre_process'
+  thin (1.6.0) lib/thin/connection.rb:55:in `process'
+  thin (1.6.0) lib/thin/connection.rb:41:in `receive_data'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run'
+  thin (1.6.0) lib/thin/backends/base.rb:73:in `start'
+  thin (1.6.0) lib/thin/server.rb:162:in `start'
+  thin (1.6.0) lib/thin/controllers/controller.rb:87:in `start'
+  thin (1.6.0) lib/thin/runner.rb:204:in `run_command'
+  thin (1.6.0) lib/thin/runner.rb:156:in `run!'
+  thin (1.6.0) bin/thin:6:in `<top (required)>'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/thin:23:in `load'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/thin:23:in `<main>'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/ruby_executable_hooks:15:in `eval'
+  /home/gert/.rvm/gems/ruby-2.0.0-p247/bin/ruby_executable_hooks:15:in `<main>'
+
+
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.6ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_route.html.erb (7.2ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/routes/_table.html.erb (2.5ms)
+  Rendered /home/gert/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (133.5ms)
+
+
+Started GET "/games/" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+Processing by GamesController#index as HTML
+  [1m[35mGame Load (1.4ms)[0m  SELECT "games".* FROM "games"
+  Rendered games/index.html.erb within layouts/application (7.1ms)
+  Rendered elements/_header.html.erb (0.2ms)
+  Rendered elements/_headbar.html.erb (3.3ms)
+Completed 200 OK in 35ms (Views: 32.1ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/games.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-27 12:47:01 +0200
+
+
+Started GET "/games/" for 127.0.0.1 at 2013-10-27 12:50:53 +0200
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (1.3ms)[0m  [1mSELECT "games".* FROM "games"[0m
+  Rendered games/index.html.erb within layouts/application (5.8ms)
+  Rendered elements/_header.html.erb (0.2ms)
+  Rendered elements/_headbar.html.erb (3.4ms)
+Completed 200 OK in 305ms (Views: 302.1ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/games.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-27 12:50:54 +0200
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-27 12:50:55 +0200
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-27 12:50:55 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2013-10-27 12:51:12 +0200
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.9ms)
+  Rendered elements/_header.html.erb (0.1ms)
+  Rendered elements/_headbar.html.erb (3.9ms)
+Completed 200 OK in 30ms (Views: 27.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/gr.css?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/underscore.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/backbone.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/backbone_rails_sync.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/backbone_datalink.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/backbone/gamerist.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/games.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/servers.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/sitewide/flashmessage.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/sitewide/jquery.animate-colors-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/welcome/jquery.animate-shadow-min.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/welcome/welcome.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/background.png" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2013-10-27 12:51:13 +0200
+
+
+Started GET "/assets/gamerist.png" for 127.0.0.1 at 2013-10-27 12:51:13 +0200

@@ -1,7 +1,7 @@
 git branch heroku
 git checkout heroku
 
-mv ./www/rails/* ./
+mv .www/* ./
 rm -rf ./www
 rm -rf ./game
 git add -A
