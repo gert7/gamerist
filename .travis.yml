@@ -2,12 +2,11 @@ language: ruby
 rvm:
   - 1.9.3
   - 2.0.0
-  - jruby-19mode
 gemfile:
-  - Gemfile
+  - www/Gemfile
 env:
   - DB=postgresql
-before_install:
+before_script:
   - cd www
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
@@ -19,7 +18,4 @@ before_script:
 matrix:
   include:
     - rvm: jruby-19mode
-      gemfile: Gemfile_java
-  exclude:
-    - rvm: jruby-19mode
-      gemfile: Gemfile
+      gemfile: www/Gemfile_java
