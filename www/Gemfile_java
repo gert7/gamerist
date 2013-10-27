@@ -50,7 +50,10 @@ gem 'rails-backbone'
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'thin'
+
+# Java
 gem 'puma'
+gem 'rake'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
