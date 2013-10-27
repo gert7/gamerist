@@ -20,4 +20,4 @@ before_script:
 matrix:
   include:
     - rvm: jruby-19mode
-      Gemfile_java
+      gemfile: Gemfile_java
