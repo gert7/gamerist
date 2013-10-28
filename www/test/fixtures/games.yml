@@ -5,7 +5,7 @@ game_tf2:
   enum: GAME_TF2_TEST
 
 game_css:
-  prettyname: Counter-Strike: Source
+  prettyname: Counter-Strike\: Source
   enum: GAME_CSS_TEST
 
 game_warsow:
