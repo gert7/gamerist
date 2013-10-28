@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131028102731) do
+ActiveRecord::Schema.define(version: 20131028113203) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20131028102731) do
   end
 
   create_table "rooms", force: true do |t|
-    t.integer  "owner"
+    t.integer  "owner_id"
     t.integer  "game_id"
     t.integer  "ruleset_id"
     t.integer  "state"
