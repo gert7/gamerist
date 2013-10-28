@@ -2,14 +2,14 @@
 
 one:
   number: 301
-  server_address: 127.0.0.1:27015
-  dispatch_address: 127.0.0.1:5672
+  server_address: "127.0.0.1:27015"
+  dispatch_address: "127.0.0.1:5672"
   dispatch_version: 1
   game_id: 1
 
 two:
   number: 302
-  server_address: 127.0.0.1:27016
-  dispatch_address: 127.0.0.1:5672
+  server_address: "127.0.0.1:27016"
+  dispatch_address: "127.0.0.1:5672"
   dispatch_version: 1
   game_id: 1
