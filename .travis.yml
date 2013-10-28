@@ -3,10 +3,10 @@ rvm:
   - 1.9.3
   - 2.0.0
 gemfile:
-  - www/Gemfile
+  - Gemfile
 env:
   - DB=postgresql
-before_script:
+before_install:
   - cd www
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
@@ -15,7 +15,3 @@ script:
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database gamerist_test' -U postgres
-matrix:
-  include:
-    - rvm: jruby-19mode
-      gemfile: www/Gemfile_java

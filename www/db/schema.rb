@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131027101222) do
+ActiveRecord::Schema.define(version: 20131028102731) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -36,6 +36,31 @@ ActiveRecord::Schema.define(version: 20131027101222) do
     t.datetime "updated_at"
   end
 
+  create_table "maps", force: true do |t|
+    t.string   "prefix"
+    t.string   "name"
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rooms", force: true do |t|
+    t.integer  "owner"
+    t.integer  "game_id"
+    t.integer  "ruleset_id"
+    t.integer  "state"
+    t.integer  "server_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rulesets", force: true do |t|
+    t.integer  "map_id"
+    t.integer  "playercount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "servers", force: true do |t|
     t.integer  "number"
     t.string   "server_address"
@@ -43,6 +68,7 @@ ActiveRecord::Schema.define(version: 20131027101222) do
     t.integer  "dispatch_version"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "game_id"
   end
 
   create_table "users", force: true do |t|

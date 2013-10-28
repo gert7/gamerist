@@ -1,0 +1,35 @@
+<h1>Listing rooms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Owner</th>
+      <th>Game</th>
+      <th>Ruleset</th>
+      <th>State</th>
+      <th>Server</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rooms.each do |room| %>
+      <tr>
+        <td><%= room.owner %></td>
+        <td><%= room.game_id %></td>
+        <td><%= room.ruleset_id %></td>
+        <td><%= room.state %></td>
+        <td><%= room.server_id %></td>
+        <td><%= link_to 'Show', room %></td>
+        <td><%= link_to 'Edit', edit_room_path(room) %></td>
+        <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Room', new_room_path %>

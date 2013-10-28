@@ -1,9 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  prettyname: MyString
-  enum: MyString
+game_tf2:
+  prettyname: Team Fortress 2
+  enum: GAME_TF2_TEST
 
-two:
-  prettyname: MyString
-  enum: MyString
+game_css:
+  prettyname: Counter-Strike: Source
+  enum: GAME_CSS_TEST
+
+game_warsow:
+  prettyname: Warsow
+  enum: GAME_WARSOW_TEST
+  

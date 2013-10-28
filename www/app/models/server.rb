@@ -1,3 +1,4 @@
 class Server < ActiveRecord::Base
-	has_one :game
+	belongs_to :game
+	has_one :room
 end
