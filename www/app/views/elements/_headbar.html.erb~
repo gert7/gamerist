@@ -1,0 +1,29 @@
+<div id="headbar">
+	<div id="headbar_inner">
+		<div id="headbarlogo">
+			<div id="headbar_left">
+				<div id="headbar_left_content">
+					<%if (user_signed_in?)%>
+					  <div id="headbar_loggedin_name">
+						<%=link_to "Sign out", destroy_user_session_path, :method => :delete %> | <div id=""><%= current_user.email %>
+					  </div>
+					<%else%>
+					  <div id="headbar_loggedin_name">
+						<%=link_to "Sign in", new_user_session_path%>
+					  </div>
+					<%end%>
+				</div>
+			</div>
+			<a href="/"><div id="headbarlogo_link"></div></a>
+		</div>
+		<div id="headbar_right">
+			<div id="headbar_right_content">
+			<%if (user_signed_in?)%>
+				<div id="headbar_points">
+					140 Points
+				</div>
+			<% end %>
+			</div>
+		</div>
+	</div>
+</div>

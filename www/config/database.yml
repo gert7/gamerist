@@ -15,8 +15,8 @@ development:
 test:
   adapter: postgresql
   encoding: utf8
-  username: root
-  password: 
+  username: postgres
+  password: password
   min_messages: ERROR
   database: gamerist_test
   pool: 16

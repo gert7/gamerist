@@ -28,6 +28,6 @@ production:
   encoding: unicode
   database: gamerist_production
   pool: 5
-  username: postgres
-  password: password
+  username: root
+  password: 
   host: localhost

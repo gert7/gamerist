@@ -1,0 +1,17 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - 2.0.0
+gemfile:
+  - Gemfile
+env:
+  - DB=postgresql
+before_install:
+  - cd www
+script:
+  - RAILS_ENV=test bundle exec rake --trace db:migrate test
+ 
+  - bundle exec rspec
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - psql -c 'create database gamerist_test' -U postgres
