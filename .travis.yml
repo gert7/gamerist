@@ -9,7 +9,7 @@ before_install:
   - cd www
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
-  - bundle exec rspec
+  - bundle exec rspec -f d
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database gamerist_test' -U postgres
