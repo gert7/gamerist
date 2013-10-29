@@ -1,11 +1,11 @@
-git branch heroku
-git checkout heroku
+set -e
 
-mv .www/* ./
+mv ./www/* ./
 rm -rf ./www
-rm -rf ./game
+
 git add -A
-git commit -m
+read -p "Please add a commit message: " herokucmes
+git commit -m"$herokucmes"
 git push origin heroku
 git push heroku heroku:master
 
