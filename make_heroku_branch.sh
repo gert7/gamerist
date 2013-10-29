@@ -4,11 +4,11 @@ git checkout master
 
 rm -rf /tmp/heroku_branch_script
 mkdir /tmp/heroku_branch_script
-cp ./* /tmp/heroku_branch_script/
+cp -r ./* /tmp/heroku_branch_script/
 
 git checkout heroku
 rm -rf *
-cp /tmp/heroku_branch_script/www ./
+cp -r /tmp/heroku_branch_script/www ./
 
 git add -A
 read -p "Please add a commit message: " herokucmes
