@@ -4042,3 +4042,171 @@ Completed 200 OK in 44ms (Views: 23.1ms | ActiveRecord: 1.8ms)
   [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
   [1m[35m (1.0ms)[0m  BEGIN
   [1m[36m (0.8ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.9ms)[0m  BEGIN
+  [1m[36m (1.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  BEGIN
+  [1m[36m (1.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (3.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (11.1ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Tue, 29 Oct 2013 09:36:20 UTC +00:00], ["email", "useroni@mail.ch"], ["encrypted_password", "$2a$04$0fqBAhufPoAHhJJ62yFN4egxBzNQNDc/XOBnr4lvHj90pDqYtsD76"], ["updated_at", Tue, 29 Oct 2013 09:36:20 UTC +00:00]]
+  [1m[35m (0.9ms)[0m  RELEASE SAVEPOINT active_record_1
+Started GET "/users/sign_in" for 127.0.0.1 at 2013-10-29 11:36:20 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/shared/_links.erb (5.5ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (128.7ms)
+  Rendered elements/_header.html.erb (1.0ms)
+  Rendered elements/_headbar.html.erb (5.5ms)
+Completed 200 OK in 369ms (Views: 295.2ms | ActiveRecord: 0.0ms)
+  [1m[36m (1.3ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  BEGIN
+  [1m[36m (1.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (2.8ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (10.6ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Tue, 29 Oct 2013 09:37:01 UTC +00:00], ["email", "useroni@mail.ch"], ["encrypted_password", "$2a$04$jlV5sxWz34if2rUlFyGlL.FTKG6KJu6QeKAY1SGY0Bl7u3Di6DReS"], ["updated_at", Tue, 29 Oct 2013 09:37:01 UTC +00:00]]
+  [1m[35m (0.7ms)[0m  RELEASE SAVEPOINT active_record_1
+Started GET "/users/sign_in" for 127.0.0.1 at 2013-10-29 11:37:01 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/shared/_links.erb (5.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (120.4ms)
+  Rendered elements/_header.html.erb (1.2ms)
+  Rendered elements/_headbar.html.erb (6.1ms)
+Completed 200 OK in 275ms (Views: 201.8ms | ActiveRecord: 0.0ms)
+Started POST "/users" for 127.0.0.1 at 2013-10-29 11:37:02 +0200
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"useroni@mail.ch", "password"=>"[FILTERED]"}}
+  [1m[36m (0.9ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.8ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36m (0.9ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendered devise/shared/_links.erb (2.4ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (14.2ms)
+  Rendered elements/_header.html.erb (0.3ms)
+  Rendered elements/_headbar.html.erb (3.6ms)
+Completed 200 OK in 57ms (Views: 24.9ms | ActiveRecord: 3.6ms)
+  [1m[35m (1.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  BEGIN
+  [1m[36m (1.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (2.6ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (11.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Tue, 29 Oct 2013 09:38:40 UTC +00:00], ["email", "useroni@mail.ch"], ["encrypted_password", "$2a$04$DAegra8gHn5YIxgyfLMhC.doTbODEaYaZR/WY/f8TVMMn6MvulIGm"], ["updated_at", Tue, 29 Oct 2013 09:38:40 UTC +00:00]]
+  [1m[35m (1.2ms)[0m  RELEASE SAVEPOINT active_record_1
+Started GET "/users/sign_in" for 127.0.0.1 at 2013-10-29 11:38:40 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/shared/_links.erb (5.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (123.9ms)
+  Rendered elements/_header.html.erb (1.2ms)
+  Rendered elements/_headbar.html.erb (6.1ms)
+Completed 200 OK in 278ms (Views: 205.8ms | ActiveRecord: 0.0ms)
+Started POST "/users/sign_in" for 127.0.0.1 at 2013-10-29 11:38:41 +0200
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"useroni@mail.ch", "password"=>"[FILTERED]", "remember_me"=>"0"}}
+  [1m[36mUser Load (2.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (3.4ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "last_sign_in_ip" = $3, "current_sign_in_ip" = $4, "sign_in_count" = $5, "updated_at" = $6 WHERE "users"."id" = 1[0m  [["last_sign_in_at", Tue, 29 Oct 2013 09:38:41 UTC +00:00], ["current_sign_in_at", Tue, 29 Oct 2013 09:38:41 UTC +00:00], ["last_sign_in_ip", "127.0.0.1"], ["current_sign_in_ip", "127.0.0.1"], ["sign_in_count", 1], ["updated_at", Tue, 29 Oct 2013 09:38:41 UTC +00:00]]
+  [1m[35m (1.2ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://www.example.com/
+Completed 302 Found in 125ms (ActiveRecord: 7.6ms)
+Started GET "/" for 127.0.0.1 at 2013-10-29 11:38:41 +0200
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.3ms)
+  [1m[36mUser Load (2.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1[0m
+  Rendered elements/_headbar.html.erb (6.9ms)
+Completed 200 OK in 20ms (Views: 13.2ms | ActiveRecord: 2.2ms)
+  [1m[35m (1.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (1.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36m (1.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (2.9ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (11.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Tue, 29 Oct 2013 09:43:37 UTC +00:00], ["email", "useroni@mail.ch"], ["encrypted_password", "$2a$04$BB3QLOm92YlMdhuAs3492OiuFo9eLwFw0K1KOWrAVClgDtuWt7pJy"], ["updated_at", Tue, 29 Oct 2013 09:43:37 UTC +00:00]]
+  [1m[35m (0.9ms)[0m  RELEASE SAVEPOINT active_record_1
+Started GET "/users/sign_in" for 127.0.0.1 at 2013-10-29 11:43:37 +0200
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/shared/_links.erb (6.1ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (126.4ms)
+  Rendered elements/_header.html.erb (1.1ms)
+  Rendered elements/_headbar.html.erb (5.8ms)
+Completed 200 OK in 281ms (Views: 207.1ms | ActiveRecord: 0.0ms)
+  [1m[36m (1.3ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.0ms)[0m  BEGIN
+Started GET "/users/sign_up" for 127.0.0.1 at 2013-10-29 11:46:06 +0200
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered devise/shared/_links.erb (4.7ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (143.4ms)
+  Rendered elements/_header.html.erb (1.3ms)
+  Rendered elements/_headbar.html.erb (5.9ms)
+Completed 200 OK in 378ms (Views: 296.9ms | ActiveRecord: 6.9ms)
+Started POST "/users" for 127.0.0.1 at 2013-10-29 11:46:06 +0200
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"useroni@mail.ch", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "remember_me"=>"0"}}
+Unpermitted parameters: remember_me
+  [1m[36m (1.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (3.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (10.8ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Tue, 29 Oct 2013 09:46:06 UTC +00:00], ["email", "useroni@mail.ch"], ["encrypted_password", "$2a$04$8tvVQXLXy.dkNVq5rYf94u9lWYCGuS4nTBQ.XOSamHFpKxkRIz1x6"], ["updated_at", Tue, 29 Oct 2013 09:46:06 UTC +00:00]]
+  [1m[35m (0.9ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.9ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (3.3ms)[0m  UPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "last_sign_in_ip" = $3, "current_sign_in_ip" = $4, "sign_in_count" = $5, "updated_at" = $6 WHERE "users"."id" = 1  [["last_sign_in_at", Tue, 29 Oct 2013 09:46:06 UTC +00:00], ["current_sign_in_at", Tue, 29 Oct 2013 09:46:06 UTC +00:00], ["last_sign_in_ip", "127.0.0.1"], ["current_sign_in_ip", "127.0.0.1"], ["sign_in_count", 1], ["updated_at", Tue, 29 Oct 2013 09:46:06 UTC +00:00]]
+  [1m[36m (1.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/
+Completed 302 Found in 82ms (ActiveRecord: 22.0ms)
+Started GET "/" for 127.0.0.1 at 2013-10-29 11:46:06 +0200
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.2ms)
+  [1m[35mUser Load (2.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 ORDER BY "users"."id" ASC LIMIT 1
+  Rendered elements/_headbar.html.erb (10.9ms)
+Completed 200 OK in 23ms (Views: 17.0ms | ActiveRecord: 2.1ms)
+  [1m[36m (1.3ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.9ms)[0m  BEGIN
+  [1m[36m (1.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (2.9ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.9ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (1.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  BEGIN
+  [1m[36m (1.4ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (2.8ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1
+  [1m[36m (1.2ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (1.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  BEGIN
+  [1m[36m (1.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (2.9ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'user@example.com' LIMIT 1
+  [1m[36mSQL (11.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Tue, 29 Oct 2013 10:22:59 UTC +00:00], ["email", "user@example.com"], ["encrypted_password", "$2a$04$yQ7tzCXERBcY2UAXsNVw1.D2D6299XBvbILgAY.Hm/3hkPnk6Gtvi"], ["updated_at", Tue, 29 Oct 2013 10:22:59 UTC +00:00]]
+  [1m[35m (1.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (1.0ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  BEGIN
+  [1m[36m (0.9ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  BEGIN
+  [1m[36m (1.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  BEGIN
+  [1m[36m (0.9ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  BEGIN
+  [1m[36m (1.8ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (2.1ms)[0m  BEGIN
+  [1m[36m (0.9ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.9ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  BEGIN
+  [1m[36m (0.9ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  BEGIN
+  [1m[36m (1.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m

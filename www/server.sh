@@ -1,1 +1,1 @@
-bundle exec thin start
+bundle exec rails server puma -p 3000 -e development

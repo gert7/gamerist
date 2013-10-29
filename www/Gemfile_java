@@ -16,7 +16,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
+gem 'execjs'
+gem 'therubyrhino', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -35,6 +36,7 @@ end
 # Gamerist-specific
 gem 'devise'
 gem 'omniauth'
+gem 'omniauth-openid'
 gem 'net-ssh'
 gem 'paypal-sdk-rest'
 
@@ -49,14 +51,15 @@ gem 'rails-backbone'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-gem 'thin'
-
-# Java
 gem 'puma'
-gem 'rake'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+group :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+end

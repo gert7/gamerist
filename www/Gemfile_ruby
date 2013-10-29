@@ -59,6 +59,6 @@ gem 'thin'
 # gem 'debugger', group: [:development, :test]
 
 group :test do
-  gem 'rails-rspec'
-  gem 'rails-capybara'
+  gem 'rspec-rails'
+  gem 'capybara'
 end
