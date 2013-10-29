@@ -9,7 +9,6 @@ before_install:
   - cd www
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate test
-  - bundle exec rake db:test:prepare
   - bundle exec rspec
 before_script:
   - cp config/database.travis.yml config/database.yml

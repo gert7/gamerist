@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  owner: 1
-  game_id: 1
-  ruleset_id: 1
-  state: 1
-  server_id: 1
-

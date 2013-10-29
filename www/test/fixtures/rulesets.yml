@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  map_id: 1
-  playercount: 1
-
-two:
-  map_id: 2
-  playercount: 1
