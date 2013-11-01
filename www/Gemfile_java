@@ -36,7 +36,7 @@ end
 # Gamerist-specific
 gem 'devise'
 gem 'omniauth'
-gem 'omniauth-openid'
+gem 'omniauth-steam'
 gem 'net-ssh'
 gem 'paypal-sdk-rest'
 
@@ -62,6 +62,9 @@ gem 'puma'
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'factory_girl_rails'
   gem 'coveralls', require: false
+  gem 'database_cleaner'
+  gem 'mocha', require: false
 end

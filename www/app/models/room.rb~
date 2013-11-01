@@ -1,7 +1,11 @@
 class Room < ActiveRecord::Base
+  STATE_DRAFT   = 0
+  STATE_PUBLIC  = 1
+  STATE
+
 	belongs_to :owner, class_name: 'User'
 	has_many :users
-
 	belongs_to :ruleset
 	belongs_to :server
+	belongs_to :game
 end

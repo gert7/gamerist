@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131028113203) do
+ActiveRecord::Schema.define(version: 20131101144040) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -66,9 +66,16 @@ ActiveRecord::Schema.define(version: 20131028113203) do
     t.string   "server_address"
     t.string   "dispatch_address"
     t.integer  "dispatch_version"
+    t.integer  "game_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "game_id"
+  end
+
+  create_table "steamids", force: true do |t|
+    t.string   "steamid"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

@@ -5,9 +5,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable
 
-  def self.attach_steam(access_token, signed_in_resource=nil)
+  has_many :steamids
+
+  def self.attach_steam(access_token, user=nil)
     data = access_token['user_info']
-    signed_in_resource['']
+    Steamid.create(user_id: signed_in_resource.id, steamid: data)
   end
   
 end
