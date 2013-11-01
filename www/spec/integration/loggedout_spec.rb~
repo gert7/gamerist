@@ -22,9 +22,8 @@ describe 'Logged out' do
     page.find("#headbar_loggedin_name").should have_content("Sign out")
   end
 
-  it 'shows guest currently available rooms', js: true do
+  it 'shows guest currently available rooms' do
     visit '/rooms/index'
-    
   end
 end
 
