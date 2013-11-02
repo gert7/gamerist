@@ -1,0 +1,4 @@
+class Steamid < ActiveRecord::Base
+  attr_accessor :steamid
+  belongs_to :user
+end

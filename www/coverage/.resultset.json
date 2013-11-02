@@ -4,7 +4,7 @@
       "/home/gert/gamerist/www/app/controllers/rooms_controller.rb": [
         1,
         1,
-        null,
+        1,
         null,
         null,
         1,
@@ -104,10 +104,11 @@
         1,
         null,
         null,
+        1,
         null,
         1,
-        0,
-        0
+        1,
+        1
       ],
       "/home/gert/gamerist/www/app/views/rooms/index.html.erb": [
         4,
@@ -150,6 +151,9 @@
         1
       ],
       "/home/gert/gamerist/www/app/helpers/rulesets_helper.rb": [
+        1
+      ],
+      "/home/gert/gamerist/www/app/models/steamid.rb": [
         1
       ],
       "/home/gert/gamerist/www/app/helpers/rooms_helper.rb": [
@@ -264,7 +268,13 @@
         1,
         1,
         1,
+        1,
+        1,
+        1,
+        1,
         null,
+        1,
+        1,
         1,
         1,
         1
@@ -273,6 +283,6 @@
         1
       ]
     },
-    "timestamp": 1383313585
+    "timestamp": 1383391744
   }
 }

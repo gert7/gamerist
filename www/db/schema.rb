@@ -66,9 +66,9 @@ ActiveRecord::Schema.define(version: 20131101144040) do
     t.string   "server_address"
     t.string   "dispatch_address"
     t.integer  "dispatch_version"
-    t.integer  "game_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "game_id"
   end
 
   create_table "steamids", force: true do |t|
