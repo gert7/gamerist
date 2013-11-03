@@ -16,3 +16,4 @@
 /www/tmp
 
 /www/public/assets
+*.pem

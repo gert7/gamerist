@@ -10,11 +10,11 @@ describe User do
     user.steamid.steamid.should == "4789237148925721"
   end
   
-  it 'attaches an Omniauth test Steam ID' do
+  it 'attaches an Omniauth test Steam ID', pending: true do
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:steam] = OmniAuth::AuthHash.new({
       :provider => 'steam',
       :uid => '76561198010202071'
-    )
+    })
   end
 end
