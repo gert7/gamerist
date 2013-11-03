@@ -23,7 +23,7 @@ module Gamerist
       provider :steam
     end
     
-    def api_keys
+    def steam_api_key
       require 'yaml'
       YAML::load_file("apikeys.yml")
     end
