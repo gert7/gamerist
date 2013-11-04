@@ -11,7 +11,7 @@ class Steamid < ApplicationController
   protected
 
   def steam_api_key
-    Gamerist::steam_api_key
+    Gamerist::api_key["steam"]
   end
 
   def auth_hash

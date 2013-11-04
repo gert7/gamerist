@@ -1,4 +1,4 @@
-class Steamid < ApplicationController
+class SteamidController < ApplicationController
   def attach
     current_user.attach auth_hash
     redirect_to "/account"

@@ -3,7 +3,7 @@ class AccountController < ApplicationController
 
   def index
     @user = current_user
-    if @user.steamid not nil
+    if @user.steamid do
       
     end
   end
