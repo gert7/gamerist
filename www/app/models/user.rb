@@ -12,6 +12,21 @@ class User < ActiveRecord::Base
     @steamid = self.create_steamid(steamid: steamuid)
   end
   
-  def balance1()
+  def build_balance
+    transactions = Transaction.find_by user_id: self.id
+    balance   = 0
+    transactions.each do |t|
+      balance += t.amount
+    end
+    balance
+  end
+  
+  def last_transaction
+    Transaction.find_by(user_id: self.id).last
+  end
+  
+  def fetch_balance
+    last_transaction.balance
+  end
   
 end

@@ -9,5 +9,22 @@ class Transaction < ActiveRecord::Base
   TYPE_PAYPAL = 2
   TYPE_COUPON = 4 # TODO
   
-  belongs_to :user
+  belongs_to :user, inverse_of: :transaction
+  
+  def new(args)
+    super.new
+    Transaction.transaction do
+      self.state    = args.state or throw
+      self.user_id  = args.user_id or throw
+      self.type     = args.type or throw
+      self.detail   = args.detail or throw
+      self.amount   = args.amount or throw
+      lasttr      = Transaction.find(:last, user_id: tr.user_id)
+      self.lastref  = lasttr.id
+      self.balance  = lasttr.balance + tr.amount
+      self.save
+    end
+    end
+  end
 end
+
