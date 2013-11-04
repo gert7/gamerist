@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131101144040) do
+ActiveRecord::Schema.define(version: 20131104122522) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -40,6 +40,16 @@ ActiveRecord::Schema.define(version: 20131101144040) do
     t.string   "prefix"
     t.string   "name"
     t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "paypals", force: true do |t|
+    t.decimal  "amount",     precision: 8, scale: 2
+    t.decimal  "subtotal",   precision: 8, scale: 2
+    t.decimal  "tax",        precision: 8, scale: 2
+    t.integer  "state"
+    t.string   "sid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -77,6 +87,20 @@ ActiveRecord::Schema.define(version: 20131101144040) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "transactions", force: true do |t|
+    t.integer  "state"
+    t.integer  "user_id"
+    t.integer  "type"
+    t.integer  "detail"
+    t.integer  "amount"
+    t.integer  "balance"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "lastref"
+  end
+
+  add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

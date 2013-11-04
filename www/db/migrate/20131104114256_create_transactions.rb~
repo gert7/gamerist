@@ -1,0 +1,15 @@
+class CreateTransactions < ActiveRecord::Migration
+  def change
+    create_table :transactions do |t|
+      t.integer :state
+      t.references :user, index: true
+      t.references :transaction
+      t.integer :type
+      t.integer :detail
+      t.integer :amount
+      t.integer :balance
+
+      t.timestamps
+    end
+  end
+end

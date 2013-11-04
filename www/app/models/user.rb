@@ -5,10 +5,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :steamid, inverse_of: :user
+  has_many :transactions
 
   def attach_steam(access_token)
     steamuid = access_token['uid']
     @steamid = self.create_steamid(steamid: steamuid)
   end
+  
+  def balance1()
   
 end

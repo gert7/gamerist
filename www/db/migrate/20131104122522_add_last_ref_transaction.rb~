@@ -1,0 +1,5 @@
+class AddLastRefTransaction < ActiveRecord::Migration
+  def change
+    add_column :transactions, :lastref, :
+  end
+end
