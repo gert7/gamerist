@@ -22,4 +22,14 @@ describe User do
     user = User.new(FactoryGirl.attributes_for(:user))
     user.get_balance.should == 0
   end
+  
+  it "adds transactions to a user", pending: true do
+    user = User.new(FactoryGirl.attributes_for(:user))
+  end
+  
+  it "fetches a Redis key" do
+    user = User.new(FactoryGirl.attributes_for(:user))
+    user.stubs(:id).returns(1)
+    user.redis_usertable("ambienza").should == "user-1[ambienza]"
+  end
 end

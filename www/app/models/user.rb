@@ -33,8 +33,12 @@ class User < ActiveRecord::Base
     last_transaction.balance
   end
   
-  def create_transaction(args)
-    
+  def set_wager args
+    args[:room]
+  end
+  
+  def redis_usertable k
+    "user-#{self.id}[#{k}]"
   end
   
 end

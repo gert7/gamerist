@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   end
   
   def get_balance
-    transactions = Transaction.where(user_id: self.id, state: Transaction::STATE_VALID)
+    transactions = Transaction.where(user_id: self.id, state: Transaction::STATE_FINAL)
     balance   = 0
     transactions.each do |t|
       balance += t.amount
@@ -33,8 +33,12 @@ class User < ActiveRecord::Base
     last_transaction.balance
   end
   
-  def create_transaction(args)
-    
+  def set_wager args
+    args[:room]
+  end
+  
+  def redis_usertable k
+    "user-#{self.id}[#{k}]"
   end
   
 end
