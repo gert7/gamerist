@@ -5,19 +5,23 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :steamid, inverse_of: :user
-  has_many :transactions, 
+  has_many :transactions
 
   def attach_steam(access_token)
     steamuid = access_token['uid']
     @steamid = self.create_steamid(steamid: steamuid)
   end
   
-  def build_balance
-    transactions = Transaction.find_by user_id: self.id
+  def get_balance
+    transactions = Transaction.where(user_id: self.id, state: Transaction::STATE_VALID)
     balance   = 0
     transactions.each do |t|
       balance += t.amount
     end
+    balance
+  end
+  
+  def uncertain_balance
     balance
   end
   
@@ -27,6 +31,10 @@ class User < ActiveRecord::Base
   
   def fetch_balance
     last_transaction.balance
+  end
+  
+  def create_transaction(args)
+    
   end
   
 end

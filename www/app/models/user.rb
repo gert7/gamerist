@@ -12,12 +12,16 @@ class User < ActiveRecord::Base
     @steamid = self.create_steamid(steamid: steamuid)
   end
   
-  def build_balance
-    transactions = Transaction.find_by user_id: self.id
+  def get_balance
+    transactions = Transaction.where(user_id: self.id, state: Transaction::STATE_FINAL)
     balance   = 0
     transactions.each do |t|
       balance += t.amount
     end
+    balance
+  end
+  
+  def uncertain_balance
     balance
   end
   
@@ -27,6 +31,10 @@ class User < ActiveRecord::Base
   
   def fetch_balance
     last_transaction.balance
+  end
+  
+  def create_transaction(args)
+    
   end
   
 end
