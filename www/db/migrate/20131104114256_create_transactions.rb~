@@ -3,7 +3,7 @@ class CreateTransactions < ActiveRecord::Migration
     create_table :transactions do |t|
       t.integer :state
       t.references :user, index: true
-      t.references :transaction
+      t.integer :lastref
       t.integer :type
       t.integer :detail
       t.integer :amount

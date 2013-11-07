@@ -9,7 +9,7 @@ class Transaction < ActiveRecord::Base
   TYPE_PAYPAL = 2
   TYPE_COUPON = 4 # TODO
   
-  belongs_to :user, inverse_of: :transaction
+  belongs_to :user, inverse_of: :transactions
   
   before_save do
     lasttr        = Transaction.where(user_id: self.user_id).last
@@ -19,13 +19,9 @@ class Transaction < ActiveRecord::Base
     else
       self.balance  = self.amount
     end
-    if (self.balance < 0)
+    if (self.balance < 0.0)
       throw ActiveRecord::Rollback
     end
-  end
-  
-  def self.attempt_transaction
-    
   end
 end
 

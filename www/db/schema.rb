@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131104115854) do
+ActiveRecord::Schema.define(version: 20131107171141) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -91,12 +91,12 @@ ActiveRecord::Schema.define(version: 20131104115854) do
     t.integer  "state"
     t.integer  "user_id"
     t.integer  "lastref"
-    t.integer  "type"
     t.integer  "detail"
     t.integer  "amount"
     t.integer  "balance"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "kind"
   end
 
   add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree

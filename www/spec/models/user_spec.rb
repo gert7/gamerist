@@ -23,8 +23,24 @@ describe User do
     user.get_balance.should == 0
   end
   
-  it "adds transactions to a user", pending: true do
+  it "adds PayPal funds to a user and checks its balance" do
     user = User.new(FactoryGirl.attributes_for(:user))
+    Transaction.create do |t|
+      t.user    = user
+      t.amount  = 50
+      t.state   = Transaction::STATE_FINAL
+      t.kind    = Transaction::KIND_PAYPAL
+      t.detail  = 8391 # reference to paypal
+    end
+    user.get_balance.should == 50
+    Transaction.create do |t|
+      t.user    = user
+      t.amount  = 30
+      t.state   = Transaction::STATE_FINAL
+      t.kind    = Transaction::KIND_PAYPAL
+      t.detail  = 4810
+    end
+    user.get_balance.should == 80
   end
   
   it "fetches a Redis key" do

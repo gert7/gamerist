@@ -10,7 +10,7 @@ describe Transaction do
       tr = Transaction.new do |t|
         t.state   = Transaction::STATE_INCOMPLETE,
         t.user_id = @user.id,
-        t.type    = Transaction::TYPE_COUPON,
+        t.kind    = Transaction::KIND_COUPON,
         t.detail  = 30, # coupon number 30
         t.amount  = 10
       end
