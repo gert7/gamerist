@@ -5,8 +5,6 @@ gemfile:
   - Gemfile
 env:
   - DB=postgresql
-services:
-  - redis-server
 before_install:
   - cd www
 script:

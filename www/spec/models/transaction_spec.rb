@@ -9,7 +9,7 @@ describe Transaction do
   it 'creates a new valid transaction by passing a block for the arguments' do
       tr = Transaction.new do |t|
         t.state   = Transaction::STATE_INCOMPLETE,
-        t.user_id = @user.id,
+        t.user    = @user,
         t.kind    = Transaction::KIND_COUPON,
         t.detail  = 30, # coupon number 30
         t.amount  = 10

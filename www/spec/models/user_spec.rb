@@ -33,7 +33,7 @@ describe User do
       t.detail  = 8391 # reference to paypal
     end
     user.get_balance.should == 50
-    Transaction.create do |t|
+    a = Transaction.create do |t|
       t.user    = user
       t.amount  = 30
       t.state   = Transaction::STATE_FINAL
@@ -46,6 +46,6 @@ describe User do
   it "fetches a Redis key" do
     user = User.new(FactoryGirl.attributes_for(:user))
     user.stubs(:id).returns(1)
-    user.redis_usertable("ambienza").should == "user-1[ambienza]"
+    user.cache_key("ambienza").should == "user-1[ambienza]"
   end
 end
