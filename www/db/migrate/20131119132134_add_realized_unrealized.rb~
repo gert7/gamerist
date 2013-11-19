@@ -1,0 +1,7 @@
+class AddRealizedUnrealized < ActiveRecord::Migration
+  def change
+    remove_column :transactions, :balance
+    add_column :transactions, :balance_r, :integer
+    add_column :transactions, :balance_u, :integer
+  end
+end

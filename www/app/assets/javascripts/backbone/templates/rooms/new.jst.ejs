@@ -1,0 +1,35 @@
+<h1>New room</h1>
+
+<form id="new-room" name="room">
+  <div class="field">
+    <label for="owner"> owner:</label>
+    <input type="text" name="owner" id="owner" value="<%= owner %>" >
+  </div>
+
+  <div class="field">
+    <label for="game_id"> game_id:</label>
+    <input type="text" name="game_id" id="game_id" value="<%= game_id %>" >
+  </div>
+
+  <div class="field">
+    <label for="state"> state:</label>
+    <input type="text" name="state" id="state" value="<%= state %>" >
+  </div>
+
+  <div class="field">
+    <label for="server_id"> server_id:</label>
+    <input type="text" name="server_id" id="server_id" value="<%= server_id %>" >
+  </div>
+
+  <div class="field">
+    <label for="ruleset_id"> ruleset_id:</label>
+    <input type="text" name="ruleset_id" id="ruleset_id" value="<%= ruleset_id %>" >
+  </div>
+
+  <div class="actions">
+    <input type="submit" value="Create Room" />
+  </div>
+
+</form>
+
+<a href="#/index">Back</a>

@@ -39,6 +39,7 @@ gem 'omniauth'
 gem 'omniauth-steam'
 gem 'net-ssh'
 gem 'paypal-sdk-rest'
+gem 'braintree'
 
 gem 'redis'
 gem 'redis-rails'

@@ -4,7 +4,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.integer :state
       t.references :user, index: true
       t.integer :lastref
-      t.integer :type
+      t.integer :kind
       t.integer :detail
       t.integer :amount
       t.integer :balance

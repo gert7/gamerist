@@ -7,7 +7,8 @@ class CreateTransactions < ActiveRecord::Migration
       t.integer :kind
       t.integer :detail
       t.integer :amount
-      t.integer :balance
+      t.integer :balance_u
+      t.integer :balance_r
 
       t.timestamps
     end
