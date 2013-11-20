@@ -20,7 +20,7 @@ describe User do
   
   it "checks a new user's balance" do
     user = User.new(FactoryGirl.attributes_for(:user))
-    user.get_balance.should == 0
+    user.total_balance.should == 0
   end
   
   it "adds PayPal funds to a user and checks its balance" do
@@ -32,7 +32,7 @@ describe User do
       t.kind    = Transaction::KIND_PAYPAL
       t.detail  = 8391 # reference to paypal
     end
-    user.get_balance.should == 50
+    user.total_balance.should == 50
     a = Transaction.create do |t|
       t.user    = user
       t.amount  = 30
@@ -40,12 +40,12 @@ describe User do
       t.kind    = Transaction::KIND_PAYPAL
       t.detail  = 4810
     end
-    user.get_balance.should == 80
+    user.total_balance.should == 80
   end
   
   it "fetches a Redis key" do
     user = User.new(FactoryGirl.attributes_for(:user))
     user.stubs(:id).returns(1)
-    user.cache_key("ambienza").should == "user-1[ambienza]"
+    user.cache_key("ambienza").should == "User-1[ambienza]"
   end
 end

@@ -12,61 +12,40 @@ class User < ActiveRecord::Base
     @steamid = self.create_steamid(steamid: steamuid)
   end
   
-  def last_transaction
-    Rails.cache.fetch cache_key("last_transaction") do
-      Transaction.find_by(user_id: self.id).last
-    end
-  end
-  
-  def get_balance # unrealized + realized, i.e. room money
-    balance_realized + balance_unrealized + balance_ded_realized + balance_ded_unrealized
-  end
-  
-  # Four balance primitives
-  
-  def balance_realized
-    Rails.cache.fetch cache_key("balance_realized") do
-      Transaction.where("user_id = ? AND (kind ^ ? ^ 1) = 1", self.id, Transaction::KIND_REALIZED).sum("amount")
+  # unrealized + realized
+  def load_balance
+    l = Transaction.where(user_id: self.id).last
+    if(l)
+      Rails.cache.write cache_key("unrealized"), l.balance_u
+      Rails.cache.write cache_key("realized"), l.balance_r
+    else
+      Rails.cache.write cache_key("unrealized"), 0
+      Rails.cache.write cache_key("realized"), 0
     end
   end
   
   def balance_unrealized
-    Rails.cache.fetch cache_key("balance_unrealized") do
-      Transaction.where("user_id = ? AND (kind ^ ? ^ 1) = 1", self.id, Transaction::KIND_UNREALIZED).sum("amount")
-    end
+    cache_fetch_key_else "unrealized" do load_balance end
   end
   
-  def balance_ded_unrealized
-    Rails.cache.fetch cache_key("balance_unrealized_deducted") do
-      Transaction.where("user_id = ? AND (balance < 0.0)", self.id).sum("amount")
-    end
+  def balance_realized
+    cache_fetch_key_else "realized" do load_balance end
   end
   
-  def balance_ded_realized
-    Rails.cache.fetch cache_key("balance_realized_deducted") do
-      Transaction.where("user_id = ? AND (balance < 0.0)", self.id).sum("amount")
-    end
+  def balance_unrealized= (v)
+    Rails.cache.write cache_key("unrealized"), v
   end
   
-  def addto_primitives(am, kind)
-    case [am >= 0, ~(kind ^ Transaction::KIND_REALIZED)]
-    when [true, true]
-      Rails.cache.set cache_key("balance_realized"), balance_ + am
-    when [true, false]
-      Rails.cache.set cache_key("balance_unrealized"), balance_ + am
-    when [false, true]
-      Rails.cache.set cache_key("balance_ded_"), balance_ + am
-    when [false, false]
-      Rails.cache.set cache_key("balance_ded_"), balance_ + am
-    end
+  def balance_realized= (v)
+    Rails.cache.write cache_key("realized"), v
+  end
+  
+  def get_balance
+    balance_unrealized + balance_realized
   end
   
   def set_wager args
     args[:room]
-  end
-  
-  def cache_key(k)
-    "user-#{self.id}[#{k}]"
   end
   
 end
