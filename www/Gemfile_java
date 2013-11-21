@@ -40,6 +40,7 @@ gem 'omniauth-steam'
 gem 'net-ssh'
 gem 'paypal-sdk-rest'
 gem 'braintree'
+gem 'geocoder'
 
 gem 'redis'
 gem 'redis-rails'
@@ -47,6 +48,7 @@ gem 'rack-cache'
 gem 'eventmachine'
 gem 'amqp'
 
+gem 'ejs', require: 'ejs'
 gem 'rails-backbone'
 
 # Use ActiveModel has_secure_password

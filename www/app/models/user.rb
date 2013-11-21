@@ -15,13 +15,8 @@ class User < ActiveRecord::Base
   # unrealized + realized
   def load_balance
     l = Transaction.where(user_id: self.id).last
-    if(l)
-      Rails.cache.write cache_key("unrealized"), l.balance_u
-      Rails.cache.write cache_key("realized"), l.balance_r
-    else
-      Rails.cache.write cache_key("unrealized"), 0
-      Rails.cache.write cache_key("realized"), 0
-    end
+    Rails.cache.write cache_key("unrealized"), (l != nil ? l.balance_u : 0)
+    Rails.cache.write cache_key("realized"), (l != nil ? l.balance_r : 0)
   end
   
   def balance_unrealized
@@ -44,8 +39,32 @@ class User < ActiveRecord::Base
     balance_unrealized + balance_realized
   end
   
-  def set_wager args
-    args[:room]
+  def start_paypal_add(points)
+    (am >= 0) or throw ArgumentError
+    payment = Payment.new({
+      intent: "sale",
+      payer: {payment_method: "paypal"},
+      transactions: [{
+        amount: {
+          
+          },
+        description: ""
+      }]
+    })
+  end
+  
+  def finalize_paypal_add(am, pp)
+    (am >= 0) or throw ArgumentError
+    Transaction.create do |t|
+      t.user    = self
+      t.amount  = am
+      t.state   = Transaction::STATE_FINAL
+      t.kind    = Transaction::KIND_PAYPAL
+      t.detail  = pp.id
+    end
+  end
+  
+  def finalize_paypal_cashout(am, pp)
   end
   
 end

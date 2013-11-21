@@ -86,6 +86,7 @@ GEM
     ffi (1.9.3)
     ffi (1.9.3-java)
     ffi (1.9.3-x86-mingw32)
+    geocoder (1.1.8)
     hashie (2.0.5)
     hike (1.2.3)
     i18n (0.6.5)
@@ -266,9 +267,11 @@ DEPENDENCIES
   coveralls
   database_cleaner
   devise
+  ejs
   eventmachine
   execjs
   factory_girl_rails
+  geocoder
   jbuilder (~> 1.2)
   jquery-rails
   mocha

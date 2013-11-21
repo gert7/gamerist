@@ -59,7 +59,7 @@ class Transaction < ActiveRecord::Base
       raise ActiveRecord::Rollback, "Balance becomes less than 0: U = #{balance_u} R = #{balance_r}"
     end
     
-    #update the cache
+    # update the cache
     self.user.balance_realized    = self.balance_r
     self.user.balance_unrealized  = self.balance_u
   end
