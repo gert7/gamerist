@@ -1,0 +1,5 @@
+class AddUserToPaypal < ActiveRecord::Migration
+  def change
+    add_column :paypals, :integer, :user_id
+  end
+end

@@ -3,6 +3,8 @@ rvm:
   - jruby-19mode
 gemfile:
   - Gemfile
+services:
+  - redis-server
 env:
   - DB=postgresql
 before_install:

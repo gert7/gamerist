@@ -5,6 +5,7 @@ class CreatePaypals < ActiveRecord::Migration
       t.decimal :subtotal, precision: 8, scale: 2
       t.decimal :tax, precision: 8, scale: 2
       t.integer :state
+      t.integer :user_id
       t.string :sid
 
       t.timestamps

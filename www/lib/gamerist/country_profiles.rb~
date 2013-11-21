@@ -2,18 +2,20 @@ module Gamerist
   def country(code)
     case code
     when :EST
-      {
-        vat: .21,
+      return {
+        vat: .20,
+        paypalcurrency: :EUR,
         masspaycurrency: :EUR,
         masspayrate: .02,
         masspayfallout: 6.
       }
     else
-      {
-        vat: 0.0,
+      return {
+        vat: 1.20,
+        paypalcurrency: :EUR,
         masspaycurrency: :EUR,
         masspayrate: .02,
-        masspayfallout: 6.
+        masspayfallout: 35.
       }
     end
   end

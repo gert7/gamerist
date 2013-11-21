@@ -4,8 +4,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_one :account, inverse_of: :user
+  accepts_nested_attributes_for :account
   has_one :steamid, inverse_of: :user
   has_many :transactions, inverse_of: :user
+  has_many :paypals, inverse_of: :user
 
   def attach_steam(access_token)
     steamuid = access_token['uid']
@@ -37,31 +40,6 @@ class User < ActiveRecord::Base
   
   def total_balance
     balance_unrealized + balance_realized
-  end
-  
-  def start_paypal_add(points)
-    (am >= 0) or throw ArgumentError
-    payment = PayPal::SDK::Rest::Payment.new({
-      intent: "sale",
-      payer: {payment_method: "paypal"},
-      transactions: [{
-        amount: {
-          
-          },
-        description: ""
-      }]
-    })
-  end
-  
-  def finalize_paypal_add(am, pp)
-    (am >= 0) or throw ArgumentError
-    Transaction.create do |t|
-      t.user    = self
-      t.amount  = am
-      t.state   = Transaction::STATE_FINAL
-      t.kind    = Transaction::KIND_PAYPAL
-      t.detail  = pp.id
-    end
   end
   
   def finalize_paypal_cashout(am, pp)

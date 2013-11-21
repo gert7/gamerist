@@ -42,7 +42,7 @@ class Paypal < ActiveRecord::Base
     payment = PayPal::SDK::Rest::Payment.find(pp.sid)
     Transaction.create do |t|
       t.user    = self
-      t.amount  = pp.amount
+      t.amount  = payment.
       t.state   = Transaction::STATE_FINAL
       t.kind    = Transaction::KIND_PAYPAL
       t.detail  = pp.id
