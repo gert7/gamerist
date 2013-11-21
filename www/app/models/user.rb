@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   
   def start_paypal_add(points)
     (am >= 0) or throw ArgumentError
-    payment = Payment.new({
+    payment = PayPal::SDK::Rest::Payment.new({
       intent: "sale",
       payer: {payment_method: "paypal"},
       transactions: [{
