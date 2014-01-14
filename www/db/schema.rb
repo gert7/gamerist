@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131121171817) do
+ActiveRecord::Schema.define(version: 20131121143439) do
 
   create_table "accounts", force: true do |t|
     t.integer  "user_id"
@@ -61,10 +61,10 @@ ActiveRecord::Schema.define(version: 20131121171817) do
     t.decimal  "subtotal",   precision: 8, scale: 2
     t.decimal  "tax",        precision: 8, scale: 2
     t.integer  "state"
+    t.integer  "user_id"
     t.string   "sid"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
 
   create_table "rooms", force: true do |t|
@@ -104,13 +104,13 @@ ActiveRecord::Schema.define(version: 20131121171817) do
     t.integer  "state"
     t.integer  "user_id"
     t.integer  "lastref"
+    t.integer  "kind"
     t.integer  "detail"
     t.integer  "amount"
+    t.integer  "balance_u"
+    t.integer  "balance_r"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "kind"
-    t.integer  "balance_r"
-    t.integer  "balance_u"
   end
 
   add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree

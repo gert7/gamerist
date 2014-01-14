@@ -4,8 +4,8 @@ development:
   encoding: utf8
   database: gamerist_development
   pool: 5
-  username: postgres
-  password: 
+  username: gamerist
+  password: password
   host: localhost
 
 # Warning: The database defined as "test" will be erased and
@@ -16,7 +16,7 @@ test: &test
   adapter: postgresql
   encoding: utf8
   username: postgres
-  password:
+  password: password
   min_messages: ERROR
   database: gamerist_test
   pool: 16
