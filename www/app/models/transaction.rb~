@@ -32,23 +32,18 @@ class Transaction < ActiveRecord::Base
   before_save do
     lasttr        = Transaction.where(user_id: self.user_id).last
     case [self.amount >= 0, self.realized_kind?, lasttr != nil]
-    when [true, true, true] # wager win
+    when [true, true, true], [false, false, true] # wager win (amount positive) or cash out (amount negative)
       self.balance_r = lasttr.balance_r + self.amount
       self.balance_u = lasttr.balance_u
     when [false, true, true] # new wager
       trickle_down_score(lasttr.balance_u, lasttr.balance_r)
-    when [false, false, true] # cash out
-      self.balance_r = lasttr.balance_r + self.amount
-      self.balance_u = lasttr.balance_u
     when [true, false, true] # add funds
       self.balance_u = lasttr.balance_u + self.amount
       self.balance_r = lasttr.balance_r
     when [true, true, false]
       self.balance_r = self.amount
       self.balance_u = 0
-    when [false, true, false]
-      throw ActiveRecord::Rollback, "Negative balance!"
-    when [false, false, false]
+    when [false, true, false], [false, false, false]
       throw ActiveRecord::Rollback, "Negative balance!"
     when [true, false, false]
       self.balance_u = self.amount
