@@ -66,7 +66,7 @@ group :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', require: false
   gem 'coveralls', require: false
   gem 'database_cleaner'
   gem 'mocha', require: false

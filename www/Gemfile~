@@ -62,7 +62,7 @@ gem 'puma'
 # gem 'debugger', group: [:development, :test]
 
 group :test do
-  gem 'rspec-core', '~> '
+  gem 'rspec'
   gem 'rspec-rails'
   gem 'capybara'
   gem 'selenium-webdriver'
