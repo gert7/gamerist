@@ -10,4 +10,3 @@ q.bind(x, routing_key: "amq.rabbitmq.trace")
 
 #  x.publish("Hello!")
 
-
