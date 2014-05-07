@@ -1,15 +1,13 @@
-require "march_hare"
-
 conn = MarchHare.connect
-
 ch = conn.create_channel
-q  = ch.queue("to_rails", :auto_delete => true)
-x  = ch.direct("tx")
-q.bind("tx")
+q  = ch.queue("", :auto_delete => true)
+x  = ch.topic("boopsi", :auto_delete => true)
+q.bind(x, routing_key: "amq.rabbitmq.trace")
 
-q.subscribe do |metadata, payload|
-  puts "Received #{payload}"
-end
+#  q.subscribe do |metadata, payload|
+#    puts "Received #{payload}"
+#  end
 
-x.publish("Hello!")
+#  x.publish("Hello!")
+
 
