@@ -5,30 +5,30 @@ class Paypal < ActiveRecord::Base
   STATE_EXECUTED  = 2
   
   belongs_to :user, inverse_of: :paypals
-  
+
   # Make a Transaction, 
-  def start_paypal_add(user, points)
+  def self.start_paypal_add(user, points, countrycode)
     (points >= 0) or throw ArgumentError
-    country   = Gamerist::country(self.countrycode)
-    subtotal  = (points * country.vat)
-    total     = subtotal*(1 + country.vat)
+    country   = Gamerist::country(countrycode)
+    subtotal  = (points * country[:vat])
+    total     = subtotal*(1 + country[:vat])
     
-    payment = PayPal::SDK::Rest::Payment.new({
+    payment = PayPal::SDK::REST::Payment.new({
       intent: "sale",
       payer: {payment_method: "paypal"},
       transactions: [{
         amount: {
           total: total.to_s,
-          currency: country.paypalcurrency.to_s,
+          currency: country[:paypalcurrency].to_s,
           details: {
             subtotal: subtotal.to_s,
-            tax: country.vat.to_s
+            tax: country[:vat].to_s
             } # details
           } # amount
       }] # transaction 1
     })
     
-    payment.create
+    a = payment.create
     Paypal.create do |p| # very confusing names
       p.recipient = user
       p.amount    = points
@@ -37,22 +37,17 @@ class Paypal < ActiveRecord::Base
       p.state     = Paypal::STATE_CREATED
       p.sid       = payment.id
     end
-    payment.links.find{|v| v.method == "REDIRECT" }.href
+    a.links.find{|v| v[:method] == "REDIRECT" }[:href]
   end
   
-  def finalize_paypal_add(pp, payerid)
+  def finalize_paypal_add(payerid)
     (am >= 0) or throw ArgumentError
-    payment = PayPal::SDK::Rest::Payment.find(pp.sid)
-    Transaction.create do |t|
-      t.user    = self
-      t.amount  = pp.amount
-      t.state   = Transaction::STATE_FINAL
-      t.kind    = Transaction::KIND_PAYPAL
-      t.detail  = pp.id
-    end
+    payment = PayPal::SDK::REST::Payment.find(self.sid)
+    Transaction::paypal_finalize(self.recipient, self.amount, self)
     
     if(payment.execute(payer_id: payerid))
-      pp.state = Paypal::STATE_EXECUTED
+      self.state = Paypal::STATE_EXECUTED
+      self.save!
     else
       errors.add("Failed to execute payment!")
     end

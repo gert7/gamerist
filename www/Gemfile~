@@ -61,12 +61,17 @@ gem 'puma'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+group :development do
+  gem 'guard'
+  gem 'guard-rspec', require: false
+end
+
 group :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', require: false
   gem 'coveralls', require: false
   gem 'database_cleaner'
   gem 'mocha', require: false

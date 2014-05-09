@@ -56,12 +56,18 @@ class Transaction < ActiveRecord::Base
     
     # update the cache
     Rails.cache.write self.user.cache_key("unrealized"), self.balance_u
-    self.user.balance_unrealized  = self.balance_u
+    Rails.cache.write self.user.cache_key("realized"), self.balance_r
   end
 
   # try to generalize
-  def self.transact_paypal_add(state, kind, amount)
-    
+  def self.paypal_finalize(user, amount, detail)
+    Transaction.create do |t|
+      t.user    = user
+      t.amount  = amount
+      t.state   = Transaction::STATE_FINAL
+      t.kind    = Transaction::KIND_PAYPAL
+      t.detail  = detail.id
+    end
   end
 end
 

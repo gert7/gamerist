@@ -18,7 +18,7 @@ describe Transaction do
     tr.new_record?.should == false # is saved
   end
 
-  it 'creates a new wager' do
+  it 'removes money from a user without money, and fails to do so' do
     tr = Transaction.new do |t|
       t.state   = Transaction::STATE_FINAL,
       t.user    = @user,
@@ -28,8 +28,19 @@ describe Transaction do
     end
     begin
       tr.save!
-    catch ActiveRecord::Rollback => e
+    rescue ActiveRecord::Rollback => e
     end
       tr.new_record?.should == true # is not saved
+  end
+
+  it 'adds unrealized funds to a new account, then spends them' do
+    tr = Transaction.new do |t|
+      t.state   = Transaction::STATE_FINAL,
+      t.user    = @user,
+      t.kind    = Transaction::KIND_WAGER,
+      t.detail  = 30,
+      t.amount  = 100
+    end
+    
   end
 end

@@ -33,8 +33,4 @@ class User < ActiveRecord::Base
   def total_balance
     balance_unrealized + balance_realized
   end
-  
-  def finalize_paypal_cashout(am, pp)
-  end
-  
 end

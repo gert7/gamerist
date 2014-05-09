@@ -60,8 +60,14 @@ class Transaction < ActiveRecord::Base
   end
 
   # try to generalize
-  def self.transact_paypal_add(state, kind, amount)
-    
+  def self.paypal_finalize(user, amount, detail)
+    Transaction.create do |t|
+      t.user    = user
+      t.amount  = amount
+      t.state   = Transaction::STATE_FINAL
+      t.kind    = Transaction::KIND_PAYPAL
+      t.detail  = detail
+    end
   end
 end
 

@@ -30,14 +30,6 @@ class User < ActiveRecord::Base
     cache_fetch_key_else "realized" do load_balance end
   end
   
-  def balance_unrealized= (v)
-    Rails.cache.write cache_key("unrealized"), v
-  end
-  
-  def balance_realized= (v)
-    Rails.cache.write cache_key("realized"), v
-  end
-  
   def total_balance
     balance_unrealized + balance_realized
   end
