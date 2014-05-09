@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ActiveSupport::Cache::RedisStore</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+            <span>Ruby on Rails 4.0.0</span><br />
+        
+        <h1>
+            <span class="type">Class</span> 
+            ActiveSupport::Cache::RedisStore 
+            
+                <span class="parent">&lt; 
+                    
+                    Store
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../../files/__/__/_rvm/gems/jruby-1_7_6/gems/redis-activesupport-4_0_0/lib/active_support/cache/redis_store_rb.html">/home/gert/.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-clear">clear</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-decrement">decrement</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-delete_entry">delete_entry</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-delete_matched">delete_matched</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-exist-3F">exist?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-expire">expire</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-increment">increment</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>K</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-key_matcher">key_matcher</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-read_entry">read_entry</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-read_multi">read_multi</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-reconnect">reconnect</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-stats">stats</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>W</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-write">write</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-write_entry">write_entry</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-new">
+            
+              <b>new</b>(*addresses)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-c-new" name="method-c-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Instantiate the store.</p>
+
+<p>Example:</p>
+
+<pre><code>RedisStore.new
+  # =&gt; host: localhost,   port: 6379,  db: 0
+
+RedisStore.new &quot;example.com&quot;
+  # =&gt; host: example.com, port: 6379,  db: 0
+
+RedisStore.new &quot;example.com:23682&quot;
+  # =&gt; host: example.com, port: 23682, db: 0
+
+RedisStore.new &quot;example.com:23682/1&quot;
+  # =&gt; host: example.com, port: 23682, db: 1
+
+RedisStore.new &quot;example.com:23682/1/theplaylist&quot;
+  # =&gt; host: example.com, port: 23682, db: 1, namespace: theplaylist
+
+RedisStore.new &quot;localhost:6379/0&quot;, &quot;localhost:6380/0&quot;
+  # =&gt; instantiate a cluster
+</code></pre>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-new_source')" id="l_method-c-new_source">show</a>
+                
+              </p>
+              <div id="method-c-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">addresses</span>)
+  <span class="ruby-ivar">@data</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Store</span><span class="ruby-operator">::</span><span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">addresses</span>)
+  <span class="ruby-keyword">super</span>(<span class="ruby-identifier">addresses</span>.<span class="ruby-identifier">extract_options!</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-clear">
+            
+              <b>clear</b>()
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-clear" name="method-i-clear" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Clear all the data from the store.</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-clear_source')" id="l_method-i-clear_source">show</a>
+                
+              </p>
+              <div id="method-i-clear_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 137</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">clear</span>
+  <span class="ruby-identifier">instrument</span>(<span class="ruby-value">:clear</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">nil</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">flushdb</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-decrement">
+            
+              <b>decrement</b>(key, amount = 1)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-decrement" name="method-i-decrement" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Decrement a key in the store</p>
+
+<p>If the key doesn’t exist it will be initialized on 0. If the key exist but
+it isn’t a Fixnum it will be initialized on 0.</p>
+
+<p>Example:</p>
+
+<pre><code>We have two objects in cache:
+  counter # =&gt; 23
+  rabbit  # =&gt; #&lt;Rabbit:0x5eee6c&gt;
+
+cache.decrement &quot;counter&quot;
+cache.read &quot;counter&quot;, :raw =&gt; true      # =&gt; &quot;22&quot;
+
+cache.decrement &quot;counter&quot;, 2
+cache.read &quot;counter&quot;, :raw =&gt; true      # =&gt; &quot;20&quot;
+
+cache.decrement &quot;a counter&quot;
+cache.read &quot;a counter&quot;, :raw =&gt; true    # =&gt; &quot;-1&quot;
+
+cache.decrement &quot;rabbit&quot;
+cache.read &quot;rabbit&quot;, :raw =&gt; true       # =&gt; &quot;-1&quot;
+</code></pre>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-decrement_source')" id="l_method-i-decrement_source">show</a>
+                
+              </p>
+              <div id="method-i-decrement_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 126</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">decrement</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">amount</span> = <span class="ruby-number">1</span>)
+  <span class="ruby-identifier">instrument</span>(<span class="ruby-value">:decrement</span>, <span class="ruby-identifier">key</span>, <span class="ruby-value">:amount</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">amount</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">decrby</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">amount</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-delete_matched">
+            
+              <b>delete_matched</b>(matcher, options = nil)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-delete_matched" name="method-i-delete_matched" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Delete objects for matched keys.</p>
+
+<p>Performance note: this operation can be dangerous for large production
+databases, as it uses the Redis “KEYS” command, which is O(N) over the
+total number of keys in the database. Users of large Redis caches should
+avoid this method.</p>
+
+<p>Example:</p>
+
+<pre><code>cache.del_matched &quot;rab*&quot;</code></pre>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-delete_matched_source')" id="l_method-i-delete_matched_source">show</a>
+                
+              </p>
+              <div id="method-i-delete_matched_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">delete_matched</span>(<span class="ruby-identifier">matcher</span>, <span class="ruby-identifier">options</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">options</span> = <span class="ruby-identifier">merged_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">instrument</span>(<span class="ruby-value">:delete_matched</span>, <span class="ruby-identifier">matcher</span>.<span class="ruby-identifier">inspect</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">matcher</span> = <span class="ruby-identifier">key_matcher</span>(<span class="ruby-identifier">matcher</span>, <span class="ruby-identifier">options</span>)
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-operator">!</span>(<span class="ruby-identifier">keys</span> = <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">keys</span>(<span class="ruby-identifier">matcher</span>)).<span class="ruby-identifier">empty?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">del</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">keys</span>)
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNREFUSED</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+      <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-exist-3F">
+            
+              <b>exist?</b>(name, options = nil)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-exist-3F" name="method-i-exist-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>fixed problem with invalid exists? method <a
+href="https://github.com/rails/rails/commit/cad2c8f5791d5bd4af0f240d96e00bae76eabd2f">github.com/rails/rails/commit/cad2c8f5791d5bd4af0f240d96e00bae76eabd2f</a></p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-exist-3F_source')" id="l_method-i-exist-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-exist-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 145</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">exist?</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">options</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">res</span> = <span class="ruby-keyword">super</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">res</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-expire">
+            
+              <b>expire</b>(key, ttl)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-expire" name="method-i-expire" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-expire_source')" id="l_method-i-expire_source">show</a>
+                
+              </p>
+              <div id="method-i-expire_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 132</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">expire</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">ttl</span>)
+  <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">expire</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">ttl</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-increment">
+            
+              <b>increment</b>(key, amount = 1)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-increment" name="method-i-increment" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Increment a key in the store.</p>
+
+<p>If the key doesn’t exist it will be initialized on 0. If the key exist but
+it isn’t a Fixnum it will be initialized on 0.</p>
+
+<p>Example:</p>
+
+<pre><code>We have two objects in cache:
+  counter # =&gt; 23
+  rabbit  # =&gt; #&lt;Rabbit:0x5eee6c&gt;
+
+cache.increment &quot;counter&quot;
+cache.read &quot;counter&quot;, :raw =&gt; true      # =&gt; &quot;24&quot;
+
+cache.increment &quot;counter&quot;, 6
+cache.read &quot;counter&quot;, :raw =&gt; true      # =&gt; &quot;30&quot;
+
+cache.increment &quot;a counter&quot;
+cache.read &quot;a counter&quot;, :raw =&gt; true    # =&gt; &quot;1&quot;
+
+cache.increment &quot;rabbit&quot;
+cache.read &quot;rabbit&quot;, :raw =&gt; true       # =&gt; &quot;1&quot;
+</code></pre>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-increment_source')" id="l_method-i-increment_source">show</a>
+                
+              </p>
+              <div id="method-i-increment_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">increment</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">amount</span> = <span class="ruby-number">1</span>)
+  <span class="ruby-identifier">instrument</span>(<span class="ruby-value">:increment</span>, <span class="ruby-identifier">key</span>, <span class="ruby-value">:amount</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">amount</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">incrby</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">amount</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-read_multi">
+            
+              <b>read_multi</b>(*names)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-read_multi" name="method-i-read_multi" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Reads multiple keys from the cache using a single call to the servers for
+all keys. Options can be passed in the last argument.</p>
+
+<p>Example:</p>
+
+<pre><code>cache.read_multi &quot;rabbit&quot;, &quot;white-rabbit&quot;
+cache.read_multi &quot;rabbit&quot;, &quot;white-rabbit&quot;, :raw =&gt; true
+</code></pre>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-read_multi_source')" id="l_method-i-read_multi_source">show</a>
+                
+              </p>
+              <div id="method-i-read_multi_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">read_multi</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">names</span>)
+  <span class="ruby-identifier">values</span> = <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">mget</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">names</span>)
+  <span class="ruby-identifier">values</span>.<span class="ruby-identifier">map!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Cache</span><span class="ruby-operator">::</span><span class="ruby-constant">Entry</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">v</span> }
+
+  <span class="ruby-comment"># Remove the options hash before mapping keys to values</span>
+  <span class="ruby-identifier">names</span>.<span class="ruby-identifier">extract_options!</span>
+
+  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Hash</span>[<span class="ruby-identifier">names</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-identifier">values</span>)]
+  <span class="ruby-identifier">result</span>.<span class="ruby-identifier">reject!</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">nil?</span> }
+  <span class="ruby-identifier">result</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-reconnect">
+            
+              <b>reconnect</b>()
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-reconnect" name="method-i-reconnect" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Force client reconnection, useful Unicorn deployed apps.</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-reconnect_source')" id="l_method-i-reconnect_source">show</a>
+                
+              </p>
+              <div id="method-i-reconnect_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 155</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">reconnect</span>
+  <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">reconnect</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-stats">
+            
+              <b>stats</b>()
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-stats" name="method-i-stats" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-stats_source')" id="l_method-i-stats_source">show</a>
+                
+              </p>
+              <div id="method-i-stats_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 150</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">stats</span>
+  <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">info</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-write">
+            
+              <b>write</b>(name, value, options = nil)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-write" name="method-i-write" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-write_source')" id="l_method-i-write_source">show</a>
+                
+              </p>
+              <div id="method-i-write_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">write</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">options</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">options</span> = <span class="ruby-identifier">merged_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">instrument</span>(<span class="ruby-value">:write</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">options</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">payload</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">entry</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:raw</span>].<span class="ruby-identifier">present?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Entry</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">options</span>)
+    <span class="ruby-identifier">write_entry</span>(<span class="ruby-identifier">namespaced_key</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">options</span>), <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+              
+      <div class="sectiontitle">Instance Protected methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-delete_entry">
+            
+              <b>delete_entry</b>(key, options)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-delete_entry" name="method-i-delete_entry" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Implement the ActiveSupport::Cache#delete_entry</p>
+
+<p>It’s really needed and use</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-delete_entry_source')" id="l_method-i-delete_entry_source">show</a>
+                
+              </p>
+              <div id="method-i-delete_entry_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 181</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">delete_entry</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">del</span> <span class="ruby-identifier">key</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNREFUSED</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-key_matcher">
+            
+              <b>key_matcher</b>(pattern, options)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-key_matcher" name="method-i-key_matcher" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Add the namespace defined in the options to a pattern designed to match
+keys.</p>
+
+<p>This implementation is __different__ than ActiveSupport: __it doesn’t
+accept Regular expressions__, because the Redis matcher is designed only
+for strings with wildcards.</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-key_matcher_source')" id="l_method-i-key_matcher_source">show</a>
+                
+              </p>
+              <div id="method-i-key_matcher_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 193</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">key_matcher</span>(<span class="ruby-identifier">pattern</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">prefix</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:namespace</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Proc</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:namespace</span>].<span class="ruby-identifier">call</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:namespace</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">prefix</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Regexps aren't supported, please use string with wildcards.&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Regexp</span>)
+    <span class="ruby-node">&quot;#{prefix}:#{pattern}&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">pattern</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-read_entry">
+            
+              <b>read_entry</b>(key, options)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-read_entry" name="method-i-read_entry" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-read_entry_source')" id="l_method-i-read_entry_source">show</a>
+                
+              </p>
+              <div id="method-i-read_entry_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 167</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">read_entry</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">entry</span> = <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">options</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">entry</span>
+    <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Cache</span><span class="ruby-operator">::</span><span class="ruby-constant">Entry</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">entry</span> <span class="ruby-operator">:</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Cache</span><span class="ruby-operator">::</span><span class="ruby-constant">Entry</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNREFUSED</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-write_entry">
+            
+              <b>write_entry</b>(key, entry, options)
+            
+            <a href="../../../classes/ActiveSupport/Cache/RedisStore.html#method-i-write_entry" name="method-i-write_entry" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-write_entry_source')" id="l_method-i-write_entry_source">show</a>
+                
+              </p>
+              <div id="method-i-write_entry_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File ../../.rvm/gems/jruby-1.7.6/gems/redis-activesupport-4.0.0/lib/active_support/cache/redis_store.rb, line 160</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">write_entry</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">method</span> = <span class="ruby-identifier">options</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:unless_exist</span>] <span class="ruby-operator">?</span> <span class="ruby-value">:setnx</span> <span class="ruby-operator">:</span> <span class="ruby-value">:set</span>
+  <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">send</span> <span class="ruby-identifier">method</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">options</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNREFUSED</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

@@ -1,13 +1,16 @@
+# PayPal transaction reference
+
 class Paypal < ActiveRecord::Base
   STATE_CREATED   = 1
   STATE_EXECUTED  = 2
   
   belongs_to :user, inverse_of: :paypals
   
+  # Make a Transaction, 
   def start_paypal_add(user, points)
     (points >= 0) or throw ArgumentError
     country   = Gamerist::country(self.countrycode)
-    subtotal  = (points * (country.vat - country.vat * country.compensation))
+    subtotal  = (points * country.vat)
     total     = subtotal*(1 + country.vat)
     
     payment = PayPal::SDK::Rest::Payment.new({

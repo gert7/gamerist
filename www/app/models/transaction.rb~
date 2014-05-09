@@ -44,7 +44,7 @@ class Transaction < ActiveRecord::Base
       self.balance_r = self.amount
       self.balance_u = 0
     when [false, true, false], [false, false, false]
-      throw ActiveRecord::Rollback, "Negative balance!"
+      raise ActiveRecord::Rollback, "Negative balance!"
     when [true, false, false]
       self.balance_u = self.amount
       self.balance_r = 0
@@ -55,8 +55,13 @@ class Transaction < ActiveRecord::Base
     end
     
     # update the cache
-    self.user.balance_realized    = self.balance_r
+    Rails.cache.write self.user.cache_key("unrealized"), self.balance_u
     self.user.balance_unrealized  = self.balance_u
+  end
+
+  # try to generalize
+  def self.transact_paypal_add(state, kind, amount)
+    
   end
 end
 
