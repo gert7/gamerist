@@ -29,12 +29,19 @@ class User < ActiveRecord::Base
   def balance_realized
     cache_fetch_key_else "realized" do load_balance end
   end
-  
+
   def total_balance
     balance_unrealized + balance_realized
   end
   
-  def finalize_paypal_cashout(am, pp)
+  # account stuff
+  def fetch_avatar_id
+    Rails.cache.delete cache_key("avatar_id")
+    self.cache_fetch_key_else "avatar_id" do
+      require 'open-uri'
+      steamapik = $GAMERIST_API_KEYS["steam"]
+      response = JSON.parse(open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid.steamid}").read)
+      response["response"]["players"][0]["avatar"][/avatars\/(.*)\./, 1]
+    end
   end
-  
 end

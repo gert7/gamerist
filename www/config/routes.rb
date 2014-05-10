@@ -1,18 +1,16 @@
 Gamerist::Application.routes.draw do
 
   resources :rooms
-
   resources :rulesets
-
   resources :maps
-
   resources :servers
-
   resources :games
+  resources :accounts
 
   devise_for :users
   
-  get "/auth/steam/callback", to: "steamid#attach"
+  get "/auth/steam/callback", to: "steamid#attach" 
+  get "/account", to: "accounts#show"
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

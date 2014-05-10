@@ -6,7 +6,6 @@ describe Paypal do # lowercase pal
   end
 
   it 'creates a new PayPal transaction and finalizes it' do
-    Paypal.expects(:create)
     Gamerist.stubs(:country).with(:SWE).returns({:vat => 0.20, :paypalcurrency => :EUR})
     paysdk = mock("paypalsdk")
     paysdkresponse = mock("paypalsdkresponse")

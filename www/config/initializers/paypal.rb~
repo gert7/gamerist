@@ -1,5 +1,4 @@
 require "paypal-sdk-rest"
-include PayPal::SDK::REST
 
 PayPal::SDK::REST.set_config(
   :mode => "sandbox",
