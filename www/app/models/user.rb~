@@ -23,14 +23,15 @@ class User < ActiveRecord::Base
   end
   
   def balance_unrealized
-    cache_fetch_key_else "unrealized" do load_balance end
+    cache_fetch_key_else "unrealized" do load_balance; return Rails.cache.fetch cache_key("unrealized") end
   end
   
   def balance_realized
-    cache_fetch_key_else "realized" do load_balance end
+    cache_fetch_key_else "realized" do load_balance; return Rails.cache.fetch cache_key("realized") end
   end
 
   def total_balance
+    puts balance_unrealized
     balance_unrealized + balance_realized
   end
   

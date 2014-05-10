@@ -54,9 +54,19 @@ RSpec.configure do |config|
   #    counter = 0
   #  end
   #end
+  Rails.cache.clear
 
-  #config.after(:suite) do
+  require 'database_cleaner'
+  DatabaseCleaner[:redis].strategy = :truncation
+  
+  config.before(:suite) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:suite) do
+    
+    DatabaseCleaner.clean
   #  counter = 0
-  #end
+  end
 end
 
