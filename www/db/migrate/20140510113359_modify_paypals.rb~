@@ -1,0 +1,6 @@
+class ModifyPaypals < ActiveRecord::Migration
+  def up
+    remove_column :paypals, :redirect
+    add_column :paypals, :redirect, :string
+  end
+end

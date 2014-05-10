@@ -1,0 +1,5 @@
+class AddRedirectToPaypal < ActiveRecord::Migration
+  def change
+    add_column :paypals, :redirect, :string
+  end
+end

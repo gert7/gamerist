@@ -66,7 +66,7 @@ class Transaction < ActiveRecord::Base
       t.amount  = amount
       t.state   = Transaction::STATE_FINAL
       t.kind    = Transaction::KIND_PAYPAL
-      t.detail  = detail.id
+      t.detail  = detail
     end
   end
 end

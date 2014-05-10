@@ -29,23 +29,22 @@ class Paypal < ActiveRecord::Base
     })
     
     a = payment.create
-    Paypal.create do |p| # very confusing names
-      p.recipient = user
+    Paypal.new do |p| # very confusing names
+      p.user      = user
       p.amount    = points
       p.subtotal  = subtotal
       p.tax       = total - subtotal
       p.state     = Paypal::STATE_CREATED
-      p.sid       = payment.id
+      p.sid       = a.id
+      p.redirect  = a.links.detect{|v| v["method"] == "REDIRECT" }["href"]
     end
-    a.links.find{|v| v.method == "REDIRECT" }.href
   end
   
   def finalize_paypal_add(payerid)
-    (am >= 0) or throw ArgumentError
     payment = PayPal::SDK::REST::Payment.find(self.sid)
-    Transaction::paypal_finalize(self.recipient, self.amount, self)
-    
-    if(payment.execute(payer_id: payerid))
+    Transaction::paypal_finalize(self.user, self.amount, self)
+    throw [self.user_id, self.amount, self]
+    if(payment.execute(payerid))
       self.state = Paypal::STATE_EXECUTED
       self.save!
     else

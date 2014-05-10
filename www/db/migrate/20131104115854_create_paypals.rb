@@ -7,6 +7,7 @@ class CreatePaypals < ActiveRecord::Migration
       t.integer :state
       t.integer :user_id
       t.string :sid
+      t.string :redirect
 
       t.timestamps
     end
