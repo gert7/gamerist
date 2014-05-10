@@ -1,3 +1,12 @@
+def cache_fetch_else(k, &proc)
+  if (a = Rails.cache.fetch k)
+    return a
+  else
+    proc.call
+    Rails.cache.fetch k
+  end
+end
+
 module ActiveRecord
   class Base
     def cache_key(k)

@@ -45,18 +45,18 @@ RSpec.configure do |config|
     #     --seed 1234
   config.order = "random"
   config.include Capybara::DSL
-  config.after(:each) do
-    counter += 1
-    if counter > 9
-      GC.enable
-      GC.start
-      GC.disable
-      counter = 0
-    end
-  end
+  #config.after(:each) do
+  #  counter += 1
+  #  if counter > 9
+  #    GC.enable
+  #    GC.start
+  #    GC.disable
+  #    counter = 0
+  #  end
+  #end
 
-  config.after(:suite) do
-    counter = 0
-  end
+  #config.after(:suite) do
+  #  counter = 0
+  #end
 end
 

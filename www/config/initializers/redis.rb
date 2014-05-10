@@ -2,7 +2,7 @@ def cache_fetch_else(k, &proc)
   if (a = Rails.cache.fetch k)
     return a
   else
-    Rails.cache.write k, proc.call
+    Rails.cache.write proc.call
     Rails.cache.fetch k
   end
 end

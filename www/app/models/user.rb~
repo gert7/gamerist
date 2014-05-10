@@ -36,7 +36,6 @@ class User < ActiveRecord::Base
   
   # account stuff
   def fetch_avatar_id
-    Rails.cache.delete cache_key("avatar_id")
     self.cache_fetch_key_else "avatar_id" do
       require 'open-uri'
       steamapik = $GAMERIST_API_KEYS["steam"]

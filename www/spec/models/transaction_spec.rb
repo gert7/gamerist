@@ -33,11 +33,11 @@ describe Transaction do
       tr.new_record?.should == true # is not saved
   end
 
-  it 'adds unlrealized funds to a new account, then spends them' do
+  it 'adds unrealized funds to a new account, then spends them' do
     tr = Transaction.new do |t|
       t.state   = Transaction::STATE_FINAL,
       t.user    = @user,
-      t.kind    = Transaction::KIND_WAGER,
+      t.kind    = Transaction::KIND_ROOM,
       t.detail  = 30,
       t.amount  = 100
     end
