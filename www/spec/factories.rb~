@@ -3,4 +3,13 @@ FactoryGirl.define do
     email { "useroni@mail.ch" }
     password "larkheid"
   end
+  
+  factory :paypal do
+    amount 100.0
+    subtotal 100.0
+    tax 20.0
+    state Paypal::STATE_CREATED
+    sid "30004001020"
+    redirect ""
+  end
 end

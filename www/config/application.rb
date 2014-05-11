@@ -26,7 +26,7 @@ module Gamerist
     provider :steam, $GAMERIST_API_KEYS["steam"]
   end
   
-  def country(code)
+  def self.country(code)
     case code
     when :EST
       return {

@@ -12,7 +12,6 @@ class Paypal < ActiveRecord::Base
     country   = Gamerist::country(countrycode)
     subtotal  = (points * country[:vat])
     total     = subtotal*(1 + country[:vat])
-    
     payment = PayPal::SDK::REST::Payment.new({
       intent: "sale",
       payer: {payment_method: "paypal"},
@@ -27,8 +26,8 @@ class Paypal < ActiveRecord::Base
           } # amount
       }] # transaction 1
     })
-    
     a = payment.create
+    throw a
     Paypal.new do |p| # very confusing names
       p.user      = user
       p.amount    = points
@@ -44,7 +43,7 @@ class Paypal < ActiveRecord::Base
     payment = PayPal::SDK::REST::Payment.find(self.sid)
     Transaction::paypal_finalize(self.user, self.amount, self)
     # throw [self.user_id, self.amount, self]
-    if(payment.execute(payerid))
+    if(payment.execute(payer_id: payerid))
       self.state = Paypal::STATE_EXECUTED
       self.save!
     else

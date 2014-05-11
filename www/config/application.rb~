@@ -23,10 +23,10 @@ module Gamerist
 
   end
   Rails.application.config.middleware.use OmniAuth::Builder do
-    provider :steam, 
+    provider :steam, $GAMERIST_API_KEYS["steam"]
   end
   
-  def country(code)
+  def self.country(code)
     case code
     when :EST
       return {
