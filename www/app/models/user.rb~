@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   end
 
   def total_balance
-    puts balance_unrealized
     balance_unrealized + balance_realized
   end
   
