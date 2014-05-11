@@ -21,7 +21,7 @@
 			<div id="headbar_right_content">
 			<%if (user_signed_in?)%>
 				<div id="headbar_points">
-					140 Points
+					<%= current_user.total_balance %>
 				</div>
 			<% end %>
 			</div>

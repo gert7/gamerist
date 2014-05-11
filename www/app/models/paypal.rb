@@ -14,49 +14,60 @@ class Paypal < ActiveRecord::Base
   end
 
   # Make a Transaction, 
-  def self.start_paypal_add(user, points, countrycode)
+  def self.start_paypal_add(user, points, countrycode, hostname)
     (points >= 0) or throw ArgumentError
     country   = Gamerist::country(countrycode)
     subtotal  = points
     total     = subtotal*(1 + country[:vat])
-    payment = PayPal::SDK::REST::Payment.new({
+    tax       = total - subtotal
+    pp        = Paypal.create
+    subtotal_s= "%.2f".format(subtotal)
+    total_s   = "%.2f".format(total)
+    tax_s     = "%.2f".format(tax)
+    
+    pt = {
       intent: "sale",
       payer: {payment_method: "paypal"},
+      redirect_urls: {
+        return_url: $PAYPAL_SDK_RETURN_HOSTNAME + "/paypal/" + pp.id.to_s,
+        cancel_url: $PAYPAL_SDK_RETURN_HOSTNAME
+        }, # redirect_urls
       transactions: [{
         amount: {
-          total: "%.2f" % total,
+          total: total_s,
           currency: country[:paypalcurrency].to_s,
           details: {
-            subtotal: "%.2f" % subtotal,
-            tax: "%.2f" % (total - subtotal),
-            redirect_urls: request.host + request.port + Paypal::paypal_route
+            subtotal: subtotal_s,
+            tax: tax_s
             } # details
           } # amount
       }] # transaction 1
-    })
+    }
+    payment = PayPal::SDK::REST::Payment.new(pt)
     unless payment.create
       raise PaymentCreationFailedException, payment.error
     end
-    Paypal.new do |p| # very confusing names
-      p.user      = user
-      p.amount    = points
-      p.subtotal  = subtotal
-      p.tax       = total - subtotal
-      p.state     = Paypal::STATE_CREATED
-      p.sid       = a.id
-      p.redirect  = a.links.detect{|v| v["method"] == "REDIRECT" }["href"]
-    end
+    pud = {user: user,
+          amount: points,
+          subtotal: subtotal, 
+          tax: total - subtotal, 
+          state: Paypal::STATE_CREATED, 
+          sid: payment.id, 
+          redirect: payment.links.detect{|v| v.method == "REDIRECT" }.href
+          }
+    pp.update(pud)
+    return pp
   end
   
   def finalize_paypal_add(payerid)
     payment = PayPal::SDK::REST::Payment.find(self.sid)
-    Transaction::paypal_finalize(self.user, self.amount, self)
     # throw [self.user_id, self.amount, self]
     if(payment.execute(payer_id: payerid))
       self.state = Paypal::STATE_EXECUTED
       self.save!
-    else
-      errors.add("Failed to execute payment!")
+      Transaction::paypal_finalize(self.user, self.amount, self)
+      return true
     end
+    return false
   end
 end

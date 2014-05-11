@@ -25,7 +25,6 @@ describe Paypal do # lowercase pal
   }
 
   describe "#start_paypal_add" do
-    context "PayPal is available" do
       it "makes a FINAL Transaction" do
         pp = Paypal::start_paypal_add(@user, 100, :SWE)
         Transaction.expects(:paypal_finalize).with(@user, 100, pp)
@@ -58,3 +57,4 @@ describe Paypal do # lowercase pal
     end
   end
 end
+

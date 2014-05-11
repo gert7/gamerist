@@ -6,7 +6,7 @@
 					<%if (user_signed_in?)%>
 					  <div id="headbar_loggedin_name">
 						<%=link_to "Sign out", destroy_user_session_path, :method => :delete %> | 
-            <div id="headbar_loggedin_name_email"><%= link_to current_user.email, account_path(id: current_user.id), method => :get %></div>
+            <div id="headbar_loggedin_name_email"><%= link_to current_user.email, account_path(id: current_user.id), method: :get %></div>
 					  </div>
 					<%else%>
 					  <div id="headbar_loggedin_name">
@@ -21,7 +21,7 @@
 			<div id="headbar_right_content">
 			<%if (user_signed_in?)%>
 				<div id="headbar_points">
-					140 Points
+					<%= current_user.get %>
 				</div>
 			<% end %>
 			</div>

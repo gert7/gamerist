@@ -6,6 +6,7 @@ Gamerist::Application.routes.draw do
   resources :servers
   resources :games
   resources :accounts
+  resources :paypals
 
   devise_for :users
   
