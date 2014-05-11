@@ -3,31 +3,40 @@
 class Paypal < ActiveRecord::Base
   STATE_CREATED   = 1
   STATE_EXECUTED  = 2
-  
+
+  class PaymentCreationFailedException < Exception
+  end
+
   belongs_to :user, inverse_of: :paypals
+
+  def self.paypal_route
+    "/paypal_callback"
+  end
 
   # Make a Transaction, 
   def self.start_paypal_add(user, points, countrycode)
     (points >= 0) or throw ArgumentError
     country   = Gamerist::country(countrycode)
-    subtotal  = (points * country[:vat])
+    subtotal  = points
     total     = subtotal*(1 + country[:vat])
     payment = PayPal::SDK::REST::Payment.new({
       intent: "sale",
       payer: {payment_method: "paypal"},
       transactions: [{
         amount: {
-          total: total.to_s,
+          total: "%.2f" % total,
           currency: country[:paypalcurrency].to_s,
           details: {
-            subtotal: subtotal.to_s,
-            tax: country[:vat].to_s
+            subtotal: "%.2f" % subtotal,
+            tax: "%.2f" % (total - subtotal),
+            redirect_urls: request.host + request.port + Paypal::paypal_route
             } # details
           } # amount
       }] # transaction 1
     })
-    a = payment.create
-    throw a
+    unless payment.create
+      raise PaymentCreationFailedException, payment.error
+    end
     Paypal.new do |p| # very confusing names
       p.user      = user
       p.amount    = points

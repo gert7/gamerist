@@ -9,6 +9,7 @@ Gamerist::Application.routes.draw do
 
   devise_for :users
   
+  get Paypal::paypal_route, to: "accounts#paypal_callback"
   get "/auth/steam/callback", to: "steamid#attach" 
   get "/account", to: "accounts#show"
   
