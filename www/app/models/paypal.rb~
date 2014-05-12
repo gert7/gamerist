@@ -13,17 +13,21 @@ class Paypal < ActiveRecord::Base
     "/paypal_callback"
   end
 
+  def get_redir(p)
+    p.links.detect{|v| v.method == "REDIRECT" }.href
+  end
+
   # Make a Transaction, 
-  def self.start_paypal_add(user, points, countrycode, hostname)
+  def self.start_paypal_add(user, points, countrycode)
     (points >= 0) or throw ArgumentError
     country   = Gamerist::country(countrycode)
     subtotal  = points
     total     = subtotal*(1 + country[:vat])
     tax       = total - subtotal
     pp        = Paypal.create
-    subtotal_s= "%.2f".format(subtotal)
-    total_s   = "%.2f".format(total)
-    tax_s     = "%.2f".format(tax)
+    subtotal_s= "%.2f" % subtotal
+    total_s   = "%.2f" % total
+    tax_s     = "%.2f" % tax
     
     pt = {
       intent: "sale",
@@ -53,7 +57,7 @@ class Paypal < ActiveRecord::Base
           tax: total - subtotal, 
           state: Paypal::STATE_CREATED, 
           sid: payment.id, 
-          redirect: payment.links.detect{|v| v.method == "REDIRECT" }.href
+          redirect: get_redir(payment)
           }
     pp.update(pud)
     return pp
@@ -62,13 +66,12 @@ class Paypal < ActiveRecord::Base
   def finalize_paypal_add(payerid)
     payment = PayPal::SDK::REST::Payment.find(self.sid)
     # throw [self.user_id, self.amount, self]
-    if(payment.execute(payer_id: payerid))
+    if(self.state == Paypal::STATE_CREATED and payment.execute(payer_id: payerid))
       self.state = Paypal::STATE_EXECUTED
       self.save!
       Transaction::paypal_finalize(self.user, self.amount, self)
       return true
-    else
-      return false
     end
+    return false
   end
 end

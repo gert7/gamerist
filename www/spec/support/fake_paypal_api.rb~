@@ -1,0 +1,5 @@
+class PayPalPayment
+  def initialize(hash)
+    
+  end
+end
