@@ -1,8 +1,10 @@
-require "redis"
-
 class WelcomeController < ApplicationController
   def index
-    redis = Redis.new
-	redis.publish("gamerist_node", "Eschelon")
+    Admin.destroy_all
+    Admin.create! do |a|
+      a.email     = "admin@admin.com"
+      a.password  = "administrator"
+      a.password_confirmation = "administrator"
+    end
   end
 end

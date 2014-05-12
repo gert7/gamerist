@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
   has_many :transactions, inverse_of: :user
   has_many :paypals, inverse_of: :user
 
+  def name
+    self.email
+  end
+
   def attach_steam(access_token)
     steamuid = access_token['uid']
     @steamid = self.create_steamid(steamid: steamuid)

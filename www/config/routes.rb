@@ -1,5 +1,6 @@
 Gamerist::Application.routes.draw do
 
+
   resources :rooms
   resources :rulesets
   resources :maps
@@ -9,7 +10,9 @@ Gamerist::Application.routes.draw do
   resources :paypals
 
   devise_for :users
-  
+  devise_for :admins, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   get Paypal::paypal_route, to: "accounts#paypal_callback"
   get "/auth/steam/callback", to: "steamid#attach" 
   get "/account", to: "accounts#show"
