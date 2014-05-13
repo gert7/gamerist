@@ -40,18 +40,18 @@ describe Paypal do
       #PayPal::SDK::REST::Payment.stubs(:new).returns("11")
     }
   end
-
+ 
   describe "#start_paypal_add" do
     context "when PayPal is willing" do
       include_context "PayPal allows creation"
       before {
-        Paypal.stubs(:get_redir).returns(@redirlink)
+        Paypal.stubs(:get_redir).returns(redirlink)
       }
       it "asks PayPal for a Payment object" do
-        Paypal::start_paypal_add(@user, 100, :SWE)
+        Paypal::start_paypal_add(user, 100, :SWE)
       end
       it "returns a new Paypal model" do
-        pp = Paypal::start_paypal_add(@user, 100, :SWE)
+        pp = Paypal::start_paypal_add(user, 100, :SWE)
         expect(pp.sid).to eq "E1222229"
       end
     end
@@ -61,7 +61,7 @@ describe Paypal do
     context "when hash is proper" do
       let(:h) { JSON.parse('{"links": [{"method": "REDIRECT", "href": "http://www.success.paypal.com"}]}', object_class: MethHash) }
       it "returns the correct link" do
-        expect(Paypal::get_redir(h)).to eq @redirlink
+        expect(Paypal::get_redir(h)).to eq redirlink
       end
     end
     context "when hash is invalid" do

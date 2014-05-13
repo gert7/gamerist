@@ -28,7 +28,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'active_admin', github: 'gregbell/active_admin'
+gem 'activeadmin', github: 'gregbell/active_admin'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -64,7 +64,7 @@ gem 'puma'
 # gem 'debugger', group: [:development, :test]
 
 group :development do
-  gem 'guard'
+  gem 'spork', github: "rdp/spork" require: false
   gem 'guard-rspec', require: false
 end
 
@@ -77,5 +77,4 @@ group :test do
   gem 'coveralls', require: false
   gem 'database_cleaner', require: false
   gem 'mocha', require: false
-  gem 'spork', require: false
 end
