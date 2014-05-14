@@ -15,9 +15,11 @@ before_install:
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate:reset
   - jruby --ng-server &
+  - sleep 3
   - jruby --ng -S spork &
+  - sleep 4
+  - chmod 555 
   - ./smart_spec.sh
-  - bundle exec rspec -f d -s 57137
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database gamerist_test' -U postgres
