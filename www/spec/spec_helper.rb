@@ -1,5 +1,5 @@
-#require 'coveralls'
-#Coveralls.wear!('rails')
+require 'coveralls'
+Coveralls.wear!('rails')
 
 require 'spork'
 
