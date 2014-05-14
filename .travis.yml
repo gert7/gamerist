@@ -18,8 +18,8 @@ script:
   - sleep 3
   - jruby --ng -S spork &
   - sleep 4
-  - chmod 555 smart_spec.sh 
-  - ./smart_spec.sh
+  - chmod 555 smart_rspec.sh 
+  - ./smart_rspec.sh
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database gamerist_test' -U postgres
