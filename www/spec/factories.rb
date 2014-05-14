@@ -12,4 +12,7 @@ FactoryGirl.define do
     sid "30004001020"
     redirect "https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token=EC-60U79048BN7719609"
   end
+
+  factory :transaction do
+  end
 end

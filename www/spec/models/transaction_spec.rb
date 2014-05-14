@@ -1,46 +1,100 @@
 require 'spec_helper'
 
 describe Transaction do
-  before :each do
-    User.any_instance.stubs(:id).returns(42)
-    @user = User.new
+  let(:user) { FactoryGirl.create(:user) }
+  let(:trac) { FactoryGirl.build(:transaction) }
+
+  describe "#new" do
+    context "when transaction is valid" do
+      it 'creates a new transaction by block' do
+        tr = Transaction.new do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_COUPON,
+          t.detail  = 30, # coupon number 30
+          t.amount  = 10
+        end
+        tr.save!
+        expect(tr.new_record?).to eq false # is saved
+      end
+
+      it 'fails to withdraw from moneyless user' do
+        tr = Transaction.new do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_COUPON,
+          t.detail  = 30, # coupon number 30
+          t.amount  = -10
+        end
+        begin
+          tr.save!
+        rescue; end
+        expect(tr.new_record?).to eq true # is not saved
+      end
+
+      it 'allows consecutive realized funds' do
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_COUPON,
+          t.detail  = 3080,
+          t.amount  = 30
+        end
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_COUPON,
+          t.detail  = 3081,
+          t.amount  = 30
+        end
+        expect(user.balance_unrealized).to eq 60
+        expect(user.total_balance).to eq 60
+      end
+
+      it 'spends unrealized and realized funds' do
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_ROOM,
+          t.detail  = 3080,
+          t.amount  = 30
+        end
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_COUPON,
+          t.detail  = 411,
+          t.amount  = 30
+        end
+        expect(user.total_balance).to eq 60
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_ROOM,
+          t.detail  = 2001,
+          t.amount  = (-40)
+        end
+        expect(user.balance_unrealized).to eq 0
+        expect(user.balance_realized).to eq 20
+      end
+    end
   end
 
-  it 'creates a new valid transaction by passing a block for the arguments' do
-    tr = Transaction.new do |t|
-      t.state   = Transaction::STATE_FINAL,
-      t.user    = @user,
-      t.kind    = Transaction::KIND_COUPON,
-      t.detail  = 30, # coupon number 30
-      t.amount  = 10
+  describe "#trickle_down_score" do
+    it "trickles down from two sources" do
+      trac.amount = -40
+      trac.trickle_down_score(30, 40)
+      expect([trac.balance_u, trac.balance_r]).to eq [0, 30]
     end
-    tr.save!
-    tr.new_record?.should == false # is saved
-  end
-
-  it 'removes money from a user without money, and fails to do so' do
-    tr = Transaction.new do |t|
-      t.state   = Transaction::STATE_FINAL,
-      t.user    = @user,
-      t.kind    = Transaction::KIND_COUPON,
-      t.detail  = 30, # coupon number 30
-      t.amount  = -10
+    it "trickles down from unrealized" do
+      trac.amount = -20
+      trac.trickle_down_score(30, 0)
+      expect([trac.balance_u, trac.balance_r]).to eq [10, 0]
     end
-    begin
-      tr.save!
-    rescue ActiveRecord::Rollback => e
+    it "trickles down from realized" do
+      trac.amount = -20
+      trac.trickle_down_score(0, 30)
+      expect([trac.balance_u, trac.balance_r]).to eq [0, 10]
     end
-      tr.new_record?.should == true # is not saved
-  end
-
-  it 'adds unrealized funds to a new account, then spends them' do
-    tr = Transaction.new do |t|
-      t.state   = Transaction::STATE_FINAL,
-      t.user    = @user,
-      t.kind    = Transaction::KIND_ROOM,
-      t.detail  = 30,
-      t.amount  = 100
-    end
-    
   end
 end

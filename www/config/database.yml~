@@ -4,7 +4,7 @@ development:
   encoding: utf8
   database: gamerist_development
   pool: 5
-  username: gamerist
+  username: postgres
   password: password
   host: localhost
 
@@ -18,7 +18,7 @@ test: &test
   username: postgres
   password: password
   min_messages: ERROR
-  database: gamerist_test
+  database: yourproject_test<%= ENV['TEST_ENV_NUMBER'] %>
   pool: 16
   timeout: 5000
   host: localhost

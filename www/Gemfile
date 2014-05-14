@@ -64,7 +64,7 @@ gem 'puma'
 # gem 'debugger', group: [:development, :test]
 
 group :development do
-  gem 'spork', github: "rdp/spork", require: false
+  gem 'spork'
   gem 'guard-rspec', require: false
 end
 

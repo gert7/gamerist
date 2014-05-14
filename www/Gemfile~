@@ -64,11 +64,12 @@ gem 'puma'
 # gem 'debugger', group: [:development, :test]
 
 group :development do
-  gem 'spork', github: "rdp/spork" require: false
+  gem 'spork'
   gem 'guard-rspec', require: false
 end
 
 group :test do
+  gem 'parallel-tests', require: false
   gem 'rspec', require: false
   gem 'rspec-rails', require: false
   gem 'capybara', require: false

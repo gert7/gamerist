@@ -70,12 +70,6 @@ Spork.prefork do
     config.after(:suite) do
       Rails.cache.clear
     end
-
-    config.after(:suite) do
-      
-      DatabaseCleaner.clean
-    #  counter = 0
-    end
   end
 end
 
