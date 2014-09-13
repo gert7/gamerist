@@ -68,7 +68,9 @@ class Paypal < ActiveRecord::Base
     # throw [self.user_id, self.amount, self]
     if(self.state == Paypal::STATE_CREATED and payment.execute(payer_id: payerid))
       self.state = Paypal::STATE_EXECUTED
-      self.save!
+      unless self.save
+        return false
+      end
       Transaction::paypal_finalize(self.user, self.amount, self)
       return true
     end
