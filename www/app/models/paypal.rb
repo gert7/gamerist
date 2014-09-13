@@ -75,3 +75,4 @@ class Paypal < ActiveRecord::Base
     return false
   end
 end
+

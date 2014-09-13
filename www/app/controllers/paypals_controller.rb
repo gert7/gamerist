@@ -6,7 +6,7 @@ class PaypalsController < ApplicationController
 
   # Accept a new PayPal query
   def create
-    @paypal = Paypal::start_paypal_add(current_user, params[:points].to_i, :SWE, request.host)
+    @paypal = Paypal::start_paypal_add(current_user, params[:points].to_i, :SWE)
   end
 
   # User redirect

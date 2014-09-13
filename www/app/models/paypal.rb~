@@ -13,7 +13,7 @@ class Paypal < ActiveRecord::Base
     "/paypal_callback"
   end
 
-  def get_redir(p)
+  def self.get_redir(p)
     p.links.detect{|v| v.method == "REDIRECT" }.href
   end
 

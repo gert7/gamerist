@@ -1,6 +1,5 @@
 Gamerist::Application.routes.draw do
 
-
   resources :rooms
   resources :rulesets
   resources :maps
