@@ -14,8 +14,6 @@ before_install:
   - mkdir tmp/cache
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate:reset
-  - bundle exec spork &
-  - sleep 3
   - bundle exec rspec -f d --drb
 before_script:
   - cp config/database.travis.yml config/database.yml
