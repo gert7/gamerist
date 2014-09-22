@@ -3,7 +3,7 @@ Coveralls.wear!('rails')
 
 require 'spork'
 
-Spork.prefork do
+# Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
@@ -72,9 +72,9 @@ Spork.prefork do
       Rails.cache.clear
     end
   end
-end
+#end
 
-Spork.each_run do
+#Spork.each_run do
   class ActiveRecord::Base
     mattr_accessor :shared_connection
     @@shared_connection = nil
@@ -95,4 +95,4 @@ Spork.each_run do
   #Dir["#{Rails.root}/app/models/**/*.rb"].each do |model|
   #  load model
   #end
-end
+#end

@@ -1,9 +1,9 @@
-#require 'coveralls'
-#Coveralls.wear!('rails')
+require 'coveralls'
+Coveralls.wear!('rails')
 
 require 'spork'
 
-Spork.prefork do
+# Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
@@ -95,4 +95,4 @@ Spork.each_run do
   #Dir["#{Rails.root}/app/models/**/*.rb"].each do |model|
   #  load model
   #end
-end
+#end
