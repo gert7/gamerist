@@ -1,7 +1,7 @@
 require 'coveralls'
 Coveralls.wear!('rails')
 
-require 'spork'
+#require 'spork'
 
 # Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
@@ -12,7 +12,7 @@ require 'spork'
   require 'rspec/autorun'
   require 'factory_girl_rails'
   require "rails/application"
-  Spork.trap_method(Rails::Application, :reload_routes!)
+#  Spork.trap_method(Rails::Application, :reload_routes!)
   
   require File.dirname(__FILE__) + "/../config/environment.rb"
 
@@ -72,9 +72,9 @@ require 'spork'
       Rails.cache.clear
     end
   end
-end
+#end
 
-Spork.each_run do
+#Spork.each_run do
   class ActiveRecord::Base
     mattr_accessor :shared_connection
     @@shared_connection = nil
