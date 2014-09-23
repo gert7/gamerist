@@ -33,7 +33,7 @@ class Paypal < ActiveRecord::Base
       intent: "sale",
       payer: {payment_method: "paypal"},
       redirect_urls: {
-        return_url: $PAYPAL_SDK_RETURN_HOSTNAME + "/paypal/" + pp.id.to_s,
+        return_url: $PAYPAL_SDK_RETURN_HOSTNAME + "/paypals/" + pp.id.to_s,
         cancel_url: $PAYPAL_SDK_RETURN_HOSTNAME
         }, # redirect_urls
       transactions: [{
@@ -69,6 +69,7 @@ class Paypal < ActiveRecord::Base
     if(self.state == Paypal::STATE_CREATED and payment.execute(payer_id: payerid))
       self.state = Paypal::STATE_EXECUTED
       unless self.save
+        throw "CAN'T SAVE YO"
         return false
       end
       Transaction::paypal_finalize(self.user, self.amount, self)

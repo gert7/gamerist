@@ -15,6 +15,10 @@ describe Paypal do
   let(:p) { mock("payment")}
   let(:redirlink) { "http://www.success.paypal.com" }
 
+  before {
+    User.any_instance.stubs(:cache_key).returns("po[2]")
+  }
+
   shared_context "PayPal API allows request" do
     before {
       #p = mock("payment")
@@ -41,6 +45,14 @@ describe Paypal do
     }
   end
 
+  shared_context "PayPal forbids creation" do
+    include_context "PayPal API allows request"
+    before {
+      p.stubs(:create).returns(false)
+      PayPal::SDK::REST::Payment.expects(:new).returns(p)
+    }
+  end
+
   describe "#start_paypal_add" do
     context "when PayPal is willing" do
       include_context "PayPal allows creation"
@@ -55,6 +67,13 @@ describe Paypal do
         expect(pp.sid).to eq "E1222229"
       end
     end
+    context "when PayPal is not willing" do
+      include_context "PayPal forbids creation" do
+        it "fails to create a Payment object" do
+          expect { Paypal::start_paypal_add(user, 100, :SWE)}.to raise_error
+        end
+      end
+    end
   end
 
   describe "#get_redir" do
@@ -65,6 +84,21 @@ describe Paypal do
       end
     end
     context "when hash is invalid" do
+    end
+  end
+
+  describe "#finalize_paypal_add" do
+    context "when payment is new" do
+      let(:payp) { FactoryGirl.create :paypal }
+      before {
+        PayPal::SDK::REST::Payment.expects(:find).returns(p)
+        p.expects(:execute).with() do |pid| pid[:payer_id] == "EN-99991" end.returns true
+      }
+      it "saves the transaction" do
+        expect(payp.finalize_paypal_add("EN-99991")).to eq true
+      end
+    end
+    context "when payment is already done" do
     end
   end
 end
