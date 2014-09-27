@@ -178,15 +178,6 @@
         null,
         0
       ],
-      "/home/gert/gamerist/www/app/admin/transaction.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1
-      ],
       "/home/gert/gamerist/www/app/models/user.rb": [
         1,
         null,
@@ -235,24 +226,6 @@
         0,
         0,
         0
-      ],
-      "/home/gert/gamerist/www/app/admin/map.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1
-      ],
-      "/home/gert/gamerist/www/app/admin/user.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1
       ],
       "/home/gert/gamerist/www/app/models/game.rb": [
         null,
@@ -376,33 +349,6 @@
         null,
         1
       ],
-      "/home/gert/gamerist/www/app/admin/admin.rb": [
-        1,
-        1,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0
-      ],
       "/home/gert/gamerist/www/app/helpers/application_helper.rb": [
         1
       ],
@@ -470,9 +416,6 @@
         null,
         4
       ],
-      "/home/gert/gamerist/www/app/admin/paypal.rb": [
-        1
-      ],
       "/home/gert/gamerist/www/app/views/layouts/application.html.erb": [
         16,
         null,
@@ -506,26 +449,6 @@
         null,
         4
       ],
-      "/home/gert/gamerist/www/app/admin/game.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1
-      ],
-      "/home/gert/gamerist/www/app/admin/dashboard.rb": [
-        1,
-        null,
-        1,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0
-      ],
       "/home/gert/gamerist/www/app/helpers/maps_helper.rb": [
         1
       ],
@@ -548,6 +471,6 @@
         1
       ]
     },
-    "timestamp": 1411492004
+    "timestamp": 1411494460
   }
 }
