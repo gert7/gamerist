@@ -77,6 +77,44 @@ describe Transaction do
         expect(user.balance_unrealized).to eq 0
         expect(user.balance_realized).to eq 20
       end
+
+      it "places and wins a wager" do
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_COUPON,
+          t.detail  = 412,
+          t.amount  = 10
+        end
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_ROOM,
+          t.detail  = 532,
+          t.amount  = -10
+        end
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_ROOM,
+          t.detail  = 532,
+          t.amount  = 20
+        end
+        expect(user.balance_unrealized).to eq 0
+        expect(user.balance_realized).to eq 20
+      end
+
+      it "fails to overdraw" do
+        tr = Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_ROOM,
+          t.detail  = 1001,
+          t.amount  = -10
+        end
+        tr.save!
+        expect(tr.new_record?).to eq true
+      end
     end
   end
 
