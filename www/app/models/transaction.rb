@@ -30,6 +30,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def kind_handler()
+    lasttr = Transaction.where(user_id: self.user_id).last
     case [self.amount >= 0, self.realized_kind?, lasttr != nil]
     when [true, true, true], [false, false, true] # wager win (amount positive) or cash out (amount negative)
       self.balance_r = lasttr.balance_r + self.amount
@@ -51,10 +52,9 @@ class Transaction < ActiveRecord::Base
   end
   
   before_save do
-    lasttr        = Transaction.where(user_id: self.user_id).last
-    if self.amount < 0 then    
+    #if self.amount < 0 then    
       #throw [self.amount >= 0, self.realized_kind?, lasttr != nil]
-    end
+    #end
     kind_handler()
      
     if(self.balance_u < 0 or self.balance_r < 0)
