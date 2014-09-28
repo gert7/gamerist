@@ -1,7 +1,0 @@
-class Account < ActiveRecord::Base
-  belongs_to :user, inverse_of: :account
-
-  def fetch_avatar_id
-    self.user.cache_fetch_key_else 
-  end
-end
