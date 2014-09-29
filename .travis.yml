@@ -13,6 +13,10 @@ before_install:
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate:reset
   - bundle exec rspec -f d --drb
+  - cd ..
+  - ./nodeinstall.sh
+  - cd handlr
+  - mocha
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database gamerist_test' -U postgres
