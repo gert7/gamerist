@@ -14,9 +14,11 @@
     "handlr"
   ],
   "dependencies": {
-    "amq": "~0.4.8"
+    "amq": "~0.4.8",
+    "coffee-script": "~1.8.0"
   },
   "devDependencies": {
+    "mocha": "~1.21.4"
   },
   "license": "GPL",
   "directories": {}
