@@ -14,8 +14,9 @@ script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate:reset
   - bundle exec rspec -f d --drb
   - cd ..
-  - source nodeinstall.sh
+  - ./nodeinstall.sh
   - cd handlr
+  - source npminstall.sh
   - mocha
 before_script:
   - cp config/database.travis.yml config/database.yml
