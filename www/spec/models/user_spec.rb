@@ -65,6 +65,6 @@ describe User do
   it "fetches a Redis key" do
     user = User.new(FactoryGirl.attributes_for(:user))
     user.stubs(:id).returns(1)
-    user.cache_key("ambienza").should == "User-1[ambienza]"
+    user.cache_symbol("ambienza").should == "User-1[ambienza]"
   end
 end
