@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>openssl_ca.cnf - RDoc Documentation</title>
+
+<link href="../fonts.css" rel="stylesheet">
+<link href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/navigation.js"></script>
+<script src="../js/search_index.js"></script>
+<script src="../js/search.js"></script>
+<script src="../js/searcher.js"></script>
+<script src="../js/darkfish.js"></script>
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Gemfile.html">Gemfile</a>
+  
+    <li><a href="../Gemfile_lock.html">Gemfile.lock</a>
+  
+    <li><a href="../Gemfile_java.html">Gemfile_java</a>
+  
+    <li><a href="../Gemfile_ruby.html">Gemfile_ruby</a>
+  
+    <li><a href="../Guardfile.html">Guardfile</a>
+  
+    <li><a href="../LICENSE.html">LICENSE</a>
+  
+    <li><a href="../Procfile.html">Procfile</a>
+  
+    <li><a href="../README_md.html">README</a>
+  
+    <li><a href="../README_rdoc.html">README</a>
+  
+    <li><a href="../Rakefile.html">Rakefile</a>
+  
+    <li><a href="../app/assets/javascripts/account_js_coffee.html">account.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/active_admin_js_coffee.html">active_admin.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/application_js.html">application.js</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/gamerist_js_coffee.html">gamerist.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/models/room_js_coffee.html">room.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/routers/rooms_router_js_coffee.html">rooms_router.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/templates/rooms/edit_jst_ejs.html">edit.jst.ejs</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/templates/rooms/index_jst_ejs.html">index.jst.ejs</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/templates/rooms/new_jst_ejs.html">new.jst.ejs</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/templates/rooms/room_jst_ejs.html">room.jst.ejs</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/templates/rooms/show_jst_ejs.html">show.jst.ejs</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/views/rooms/edit_view_js_coffee.html">edit_view.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/views/rooms/index_view_js_coffee.html">index_view.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/views/rooms/new_view_js_coffee.html">new_view.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/views/rooms/room_view_js_coffee.html">room_view.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/backbone/views/rooms/show_view_js_coffee.html">show_view.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/games_js_coffee.html">games.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/maps_js_coffee.html">maps.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/rooms_js_coffee.html">rooms.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/rulesets_js_coffee.html">rulesets.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/servers_js_coffee.html">servers.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/sitewide/flashmessage_js.html">flashmessage.js</a>
+  
+    <li><a href="../app/assets/javascripts/sitewide/jquery_animate-colors-min_js.html">jquery.animate-colors-min.js</a>
+  
+    <li><a href="../app/assets/javascripts/users_js_coffee.html">users.js.coffee</a>
+  
+    <li><a href="../app/assets/javascripts/welcome/jquery_animate-shadow-min_js.html">jquery.animate-shadow-min.js</a>
+  
+    <li><a href="../app/assets/javascripts/welcome/welcome_js.html">welcome.js</a>
+  
+    <li><a href="../app/assets/stylesheets/account_css_scss.html">account.css.scss</a>
+  
+    <li><a href="../app/assets/stylesheets/active_admin_css_scss.html">active_admin.css.scss</a>
+  
+    <li><a href="../app/assets/stylesheets/application_css_scss.html">application.css.scss</a>
+  
+    <li><a href="../app/assets/stylesheets/games_css_scss.html">games.css.scss</a>
+  
+    <li><a href="../app/assets/stylesheets/gr_css_scss.html">gr.css.scss</a>
+  
+    <li><a href="../app/assets/stylesheets/maps_css_scss.html">maps.css.scss</a>
+  
+    <li><a href="../app/assets/stylesheets/rooms_css_scss.html">rooms.css.scss</a>
+  
+    <li><a href="../app/assets/stylesheets/rulesets_css_scss.html">rulesets.css.scss</a>
+  
+    <li><a href="../app/assets/stylesheets/scaffolds_css_scss.html">scaffolds.css.scss</a>
+  
+    <li><a href="../app/assets/stylesheets/servers_css_scss.html">servers.css.scss</a>
+  
+    <li><a href="../app/assets/stylesheets/users_css_scss.html">users.css.scss</a>
+  
+    <li><a href="../app/views/games/index_json_jbuilder.html">index.json.jbuilder</a>
+  
+    <li><a href="../app/views/games/show_json_jbuilder.html">show.json.jbuilder</a>
+  
+    <li><a href="../app/views/maps/index_json_jbuilder.html">index.json.jbuilder</a>
+  
+    <li><a href="../app/views/maps/show_json_jbuilder.html">show.json.jbuilder</a>
+  
+    <li><a href="../app/views/rooms/index_json_jbuilder.html">index.json.jbuilder</a>
+  
+    <li><a href="../app/views/rooms/show_json_jbuilder.html">show.json.jbuilder</a>
+  
+    <li><a href="../app/views/rulesets/index_json_jbuilder.html">index.json.jbuilder</a>
+  
+    <li><a href="../app/views/rulesets/show_json_jbuilder.html">show.json.jbuilder</a>
+  
+    <li><a href="../app/views/servers/index_json_jbuilder.html">index.json.jbuilder</a>
+  
+    <li><a href="../app/views/servers/show_json_jbuilder.html">show.json.jbuilder</a>
+  
+    <li><a href="../bin/rails.html">rails</a>
+  
+    <li><a href="../ca/mq_keys_rails_sh.html">mq_keys_rails.sh</a>
+  
+    <li><a href="../ca/openssl_ca_cnf.html">openssl_ca.cnf</a>
+  
+    <li><a href="../config_ru.html">config.ru</a>
+  
+    <li><a href="../features/user_test_feature.html">user_test.feature</a>
+  
+    <li><a href="../html/Account_html.html">Account.html</a>
+  
+    <li><a href="../html/AccountHelper_html.html">AccountHelper.html</a>
+  
+    <li><a href="../html/AccountsController_html.html">AccountsController.html</a>
+  
+    <li><a href="../html/ActiveAdmin_html.html">ActiveAdmin.html</a>
+  
+    <li><a href="../html/ActiveRecord_html.html">ActiveRecord.html</a>
+  
+    <li><a href="../html/ActiveRecord/Base_html.html">Base.html</a>
+  
+    <li><a href="../html/Admin_html.html">Admin.html</a>
+  
+    <li><a href="../html/ApplicationController_html.html">ApplicationController.html</a>
+  
+    <li><a href="../html/ApplicationHelper_html.html">ApplicationHelper.html</a>
+  
+    <li><a href="../html/Braintree_html.html">Braintree.html</a>
+  
+    <li><a href="../html/EventMachine_html.html">EventMachine.html</a>
+  
+    <li><a href="../html/Game_html.html">Game.html</a>
+  
+    <li><a href="../html/Gamerist_html.html">Gamerist.html</a>
+  
+    <li><a href="../html/Gamerist/Application_html.html">Application.html</a>
+  
+    <li><a href="../html/Gamerist/OmniAuth_html.html">OmniAuth.html</a>
+  
+    <li><a href="../html/GameristMailer_html.html">GameristMailer.html</a>
+  
+    <li><a href="../html/GamesController_html.html">GamesController.html</a>
+  
+    <li><a href="../html/GamesHelper_html.html">GamesHelper.html</a>
+  
+    <li><a href="../html/Logger_html.html">Logger.html</a>
+  
+    <li><a href="../html/Map_html.html">Map.html</a>
+  
+    <li><a href="../html/MapsController_html.html">MapsController.html</a>
+  
+    <li><a href="../html/MapsHelper_html.html">MapsHelper.html</a>
+  
+    <li><a href="../html/Object_html.html">Object.html</a>
+  
+    <li><a href="../html/OpenID_html.html">OpenID.html</a>
+  
+    <li><a href="../html/OpenID/Store_html.html">Store.html</a>
+  
+    <li><a href="../html/PayPal_html.html">PayPal.html</a>
+  
+    <li><a href="../html/PayPal/SDK_html.html">SDK.html</a>
+  
+    <li><a href="../html/Paypal_html.html">Paypal.html</a>
+  
+    <li><a href="../html/Paypal/PaymentCreationFailedException_html.html">PaymentCreationFailedException.html</a>
+  
+    <li><a href="../html/PaypalsController_html.html">PaypalsController.html</a>
+  
+    <li><a href="../html/README_rdoc_html.html">README_rdoc.html</a>
+  
+    <li><a href="../html/Room_html.html">Room.html</a>
+  
+    <li><a href="../html/RoomsController_html.html">RoomsController.html</a>
+  
+    <li><a href="../html/RoomsHelper_html.html">RoomsHelper.html</a>
+  
+    <li><a href="../html/Ruleset_html.html">Ruleset.html</a>
+  
+    <li><a href="../html/RulesetsController_html.html">RulesetsController.html</a>
+  
+    <li><a href="../html/RulesetsHelper_html.html">RulesetsHelper.html</a>
+  
+    <li><a href="../html/Server_html.html">Server.html</a>
+  
+    <li><a href="../html/ServersController_html.html">ServersController.html</a>
+  
+    <li><a href="../html/ServersHelper_html.html">ServersHelper.html</a>
+  
+    <li><a href="../html/Steamid_html.html">Steamid.html</a>
+  
+    <li><a href="../html/SteamidController_html.html">SteamidController.html</a>
+  
+    <li><a href="../html/Transaction_html.html">Transaction.html</a>
+  
+    <li><a href="../html/Transaction/ActiveRecord_html.html">ActiveRecord.html</a>
+  
+    <li><a href="../html/User_html.html">User.html</a>
+  
+    <li><a href="../html/WelcomeController_html.html">WelcomeController.html</a>
+  
+    <li><a href="../html/fonts_css.html">fonts.css</a>
+  
+    <li><a href="../html/index_html.html">index.html</a>
+  
+    <li><a href="../html/js/darkfish_js.html">darkfish.js</a>
+  
+    <li><a href="../html/js/jquery_js.html">jquery.js</a>
+  
+    <li><a href="../html/js/navigation_js.html">navigation.js</a>
+  
+    <li><a href="../html/js/search_js.html">search.js</a>
+  
+    <li><a href="../html/js/search_index_js.html">search_index.js</a>
+  
+    <li><a href="../html/js/searcher_js.html">searcher.js</a>
+  
+    <li><a href="../html/rdoc_css.html">rdoc.css</a>
+  
+    <li><a href="../html/table_of_contents_html.html">table_of_contents.html</a>
+  
+    <li><a href="../lib/tasks/cucumber_rake.html">cucumber.rake</a>
+  
+    <li><a href="../log/development_log.html">development.log</a>
+  
+    <li><a href="../log/test_log.html">test.log</a>
+  
+    <li><a href="../public/404_html.html">404.html</a>
+  
+    <li><a href="../public/422_html.html">422.html</a>
+  
+    <li><a href="../public/500_html.html">500.html</a>
+  
+    <li><a href="../public/favicon_ico.html">favicon.ico</a>
+  
+    <li><a href="../public/robots_txt.html">robots</a>
+  
+    <li><a href="../server_sh.html">server.sh</a>
+  
+    <li><a href="../smart_rspec_sh.html">smart_rspec.sh</a>
+  
+    <li><a href="../tmp/FU.html">FU</a>
+  
+    <li><a href="../tmp/cache/AE.html">AE</a>
+  
+    <li><a href="../workspace.html">workspace</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page ca/openssl_ca.cnf">
+
+<p># # OpenSSL example configuration file. # This is mostly being used for
+generation of certificate requests. #</p>
+
+<p># This definition stops the following lines choking if HOME isn’t #
+defined. HOME                    = . RANDFILE                =
+$ENV::HOME/.rnd</p>
+
+<p># Extra OBJECT IDENTIFIER info: oid_file               = $ENV::HOME/.oid
+oid_section             = new_oids</p>
+
+<p># To use this configuration file with the “-extfile” option of the #
+“openssl x509” utility, name here the section containing the # X.509v3
+extensions to use: # extensions            =  # (Alternatively, use a
+configuration file that has only # X.509v3 extensions in its main [=
+default] section.)</p>
+<dl class="rdoc-list label-list"><dt> new_oids 
+<dd>
+<p># We can add new OIDs in here for use by ‘ca’, ‘req’ and ‘ts’. # Add a
+simple OID like this: # testoid1=1.2.3.4 # Or use config file substitution
+like this: # testoid2=${testoid1}.5.6</p>
+
+<p># Policies used by the TSA examples. tsa_policy1 = 1.2.3.4.1 tsa_policy2 =
+1.2.3.4.5.6 tsa_policy3 = 1.2.3.4.5.7</p>
+
+<p>####################################################################</p>
+<dl class="rdoc-list label-list"><dt> ca 
+<dd>
+<p>default_ca      = CA_default            # The default ca section</p>
+
+<p>####################################################################</p>
+<dl class="rdoc-list label-list"><dt> CA_default 
+<dd>
+<p>dir             = .                     # Where everything is kept certs   
+= $dir/certs            # Where the issued certs are kept crl_dir         =
+$dir/crl              # Where the issued crl are kept database        =
+$dir/index.txt        # database index file. unique_subject = no           
+# Set to ‘no’ to allow creation of</p>
+
+<pre># several ctificates with same subject.</pre>
+
+<p>new_certs_dir   = $dir/newcerts         # default place for new certs.</p>
+
+<p>certificate     = $dir/authority.pem    # The CA certificate serial        
+= $dir/serial           # The current serial number crlnumber       =
+$dir/crlnumber        # the current crl number</p>
+
+<pre># must be commented out to leave a V1 CRL</pre>
+
+<p>crl             = $dir/crl.pem          # The current CRL private_key     =
+$dir/private/cakey.pem# The private key RANDFILE        =
+$dir/private/.rand    # private random number file</p>
+
+<p>x509_extensions = usr_cert              # The extentions to add to the cert</p>
+
+<p># Comment out the following two lines for the “traditional” # (and highly
+broken) format. name_opt        = ca_default            # Subject Name
+options cert_opt        = ca_default            # Certificate field options</p>
+
+<p># Extension copying option: use with caution. # copy_extensions = copy</p>
+
+<p># Extensions to add to a CRL. Note: Netscape communicator chokes on V2 CRLs
+# so this is commented out by default to leave a V1 CRL. # crlnumber must
+also be commented out to leave a V1 CRL. # crl_extensions        = crl_ext</p>
+
+<p>default_days    = 365                   # how long to certify for
+default_crl_days= 30                    # how long before next CRL
+default_md      = default               # use public key default MD
+preserve        = no                    # keep passed DN ordering</p>
+
+<p># A few difference way of specifying how similar the request should look #
+For type CA, the listed attributes must be the same, and the optional # and
+supplied fields are just that :-) policy          = policy_anything</p>
+
+<p># For the CA policy</p>
+<dl class="rdoc-list label-list"><dt> policy_match 
+<dd>
+<p>countryName             = match stateOrProvinceName     = match
+organizationName        = match organizationalUnitName  = optional
+commonName              = supplied emailAddress            = optional</p>
+
+<p># For the ‘anything’ policy # At this point in time, you must list all
+acceptable ‘object’ # types.</p>
+<dl class="rdoc-list label-list"><dt> policy_anything 
+<dd>
+<p>countryName             = optional stateOrProvinceName     = optional
+localityName            = optional organizationName        = optional
+organizationalUnitName  = optional commonName              = supplied
+emailAddress            = optional</p>
+
+<p>####################################################################</p>
+<dl class="rdoc-list label-list"><dt> req 
+<dd>
+<p>default_bits            = 1024 default_keyfile         = privkey.pem
+distinguished_name      = req_distinguished_name attributes              =
+req_attributes x509_extensions = v3_ca # The extentions to add to the self
+signed cert</p>
+
+<p># Passwords for private keys if not present they will be prompted for #
+input_password = secret # output_password = secret</p>
+
+<p># This sets a mask for permitted string types. There are several options. 
+# default: PrintableString, T61String, BMPString. # pkix   :
+PrintableString, BMPString (PKIX recommendation before 2004) # utf8only:
+only UTF8Strings (PKIX recommendation after 2004). # nombstr :
+PrintableString, T61String (no BMPStrings or UTF8Strings). # MASK:XXXX a
+literal mask value. # WARNING: ancient versions of Netscape crash on
+BMPStrings or UTF8Strings. string_mask = utf8only</p>
+
+<p># req_extensions = v3_req # The extensions to add to a certificate request</p>
+<dl class="rdoc-list label-list"><dt> req_distinguished_name 
+<dd>
+<p>countryName                     = Country Name (2 letter code)
+countryName_default             = AU countryName_min                 = 2
+countryName_max                 = 2</p>
+
+<p>stateOrProvinceName             = State or Province Name (full name)
+stateOrProvinceName_default     = Some-State</p>
+
+<p>localityName                    = Locality Name (eg, city)</p>
+
+<p>0.organizationName              = Organization Name (eg, company)
+0.organizationName_default      = Internet Widgits Pty Ltd</p>
+
+<p># we can do this but it is not needed normally :-) #1.organizationName     
+= Second Organization Name (eg, company) #1.organizationName_default     =
+World Wide Web Pty Ltd</p>
+
+<p>organizationalUnitName          = Organizational Unit Name (eg, section)
+organizationalUnitName_default =</p>
+
+<p>commonName                      = Common Name (e.g. server FQDN or YOUR
+name) commonName_max                  = 64</p>
+
+<p>emailAddress                    = Email Address emailAddress_max           
+= 64</p>
+
+<p># SET-ex3                       = SET extension number 3</p>
+<dl class="rdoc-list label-list"><dt> req_attributes 
+<dd>
+<p>challengePassword               = A challenge password
+challengePassword_min           = 4 challengePassword_max           = 20</p>
+
+<p>unstructuredName                = An optional company name</p>
+<dl class="rdoc-list label-list"><dt> usr_cert 
+<dd>
+<p># These extensions are added when ‘ca’ signs a request.</p>
+
+<p># This goes against PKIX guidelines but some CAs do it and some software #
+requires this to avoid interpreting an end user certificate as a CA.</p>
+
+<p>basicConstraints=CA:FALSE</p>
+
+<p># Here are some examples of the usage of nsCertType. If it is omitted # the
+certificate can be used for anything <strong>except</strong> object
+signing.</p>
+
+<p># This is OK for an SSL server. # nsCertType                    = server</p>
+
+<p># For an object signing certificate this would be used. # nsCertType =
+objsign</p>
+
+<p># For normal client use this is typical # nsCertType = client, email</p>
+
+<p># and for everything including object signing: # nsCertType = client,
+email, objsign</p>
+
+<p># This is typical in keyUsage for a client certificate. # keyUsage =
+nonRepudiation, digitalSignature, keyEncipherment</p>
+
+<p># This will be displayed in Netscape’s comment listbox. nsComment          
+= “OpenSSL Generated Certificate”</p>
+
+<p># PKIX recommendations harmless if included in all certificates.
+subjectKeyIdentifier=hash authorityKeyIdentifier=keyid,issuer</p>
+
+<p># This stuff is for subjectAltName and issuerAltname. # Import the email
+address. # subjectAltName=email:copy # An alternative to produce
+certificates that aren’t # deprecated according to PKIX. #
+subjectAltName=email:move</p>
+
+<p># Copy subject details # issuerAltName=issuer:copy</p>
+
+<p>nsCaRevocationUrl              = <a
+href="http://www.domain.dom/ca-crl.pem">www.domain.dom/ca-crl.pem</a>
+nsBaseUrl nsRevocationUrl nsRenewalUrl nsCaPolicyUrl nsSslServerName</p>
+
+<p># This is required for TSA certificates. # extendedKeyUsage =
+critical,timeStamping</p>
+<dl class="rdoc-list label-list"><dt> v3_req 
+<dd>
+<p># Extensions to add to a certificate request</p>
+
+<p>basicConstraints = CA:FALSE keyUsage = nonRepudiation, digitalSignature,
+keyEncipherment</p>
+<dl class="rdoc-list label-list"><dt> v3_ca 
+<dd>
+<p># Extensions for a typical CA</p>
+
+<p># PKIX recommendation.</p>
+
+<p>subjectKeyIdentifier=hash</p>
+
+<p>authorityKeyIdentifier=keyid:always,issuer</p>
+
+<p># This is what PKIX recommends but some broken software chokes on critical
+# extensions. basicConstraints = critical,CA:true # So we do this instead.
+basicConstraints = CA:true</p>
+
+<p># Key usage: this is typical for a CA certificate. However since it will #
+prevent it being used as an test self-signed certificate it is best # left
+out by default. # keyUsage = cRLSign, keyCertSign</p>
+
+<p># Some might want this also # nsCertType = sslCA, emailCA</p>
+
+<p># Include email address in subject alt name: another PKIX recommendation #
+subjectAltName=email:copy # Copy issuer details # issuerAltName=issuer:copy</p>
+
+<p># DER hex encoding of an extension: beware experts only! # obj=DER:02:03 #
+Where ‘obj’ is a standard or added object # You can even override a
+supported extension: # basicConstraints= critical, DER:30:03:01:01:FF</p>
+<dl class="rdoc-list label-list"><dt> crl_ext 
+<dd>
+<p># CRL extensions. # Only issuerAltName and authorityKeyIdentifier make any
+sense in a CRL.</p>
+
+<p># issuerAltName=issuer:copy authorityKeyIdentifier=keyid:always</p>
+<dl class="rdoc-list label-list"><dt> proxy_cert_ext 
+<dd>
+<p># These extensions should be added when creating a proxy certificate</p>
+
+<p># This goes against PKIX guidelines but some CAs do it and some software #
+requires this to avoid interpreting an end user certificate as a CA.</p>
+
+<p>basicConstraints=CA:FALSE</p>
+
+<p># Here are some examples of the usage of nsCertType. If it is omitted # the
+certificate can be used for anything <strong>except</strong> object
+signing.</p>
+
+<p># This is OK for an SSL server. # nsCertType                    = server</p>
+
+<p># For an object signing certificate this would be used. # nsCertType =
+objsign</p>
+
+<p># For normal client use this is typical # nsCertType = client, email</p>
+
+<p># and for everything including object signing: # nsCertType = client,
+email, objsign</p>
+
+<p># This is typical in keyUsage for a client certificate. # keyUsage =
+nonRepudiation, digitalSignature, keyEncipherment</p>
+
+<p># This will be displayed in Netscape’s comment listbox. nsComment          
+= “OpenSSL Generated Certificate”</p>
+
+<p># PKIX recommendations harmless if included in all certificates.
+subjectKeyIdentifier=hash authorityKeyIdentifier=keyid,issuer</p>
+
+<p># This stuff is for subjectAltName and issuerAltname. # Import the email
+address. # subjectAltName=email:copy # An alternative to produce
+certificates that aren’t # deprecated according to PKIX. #
+subjectAltName=email:move</p>
+
+<p># Copy subject details # issuerAltName=issuer:copy</p>
+
+<p>nsCaRevocationUrl              = <a
+href="http://www.domain.dom/ca-crl.pem">www.domain.dom/ca-crl.pem</a>
+nsBaseUrl nsRevocationUrl nsRenewalUrl nsCaPolicyUrl nsSslServerName</p>
+
+<p># This really needs to be in place for it to be a proxy certificate.
+proxyCertInfo=critical,language:id-ppl-anyLanguage,pathlen:3,policy:foo</p>
+
+<p>####################################################################</p>
+<dl class="rdoc-list label-list"><dt> tsa 
+<dd>
+<p>default_tsa = tsa_config1       # the default TSA section</p>
+<dl class="rdoc-list label-list"><dt> tsa_config1 
+<dd>
+<p># These are used by the TSA reply generation only. dir             =
+./demoCA              # TSA root directory serial          = $dir/tsaserial
+# The current serial number (mandatory) crypto_device   = builtin          
+# OpenSSL engine to use for signing signer_cert     = $dir/tsacert.pem     
+# The TSA signing certificate</p>
+
+<pre># (optional)</pre>
+
+<p>certs           = $dir/cacert.pem       # Certificate chain to include in
+reply</p>
+
+<pre># (optional)</pre>
+
+<p>signer_key      = $dir/private/tsakey.pem # The TSA private key (optional)</p>
+
+<p>default_policy  = tsa_policy1           # Policy if request did not specify
+it</p>
+
+<pre># (optional)</pre>
+
+<p>other_policies  = tsa_policy2, tsa_policy3      # acceptable policies
+(optional) digests         = md5, sha1             # Acceptable message
+digests (mandatory) accuracy        = secs:1, millisecs:500, microsecs:100 
+# (optional) clock_precision_digits  = 0     # number of digits after dot.
+(optional) ordering                = yes   # Is ordering defined for
+timestamps?</p>
+
+<pre># (optional, default: no)</pre>
+
+<p>tsa_name                = yes   # Must the TSA name be included in the
+reply?</p>
+
+<pre># (optional, default: no)</pre>
+
+<p>ess_cert_id_chain       = no    # Must the ESS cert id chain be included?</p>
+
+<pre># (optional, default: no)</pre>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://rdoc.rubyforge.org">RDoc</a> 4.1.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

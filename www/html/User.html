@@ -61,7 +61,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link"><a href="ActiveRecord/Base.html">ActiveRecord::Base</a>
+  <p class="link">ActiveRecord::Base
   
 </div>
 
@@ -77,15 +77,13 @@
     
     <li ><a href="#method-i-balance_realized">#balance_realized</a>
     
-    <li ><a href="#method-i-balance_realized-3D">#balance_realized=</a>
-    
     <li ><a href="#method-i-balance_unrealized">#balance_unrealized</a>
     
-    <li ><a href="#method-i-balance_unrealized-3D">#balance_unrealized=</a>
-    
-    <li ><a href="#method-i-finalize_paypal_cashout">#finalize_paypal_cashout</a>
+    <li ><a href="#method-i-fetch_avatar_id">#fetch_avatar_id</a>
     
     <li ><a href="#method-i-load_balance">#load_balance</a>
+    
+    <li ><a href="#method-i-name">#name</a>
     
     <li ><a href="#method-i-total_balance">#total_balance</a>
     
@@ -102,6 +100,24 @@
 
   <section class="description">
     
+<h2 id="class-User-label-Schema+Information">Schema Information<span><a href="#class-User-label-Schema+Information">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>Table name: users</p>
+
+<pre>id                     :integer          not null, primary key
+email                  :string(255)      default(&quot;&quot;), not null
+encrypted_password     :string(255)      default(&quot;&quot;), not null
+reset_password_token   :string(255)
+reset_password_sent_at :datetime
+remember_created_at    :datetime
+sign_in_count          :integer          default(0), not null
+current_sign_in_at     :datetime
+last_sign_in_at        :datetime
+current_sign_in_ip     :string(255)
+last_sign_in_ip        :string(255)
+created_at             :datetime
+updated_at             :datetime</pre>
+
   </section>
 
   
@@ -142,7 +158,7 @@
 
           
           <div class="method-source-code" id="attach_steam-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 13</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">attach_steam</span>(<span class="ruby-identifier">access_token</span>)
   <span class="ruby-identifier">steamuid</span> = <span class="ruby-identifier">access_token</span>[<span class="ruby-string">'uid'</span>]
   <span class="ruby-ivar">@steamid</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_steamid</span>(<span class="ruby-identifier">steamid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">steamuid</span>)
@@ -176,42 +192,9 @@
 
           
           <div class="method-source-code" id="balance_realized-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 29</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">balance_realized</span>
-  <span class="ruby-identifier">cache_fetch_key_else</span> <span class="ruby-string">&quot;realized&quot;</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">load_balance</span> <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-balance_realized-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">balance_realized=</span><span
-            class="method-args">(v)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="balance_realized-3D-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 37</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">balance_realized=</span> (<span class="ruby-identifier">v</span>)
-  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">cache_key</span>(<span class="ruby-string">&quot;realized&quot;</span>), <span class="ruby-identifier">v</span>
+  <span class="ruby-identifier">cache_fetch_key_else</span> <span class="ruby-string">&quot;realized&quot;</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">load_balance</span>; <span class="ruby-keyword">return</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span> <span class="ruby-identifier">cache_key</span>(<span class="ruby-string">&quot;realized&quot;</span>) <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -242,9 +225,9 @@
 
           
           <div class="method-source-code" id="balance_unrealized-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 25</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">balance_unrealized</span>
-  <span class="ruby-identifier">cache_fetch_key_else</span> <span class="ruby-string">&quot;unrealized&quot;</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">load_balance</span> <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">cache_fetch_key_else</span> <span class="ruby-string">&quot;unrealized&quot;</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">load_balance</span>; <span class="ruby-keyword">return</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span> <span class="ruby-identifier">cache_key</span>(<span class="ruby-string">&quot;unrealized&quot;</span>) <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -256,11 +239,11 @@
       </div>
 
     
-      <div id="method-i-balance_unrealized-3D" class="method-detail ">
+      <div id="method-i-fetch_avatar_id" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">balance_unrealized=</span><span
-            class="method-args">(v)</span>
+          <span class="method-name">fetch_avatar_id</span><span
+            class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -269,47 +252,20 @@
 
         <div class="method-description">
           
-          
-          
-          
-
-          
-          <div class="method-source-code" id="balance_unrealized-3D-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 33</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">balance_unrealized=</span> (<span class="ruby-identifier">v</span>)
-  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">cache_key</span>(<span class="ruby-string">&quot;unrealized&quot;</span>), <span class="ruby-identifier">v</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-finalize_paypal_cashout" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">finalize_paypal_cashout</span><span
-            class="method-args">(am, pp)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
+          <p>account stuff</p>
           
           
 
           
-          <div class="method-source-code" id="finalize_paypal_cashout-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 45</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">finalize_paypal_cashout</span>(<span class="ruby-identifier">am</span>, <span class="ruby-identifier">pp</span>)
+          <div class="method-source-code" id="fetch_avatar_id-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fetch_avatar_id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cache_fetch_key_else</span> <span class="ruby-string">&quot;avatar_id&quot;</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">require</span> <span class="ruby-string">'open-uri'</span>
+    <span class="ruby-identifier">steamapik</span> = <span class="ruby-identifier">$GAMERIST_API_KEYS</span>[<span class="ruby-string">&quot;steam&quot;</span>]
+    <span class="ruby-identifier">response</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&amp;steamids=#{self.steamid.steamid}&quot;</span>).<span class="ruby-identifier">read</span>)
+    <span class="ruby-identifier">response</span>[<span class="ruby-string">&quot;response&quot;</span>][<span class="ruby-string">&quot;players&quot;</span>][<span class="ruby-value">0</span>][<span class="ruby-string">&quot;avatar&quot;</span>][<span class="ruby-regexp">/avatars\/(.*)\./</span>, <span class="ruby-value">1</span>]
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -340,11 +296,44 @@
 
           
           <div class="method-source-code" id="load_balance-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 19</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">load_balance</span>
   <span class="ruby-identifier">l</span> = <span class="ruby-constant">Transaction</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">last</span>
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">cache_key</span>(<span class="ruby-string">&quot;unrealized&quot;</span>), (<span class="ruby-identifier">l</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">balance_u</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">cache_key</span>(<span class="ruby-string">&quot;realized&quot;</span>), (<span class="ruby-identifier">l</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">balance_r</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">name</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="name-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">name</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -375,7 +364,7 @@
 
           
           <div class="method-source-code" id="total_balance-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 41</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">total_balance</span>
   <span class="ruby-identifier">balance_unrealized</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">balance_realized</span>
 <span class="ruby-keyword">end</span></pre>

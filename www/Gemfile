@@ -41,7 +41,6 @@ gem 'omniauth'
 gem 'omniauth-steam'
 gem 'net-ssh'
 gem 'paypal-sdk-rest'
-gem 'braintree'
 gem 'geocoder'
 
 gem 'redis'
@@ -51,6 +50,8 @@ gem 'march_hare'
 
 gem 'ejs', require: 'ejs'
 gem 'rails-backbone'
+gem 'annotate'
+gem 'resque'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

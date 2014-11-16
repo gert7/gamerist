@@ -66,9 +66,7 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-api_keys">#api_keys</a>
-    
-    <li ><a href="#method-i-country">#country</a>
+    <li ><a href="#method-c-country">::country</a>
     
   </ul>
 </div>
@@ -83,23 +81,6 @@
 
   <section class="description">
     
-<p>Calculating a wager:</p>
-
-<p>Where final wager (W) is 100</p>
-
-<p>losers give away: 100 - [W * VAT compensation = 10] - [W * 1% persistence
-bonus] = 89 points</p>
-
-<p>.‘. winners receive (at 1:2 winnings): 189 points</p>
-
-<p>losers receive: persistence bonus</p>
-
-<p>where:</p>
-
-<pre>-VAT compensation is applied to the subtotal when adding funds
--persistence bonus is given to losers who have remained until
- the end of the game</pre>
-
   </section>
 
   
@@ -115,47 +96,13 @@ bonus] = 89 points</p>
     
 
     
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
        <header>
-         <h3>Public Instance Methods</h3>
+         <h3>Public Class Methods</h3>
        </header>
 
     
-      <div id="method-i-api_keys" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">api_keys</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="api_keys-source">
-            <pre><span class="ruby-comment"># File config/application.rb, line 46</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">api_keys</span>
-  <span class="ruby-identifier">require</span> <span class="ruby-string">'yaml'</span>
-  <span class="ruby-constant">YAML</span><span class="ruby-operator">::</span><span class="ruby-identifier">load_file</span>(<span class="ruby-string">&quot;apikeys.yml&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-country" class="method-detail ">
+      <div id="method-c-country" class="method-detail ">
         
         <div class="method-heading">
           <span class="method-name">country</span><span
@@ -168,14 +115,14 @@ bonus] = 89 points</p>
 
         <div class="method-description">
           
-          <p>country-specifics</p>
+          
           
           
 
           
           <div class="method-source-code" id="country-source">
-            <pre><span class="ruby-comment"># File config/application.rb, line 67</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">country</span>(<span class="ruby-identifier">code</span>)
+            <pre><span class="ruby-comment"># File config/application.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">country</span>(<span class="ruby-identifier">code</span>)
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">code</span>
   <span class="ruby-keyword">when</span> <span class="ruby-value">:EST</span>
     <span class="ruby-keyword">return</span> {

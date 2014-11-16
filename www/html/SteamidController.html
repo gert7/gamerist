@@ -73,13 +73,9 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-attach">#attach</a>
+    <li ><a href="#method-i-add">#add</a>
     
     <li ><a href="#method-i-auth_hash">#auth_hash</a>
-    
-    <li ><a href="#method-i-get_info">#get_info</a>
-    
-    <li ><a href="#method-i-steam_api_key">#steam_api_key</a>
     
   </ul>
 </div>
@@ -115,10 +111,10 @@
        </header>
 
     
-      <div id="method-i-attach" class="method-detail ">
+      <div id="method-i-add" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">attach</span><span
+          <span class="method-name">add</span><span
             class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -133,44 +129,11 @@
           
 
           
-          <div class="method-source-code" id="attach-source">
+          <div class="method-source-code" id="add-source">
             <pre><span class="ruby-comment"># File app/controllers/steamid_controller.rb, line 2</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">attach</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add</span>
   <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">attach</span> <span class="ruby-identifier">auth_hash</span>
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-string">&quot;/account&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-get_info" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">get_info</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="get_info-source">
-            <pre><span class="ruby-comment"># File app/controllers/steamid_controller.rb, line 7</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_info</span>
-  
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -209,42 +172,9 @@
 
           
           <div class="method-source-code" id="auth_hash-source">
-            <pre><span class="ruby-comment"># File app/controllers/steamid_controller.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/controllers/steamid_controller.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">auth_hash</span>
   <span class="ruby-identifier">request</span>.<span class="ruby-identifier">env</span>[<span class="ruby-string">'omniauth.auth'</span>]
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-steam_api_key" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">steam_api_key</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="steam_api_key-source">
-            <pre><span class="ruby-comment"># File app/controllers/steamid_controller.rb, line 13</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">steam_api_key</span>
-  <span class="ruby-constant">Gamerist</span><span class="ruby-operator">::</span><span class="ruby-identifier">api_key</span>[<span class="ruby-string">&quot;steam&quot;</span>]
 <span class="ruby-keyword">end</span></pre>
           </div>
           

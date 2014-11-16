@@ -73,7 +73,11 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-index">#index</a>
+    <li ><a href="#method-i-paypal_callback">#paypal_callback</a>
+    
+    <li ><a href="#method-i-paypal_start">#paypal_start</a>
+    
+    <li ><a href="#method-i-show">#show</a>
     
   </ul>
 </div>
@@ -109,10 +113,10 @@
        </header>
 
     
-      <div id="method-i-index" class="method-detail ">
+      <div id="method-i-paypal_callback" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">index</span><span
+          <span class="method-name">paypal_callback</span><span
             class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -127,12 +131,78 @@
           
 
           
-          <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/accounts_controller.rb, line 4</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">current_user</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">steamid</span> <span class="ruby-keyword">then</span>
+          <div class="method-source-code" id="paypal_callback-source">
+            <pre><span class="ruby-comment"># File app/controllers/accounts_controller.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">paypal_callback</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
     
+      <div id="method-i-paypal_start" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">paypal_start</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="paypal_start-source">
+            <pre><span class="ruby-comment"># File app/controllers/accounts_controller.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">paypal_start</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">start_paypal_add</span>(<span class="ruby-identifier">current_user</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:points</span>], <span class="ruby-value">:EUR</span>, <span class="ruby-identifier">request</span>.<span class="ruby-identifier">host</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">port</span>.<span class="ruby-identifier">to_s</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-show" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="show-source">
+            <pre><span class="ruby-comment"># File app/controllers/accounts_controller.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+  <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>] <span class="ruby-operator">?</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]) <span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>
+  <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">attach_steam</span> <span class="ruby-string">&quot;uid&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;76561197960435530&quot;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">steamid</span> <span class="ruby-keyword">then</span>
+    <span class="ruby-ivar">@avatar_uri</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">fetch_avatar_id</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

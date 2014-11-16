@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: rooms
+#
+#  id         :integer          not null, primary key
+#  owner      :integer
+#  game_id    :integer
+#  ruleset_id :integer
+#  state      :integer
+#  server_id  :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Room < ActiveRecord::Base
   STATE_DRAFT   = 0
   STATE_PUBLIC  = 1

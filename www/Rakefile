@@ -8,7 +8,7 @@ Gamerist::Application.load_tasks
 RDoc::Task.new :ardoc do |rdoc|
   rdoc.main = "README.rdoc"
 
-  rdoc.rdoc_files.include("README.rdoc", "app/**/*.rb", "lib/*.rb", "config/**/*.rb")
+  rdoc.rdoc_files.include("app/**/*.rb")
   #change above to fit needs
 
   rdoc.title = "App Documentation"

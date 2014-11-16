@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: transactions
+#
+#  id         :integer          not null, primary key
+#  state      :integer
+#  user_id    :integer
+#  lastref    :integer
+#  kind       :integer
+#  detail     :integer
+#  amount     :integer
+#  balance_u  :integer
+#  balance_r  :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Transaction < ActiveRecord::Base
   
   STATE_INVALID    = 0

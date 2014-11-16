@@ -61,7 +61,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link"><a href="ActiveRecord/Base.html">ActiveRecord::Base</a>
+  <p class="link">ActiveRecord::Base
   
 </div>
 
@@ -78,6 +78,18 @@
 
   <section class="description">
     
+<h2 id="class-Server-label-Schema+Information">Schema Information<span><a href="#class-Server-label-Schema+Information">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>Table name: servers</p>
+
+<pre>id               :integer          not null, primary key
+number           :integer
+server_address   :string(255)
+dispatch_address :string(255)
+dispatch_version :integer
+created_at       :datetime
+updated_at       :datetime</pre>
+
   </section>
 
   

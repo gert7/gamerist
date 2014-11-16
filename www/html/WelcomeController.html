@@ -128,10 +128,14 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/welcome_controller.rb, line 4</span>
+            <pre><span class="ruby-comment"># File app/controllers/welcome_controller.rb, line 2</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-identifier">redis</span> = <span class="ruby-constant">Redis</span>.<span class="ruby-identifier">new</span>
-      <span class="ruby-identifier">redis</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-string">&quot;gamerist_node&quot;</span>, <span class="ruby-string">&quot;Eschelon&quot;</span>)
+  <span class="ruby-constant">Admin</span>.<span class="ruby-identifier">destroy_all</span>
+  <span class="ruby-constant">Admin</span>.<span class="ruby-identifier">create!</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">a</span>.<span class="ruby-identifier">email</span>     = <span class="ruby-string">&quot;admin@admin.com&quot;</span>
+    <span class="ruby-identifier">a</span>.<span class="ruby-identifier">password</span>  = <span class="ruby-string">&quot;administrator&quot;</span>
+    <span class="ruby-identifier">a</span>.<span class="ruby-identifier">password_confirmation</span> = <span class="ruby-string">&quot;administrator&quot;</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

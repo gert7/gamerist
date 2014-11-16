@@ -25,22 +25,15 @@
 <main role="main">
 <h1 class="class">Table of Contents - App Documentation</h1>
 
-<h2 id="pages">Pages</h2>
-<ul>
-  <li class="file">
-    <a href="README_rdoc.html">README</a>
-
-    <ul>
-      <li><a href="README_rdoc.html#label-README">README</a>
-    </ul>
-  </li>
-  
-</ul>
 
 <h2 id="classes">Classes and Modules</h2>
 <ul>
   <li class="class">
     <a href="Account.html">Account</a>
+
+    <ul>
+      <li><a href="Account.html#label-Schema+Information">Schema Information</a>
+    </ul>
   </li>
   <li class="module">
     <a href="AccountHelper.html">AccountHelper</a>
@@ -49,7 +42,11 @@
     <a href="AccountsController.html">AccountsController</a>
   </li>
   <li class="class">
-    <a href="ActiveRecord/Base.html">ActiveRecord::Base</a>
+    <a href="Admin.html">Admin</a>
+
+    <ul>
+      <li><a href="Admin.html#label-Schema+Information">Schema Information</a>
+    </ul>
   </li>
   <li class="class">
     <a href="ApplicationController.html">ApplicationController</a>
@@ -59,12 +56,6 @@
   </li>
   <li class="class">
     <a href="Game.html">Game</a>
-  </li>
-  <li class="module">
-    <a href="Gamerist.html">Gamerist</a>
-  </li>
-  <li class="class">
-    <a href="Gamerist/Application.html">Gamerist::Application</a>
   </li>
   <li class="class">
     <a href="GameristMailer.html">GameristMailer</a>
@@ -77,6 +68,10 @@
   </li>
   <li class="class">
     <a href="Map.html">Map</a>
+
+    <ul>
+      <li><a href="Map.html#label-Schema+Information">Schema Information</a>
+    </ul>
   </li>
   <li class="class">
     <a href="MapsController.html">MapsController</a>
@@ -88,7 +83,17 @@
     <a href="Paypal.html">Paypal</a>
   </li>
   <li class="class">
+    <a href="Paypal/PaymentCreationFailedException.html">Paypal::PaymentCreationFailedException</a>
+  </li>
+  <li class="class">
+    <a href="PaypalsController.html">PaypalsController</a>
+  </li>
+  <li class="class">
     <a href="Room.html">Room</a>
+
+    <ul>
+      <li><a href="Room.html#label-Schema+Information">Schema Information</a>
+    </ul>
   </li>
   <li class="class">
     <a href="RoomsController.html">RoomsController</a>
@@ -98,6 +103,10 @@
   </li>
   <li class="class">
     <a href="Ruleset.html">Ruleset</a>
+
+    <ul>
+      <li><a href="Ruleset.html#label-Schema+Information">Schema Information</a>
+    </ul>
   </li>
   <li class="class">
     <a href="RulesetsController.html">RulesetsController</a>
@@ -107,6 +116,10 @@
   </li>
   <li class="class">
     <a href="Server.html">Server</a>
+
+    <ul>
+      <li><a href="Server.html#label-Schema+Information">Schema Information</a>
+    </ul>
   </li>
   <li class="class">
     <a href="ServersController.html">ServersController</a>
@@ -116,15 +129,27 @@
   </li>
   <li class="class">
     <a href="Steamid.html">Steamid</a>
+
+    <ul>
+      <li><a href="Steamid.html#label-Schema+Information">Schema Information</a>
+    </ul>
   </li>
   <li class="class">
     <a href="SteamidController.html">SteamidController</a>
   </li>
   <li class="class">
     <a href="Transaction.html">Transaction</a>
+
+    <ul>
+      <li><a href="Transaction.html#label-Schema+Information">Schema Information</a>
+    </ul>
   </li>
   <li class="class">
     <a href="User.html">User</a>
+
+    <ul>
+      <li><a href="User.html#label-Schema+Information">Schema Information</a>
+    </ul>
   </li>
   <li class="class">
     <a href="WelcomeController.html">WelcomeController</a>
@@ -135,17 +160,27 @@
 <ul>
 
   <li class="method">
-    <a href="Transaction.html#method-c-paypal_add">::paypal_add</a>
+    <a href="Paypal.html#method-c-get_redir">::get_redir</a>
+    &mdash;
+    <span class="container">Paypal</span>
+
+  <li class="method">
+    <a href="Transaction.html#method-c-paypal_finalize">::paypal_finalize</a>
     &mdash;
     <span class="container">Transaction</span>
 
   <li class="method">
-    <a href="Gamerist.html#method-i-api_keys">#api_keys</a>
+    <a href="Paypal.html#method-c-paypal_route">::paypal_route</a>
     &mdash;
-    <span class="container">Gamerist</span>
+    <span class="container">Paypal</span>
 
   <li class="method">
-    <a href="SteamidController.html#method-i-attach">#attach</a>
+    <a href="Paypal.html#method-c-start_paypal_add">::start_paypal_add</a>
+    &mdash;
+    <span class="container">Paypal</span>
+
+  <li class="method">
+    <a href="SteamidController.html#method-i-add">#add</a>
     &mdash;
     <span class="container">SteamidController</span>
 
@@ -165,39 +200,9 @@
     <span class="container">User</span>
 
   <li class="method">
-    <a href="User.html#method-i-balance_realized-3D">#balance_realized=</a>
-    &mdash;
-    <span class="container">User</span>
-
-  <li class="method">
     <a href="User.html#method-i-balance_unrealized">#balance_unrealized</a>
     &mdash;
     <span class="container">User</span>
-
-  <li class="method">
-    <a href="User.html#method-i-balance_unrealized-3D">#balance_unrealized=</a>
-    &mdash;
-    <span class="container">User</span>
-
-  <li class="method">
-    <a href="ActiveRecord/Base.html#method-i-cache_fetch_else">#cache_fetch_else</a>
-    &mdash;
-    <span class="container">ActiveRecord::Base</span>
-
-  <li class="method">
-    <a href="ActiveRecord/Base.html#method-i-cache_fetch_key_else">#cache_fetch_key_else</a>
-    &mdash;
-    <span class="container">ActiveRecord::Base</span>
-
-  <li class="method">
-    <a href="ActiveRecord/Base.html#method-i-cache_key">#cache_key</a>
-    &mdash;
-    <span class="container">ActiveRecord::Base</span>
-
-  <li class="method">
-    <a href="Gamerist.html#method-i-country">#country</a>
-    &mdash;
-    <span class="container">Gamerist</span>
 
   <li class="method">
     <a href="RulesetsController.html#method-i-create">#create</a>
@@ -205,19 +210,19 @@
     <span class="container">RulesetsController</span>
 
   <li class="method">
-    <a href="GamesController.html#method-i-create">#create</a>
-    &mdash;
-    <span class="container">GamesController</span>
-
-  <li class="method">
-    <a href="ServersController.html#method-i-create">#create</a>
-    &mdash;
-    <span class="container">ServersController</span>
-
-  <li class="method">
     <a href="MapsController.html#method-i-create">#create</a>
     &mdash;
     <span class="container">MapsController</span>
+
+  <li class="method">
+    <a href="PaypalsController.html#method-i-create">#create</a>
+    &mdash;
+    <span class="container">PaypalsController</span>
+
+  <li class="method">
+    <a href="GamesController.html#method-i-create">#create</a>
+    &mdash;
+    <span class="container">GamesController</span>
 
   <li class="method">
     <a href="RoomsController.html#method-i-create">#create</a>
@@ -225,9 +230,9 @@
     <span class="container">RoomsController</span>
 
   <li class="method">
-    <a href="RoomsController.html#method-i-destroy">#destroy</a>
+    <a href="ServersController.html#method-i-create">#create</a>
     &mdash;
-    <span class="container">RoomsController</span>
+    <span class="container">ServersController</span>
 
   <li class="method">
     <a href="MapsController.html#method-i-destroy">#destroy</a>
@@ -245,6 +250,11 @@
     <span class="container">GamesController</span>
 
   <li class="method">
+    <a href="RoomsController.html#method-i-destroy">#destroy</a>
+    &mdash;
+    <span class="container">RoomsController</span>
+
+  <li class="method">
     <a href="RulesetsController.html#method-i-destroy">#destroy</a>
     &mdash;
     <span class="container">RulesetsController</span>
@@ -255,9 +265,9 @@
     <span class="container">RoomsController</span>
 
   <li class="method">
-    <a href="GamesController.html#method-i-edit">#edit</a>
+    <a href="RulesetsController.html#method-i-edit">#edit</a>
     &mdash;
-    <span class="container">GamesController</span>
+    <span class="container">RulesetsController</span>
 
   <li class="method">
     <a href="MapsController.html#method-i-edit">#edit</a>
@@ -270,9 +280,14 @@
     <span class="container">ServersController</span>
 
   <li class="method">
-    <a href="RulesetsController.html#method-i-edit">#edit</a>
+    <a href="GamesController.html#method-i-edit">#edit</a>
     &mdash;
-    <span class="container">RulesetsController</span>
+    <span class="container">GamesController</span>
+
+  <li class="method">
+    <a href="User.html#method-i-fetch_avatar_id">#fetch_avatar_id</a>
+    &mdash;
+    <span class="container">User</span>
 
   <li class="method">
     <a href="Paypal.html#method-i-finalize_paypal_add">#finalize_paypal_add</a>
@@ -280,39 +295,9 @@
     <span class="container">Paypal</span>
 
   <li class="method">
-    <a href="User.html#method-i-finalize_paypal_cashout">#finalize_paypal_cashout</a>
-    &mdash;
-    <span class="container">User</span>
-
-  <li class="method">
     <a href="GamesController.html#method-i-game_params">#game_params</a>
     &mdash;
     <span class="container">GamesController</span>
-
-  <li class="method">
-    <a href="SteamidController.html#method-i-get_info">#get_info</a>
-    &mdash;
-    <span class="container">SteamidController</span>
-
-  <li class="method">
-    <a href="ServersController.html#method-i-index">#index</a>
-    &mdash;
-    <span class="container">ServersController</span>
-
-  <li class="method">
-    <a href="RulesetsController.html#method-i-index">#index</a>
-    &mdash;
-    <span class="container">RulesetsController</span>
-
-  <li class="method">
-    <a href="RoomsController.html#method-i-index">#index</a>
-    &mdash;
-    <span class="container">RoomsController</span>
-
-  <li class="method">
-    <a href="AccountsController.html#method-i-index">#index</a>
-    &mdash;
-    <span class="container">AccountsController</span>
 
   <li class="method">
     <a href="MapsController.html#method-i-index">#index</a>
@@ -320,14 +305,34 @@
     <span class="container">MapsController</span>
 
   <li class="method">
+    <a href="RoomsController.html#method-i-index">#index</a>
+    &mdash;
+    <span class="container">RoomsController</span>
+
+  <li class="method">
     <a href="WelcomeController.html#method-i-index">#index</a>
     &mdash;
     <span class="container">WelcomeController</span>
 
   <li class="method">
+    <a href="RulesetsController.html#method-i-index">#index</a>
+    &mdash;
+    <span class="container">RulesetsController</span>
+
+  <li class="method">
+    <a href="ServersController.html#method-i-index">#index</a>
+    &mdash;
+    <span class="container">ServersController</span>
+
+  <li class="method">
     <a href="GamesController.html#method-i-index">#index</a>
     &mdash;
     <span class="container">GamesController</span>
+
+  <li class="method">
+    <a href="Transaction.html#method-i-kind_handler">#kind_handler</a>
+    &mdash;
+    <span class="container">Transaction</span>
 
   <li class="method">
     <a href="User.html#method-i-load_balance">#load_balance</a>
@@ -340,6 +345,16 @@
     <span class="container">MapsController</span>
 
   <li class="method">
+    <a href="User.html#method-i-name">#name</a>
+    &mdash;
+    <span class="container">User</span>
+
+  <li class="method">
+    <a href="Game.html#method-i-name">#name</a>
+    &mdash;
+    <span class="container">Game</span>
+
+  <li class="method">
     <a href="ServersController.html#method-i-new">#new</a>
     &mdash;
     <span class="container">ServersController</span>
@@ -350,9 +365,19 @@
     <span class="container">RulesetsController</span>
 
   <li class="method">
+    <a href="GamesController.html#method-i-new">#new</a>
+    &mdash;
+    <span class="container">GamesController</span>
+
+  <li class="method">
     <a href="RoomsController.html#method-i-new">#new</a>
     &mdash;
     <span class="container">RoomsController</span>
+
+  <li class="method">
+    <a href="PaypalsController.html#method-i-new">#new</a>
+    &mdash;
+    <span class="container">PaypalsController</span>
 
   <li class="method">
     <a href="MapsController.html#method-i-new">#new</a>
@@ -360,9 +385,14 @@
     <span class="container">MapsController</span>
 
   <li class="method">
-    <a href="GamesController.html#method-i-new">#new</a>
+    <a href="AccountsController.html#method-i-paypal_callback">#paypal_callback</a>
     &mdash;
-    <span class="container">GamesController</span>
+    <span class="container">AccountsController</span>
+
+  <li class="method">
+    <a href="AccountsController.html#method-i-paypal_start">#paypal_start</a>
+    &mdash;
+    <span class="container">AccountsController</span>
 
   <li class="method">
     <a href="Transaction.html#method-i-realized_kind-3F">#realized_kind?</a>
@@ -395,6 +425,11 @@
     <span class="container">MapsController</span>
 
   <li class="method">
+    <a href="PaypalsController.html#method-i-set_paypal">#set_paypal</a>
+    &mdash;
+    <span class="container">PaypalsController</span>
+
+  <li class="method">
     <a href="RoomsController.html#method-i-set_room">#set_room</a>
     &mdash;
     <span class="container">RoomsController</span>
@@ -425,6 +460,11 @@
     <span class="container">RoomsController</span>
 
   <li class="method">
+    <a href="PaypalsController.html#method-i-show">#show</a>
+    &mdash;
+    <span class="container">PaypalsController</span>
+
+  <li class="method">
     <a href="MapsController.html#method-i-show">#show</a>
     &mdash;
     <span class="container">MapsController</span>
@@ -435,14 +475,9 @@
     <span class="container">GamesController</span>
 
   <li class="method">
-    <a href="Paypal.html#method-i-start_paypal_add">#start_paypal_add</a>
+    <a href="AccountsController.html#method-i-show">#show</a>
     &mdash;
-    <span class="container">Paypal</span>
-
-  <li class="method">
-    <a href="SteamidController.html#method-i-steam_api_key">#steam_api_key</a>
-    &mdash;
-    <span class="container">SteamidController</span>
+    <span class="container">AccountsController</span>
 
   <li class="method">
     <a href="User.html#method-i-total_balance">#total_balance</a>
@@ -455,14 +490,14 @@
     <span class="container">Transaction</span>
 
   <li class="method">
-    <a href="RulesetsController.html#method-i-update">#update</a>
-    &mdash;
-    <span class="container">RulesetsController</span>
-
-  <li class="method">
     <a href="ServersController.html#method-i-update">#update</a>
     &mdash;
     <span class="container">ServersController</span>
+
+  <li class="method">
+    <a href="RulesetsController.html#method-i-update">#update</a>
+    &mdash;
+    <span class="container">RulesetsController</span>
 
   <li class="method">
     <a href="RoomsController.html#method-i-update">#update</a>
