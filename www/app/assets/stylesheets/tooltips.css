@@ -1,0 +1,45 @@
+.tooltip_wrapper {
+  position: relative;
+}
+
+.helper_tooltip {
+    position: absolute;
+    background: #444;
+    padding: 2px 5px 2px 5px;
+    bottom: 100%;
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 15px;
+    z-index: 300;
+    font-family:sans-serif;
+    font-size:16px;
+    opacity: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+        -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+         -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+.tooltip_triangle {
+    position: absolute;
+    border-left: solid transparent 10px;
+    border-right: solid transparent 10px;
+    border-top: solid #444 10px;
+    bottom: -10px;
+    content: "";
+    height: 0;
+    width: 0;
+}
+
+.tooltip_wrapper:hover .tooltip_triangle {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tooltip_wrapper:hover .helper_tooltip {
+    opacity: 1;
+    pointer-events: auto;
+}

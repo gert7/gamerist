@@ -18,6 +18,7 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require backbone/gamerist
+//= require tooltips
 //= require_tree .
 //= require ./welcome/jquery.animate-shadow-min
 //= require ./welcome/welcome
