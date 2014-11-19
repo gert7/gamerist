@@ -26,10 +26,10 @@ test: &test
 production:
   adapter: postgresql
   encoding: unicode
-  database: gamerist_production
+  database: gamerist_test
   pool: 5
-  username: root
-  password: 
+  username: postgres
+  password: password
   host: localhost
 
 cucumber:

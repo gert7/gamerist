@@ -22,11 +22,8 @@ Gamerist::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   post "/", to: "welcome#enqueue"
-  require 'resque'
-  require 'resque/scheduler'
-  require 'resque/scheduler/server'
-
-  mount Resque::Server.new, :at => '/resque'
+  require 'sidekiq/web'
+  mount Sidekiq::Web, :at => '/sidekiq'
 
   #resque_constraint = lambda do |request|
   #  request.env['warden'].authenticate? and request.env['warden'].user.admin?

@@ -51,9 +51,8 @@ gem 'march_hare'
 gem 'ejs', require: 'ejs'
 gem 'rails-backbone'
 gem 'annotate'
-gem 'resque'
-gem 'resque-web', require: 'resque_web'
-gem 'resque-scheduler', git: 'git://github.com/bvandenbos/resque-scheduler'
+gem 'sidekiq'
+gem 'sinatra', require: false
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
