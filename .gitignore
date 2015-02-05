@@ -1,4 +1,4 @@
 handlr/node_modules
 steamcmd
 *~
-
+www/tmp/cache/assets/**

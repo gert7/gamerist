@@ -1,11 +1,12 @@
 #! /bin/bash
 
-RSPEC="rspec . -f d"
+JRUBY="jruby --dev"
+RSPEC="-S rspec"
 
 # Looking for nailgun
 lsof -i :2113 > /dev/null
 if [ $? == 0 ]; then
-  RSPEC="jruby --ng -S $RSPEC"
+  JRUBY="$JRUBY --ng"
 fi
 
 # Looking for spork
@@ -14,6 +15,6 @@ if [ $? == 0 ]; then
   RSPEC="$RSPEC --drb"
 fi
 
-CMD="$RSPEC $@"
+CMD="$JRUBY $RSPEC $@"
 echo $CMD
 $CMD

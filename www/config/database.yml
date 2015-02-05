@@ -13,15 +13,17 @@ development:
 # Do not set this db to the same as development or production.
   
 test: &test
-  adapter: postgresql
-  encoding: utf8
-  username: postgres
-  password: password
+  adapter: sqlite3
   min_messages: ERROR
-  database: gamerist_test
-  pool: 16
+  database: db/test.sqlite3
+  pool: 5
   timeout: 5000
-  host: localhost
+
+#test:
+#  adapter: sqlite3
+#  database: db/test.sqlite3
+#  pool: 5
+#  timeout: 5000
 
 production:
   adapter: postgresql
