@@ -18,3 +18,6 @@ module ActiveRecord
     end
   end
 end
+
+$redis = ConnectionPool.new(size: 5, timeout: 5) { Redis.new }
+

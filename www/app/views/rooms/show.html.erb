@@ -1,29 +1,3 @@
-<p id="notice"><%= notice %></p>
+<div id="rooms"></div>
 
-<p>
-  <strong>Owner:</strong>
-  <%= @room.owner %>
-</p>
 
-<p>
-  <strong>Game:</strong>
-  <%= @room.game_id %>
-</p>
-
-<p>
-  <strong>Ruleset:</strong>
-  <%= @room.ruleset_id %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @room.state %>
-</p>
-
-<p>
-  <strong>Server:</strong>
-  <%= @room.server_id %>
-</p>
-
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>

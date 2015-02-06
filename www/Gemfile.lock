@@ -262,6 +262,8 @@ GEM
       redis-store (~> 1.1.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
+    redis-objects (1.1.0)
+      redis (>= 3.0.2)
     redis-rack (1.5.0)
       rack (~> 1.5)
       redis-store (~> 1.1.0)
@@ -402,6 +404,7 @@ DEPENDENCIES
   rails (= 4.0.0)
   rails-backbone
   redis
+  redis-objects
   redis-rails
   require_all
   rspec
