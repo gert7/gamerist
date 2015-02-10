@@ -18,8 +18,10 @@ class Room < ActiveRecord::Base
   STATE_OVER    = 8
   STATE_FAILED  = 16
   
-	belongs_to :owner, class_name: 'User', inverse_of: :rooms_owned
 	has_many :users, inverse_of: :rooms
+
+  validates :state, presence: true
+  validates :rules, presence: true
 
   def make_room()
   end

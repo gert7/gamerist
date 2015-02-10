@@ -1,7 +1,6 @@
 class CreateRooms < ActiveRecord::Migration
   def change
     create_table :rooms do |t|
-      t.integer :owner
       t.integer :state
       t.text    :rules
 

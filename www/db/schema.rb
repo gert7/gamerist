@@ -11,45 +11,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206082945) do
+ActiveRecord::Schema.define(version: 20150210113440) do
 
 # Could not dump table "accounts" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x890c539>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x24a1de60>
 
 # Could not dump table "active_admin_comments" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x3ef9226b>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x3418d9d8>
 
 # Could not dump table "admins" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x39a26e54>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x19c521fb>
 
 # Could not dump table "delayed_jobs" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x4f435be3>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x32032181>
 
 # Could not dump table "games" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x374ffe34>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x7d863867>
 
 # Could not dump table "maps" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x223e4532>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x6e22c013>
 
 # Could not dump table "paypals" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x7fe64314>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x4f435be3>
 
 # Could not dump table "rooms" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x7e534778>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x73918082>
 
 # Could not dump table "rulesets" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x7c07b54d>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x103d3c3a>
 
 # Could not dump table "servers" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x4b686e2e>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x7d11b814>
 
 # Could not dump table "steamids" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x68c599fa>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x7c0bc409>
 
 # Could not dump table "transactions" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0xe15929b>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x12eb6a0f>
 
 # Could not dump table "users" because of following NoMethodError
-#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x55ed2e0b>
+#   undefined method `default_function' for #<ActiveRecord::ConnectionAdapters::PostgreSQLColumn:0x374ffe34>
 
 end
