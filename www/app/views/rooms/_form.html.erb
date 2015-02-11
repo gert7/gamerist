@@ -11,13 +11,33 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :rules %><br>
-    <%= f.text_area :rules, size: "42x6" %>
+  <div class="field" id="room_game">
+    <%= f.label "game_tf2" do %>
+      <%= f.radio_button(:game, "tf2")%>
+      <p>Team Fortress 2</p>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :state %><br>
-    <%= f.number_field :state %>
+  <div class="field" id="room_map">
+    <%= f.label :map %>
+    <%= f.select(:map, options_for_select([["", 1], ["cp_dustbowl", 2], ["ctf_2fort", 3]])) %>
+  </div>
+  <div class="field" id="room_timelimit">
+    <%= f.label :timelimit %>
+    <%= f.label(:timelimit, "30") %>
+    <%= f.radio_button(:timelimit, "30") %>
+    <%= f.label(:timelimit, "60") %>
+    <%= f.radio_button(:timelimit, "60") %>
+  </div>
+  <div class="field" id="room_playercount">
+    <%= f.label :playercount %>
+    <%= f.label(:playercount, "4") %>
+    <%= f.radio_button(:playercount, "4") %>
+    <%= f.label(:playercount, "8") %>
+    <%= f.radio_button(:playercount, "8") %>
+    <%= f.label(:playercount, "16") %>
+    <%= f.radio_button(:playercount, "16") %>
+    <%= f.label(:playercount, "32") %>
+    <%= f.radio_button(:playercount, "32") %>
   </div>
   <div class="actions">
     <%= f.submit %>

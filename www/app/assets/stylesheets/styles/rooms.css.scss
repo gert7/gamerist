@@ -1,0 +1,52 @@
+// Place all the styles related to the rooms controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#new_room_page {
+  background: #aaa;
+  color:#444;
+  padding:12px;
+  font-family: "Blue Highway Regular", sans-serif;
+}
+
+#new_room_page h1 {
+  font-family:"Blue Highway Regular", sans-serif;
+  margin-bottom:12px;
+}
+
+#room_game input[type=radio]:not(old){
+  display: none;
+}
+
+#room_game label{
+  display      : inline-block;
+  background   : #660;
+  line-height  : 24px;
+  width:100%;
+  margin-right:4px;
+  border: 1px solid #999;
+  background-image: image-url('background_room_button.png');
+  font-size:1.6em;
+  padding-top:12px; padding-bottom:12px;
+  color:white;
+  font-family:"Blue Highway Regular", sans-serif;
+  text-align:center;
+  position:relative;
+}
+
+label[for='room_game_tf2']::after {
+  content: "";
+  background: image-url('games_selector.png');
+  background-repeat: no-repeat;
+  background-position: 200px 0px;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+#room_timelimit label {display:inline;}
+#room_playercount label {display:inline;}

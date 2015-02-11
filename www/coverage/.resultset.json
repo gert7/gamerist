@@ -75,9 +75,6 @@
         1,
         0
       ],
-      "/home/gert/gamerist/www/app/helpers/servers_helper.rb": [
-        1
-      ],
       "/home/gert/gamerist/www/app/controllers/welcome_controller.rb": [
         1,
         1,
@@ -264,26 +261,6 @@
         0,
         0
       ],
-      "/home/gert/gamerist/www/app/models/game.rb": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        1,
-        0
-      ],
       "/home/gert/gamerist/www/lib/workers/yolo_worker.rb": [
         1,
         1,
@@ -297,17 +274,8 @@
       "/home/gert/gamerist/www/app/views/rooms/index.html.erb": [
         4,
         null,
-        null,
-        null,
-        3,
-        null,
-        null,
-        null,
         1,
         null,
-        1
-      ],
-      "/home/gert/gamerist/www/app/helpers/rulesets_helper.rb": [
         1
       ],
       "/home/gert/gamerist/www/app/models/transaction.rb": [
@@ -446,22 +414,6 @@
         1
       ],
       "/home/gert/gamerist/www/app/helpers/rooms_helper.rb": [
-        1
-      ],
-      "/home/gert/gamerist/www/app/models/map.rb": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
         1
       ],
       "/home/gert/gamerist/www/app/controllers/application_controller.rb": [
@@ -627,42 +579,39 @@
         1,
         1,
         1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
         null,
         1,
         1,
         1,
         1,
         1,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
         1,
         1,
         1,
         1,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1
-      ],
-      "/home/gert/gamerist/www/app/helpers/maps_helper.rb": [
         1
       ],
       "/home/gert/gamerist/www/app/models/room.rb": [
@@ -678,8 +627,6 @@
         null,
         null,
         null,
-        null,
-        null,
         1,
         1,
         1,
@@ -689,15 +636,13 @@
         1,
         null,
         1,
+        null,
         1,
         1,
-        1,
-        1
-      ],
-      "/home/gert/gamerist/www/app/helpers/games_helper.rb": [
+        null,
         1
       ]
     },
-    "timestamp": 1423164209
+    "timestamp": 1423570673
   }
 }
