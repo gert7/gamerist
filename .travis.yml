@@ -19,5 +19,6 @@ script:
   - source npminstall.sh
   - mocha
 before_script:
+  - mkdir tmp/cache
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database gamerist_test' -U postgres
