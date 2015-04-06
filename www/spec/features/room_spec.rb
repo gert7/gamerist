@@ -31,5 +31,8 @@ describe Room do
       expect(rj["wager"]).to eq 10
     end
   end
+  
+  describe "#update_room" do
+  end
 end
 

@@ -58,7 +58,7 @@ label[for='room_game_tf2']::after {
 
 #room_gameoptions, #room_roomoptions {display:inline-block; vertical-align:top;}
 
-.options_header {background:#db0; padding:2px; font-family:sans-serif; font-size:0.8em; font-weight:bold; margin-top:10px; position:relative;}
+.options_header {background:#e9ff00; padding:2px; font-family:sans-serif; font-size:0.8em; font-weight:bold; margin-top:10px; position:relative;}
 
 .options_header::after {
   content: "";
@@ -74,22 +74,10 @@ label[for='room_game_tf2']::after {
 
 .room_optionsbox {background:#999; height:400px; width:497px;position:relative;}
 
-.room_optionsbox::after {
-  content: "";
-  position:absolute;
-  background-image:image-url('background.png');
-  z-index:1;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
-  opacity:0.05;
-}
-
 .bigradiobutton {
   display:block;
   float: left;
-  background:#660;
+  background:#e9ff00;
   border: 1px solid #999;
   background-image: image-url('background_room_button.png');
   padding-bottom:20px; padding-top:20px;
@@ -99,6 +87,7 @@ label[for='room_game_tf2']::after {
   text-align:center;
   font-size:2em;
   cursor:pointer;
+  text-shadow:1px 1px hsl(0, 0%, 0%);
 }
 
 #room_playercount label {

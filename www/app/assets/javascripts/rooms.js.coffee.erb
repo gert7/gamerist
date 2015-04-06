@@ -1,0 +1,67 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+<%= "gamerist_serverdata = " + JSON.generate($gamerist_serverdata); %>
+
+request_image = (url) ->
+  new Promise((resolve, reject) ->
+    img = new Image
+
+    img.onload = ->
+      resolve img
+      return
+
+    img.onerror = ->
+      reject url
+      return
+
+    img.src = url + '?random-no-cache=' + Math.floor((1 + Math.random()) * 0x10000).toString(16)
+    return
+)
+
+ping = (url) ->
+  new Promise((resolve, reject) ->
+    start = (new Date).getTime()
+
+    response = ->
+      delta = (new Date).getTime() - start
+      # HACK: Use a fudge factor to correct the ping for HTTP bulk.
+      delta /= 4
+      resolve delta
+      return
+
+    request_image(url).then(response).catch response
+    # Set a timeout for max-pings, 5s.
+    setTimeout (->
+      reject Error('Timeout')
+      return
+    ), 5000
+    return
+)
+
+closest_server = null
+
+declare_closest_server = (ip, name) ->
+  ping("http://" + ip).then (v) -> 
+    if(closest_server == null)
+      closest_server = name
+      alert("Closest server is " + name + " at " + ip)
+
+$(document).ready () ->
+  $("input").parents("#room_playercount label").each () ->
+    $(this).css("background-color", "hsl(65,50%,50%)")
+
+  $("[checked='checked']").parents("#room_playercount label").each () ->
+    $(this).css("background-color", "hsl(65,100%,50%)")
+
+  $(".field_bigradio").on 'change', (e) ->
+    console.log("changed to " + e.target.value)
+    $(this).children(".bigradiobutton").each () ->
+      $(this).css("background-color", "hsl(65,50%,50%)")
+    $(e.target).parent().css("background-color", "hsl(65,100%,50%)")
+  #declare_closest_server("127.0.0.1", "localhost")
+  declare_closest_server("tesco.co.uk", "london")
+  declare_closest_server("ytv.ca", "francisco")
+  declare_closest_server("abc.com.au", "sydney")
+  

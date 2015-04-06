@@ -10,7 +10,7 @@
 #
 
 class Room < ActiveRecord::Base
-  attr_accessor :game, :map, :playercount, :wager, :spreadmode, :spread
+  attr_accessor :game, :map, :playercount, :wager, :spreadmode, :spread, :server
   
   STATE_DRAFT   = 0  # draft --unused
   STATE_PUBLIC  = 1  # waiting for players in browser
@@ -56,6 +56,7 @@ class Room < ActiveRecord::Base
   validate :map_in_maplist
   validates :playercount, inclusion: {in: [4, 8, 16, 32], message: "Playercount is not valid!!!"}
   validate :wager_not_invalid
+  # validates :server
   
   before_validation  do
     state ||= STATE_PUBLIC
@@ -69,7 +70,7 @@ class Room < ActiveRecord::Base
     JSON.parse(@rules)
   end
   
-  def self.make_room(game, map, playercount, wager)
+  def self.make_room(game, map, playercount, wager, location=nil)
     room = Room.new do |t|
         t.game  = game
         t.map   = map
@@ -79,4 +80,6 @@ class Room < ActiveRecord::Base
     room.save
     return room
   end
+  
 end
+

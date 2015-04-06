@@ -23,13 +23,6 @@
       <h4>Map</h4>
       <%= f.select(:map, options_for_select([["", 1], ["cp_dustbowl", 2], ["ctf_2fort", 3]])) %>
     </div>
-    <div class="field_bigradio" id="room_timelimit">
-      <h4>Time limit</h4>
-      <%= f.label(:timelimit, "30") %>
-      <%= f.radio_button(:timelimit, "30") %>
-      <%= f.label(:timelimit, "60") %>
-      <%= f.radio_button(:timelimit, "60") %>
-    </div>
   </div>
   <div id="room_roomoptions" class="room_optionsbox">
     <div class="options_header">Room options</div>
