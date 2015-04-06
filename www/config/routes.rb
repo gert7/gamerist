@@ -15,6 +15,7 @@ Gamerist::Application.routes.draw do
   get Paypal::paypal_route, to: "accounts#paypal_callback"
   get "/auth/steam/callback", to: "steamid#attach" 
   get "/account", to: "accounts#show"
+  get "/index", to: "welcome#index"
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

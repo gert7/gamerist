@@ -3,8 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #new_room_page {
-  background: #aaa;
-  color:#444;
+  background: #000;
+  color:hsl(244, 13.5, 15);
   padding:12px;
   font-family: "Blue Highway Regular", sans-serif;
 }
@@ -12,13 +12,14 @@
 #new_room_page h1 {
   font-family:"Blue Highway Regular", sans-serif;
   margin-bottom:12px;
+  color:hsl(65, 100, 50);
 }
 
 #new_room_page h4 {
   font-weight:normal;
   margin-top:12px; margin-bottom:12px;
-  background:#aaa;
-  width:454px;
+  background:hsl(65,80,50);
+  width:100%;
   padding:8px;
   box-sizing:border-box; 
 }
@@ -29,11 +30,10 @@
 
 #room_game label{
   display      : inline-block;
-  background   : #660;
-  width:100%;
+  background   : hsl(244, 13.5, 30);
+  width:997px;
   margin-right:4px;
-  border: 1px solid #999;
-  background-image: image-url('background_room_button.png');
+  border: 1px solid hsl(244, 13.5, 33);
   font-size:1.6em;
   padding-top:8px; padding-bottom:8px;
   color:white;
@@ -58,28 +58,15 @@ label[for='room_game_tf2']::after {
 
 #room_gameoptions, #room_roomoptions {display:inline-block; vertical-align:top;}
 
-.options_header {background:#e9ff00; padding:2px; font-family:sans-serif; font-size:0.8em; font-weight:bold; margin-top:10px; position:relative;}
+.options_header {background:hsl(65,80,50); padding:2px; font-family:sans-serif; font-size:0.8em; font-weight:bold; margin-top:10px; position:relative;}
 
-.options_header::after {
-  content: "";
-  position:absolute;
-  background-image:image-url('background.png');
-  z-index:1;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
-  opacity:0.2;
-}
-
-.room_optionsbox {background:#999; height:400px; width:497px;position:relative;}
+.room_optionsbox {background:hsl(244,1,40); height:400px; width:497px;position:relative;}
 
 .bigradiobutton {
   display:block;
   float: left;
   background:#e9ff00;
   border: 1px solid #999;
-  background-image: image-url('background_room_button.png');
   padding-bottom:20px; padding-top:20px;
   font-family:sans-serif;
   font-weight:bold;
@@ -100,11 +87,12 @@ label[for='room_game_tf2']::after {
 }
 
 .field_optionsbox, .field_bigradio {
-  margin-left:20px;
-  width:454px;
+  width:100%;
 }
 
 #room_playercount label {}
 
 #room_timelimit label {display:inline;}
 #room_playercount label {display:inline;}
+
+#room_map {width:100%;}
