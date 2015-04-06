@@ -70,15 +70,15 @@ group :development do
   gem 'guard-rspec', require: false
 end
 
-group :test do
+group :development, :test do
   gem 'activerecord-jdbcsqlite3-adapter'
   gem 'rspec', require: false
   gem 'rspec-rails', require: false
   gem 'capybara', require: false
-  gem 'selenium-webdriver', require: false
   gem 'factory_girl_rails', require: false
   gem 'coveralls', require: false
   gem 'database_cleaner', require: false
   gem 'mocha', require: false
   gem 'require_all'#, require: false
 end
+

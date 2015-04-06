@@ -1,7 +1,7 @@
 #! /bin/bash
 
 JRUBY="jruby --dev"
-RSPEC="-S rspec"
+RSPEC="-S rspec -fd"
 
 # Looking for nailgun
 lsof -i :2113 > /dev/null

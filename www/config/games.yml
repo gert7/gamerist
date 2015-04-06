@@ -1,0 +1,8 @@
+---
+games:
+  - name: team fortress 2
+    maps: 
+      - {name: ctf_2fort, winmode: normal, timelimit: limited, playerlimit: ctf}
+      - {name: cp_dustbowl, winmode: red, timelimit: unlimited, playerlimit: none}
+      - {name: cp_5gorge, winmode: normal, timelimit: limited, playerlimit: none}
+      
