@@ -79,8 +79,8 @@ class Transaction < ActiveRecord::Base
     end
     
     # update the cache
-    Rails.cache.write self.user.cache_symbol("unrealized"), self.balance_u
-    Rails.cache.write self.user.cache_symbol("realized"), self.balance_r
+    self.user.balance_unrealized = self.balance_u
+    self.user.balance_realized = self.balance_r
   end
 
   # try to generalize

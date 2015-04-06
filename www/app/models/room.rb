@@ -61,7 +61,15 @@ class Room < ActiveRecord::Base
     state ||= STATE_PUBLIC
   end
   
-  def self.create_room(game, map, playercount, wager)
+  before_save do
+    @rules = JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager})
+  end
+  
+  def srules
+    JSON.parse(@rules)
+  end
+  
+  def self.make_room(game, map, playercount, wager)
     room = Room.new do |t|
         t.game  = game
         t.map   = map

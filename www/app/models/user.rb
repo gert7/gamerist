@@ -41,16 +41,28 @@ class User < ActiveRecord::Base
   # unrealized + realized
   def load_balance
     l = Transaction.where(user_id: self.id).last
-    Rails.cache.write cache_symbol("unrealized"), (l != nil ? l.balance_u : 0)
-    Rails.cache.write cache_symbol("realized"), (l != nil ? l.balance_r : 0)
+    @unrealized = (l != nil ? l.balance_u : 0)
+    @realized = (l != nil ? l.balance_r : 0)
   end
   
   def balance_unrealized
-    cache_fetch_symbol_else "unrealized" do load_balance; return Rails.cache.fetch cache_symbol("unrealized") end
+    Rails.cache.fetch "#{cache_key}/balance_unrealized", expires_in: 10.minutes do
+      load_balance; @unrealized
+    end
+  end
+  
+  def balance_unrealized= (v)
+    Rails.cache.write "#{cache_key}/balance_unrealized", v, expires_in: 10.minutes
   end
   
   def balance_realized
-    cache_fetch_symbol_else "realized" do load_balance; return Rails.cache.fetch cache_symbol("realized") end
+    Rails.cache.fetch "#{cache_key}/balance_realized", expires_in: 10.minutes do
+      load_balance; @realized
+    end
+  end
+  
+  def balance_realized= (v)
+    Rails.cache.write "#{cache_key}/balance_realized", v, expires_in: 10.minutes
   end
 
   def total_balance
