@@ -76,6 +76,14 @@ Coveralls.wear!('rails')
     config.after(:suite) do
       Rails.cache.clear
     end
+    
+    config.include Warden::Test::Helpers
+    config.before(:suite) do
+      Warden.test_mode!
+    end
+    Gamerist::Application.config.session_store :cookie_store,
+      key: '_gamerist_session',
+      domain: :all
   end
 #end
 
