@@ -47,6 +47,8 @@ gem 'redis'
 gem 'redis-rails'
 gem 'redis-objects'
 gem 'rack-cache'
+gem 'redis-namespace'
+gem 'redis-rack-cache'
 gem 'march_hare'
 
 gem 'ejs', require: 'ejs'

@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.box-sizing, #new_room_page h4, .wagerselector {
+  box-sizing: border-box;
+}
+
 #new_room_page {
   background: #000;
   color:hsl(244, 13.5, 15);
@@ -21,7 +25,6 @@
   background:hsl(65,80,50);
   width:100%;
   padding:8px;
-  box-sizing:border-box; 
 }
 
 #room_game input[type=radio]:not(old){
@@ -90,9 +93,14 @@ label[for='room_game_tf2']::after {
   width:100%;
 }
 
+.field_bigradio {
+  margin-bottom:100px;
+}
+
 #room_playercount label {}
 
 #room_timelimit label {display:inline;}
 #room_playercount label {display:inline;}
 
 #room_map {width:100%;}
+.wagerselector {width:492px;background:hsl(244,50,10);border:1px solid black;font-size:2em;padding:12px; color:white;}

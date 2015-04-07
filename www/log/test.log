@@ -10347,3 +10347,1397 @@ Completed 200 OK in 2073ms (Views: 31.0ms | ActiveRecord: 12.0ms)
   [1m[36m (68.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
   [1m[35mActiveRecord::SchemaMigration Load (4.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
   [1m[36m (4.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[36m (5.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "transactions"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "users"[0m
+  [1m[35mSavepoint (2.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (6.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:34.455000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:34.455000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:27:34.552000', 412, 4, '2015-04-07 11:27:34.552000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-10, 0, 0, '2015-04-07 11:27:34.562000', 532, 1, '2015-04-07 11:27:34.562000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (20, 20, 0, '2015-04-07 11:27:34.569000', 532, 1, '2015-04-07 11:27:34.569000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:34.600000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:34.600000')
+  [1m[36mSavepoint (1.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:27:34.619000', 30, 4, '2015-04-07 11:27:34.619000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:34.626000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:34.626000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 30, '2015-04-07 11:27:34.636000', 3080, 4, '2015-04-07 11:27:34.636000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 60, '2015-04-07 11:27:34.643000', 3081, 4, '2015-04-07 11:27:34.643000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:34.650000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:34.650000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 0, '2015-04-07 11:27:34.670000', 3080, 1, '2015-04-07 11:27:34.670000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 30, '2015-04-07 11:27:34.678000', 411, 4, '2015-04-07 11:27:34.678000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-40, 20, 0, '2015-04-07 11:27:34.686000', 2001, 1, '2015-04-07 11:27:34.686000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:34.694000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:34.694000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:34.706000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:34.706000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:27:34 +0300
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.0ms)[0m  [1mSELECT "admins".* FROM "admins"[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "admins"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (2.0ms)[0m  DELETE FROM "admins" WHERE "admins"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mAdmin Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:35.452000', 'admin@admin.com', 'administrator', '2015-04-07 11:27:35.452000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  Rendered welcome/index.html.erb within layouts/application (4.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (320.0ms)
+Completed 200 OK in 1012ms (Views: 346.0ms | ActiveRecord: 3.0ms)
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:27:36 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  DELETE FROM "admins" WHERE "admins"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mAdmin Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:36.449000', 'admin@admin.com', 'administrator', '2015-04-07 11:27:36.449000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 10ms (Views: 4.0ms | ActiveRecord: 0.0ms)
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:27:36 +0300
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "current_sign_in_at", "current_sign_in_ip", "email", "encrypted_password", "last_sign_in_at", "last_sign_in_ip", "sign_in_count", "updated_at") VALUES ('2015-04-07 11:27:36.469000', '2015-04-07 11:27:36.469000', '127.0.0.1', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:36.469000', '127.0.0.1', 1, '2015-04-07 11:27:36.469000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (1.0ms)[0m  [1mSELECT "admins".* FROM "admins"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 2[0m
+  [1m[35mSavepoint (1.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (0.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:36.480000', 'admin@admin.com', 'administrator', '2015-04-07 11:27:36.480000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  Rendered elements/_headbar.html.erb (28.0ms)
+Completed 200 OK in 39ms (Views: 31.0ms | ActiveRecord: 2.0ms)
+Started GET "/rooms" for 127.0.0.1 at 2015-04-07 14:27:36 +0300
+Processing by RoomsController#index as HTML
+  Rendered rooms/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 9ms (Views: 7.0ms | ActiveRecord: 0.0ms)
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:36.619000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:36.619000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "paypals"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:27:36.634000', '2015-04-07 11:27:36.634000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  UPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:27:36.641000' WHERE "paypals"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:36.655000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:36.655000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:27:36.658000', '2015-04-07 11:27:36.658000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  UPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:27:36.661000' WHERE "paypals"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:36.675000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:36.675000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:27:36.681000', '2015-04-07 11:27:36.681000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:36.704000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:36.704000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("amount", "created_at", "redirect", "sid", "state", "subtotal", "tax", "updated_at", "user_id") VALUES (100.0, '2015-04-07 11:27:36.707000', 'https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token=EC-60U79048BN7719609', '30004001020', 1, 100.0, 20.0, '2015-04-07 11:27:36.707000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "state" = 2, "updated_at" = '2015-04-07 11:27:36.709000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "kind", "state", "updated_at", "user_id") VALUES (100, 0, 100, '2015-04-07 11:27:36.729000', 2, 2, '2015-04-07 11:27:36.729000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (1.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "steamids"[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:36.787000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:36.787000')
+  [1m[36mSteamid Load (0.0ms)[0m  [1mSELECT "steamids".* FROM "steamids" WHERE "steamids"."user_id" = NULL ORDER BY "steamids"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "steamids" ("created_at", "steamid", "updated_at") VALUES ('2015-04-07 11:27:36.790000', '76561198010202071', '2015-04-07 11:27:36.790000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSteamid Load (0.0ms)[0m  SELECT "steamids".* FROM "steamids" ORDER BY "steamids"."id" DESC LIMIT 1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:27:36.820000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:27:36.820000')[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (50, 0, 50, '2015-04-07 11:27:36.838000', 8391, 2, 2, '2015-04-07 11:27:36.838000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (1.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (30, 0, 80, '2015-04-07 11:27:36.845000', 4810, 2, 2, '2015-04-07 11:27:36.845000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "rooms"[0m
+  [1m[36m (4.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[36m (4.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:35:56 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "admins"[0m
+  [1m[35mSavepoint (2.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (2.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (1.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (3.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:57.785000', 'admin@admin.com', 'administrator', '2015-04-07 11:35:57.785000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (6.0ms)
+  Rendered elements/_header.html.erb (1.0ms)
+  Rendered elements/_headbar.html.erb (375.0ms)
+Completed 200 OK in 1148ms (Views: 422.0ms | ActiveRecord: 8.0ms)
+  [1m[36m (1.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "users"[0m
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:35:58 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  DELETE FROM "admins" WHERE "admins"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mAdmin Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:58.608000', 'admin@admin.com', 'administrator', '2015-04-07 11:35:58.608000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  Rendered welcome/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 16ms (Views: 5.0ms | ActiveRecord: 1.0ms)
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:35:58 +0300
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "current_sign_in_at", "current_sign_in_ip", "email", "encrypted_password", "last_sign_in_at", "last_sign_in_ip", "sign_in_count", "updated_at") VALUES ('2015-04-07 11:35:58.642000', '2015-04-07 11:35:58.640000', '127.0.0.1', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:58.640000', '127.0.0.1', 1, '2015-04-07 11:35:58.642000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.0ms)[0m  [1mSELECT "admins".* FROM "admins"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 2[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (0.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:58.655000', 'admin@admin.com', 'administrator', '2015-04-07 11:35:58.655000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "transactions"[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  Rendered elements/_headbar.html.erb (11.0ms)
+Completed 200 OK in 23ms (Views: 14.0ms | ActiveRecord: 0.0ms)
+Started GET "/rooms" for 127.0.0.1 at 2015-04-07 14:35:58 +0300
+Processing by RoomsController#index as HTML
+  Rendered rooms/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 8ms (Views: 6.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "rooms"
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "rooms" ("created_at", "rules", "state", "updated_at") VALUES ('2015-04-07 11:35:58.799000', '{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":10}', 1, '2015-04-07 11:35:58.799000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "steamids"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:58.842000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:58.842000')[0m
+  [1m[35mSteamid Load (0.0ms)[0m  SELECT "steamids".* FROM "steamids" WHERE "steamids"."user_id" = NULL ORDER BY "steamids"."id" ASC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "steamids" ("created_at", "steamid", "updated_at") VALUES ('2015-04-07 11:35:58.846000', '76561198010202071', '2015-04-07 11:35:58.846000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSteamid Load (1.0ms)[0m  [1mSELECT "steamids".* FROM "steamids" ORDER BY "steamids"."id" DESC LIMIT 1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:58.881000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:58.881000')
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (50, 0, 50, '2015-04-07 11:35:58.885000', 8391, 2, 2, '2015-04-07 11:35:58.885000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (30, 0, 80, '2015-04-07 11:35:58.893000', 4810, 2, 2, '2015-04-07 11:35:58.893000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:58.910000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:58.910000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (1.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "paypals"
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:35:58.926000', '2015-04-07 11:35:58.926000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:35:58.934000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:58.951000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:58.951000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:35:58.954000', '2015-04-07 11:35:58.954000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:35:58.957000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:58.975000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:58.975000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:35:58.978000', '2015-04-07 11:35:58.978000')
+  [1m[36mSavepoint (1.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:58.999000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:58.999000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "paypals" ("amount", "created_at", "redirect", "sid", "state", "subtotal", "tax", "updated_at", "user_id") VALUES (100.0, '2015-04-07 11:35:59.002000', 'https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token=EC-60U79048BN7719609', '30004001020', 1, 100.0, 20.0, '2015-04-07 11:35:59.002000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  UPDATE "paypals" SET "state" = 2, "updated_at" = '2015-04-07 11:35:59.005000' WHERE "paypals"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "kind", "state", "updated_at", "user_id") VALUES (100, 0, 100, '2015-04-07 11:35:59.010000', 2, 2, '2015-04-07 11:35:59.010000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:59.023000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:59.023000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:35:59.029000', 30, 4, '2015-04-07 11:35:59.029000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:59.039000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:59.039000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 30, '2015-04-07 11:35:59.045000', 3080, 4, '2015-04-07 11:35:59.045000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 60, '2015-04-07 11:35:59.057000', 3081, 4, '2015-04-07 11:35:59.057000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:59.069000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:59.069000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:35:59.075000', 412, 4, '2015-04-07 11:35:59.075000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-10, 0, 0, '2015-04-07 11:35:59.083000', 532, 1, '2015-04-07 11:35:59.083000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (20, 20, 0, '2015-04-07 11:35:59.090000', 532, 1, '2015-04-07 11:35:59.090000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:59.117000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:59.117000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (1.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:59.134000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:59.134000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 0, '2015-04-07 11:35:59.139000', 3080, 1, '2015-04-07 11:35:59.139000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 30, '2015-04-07 11:35:59.148000', 411, 4, '2015-04-07 11:35:59.148000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-40, 20, 0, '2015-04-07 11:35:59.156000', 2001, 1, '2015-04-07 11:35:59.156000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:35:59.168000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:35:59.168000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (4.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (1.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:37:12 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (1.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "admins"[0m
+  [1m[35mSavepoint (3.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (2.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (0.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (3.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:12.998000', 'admin@admin.com', 'administrator', '2015-04-07 11:37:12.998000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (4.0ms)
+  Rendered elements/_header.html.erb (1.0ms)
+  Rendered elements/_headbar.html.erb (372.0ms)
+Completed 200 OK in 1228ms (Views: 399.0ms | ActiveRecord: 11.0ms)
+  [1m[36m (1.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "users"[0m
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:37:13 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  DELETE FROM "admins" WHERE "admins"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mAdmin Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:13.824000', 'admin@admin.com', 'administrator', '2015-04-07 11:37:13.824000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 16ms (Views: 5.0ms | ActiveRecord: 1.0ms)
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:37:13 +0300
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "current_sign_in_at", "current_sign_in_ip", "email", "encrypted_password", "last_sign_in_at", "last_sign_in_ip", "sign_in_count", "updated_at") VALUES ('2015-04-07 11:37:13.851000', '2015-04-07 11:37:13.850000', '127.0.0.1', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:13.850000', '127.0.0.1', 1, '2015-04-07 11:37:13.851000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (1.0ms)[0m  [1mSELECT "admins".* FROM "admins"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 2[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (0.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:13.864000', 'admin@admin.com', 'administrator', '2015-04-07 11:37:13.864000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "transactions"[0m
+  [1m[35mTransaction Load (1.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  Rendered elements/_headbar.html.erb (11.0ms)
+Completed 200 OK in 22ms (Views: 13.0ms | ActiveRecord: 3.0ms)
+Started GET "/rooms" for 127.0.0.1 at 2015-04-07 14:37:13 +0300
+Processing by RoomsController#index as HTML
+  Rendered rooms/index.html.erb within layouts/application (2.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 9ms (Views: 7.0ms | ActiveRecord: 0.0ms)
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:13.978000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:13.978000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:37:14.008000', 30, 4, '2015-04-07 11:37:14.008000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.019000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.019000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 0, '2015-04-07 11:37:14.026000', 3080, 1, '2015-04-07 11:37:14.026000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 30, '2015-04-07 11:37:14.034000', 411, 4, '2015-04-07 11:37:14.034000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-40, 20, 0, '2015-04-07 11:37:14.045000', 2001, 1, '2015-04-07 11:37:14.045000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.061000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.061000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.081000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.081000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 30, '2015-04-07 11:37:14.087000', 3080, 4, '2015-04-07 11:37:14.087000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 60, '2015-04-07 11:37:14.095000', 3081, 4, '2015-04-07 11:37:14.095000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.107000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.107000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.121000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.121000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:37:14.127000', 412, 4, '2015-04-07 11:37:14.127000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-10, 0, 0, '2015-04-07 11:37:14.134000', 532, 1, '2015-04-07 11:37:14.134000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (1.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (20, 20, 0, '2015-04-07 11:37:14.141000', 532, 1, '2015-04-07 11:37:14.141000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "steamids"[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.189000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.189000')
+  [1m[36mSteamid Load (0.0ms)[0m  [1mSELECT "steamids".* FROM "steamids" WHERE "steamids"."user_id" = NULL ORDER BY "steamids"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "steamids" ("created_at", "steamid", "updated_at") VALUES ('2015-04-07 11:37:14.191000', '76561198010202071', '2015-04-07 11:37:14.191000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSteamid Load (0.0ms)[0m  SELECT "steamids".* FROM "steamids" ORDER BY "steamids"."id" DESC LIMIT 1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.211000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.211000')[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (50, 0, 50, '2015-04-07 11:37:14.216000', 8391, 2, 2, '2015-04-07 11:37:14.216000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (1.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (30, 0, 80, '2015-04-07 11:37:14.222000', 4810, 2, 2, '2015-04-07 11:37:14.222000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "rooms"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "rooms" ("created_at", "rules", "state", "updated_at") VALUES ('2015-04-07 11:37:14.258000', '{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":10}', 1, '2015-04-07 11:37:14.258000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.277000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.277000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "paypals"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:37:14.294000', '2015-04-07 11:37:14.294000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  UPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:37:14.300000' WHERE "paypals"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.316000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.316000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:37:14.318000', '2015-04-07 11:37:14.318000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  UPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:37:14.322000' WHERE "paypals"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.336000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.336000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:37:14.339000', '2015-04-07 11:37:14.339000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:37:14.359000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:37:14.359000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("amount", "created_at", "redirect", "sid", "state", "subtotal", "tax", "updated_at", "user_id") VALUES (100.0, '2015-04-07 11:37:14.361000', 'https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token=EC-60U79048BN7719609', '30004001020', 1, 100.0, 20.0, '2015-04-07 11:37:14.361000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "state" = 2, "updated_at" = '2015-04-07 11:37:14.364000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "kind", "state", "updated_at", "user_id") VALUES (100, 0, 100, '2015-04-07 11:37:14.370000', 2, 2, '2015-04-07 11:37:14.370000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (4.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:39:07 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (1.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "admins"[0m
+  [1m[35mSavepoint (3.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (2.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 1[0m
+  [1m[35mSavepoint (1.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (0.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (3.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:08.578000', 'admin@admin.com', 'administrator', '2015-04-07 11:39:08.578000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (3.0ms)
+  Rendered elements/_header.html.erb (1.0ms)
+  Rendered elements/_headbar.html.erb (346.0ms)
+Completed 200 OK in 1144ms (Views: 373.0ms | ActiveRecord: 10.0ms)
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "users"[0m
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:39:09 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  DELETE FROM "admins" WHERE "admins"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mAdmin Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.300000', 'admin@admin.com', 'administrator', '2015-04-07 11:39:09.300000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  Rendered welcome/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 12ms (Views: 4.0ms | ActiveRecord: 3.0ms)
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:39:09 +0300
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "current_sign_in_at", "current_sign_in_ip", "email", "encrypted_password", "last_sign_in_at", "last_sign_in_ip", "sign_in_count", "updated_at") VALUES ('2015-04-07 11:39:09.325000', '2015-04-07 11:39:09.323000', '127.0.0.1', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.323000', '127.0.0.1', 1, '2015-04-07 11:39:09.325000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.0ms)[0m  [1mSELECT "admins".* FROM "admins"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 2[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (0.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.337000', 'admin@admin.com', 'administrator', '2015-04-07 11:39:09.337000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "transactions"[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mCACHE (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  Rendered elements/_headbar.html.erb (9.0ms)
+Completed 200 OK in 20ms (Views: 10.0ms | ActiveRecord: 1.0ms)
+Started GET "/rooms" for 127.0.0.1 at 2015-04-07 14:39:09 +0300
+Processing by RoomsController#index as HTML
+  Rendered rooms/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 9ms (Views: 7.0ms | ActiveRecord: 0.0ms)
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.454000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.454000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "paypals"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:39:09.470000', '2015-04-07 11:39:09.470000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:39:09.483000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.498000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.498000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:39:09.502000', '2015-04-07 11:39:09.502000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:39:09.505000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.521000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.521000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:39:09.524000', '2015-04-07 11:39:09.524000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.544000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.544000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "paypals" ("amount", "created_at", "redirect", "sid", "state", "subtotal", "tax", "updated_at", "user_id") VALUES (100.0, '2015-04-07 11:39:09.547000', 'https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token=EC-60U79048BN7719609', '30004001020', 1, 100.0, 20.0, '2015-04-07 11:39:09.547000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  UPDATE "paypals" SET "state" = 2, "updated_at" = '2015-04-07 11:39:09.550000' WHERE "paypals"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "kind", "state", "updated_at", "user_id") VALUES (100, 0, 100, '2015-04-07 11:39:09.571000', 2, 2, '2015-04-07 11:39:09.571000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "steamids"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.603000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.603000')[0m
+  [1m[35mSteamid Load (1.0ms)[0m  SELECT "steamids".* FROM "steamids" WHERE "steamids"."user_id" = NULL ORDER BY "steamids"."id" ASC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "steamids" ("created_at", "steamid", "updated_at") VALUES ('2015-04-07 11:39:09.606000', '76561198010202071', '2015-04-07 11:39:09.606000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSteamid Load (1.0ms)[0m  [1mSELECT "steamids".* FROM "steamids" ORDER BY "steamids"."id" DESC LIMIT 1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.626000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.626000')
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (50, 0, 50, '2015-04-07 11:39:09.630000', 8391, 2, 2, '2015-04-07 11:39:09.630000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (30, 0, 80, '2015-04-07 11:39:09.636000', 4810, 2, 2, '2015-04-07 11:39:09.636000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "rooms"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "rooms" ("created_at", "rules", "state", "updated_at") VALUES ('2015-04-07 11:39:09.671000', '{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":10}', 1, '2015-04-07 11:39:09.671000')
+  [1m[36mSavepoint (1.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.684000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.684000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:39:09.689000', 30, 4, '2015-04-07 11:39:09.689000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.699000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.699000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 0, '2015-04-07 11:39:09.704000', 3080, 1, '2015-04-07 11:39:09.704000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 30, '2015-04-07 11:39:09.711000', 411, 4, '2015-04-07 11:39:09.711000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-40, 20, 0, '2015-04-07 11:39:09.719000', 2001, 1, '2015-04-07 11:39:09.719000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.729000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.729000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:39:09.734000', 412, 4, '2015-04-07 11:39:09.734000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-10, 0, 0, '2015-04-07 11:39:09.741000', 532, 1, '2015-04-07 11:39:09.741000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (20, 20, 0, '2015-04-07 11:39:09.747000', 532, 1, '2015-04-07 11:39:09.747000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.756000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.756000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.771000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.771000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:39:09.799000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:39:09.799000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 30, '2015-04-07 11:39:09.807000', 3080, 4, '2015-04-07 11:39:09.807000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 60, '2015-04-07 11:39:09.814000', 3081, 4, '2015-04-07 11:39:09.814000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (4.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[36m (4.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35m (1.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "transactions"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "users"[0m
+  [1m[35mSavepoint (3.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (2.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:38.341000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:38.341000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:38.392000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:38.392000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:41:38.400000', 412, 4, '2015-04-07 11:41:38.400000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-10, 0, 0, '2015-04-07 11:41:38.410000', 532, 1, '2015-04-07 11:41:38.410000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (20, 20, 0, '2015-04-07 11:41:38.418000', 532, 1, '2015-04-07 11:41:38.418000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:38.427000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:38.427000')
+  [1m[36mSavepoint (1.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 0, '2015-04-07 11:41:38.432000', 3080, 1, '2015-04-07 11:41:38.432000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 30, '2015-04-07 11:41:38.439000', 411, 4, '2015-04-07 11:41:38.439000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-40, 20, 0, '2015-04-07 11:41:38.447000', 2001, 1, '2015-04-07 11:41:38.447000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:38.454000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:38.454000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 30, '2015-04-07 11:41:38.460000', 3080, 4, '2015-04-07 11:41:38.460000', 1)
+  [1m[36mSavepoint (1.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 60, '2015-04-07 11:41:38.466000', 3081, 4, '2015-04-07 11:41:38.466000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:38.474000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:38.474000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:41:38.480000', 30, 4, '2015-04-07 11:41:38.480000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:38.488000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:38.488000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "rooms"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "rooms" ("created_at", "rules", "state", "updated_at") VALUES ('2015-04-07 11:41:38.552000', '{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":10}', 1, '2015-04-07 11:41:38.552000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:38.569000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:38.569000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "paypals"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:41:38.588000', '2015-04-07 11:41:38.588000')[0m
+  [1m[35mSavepoint (1.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (2.0ms)[0m  UPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:41:38.595000' WHERE "paypals"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:38.610000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:38.610000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:41:38.613000', '2015-04-07 11:41:38.613000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  UPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:41:38.616000' WHERE "paypals"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:38.627000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:38.627000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:41:38.630000', '2015-04-07 11:41:38.630000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:38.646000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:38.646000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("amount", "created_at", "redirect", "sid", "state", "subtotal", "tax", "updated_at", "user_id") VALUES (100.0, '2015-04-07 11:41:38.648000', 'https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token=EC-60U79048BN7719609', '30004001020', 1, 100.0, 20.0, '2015-04-07 11:41:38.648000', 1)
+  [1m[36mSavepoint (1.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "state" = 2, "updated_at" = '2015-04-07 11:41:38.650000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (1.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "kind", "state", "updated_at", "user_id") VALUES (100, 0, 100, '2015-04-07 11:41:38.656000', 2, 2, '2015-04-07 11:41:38.656000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:41:38 +0300
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.0ms)[0m  [1mSELECT "admins".* FROM "admins"[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "admins"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  DELETE FROM "admins" WHERE "admins"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mAdmin Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:39.376000', 'admin@admin.com', 'administrator', '2015-04-07 11:41:39.376000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  Rendered welcome/index.html.erb within layouts/application (4.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (337.0ms)
+Completed 200 OK in 1015ms (Views: 362.0ms | ActiveRecord: 4.0ms)
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:41:40 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  DELETE FROM "admins" WHERE "admins"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mAdmin Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:40.056000', 'admin@admin.com', 'administrator', '2015-04-07 11:41:40.056000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (0.0ms)
+Completed 200 OK in 11ms (Views: 4.0ms | ActiveRecord: 0.0ms)
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:41:40 +0300
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "current_sign_in_at", "current_sign_in_ip", "email", "encrypted_password", "last_sign_in_at", "last_sign_in_ip", "sign_in_count", "updated_at") VALUES ('2015-04-07 11:41:40.081000', '2015-04-07 11:41:40.080000', '127.0.0.1', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:40.080000', '127.0.0.1', 1, '2015-04-07 11:41:40.081000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (1.0ms)[0m  [1mSELECT "admins".* FROM "admins"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 2[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (0.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:40.089000', 'admin@admin.com', 'administrator', '2015-04-07 11:41:40.089000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  Rendered elements/_headbar.html.erb (5.0ms)
+Completed 200 OK in 12ms (Views: 5.0ms | ActiveRecord: 2.0ms)
+Started GET "/rooms" for 127.0.0.1 at 2015-04-07 14:41:40 +0300
+Processing by RoomsController#index as HTML
+  Rendered rooms/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 8ms (Views: 7.0ms | ActiveRecord: 0.0ms)
+  [1m[36m (1.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "steamids"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:40.209000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:40.209000')
+  [1m[36mSteamid Load (0.0ms)[0m  [1mSELECT "steamids".* FROM "steamids" WHERE "steamids"."user_id" = NULL ORDER BY "steamids"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "steamids" ("created_at", "steamid", "updated_at") VALUES ('2015-04-07 11:41:40.212000', '76561198010202071', '2015-04-07 11:41:40.212000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSteamid Load (0.0ms)[0m  SELECT "steamids".* FROM "steamids" ORDER BY "steamids"."id" DESC LIMIT 1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:41:40.232000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:41:40.232000')[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (50, 0, 50, '2015-04-07 11:41:40.236000', 8391, 2, 2, '2015-04-07 11:41:40.236000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (30, 0, 80, '2015-04-07 11:41:40.241000', 4810, 2, 2, '2015-04-07 11:41:40.241000', 1)[0m
+  [1m[35mSavepoint (1.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (5.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[36m (4.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+Started GET "/rooms" for 127.0.0.1 at 2015-04-07 14:42:29 +0300
+Processing by RoomsController#index as HTML
+  Rendered rooms/index.html.erb within layouts/application (3.0ms)
+  Rendered elements/_header.html.erb (1.0ms)
+  Rendered elements/_headbar.html.erb (317.0ms)
+Completed 200 OK in 976ms (Views: 343.0ms | ActiveRecord: 0.0ms)
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:42:31 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "admins"[0m
+  [1m[35mSavepoint (3.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (4.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 1[0m
+  [1m[35mSavepoint (1.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (0.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (3.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.251000', 'admin@admin.com', 'administrator', '2015-04-07 11:42:31.251000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 81ms (Views: 7.0ms | ActiveRecord: 11.0ms)
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "users"[0m
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:42:31 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  DELETE FROM "admins" WHERE "admins"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mAdmin Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.433000', 'admin@admin.com', 'administrator', '2015-04-07 11:42:31.433000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (0.0ms)
+Completed 200 OK in 11ms (Views: 4.0ms | ActiveRecord: 0.0ms)
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:42:31 +0300
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "current_sign_in_at", "current_sign_in_ip", "email", "encrypted_password", "last_sign_in_at", "last_sign_in_ip", "sign_in_count", "updated_at") VALUES ('2015-04-07 11:42:31.460000', '2015-04-07 11:42:31.458000', '127.0.0.1', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.458000', '127.0.0.1', 1, '2015-04-07 11:42:31.460000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.0ms)[0m  [1mSELECT "admins".* FROM "admins"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 2[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (0.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.470000', 'admin@admin.com', 'administrator', '2015-04-07 11:42:31.470000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "transactions"[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  Rendered elements/_headbar.html.erb (10.0ms)
+Completed 200 OK in 22ms (Views: 13.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "rooms"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "rooms" ("created_at", "rules", "state", "updated_at") VALUES ('2015-04-07 11:42:31.571000', '{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":10}', 1, '2015-04-07 11:42:31.571000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "rooms" ("created_at", "rules", "state", "updated_at") VALUES ('2015-04-07 11:42:31.581000', '{"game":"team fortress 2","map":"ctf_2fort","playercount":8,"wager":5}', 1, '2015-04-07 11:42:31.581000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.610000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.610000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:42:31.637000', 30, 4, '2015-04-07 11:42:31.637000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.647000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.647000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 30, '2015-04-07 11:42:31.652000', 3080, 4, '2015-04-07 11:42:31.652000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 60, '2015-04-07 11:42:31.660000', 3081, 4, '2015-04-07 11:42:31.660000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.670000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.670000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 0, '2015-04-07 11:42:31.677000', 3080, 1, '2015-04-07 11:42:31.677000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (1.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 30, '2015-04-07 11:42:31.683000', 411, 4, '2015-04-07 11:42:31.683000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-40, 20, 0, '2015-04-07 11:42:31.690000', 2001, 1, '2015-04-07 11:42:31.690000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.700000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.700000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (1.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.716000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.716000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:42:31.722000', 412, 4, '2015-04-07 11:42:31.722000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-10, 0, 0, '2015-04-07 11:42:31.729000', 532, 1, '2015-04-07 11:42:31.729000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (20, 20, 0, '2015-04-07 11:42:31.735000', 532, 1, '2015-04-07 11:42:31.735000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.746000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.746000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.772000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.772000')
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (50, 0, 50, '2015-04-07 11:42:31.776000', 8391, 2, 2, '2015-04-07 11:42:31.776000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (30, 0, 80, '2015-04-07 11:42:31.782000', 4810, 2, 2, '2015-04-07 11:42:31.782000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "steamids"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.812000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.812000')[0m
+  [1m[35mSteamid Load (0.0ms)[0m  SELECT "steamids".* FROM "steamids" WHERE "steamids"."user_id" = NULL ORDER BY "steamids"."id" ASC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "steamids" ("created_at", "steamid", "updated_at") VALUES ('2015-04-07 11:42:31.815000', '76561198010202071', '2015-04-07 11:42:31.815000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSteamid Load (0.0ms)[0m  [1mSELECT "steamids".* FROM "steamids" ORDER BY "steamids"."id" DESC LIMIT 1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "paypals"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.852000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.852000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "paypals" ("amount", "created_at", "redirect", "sid", "state", "subtotal", "tax", "updated_at", "user_id") VALUES (100.0, '2015-04-07 11:42:31.858000', 'https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token=EC-60U79048BN7719609', '30004001020', 1, 100.0, 20.0, '2015-04-07 11:42:31.858000', 1)
+  [1m[36mSavepoint (1.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "state" = 2, "updated_at" = '2015-04-07 11:42:31.862000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "kind", "state", "updated_at", "user_id") VALUES (100, 0, 100, '2015-04-07 11:42:31.870000', 2, 2, '2015-04-07 11:42:31.870000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.888000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.888000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:42:31.891000', '2015-04-07 11:42:31.891000')
+  [1m[36mSavepoint (1.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mUPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:42:31.894000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.930000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.930000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:42:31.934000', '2015-04-07 11:42:31.934000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:42:31.937000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:42:31.952000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:42:31.952000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:42:31.954000', '2015-04-07 11:42:31.954000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36m (4.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "schema_migrations"[0m
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:43:33 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (1.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "admins"[0m
+  [1m[35mSavepoint (2.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (2.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (1.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (2.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:34.263000', 'admin@admin.com', 'administrator', '2015-04-07 11:43:34.263000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (3.0ms)
+  Rendered elements/_header.html.erb (1.0ms)
+  Rendered elements/_headbar.html.erb (302.0ms)
+Completed 200 OK in 1034ms (Views: 331.0ms | ActiveRecord: 8.0ms)
+Started GET "/rooms" for 127.0.0.1 at 2015-04-07 14:43:34 +0300
+Processing by RoomsController#index as HTML
+  Rendered rooms/index.html.erb within layouts/application (1.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 10ms (Views: 8.0ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "users"[0m
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:43:34 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mAdmin Load (0.0ms)[0m  SELECT "admins".* FROM "admins"
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  DELETE FROM "admins" WHERE "admins"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mAdmin Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:34.981000', 'admin@admin.com', 'administrator', '2015-04-07 11:43:34.981000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  Rendered elements/_headbar.html.erb (1.0ms)
+Completed 200 OK in 11ms (Views: 3.0ms | ActiveRecord: 1.0ms)
+Started GET "/" for 127.0.0.1 at 2015-04-07 14:43:35 +0300
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "current_sign_in_at", "current_sign_in_ip", "email", "encrypted_password", "last_sign_in_at", "last_sign_in_ip", "sign_in_count", "updated_at") VALUES ('2015-04-07 11:43:35.006000', '2015-04-07 11:43:35.004000', '127.0.0.1', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.004000', '127.0.0.1', 1, '2015-04-07 11:43:35.006000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Processing by WelcomeController#index as HTML
+  [1m[36mAdmin Load (0.0ms)[0m  [1mSELECT "admins".* FROM "admins"[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mDELETE FROM "admins" WHERE "admins"."id" = 2[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mAdmin Exists (0.0ms)[0m  SELECT 1 AS one FROM "admins" WHERE "admins"."email" = 'admin@admin.com' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.016000', 'admin@admin.com', 'administrator', '2015-04-07 11:43:35.016000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+  Rendered elements/_header.html.erb (0.0ms)
+  [1m[36m (0.0ms)[0m  [1mSELECT name FROM sqlite_master WHERE type = 'table' AND name = "transactions"[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  Rendered elements/_headbar.html.erb (10.0ms)
+Completed 200 OK in 20ms (Views: 13.0ms | ActiveRecord: 1.0ms)
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.112000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.112000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "paypals"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:43:35.129000', '2015-04-07 11:43:35.129000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:43:35.142000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.157000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.157000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:43:35.161000', '2015-04-07 11:43:35.161000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "paypals" SET "user_id" = 1, "amount" = 100.0, "subtotal" = 100.0, "tax" = 20.0, "state" = 1, "sid" = 'E1222229', "redirect" = 'http://www.success.paypal.com', "updated_at" = '2015-04-07 11:43:35.164000' WHERE "paypals"."id" = 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.180000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.180000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "paypals" ("created_at", "updated_at") VALUES ('2015-04-07 11:43:35.182000', '2015-04-07 11:43:35.182000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.197000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.197000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "paypals" ("amount", "created_at", "redirect", "sid", "state", "subtotal", "tax", "updated_at", "user_id") VALUES (100.0, '2015-04-07 11:43:35.200000', 'https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token=EC-60U79048BN7719609', '30004001020', 1, 100.0, 20.0, '2015-04-07 11:43:35.200000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (1.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  UPDATE "paypals" SET "state" = 2, "updated_at" = '2015-04-07 11:43:35.203000' WHERE "paypals"."id" = 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "kind", "state", "updated_at", "user_id") VALUES (100, 0, 100, '2015-04-07 11:43:35.224000', 2, 2, '2015-04-07 11:43:35.224000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "rooms"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "rooms" ("created_at", "rules", "state", "updated_at") VALUES ('2015-04-07 11:43:35.260000', '{"game":"team fortress 2","map":"ctf_2fort","playercount":8,"wager":5}', 1, '2015-04-07 11:43:35.260000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "rooms" ("created_at", "rules", "state", "updated_at") VALUES ('2015-04-07 11:43:35.269000', '{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":10}', 1, '2015-04-07 11:43:35.269000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.294000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.294000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:43:35.300000', 30, 4, '2015-04-07 11:43:35.300000', 1)[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.309000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.309000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (0.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.322000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.322000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 30, '2015-04-07 11:43:35.328000', 3080, 4, '2015-04-07 11:43:35.328000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 0, 60, '2015-04-07 11:43:35.335000', 3081, 4, '2015-04-07 11:43:35.335000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.346000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.346000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 0, '2015-04-07 11:43:35.352000', 3080, 1, '2015-04-07 11:43:35.352000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (30, 30, 30, '2015-04-07 11:43:35.359000', 411, 4, '2015-04-07 11:43:35.359000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-40, 20, 0, '2015-04-07 11:43:35.366000', 2001, 1, '2015-04-07 11:43:35.366000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.377000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.377000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mSavepoint (1.0ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.392000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.392000')
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (10, 0, 10, '2015-04-07 11:43:35.398000', 412, 4, '2015-04-07 11:43:35.398000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (1.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (-10, 0, 0, '2015-04-07 11:43:35.404000', 532, 1, '2015-04-07 11:43:35.404000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "updated_at", "user_id") VALUES (20, 20, 0, '2015-04-07 11:43:35.411000', 532, 1, '2015-04-07 11:43:35.411000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SELECT name FROM sqlite_master WHERE type = 'table' AND name = "steamids"
+  [1m[36mSavepoint (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.480000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.480000')[0m
+  [1m[35mSteamid Load (0.0ms)[0m  SELECT "steamids".* FROM "steamids" WHERE "steamids"."user_id" = NULL ORDER BY "steamids"."id" ASC LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "steamids" ("created_at", "steamid", "updated_at") VALUES ('2015-04-07 11:43:35.484000', '76561198010202071', '2015-04-07 11:43:35.484000')[0m
+  [1m[35mSavepoint (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mSteamid Load (0.0ms)[0m  [1mSELECT "steamids".* FROM "steamids" ORDER BY "steamids"."id" DESC LIMIT 1[0m
+  [1m[35mSavepoint (1.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'useroni@mail.ch' LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES ('2015-04-07 11:43:35.497000', 'useroni@mail.ch', 'larkheid', '2015-04-07 11:43:35.497000')
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (50, 0, 50, '2015-04-07 11:43:35.500000', 8391, 2, 2, '2015-04-07 11:43:35.500000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mSavepoint (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" = 1 ORDER BY "transactions"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "transactions" ("amount", "balance_r", "balance_u", "created_at", "detail", "kind", "state", "updated_at", "user_id") VALUES (30, 0, 80, '2015-04-07 11:43:35.507000', 4810, 2, 2, '2015-04-07 11:43:35.507000', 1)
+  [1m[36mSavepoint (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mTransaction Load (0.0ms)[0m  SELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1
+  [1m[36mTransaction Load (0.0ms)[0m  [1mSELECT "transactions".* FROM "transactions" WHERE "transactions"."user_id" IS NULL ORDER BY "transactions"."id" DESC LIMIT 1[0m

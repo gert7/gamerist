@@ -34,15 +34,6 @@ class Room < ActiveRecord::Base
   ODDS_SINGLE = 32 # best 1/32 (up to 1 player) wins, min 32 players
   
   has_many :users, inverse_of: :rooms
-
-  def wager_not_invalid()
-    if(wager < 1)
-      errors.add(:wager, "Wager is negative!!!")
-    end
-    unless(wager.is_a? Integer)
-      errors.add(:wager, "Wager is not integer!!!")
-    end
-  end
   
   def map_in_maplist()
     if(ml = $gamerist_mapdata["games"].find {|g| g["name"] == @game})
@@ -55,31 +46,26 @@ class Room < ActiveRecord::Base
   validates :game, inclusion: {in: $gamerist_mapdata["games"].map {|g| g["name"]}, message: "Game is not valid!!!"}
   validate :map_in_maplist
   validates :playercount, inclusion: {in: [4, 8, 16, 32], message: "Playercount is not valid!!!"}
-  validate :wager_not_invalid
+  validates :wager, inclusion: {in: 4...51, message: "Wager of invalid size!!!"}
   # validates :server
   
   before_validation  do
-    state ||= STATE_PUBLIC
+    self.state = @state || STATE_PUBLIC
+    @playercount = playercount.to_i
+    @wager = wager.to_i.floor
   end
   
   before_save do
-    @rules = JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager})
+    puts JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager})
+    self.rules = @rules || JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager})
+  end
+  
+  after_save do
+    Rails.cache.write("#{cache_key}/standing", JSON.generate({}))
   end
   
   def srules
-    JSON.parse(@rules)
+    JSON.parse(self.rules)
   end
-  
-  def self.make_room(game, map, playercount, wager, location=nil)
-    room = Room.new do |t|
-        t.game  = game
-        t.map   = map
-        t.playercount = playercount
-        t.wager = wager
-    end
-    room.save
-    return room
-  end
-  
 end
 
