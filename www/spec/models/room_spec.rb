@@ -10,6 +10,11 @@ describe Room do
 
   describe "#make_room" do
     it "successfully creates a new room" do
+      r = Room.create(game: "team fortress 2", map: "ctf_2fort", playercount: 8, wager: 5, server: "trivulum")
+      expect(r.new_record?).to eq false
+    end
+    
+    it "successfully creates a room without server" do
       r = Room.create(game: "team fortress 2", map: "ctf_2fort", playercount: 8, wager: 5)
       expect(r.new_record?).to eq false
     end
@@ -23,6 +28,8 @@ describe Room do
       expect(r3.new_record?).to eq true
       r4 = Room.create(game: "team fortress 2", map: "ctf_2fort", playercount: 8, wager: -1)
       expect(r4.new_record?).to eq true
+      r5 = Room.create(game: "team fortress 2", map: "cp_dustbowl", playercount: 16, wager: 10, server: "flippum")
+      expect(r5.new_record?).to eq true
     end
     
     it "has valid rules struct" do
@@ -51,6 +58,30 @@ describe Room do
         room.append_player! player1
         expect(room2.append_player! player1).to eq false
       end
+      it "reserves the player" do
+        room.append_player! player1
+        expect(player1.is_reserved?).to eq true
+      end
+    end
+    context "when players don't have money" do
+      it "will not add the player" do
+        room.append_player! player1
+        expect(player1.is_reserved?).to eq false
+        expect(room.srules["players"].count).to eq 0
+      end
+    end
+  end
+  
+  describe "#remove_player!" do
+    it "removes the player from the room" do
+      room.append_player! player1
+      room.remove_player! player1
+      expect(room.srules["players"].count).to eq 0
+    end
+    it "unreserves the player" do
+      room.append_player! player1
+      room.remove_player! player1
+      expect(player1.is_reserved?).to eq false
     end
   end
 end

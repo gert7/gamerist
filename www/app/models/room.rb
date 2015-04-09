@@ -47,16 +47,18 @@ class Room < ActiveRecord::Base
   validate :map_in_maplist
   validates :playercount, inclusion: {in: [4, 8, 16, 32], message: "Playercount is not valid!!!"}
   validates :wager, inclusion: {in: 4...51, message: "Wager of invalid size!!!"}
+  validates :server, inclusion: {in: [nil, ""].concat($gamerist_serverdata["servers"].map {|g| g["name"]}), message: "Server is not valid!!!"}
   # validates :server
   
   before_validation  do
-    self.state = @state || STATE_PUBLIC
+    self.state ||= STATE_PUBLIC
+    self.server ||= $gamerist_serverdata["servers"][0]["name"]
     @playercount = playercount.to_i
     @wager = wager.to_i.floor
   end
   
   before_save do
-    self.rules = @rules || JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager, players: []})
+    self.rules = @rules || JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager, server: @server, players: []})
   end
   
   after_save do
@@ -91,7 +93,7 @@ class Room < ActiveRecord::Base
   # remove players live
   def remove_player!(player)
     mrules = self.srules
-    pi = mrules.find_index { |v| v["id"] == player.id }
+    pi = mrules["players"].find_index { |v| v["id"].to_i == player.id }
     if(pi and
        self.state == STATE_PUBLIC)
       mrules = self.srules

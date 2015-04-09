@@ -9,3 +9,4 @@ servers:
   - name: reilian
     location: -31.955341, 115.856660
     ping: 173.199.81.55
+    
