@@ -4,6 +4,16 @@ FactoryGirl.define do
     password "larkheid"
   end
   
+  factory :player1, class: :user do
+    email "bonk@bonkmail.se"
+    password "faradays"
+  end
+  
+  factory :player2, class: :user do
+    email "fire@firemail.no"
+    password "triangles"
+  end
+  
   factory :paypal do
     amount 100.0
     subtotal 100.0
@@ -15,5 +25,19 @@ FactoryGirl.define do
   end
 
   factory :transaction do
+  end
+  
+  factory :room do
+    game "team fortress 2"
+    map "ctf_2fort"
+    playercount "16"
+    wager "5"
+  end
+  
+  factory :room2, class: :room do
+    game "team fortress 2"
+    map "cp_dustbowl"
+    playercount "8"
+    wager "5"
   end
 end

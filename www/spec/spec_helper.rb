@@ -68,13 +68,14 @@ Coveralls.wear!('rails')
     #    counter = 0
     #  end
     #end
-    Rails.cache.clear
 
-    #require 'database_cleaner'
+    require 'database_cleaner'
     #DatabaseCleaner[:redis].strategy = :truncation
     
-    config.after(:suite) do
+    DatabaseCleaner.strategy = :truncation
+    config.before(:each) do
       Rails.cache.clear
+      DatabaseCleaner.clean
     end
     
     config.include Warden::Test::Helpers

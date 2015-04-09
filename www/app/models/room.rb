@@ -56,8 +56,7 @@ class Room < ActiveRecord::Base
   end
   
   before_save do
-    puts JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager})
-    self.rules = @rules || JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager})
+    self.rules = @rules || JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager, players: []})
   end
   
   after_save do
@@ -66,6 +65,40 @@ class Room < ActiveRecord::Base
   
   def srules
     JSON.parse(self.rules)
+  end
+  
+  def srules=(a)
+    self.rules = JSON.generate(a)
+    Rails.cache.write "gamerist-roomrules-#{id}", self.rules
+  end
+  
+  # append players live
+  def append_player!(player)
+    if(self.state == STATE_PUBLIC and
+       srules["players"].count < srules["playercount"] and
+       not player.is_reserved? and
+       player.total_balance >= srules["wager"])
+      mrules = self.srules
+      mrules["players"].push({id: player.id, ready: 0, wager: srules["wager"]})
+      self.srules=(mrules)
+      player.reserve! Transaction::KIND_ROOM, self.id
+      return true
+    else
+      return false
+    end
+  end
+  
+  # remove players live
+  def remove_player!(player)
+    mrules = self.srules
+    pi = mrules.find_index { |v| v["id"] == player.id }
+    if(pi and
+       self.state == STATE_PUBLIC)
+      mrules = self.srules
+      mrules["players"].delete_at(pi)
+      self.srules = mrules
+      player.unreserve!
+    end
   end
 end
 

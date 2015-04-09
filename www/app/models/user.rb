@@ -69,6 +69,22 @@ class User < ActiveRecord::Base
     balance_unrealized + balance_realized
   end
   
+  def reserve! (kind, id)
+    $redis.set "player-reservation-#{self.id}", kind.to_s + ":" + id.to_s
+  end
+  
+  def unreserve!
+    $redis.del "player-reservation-#{self.id}"
+  end
+  
+  def is_reserved?
+    ($redis.get "player-reservation-#{self.id}") != nil
+  end
+  
+  def get_reservation
+    $redis.get "player-reservation-#{self.id}"
+  end
+  
   # account stuff
   def fetch_avatar_id
     self.cache_fetch_symbol_else "avatar_id" do

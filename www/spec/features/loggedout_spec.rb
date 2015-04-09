@@ -14,6 +14,14 @@ describe 'Logged out' do
     visit '/'
     expect(page.find("#headbar_loggedin_name")).to have_content("Sign out")
   end
+  
+  it 'logs in the user then logs out' do
+    user = FactoryGirl.create(:user)
+    login_as(user)
+    visit '/'
+    click_link("Sign out")
+    expect(page.find("#headbar_loggedin_name")).to have_content("Sign in")
+  end
 
   it 'shows guest currently available rooms' do
     visit '/rooms'
