@@ -33,6 +33,9 @@ class Room < ActiveRecord::Base
   ODDS_SIXTEENTH = 16 # best 1/16 win, min 16 players
   ODDS_SINGLE = 32 # best 1/32 (up to 1 player) wins, min 32 players
   
+  WAGER_MIN = 5
+  WAGER_MAX = 50
+  
   has_many :users, inverse_of: :rooms
   
   def map_in_maplist()
@@ -46,7 +49,7 @@ class Room < ActiveRecord::Base
   validates :game, inclusion: {in: $gamerist_mapdata["games"].map {|g| g["name"]}, message: "Game is not valid!!!"}
   validate :map_in_maplist
   validates :playercount, inclusion: {in: [4, 8, 16, 32], message: "Playercount is not valid!!!"}
-  validates :wager, inclusion: {in: 4...51, message: "Wager of invalid size!!!"}
+  validates :wager, inclusion: {in: (WAGER_MIN-1)...(WAGER_MAX+1), message: "Wager of invalid size!!!"}
   validates :server, inclusion: {in: [nil, ""].concat($gamerist_serverdata["servers"].map {|g| g["name"]}), message: "Server is not valid!!!"}
   # validates :server
   
@@ -58,7 +61,7 @@ class Room < ActiveRecord::Base
   end
   
   before_save do
-    self.rules = @rules || JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager, server: @server, players: []})
+    self.rules ||= JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager, server: @server, players: []})
   end
   
   after_save do
@@ -66,12 +69,24 @@ class Room < ActiveRecord::Base
   end
   
   def srules
-    JSON.parse(self.rules)
+    a = Rails.cache.fetch("gamerist-roomrules-#{id}") do
+      self.rules
+    end
+    JSON.parse(a)
   end
   
   def srules=(a)
     self.rules = JSON.generate(a)
     Rails.cache.write "gamerist-roomrules-#{id}", self.rules
+  end
+  
+  def check_ready
+    if(srules["players"].count == srules["playercount"] and
+       self.state == STATE_PUBLIC and
+       srules["players"].inject(true) {|acc, v| acc and v["ready"].to_i == 1})
+      self.state = STATE_LOCKED
+      self.save!
+    end
   end
   
   # append players live
@@ -100,6 +115,21 @@ class Room < ActiveRecord::Base
       mrules["players"].delete_at(pi)
       self.srules = mrules
       player.unreserve!
+    end
+  end
+  
+  # amend players live
+  def amend_player!(player, hash)
+    mrules = srules
+    pi = mrules["players"].find_index { |v| v["id"].to_i == player.id }
+    if(pi and
+       (hash["wager"] ? (hash["wager"] > WAGER_MIN and hash["wager"] < WAGER_MAX) : true))
+      mrules["players"][pi] = mrules["players"][pi].merge(hash)
+      self.srules = mrules
+      check_ready
+      # check_wager
+      return 1
+    else return 0
     end
   end
 end

@@ -4,8 +4,28 @@ describe Room do
   let(:room) { FactoryGirl.create :room }
   let(:player1) { FactoryGirl.create :player1 }
   let(:player2) { FactoryGirl.create :player2 }
+  let(:player3) { FactoryGirl.create :player3 }
+  let(:player4) { FactoryGirl.create :player4 }
   let(:room2) { FactoryGirl.create :room2 }
   before(:each) do
+  end
+
+  shared_context("when players have money") do
+    before {
+      player1.stubs(:total_balance).returns 15
+      player2.stubs(:total_balance).returns 15
+      player3.stubs(:total_balance).returns 15
+      player4.stubs(:total_balance).returns 15
+    }
+  end
+  
+  shared_context("when players have no money") do
+    before {
+      player1.stubs(:total_balance).returns 0
+      player2.stubs(:total_balance).returns 0
+      player3.stubs(:total_balance).returns 0
+      player4.stubs(:total_balance).returns 0
+    }
   end
 
   describe "#make_room" do
@@ -45,9 +65,7 @@ describe Room do
   
   describe "#append_player!" do
     context "when players have money" do
-      before {
-        player1.stubs(:total_balance).returns 15
-      }
+      include_context "when players have money"
       it "adds the player successfully" do
         room.append_player! player1
         expect(player1.is_reserved?).to eq true
@@ -62,8 +80,15 @@ describe Room do
         room.append_player! player1
         expect(player1.is_reserved?).to eq true
       end
+      it "adds multiple players" do
+        room.append_player! player1
+        room.append_player! player2
+        room.append_player! player3
+        expect(room.srules["players"].count).to eq 3
+      end
     end
     context "when players don't have money" do
+      include_context "when players have no money"
       it "will not add the player" do
         room.append_player! player1
         expect(player1.is_reserved?).to eq false
@@ -82,6 +107,52 @@ describe Room do
       room.append_player! player1
       room.remove_player! player1
       expect(player1.is_reserved?).to eq false
+    end
+  end
+  
+  describe "#check_ready" do
+    include_context "when players have money"
+    context "when everyone is ready" do
+      before {
+        room.append_player! player1
+        room.amend_player! player1, "ready" => 1
+        room.append_player! player2
+        room.amend_player! player2, "ready" => 1
+        room.append_player! player3
+        room.amend_player! player3, "ready" => 1
+        room.append_player! player4
+        room.amend_player! player4, "ready" => 1
+      }
+      it "locks the room" do
+        expect(room.state).to eq Room::STATE_LOCKED
+      end
+      it "saves the rules correctly" do
+        expect(room.srules["players"].count).to eq 4
+      end
+    end
+    it "doesn't lock when someone isn't ready" do
+      room.append_player! player1
+      room.amend_player! player1, "ready" => 1
+      room.append_player! player2
+      room.amend_player! player2, "ready" => 1
+      room.append_player! player3
+      room.append_player! player4
+      room.amend_player! player4, "ready" => 1
+      expect(room.state).to eq Room::STATE_PUBLIC
+    end
+  end
+  
+  describe "#amend_player!" do
+    include_context "when players have money"
+    it "edits the player" do
+      room.append_player! player1
+      room.amend_player! player1, "wager" => 45
+      expect(room.srules["players"][0]["wager"]).to eq 45
+    end
+    it "doesn't allow an incorrect wager" do
+      room.append_player! player1
+      room.amend_player! player1, "wager" => 10000
+      expect(room.srules["players"][0]["wager"]).not_to eq 10000
     end
   end
 end

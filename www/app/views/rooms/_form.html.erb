@@ -44,7 +44,7 @@
     </div>
     <div class="field_wagerselect", id="room_wager">
       <h4>Wager</h4>
-      <input type="number" name="room[wager]" min="5" max="50" value="5" class="wagerselector"></input>
+      <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" class="wagerselector"></input>
     </div>
   </div>
   <div class="actions">
