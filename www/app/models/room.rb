@@ -69,7 +69,7 @@ class Room < ActiveRecord::Base
   end
   
   def srules
-    a = Rails.cache.fetch("gamerist-roomrules-#{id}") do
+    a = $redis.fetch("gamerist-roomrules-#{id}") do
       self.rules
     end
     JSON.parse(a)
@@ -77,13 +77,13 @@ class Room < ActiveRecord::Base
   
   def srules=(a)
     self.rules = JSON.generate(a)
-    Rails.cache.write "gamerist-roomrules-#{id}", self.rules
+    $redis.set "gamerist-roomrules-#{id}", self.rules
   end
   
-  def check_ready
-    if(srules["players"].count == srules["playercount"] and
+  def check_ready(ruleset)
+    if(ruleset["players"].count == ruleset["playercount"] and
        self.state == STATE_PUBLIC and
-       srules["players"].inject(true) {|acc, v| acc and v["ready"].to_i == 1})
+       ruleset["players"].inject(true) {|acc, v| acc and v["ready"].to_i == 1})
       self.state = STATE_LOCKED
       self.save!
     end
@@ -91,14 +91,16 @@ class Room < ActiveRecord::Base
   
   # append players live
   def append_player!(player)
+    mrules = self.srules
     if(self.state == STATE_PUBLIC and
-       srules["players"].count < srules["playercount"] and
+       mrules["players"].count < mrules["playercount"] and
        not player.is_reserved? and
        player.total_balance >= srules["wager"])
-      mrules = self.srules
       mrules["players"].push({id: player.id, ready: 0, wager: srules["wager"]})
-      self.srules=(mrules)
-      player.reserve! Transaction::KIND_ROOM, self.id
+      $redis.multi do
+        self.srules = mrules
+        player.reserve! Transaction::KIND_ROOM, self.id
+      end
       return true
     else
       return false
@@ -107,27 +109,27 @@ class Room < ActiveRecord::Base
   
   # remove players live
   def remove_player!(player)
-    mrules = self.srules
+    mrules = self.srules # read shared data /
     pi = mrules["players"].find_index { |v| v["id"].to_i == player.id }
     if(pi and
        self.state == STATE_PUBLIC)
-      mrules = self.srules
       mrules["players"].delete_at(pi)
-      self.srules = mrules
-      player.unreserve!
+      $redis.multi do
+        player.unreserve!
+        self.srules = mrules # / write shared data
+      end
     end
   end
   
   # amend players live
   def amend_player!(player, hash)
-    mrules = srules
+    mrules = srules # read shared data /
     pi = mrules["players"].find_index { |v| v["id"].to_i == player.id }
     if(pi and
        (hash["wager"] ? (hash["wager"] > WAGER_MIN and hash["wager"] < WAGER_MAX) : true))
       mrules["players"][pi] = mrules["players"][pi].merge(hash)
-      self.srules = mrules
-      check_ready
-      # check_wager
+      check_ready(mrules)
+      self.srules = mrules # / write shared data
       return 1
     else return 0
     end
