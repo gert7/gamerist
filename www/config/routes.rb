@@ -1,5 +1,5 @@
-Gamerist::Application.routes.draw do
-
+Rails.application.routes.draw do
+  
   resources :rooms
   resources :rulesets
   resources :maps
@@ -25,10 +25,11 @@ Gamerist::Application.routes.draw do
   post "/", to: "welcome#enqueue"
   require 'sidekiq/web'
   mount Sidekiq::Web, :at => '/sidekiq'
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
 
-  #resque_constraint = lambda do |request|
-  #  request.env['warden'].authenticate? and request.env['warden'].user.admin?
-  #end
+  # You can have the root of your site routed with "root"
+  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -64,7 +65,7 @@ Gamerist::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

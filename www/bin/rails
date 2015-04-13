@@ -1,13 +1,4 @@
-#!/usr/bin/env jruby
-#ENV['JRUBY_OPTS'] = '--ng --nailgun-port 2113'
-#load Gem.bin_path('rails', 'rails')
-
-#class RailsController < ApplicationController
-#  def stop
-#    Process.kill :INT, 0
-#  end
-#end
-
+#!/usr/bin/env ruby
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require_relative '../config/boot'
 require 'rails/commands'
