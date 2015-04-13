@@ -35,4 +35,3 @@ Gamerist::Application.configure do
   config.active_support.deprecation = :stderr
 end
 
-require 'activerecord_reset_subclass_fix'

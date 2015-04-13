@@ -4,7 +4,9 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # PostgreSQL
-gem 'activerecord-jdbcpostgresql-adapter'
+group :development, :production do
+  gem 'activerecord-jdbcpostgresql-adapter'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -28,7 +30,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin', github: 'activeadmin'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -36,21 +38,20 @@ group :doc do
 end
 
 # Gamerist-specific
-gem 'devise'
+gem 'devise' # 3.2.4
 gem 'omniauth'
 gem 'omniauth-steam'
-gem 'net-ssh'
-gem 'paypal-sdk-rest'
-gem 'geocoder'
+gem 'paypal-sdk-rest' # 0.6.1
+gem 'geocoder' # 1.2.0
 
-gem 'redis'
-gem 'redis-rails'
+gem 'redis' # 3.0.7
+gem 'redis-rails' # 4.0.0
 gem 'redis-objects'
 gem 'mlanett-redis-lock', require: 'redis-lock'
 gem 'rack-cache'
 gem 'redis-namespace'
 gem 'redis-rack-cache'
-gem 'march_hare'
+gem 'march_hare' # 2.1.2-java
 
 gem 'ejs', require: 'ejs'
 gem 'annotate'
@@ -68,10 +69,10 @@ gem 'puma', '2.11.1'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-group :development do
-  gem 'spork'
-  gem 'guard-rspec', require: false
-end
+# group :development do
+#  gem 'spork'
+#  gem 'guard-rspec', require: false
+# end
 
 group :development, :test do
   gem 'activerecord-jdbcsqlite3-adapter'
