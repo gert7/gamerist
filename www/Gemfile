@@ -46,6 +46,7 @@ gem 'geocoder'
 gem 'redis'
 gem 'redis-rails'
 gem 'redis-objects'
+gem 'mlanett-redis-lock', require: 'redis-lock'
 gem 'rack-cache'
 gem 'redis-namespace'
 gem 'redis-rack-cache'
@@ -59,7 +60,7 @@ gem 'sinatra', require: false
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-gem 'puma'
+gem 'puma', '2.11.1'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -83,4 +84,3 @@ group :development, :test do
   gem 'mocha', require: false
   gem 'require_all'#, require: false
 end
-

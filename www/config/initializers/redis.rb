@@ -1,3 +1,5 @@
+require 'redis-lock'
+
 class Redis
   def fetch n, &b
     a = self.get(n)

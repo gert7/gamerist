@@ -34,3 +34,5 @@ Gamerist::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 end
+
+require 'activerecord_reset_subclass_fix'

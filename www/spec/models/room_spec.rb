@@ -95,6 +95,22 @@ describe Room do
         expect(room.srules["players"].count).to eq 0
       end
     end
+    context "when there are several instances loaded" do
+      include_context "when players have money"
+      it "will not add the same player twice" do
+        r1 = Room.find(room.id)
+        r2 = Room.find(room.id)
+        r1.append_player! player1
+        r2.append_player! player1
+        expect(r1.srules["players"].count).to eq 1
+      end
+      it "will affect the other instance" do
+        r1 = Room.find(room.id)
+        r2 = Room.find(room.id)
+        r1.append_player! player1
+        expect(r2.srules["players"].count).to eq 1
+      end
+    end
   end
   
   describe "#remove_player!" do
