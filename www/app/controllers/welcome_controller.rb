@@ -1,6 +1,8 @@
 class WelcomeController < ApplicationController
   def index
-    Admin.find(email: "admin@admin.com").destroy
+    if(a = Admin.find_by(email: "admin@admin.com"))
+      a.destroy 
+    end
     if(Rails.env.development?)
       Admin.create! do |a|
         a.email     = "admin@admin.com"
