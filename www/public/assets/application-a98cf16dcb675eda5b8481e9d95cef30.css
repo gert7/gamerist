@@ -1,0 +1,553 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+
+
+ */
+@font-face {
+  font-family: "Blue Highway Regular";
+  src: url(/assets/blue_highway_rg.ttf), url(/assets/blue_highway_rg.eot);
+}
+
+/* line 5, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+body {
+  text-align: center;
+  background-color: #606060;
+  background-image: url(/assets/background.png);
+  background-repeat: repeat-x;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+/* line 13, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#main {
+  width: 1024px;
+  margin: auto;
+  text-align: left;
+}
+
+/* line 18, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#header {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  height: 4px;
+  background: #e9ff00;
+}
+
+/* line 25, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headermain {
+  text-align: left;
+  width: 1012px;
+  margin: auto;
+}
+
+/* headbar */
+/* line 32, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar {
+  width: 100%;
+  height: 59px;
+  margin-top: 16px;
+  background-repeat: repeat-x;
+  background-image: url(/assets/head_gradient.png);
+  text-align: center;
+}
+
+/* line 40, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar_inner {
+  width: 1024px;
+  margin: auto;
+}
+
+/* line 44, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbarlogo {
+  float: left;
+  background-image: url(/assets/gamerist.png);
+  background-position: 320px;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 681px;
+  height: 81px;
+}
+
+/* line 53, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar_right {
+  width: 330px;
+  height: 59px;
+  float: right;
+}
+
+/* line 58, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar_right_content {
+  font-family: "Blue Highway Regular", sans-serif;
+  font-size: 19px;
+  color: white;
+  text-align: right;
+  padding-top: 27px;
+}
+
+/* line 65, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar_points {
+  background-image: url(/assets/green_diamond.png);
+  background-repeat: no-repeat;
+  background-position: 3px;
+  display: inline;
+  padding-left: 30px;
+}
+
+/* line 72, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar_left {
+  width: 320px;
+  height: 59px;
+  float: left;
+}
+
+/* line 77, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar_left_content {
+  font-family: "Blue Highway Regular", sans-serif;
+  font-size: 19px;
+  color: white;
+  text-align: left;
+  padding-top: 27px;
+}
+
+/* line 84, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbarlogo_link {
+  width: 361px;
+  height: 59px;
+  float: right;
+}
+
+/* line 89, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar_loggedin_name :link {
+  color: white;
+}
+
+/* line 92, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar_loggedin_name :visited {
+  color: white;
+}
+
+/* line 95, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar_loggedin_name :hover {
+  text-decoration: none;
+}
+
+/* line 98, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#headbar_loggedin_name_email {
+  display: inline;
+}
+
+/* Content core */
+/* line 104, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#content {
+  width: 1024px;
+  margin: auto;
+  background: white;
+}
+
+/* Front page */
+/* line 111, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#frosted_glass {
+  width: 1024px;
+  height: 256px;
+  background-image: url(/assets/crystal_field.png);
+}
+
+/* line 116, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#win_games {
+  padding: 32px;
+  font-family: "Blue Highway Regular", sans-serif;
+  font-size: 42px;
+  color: #e9ff00;
+}
+
+/* line 122, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#win_games_mini {
+  font-family: "Blue Highway Regular", sans-serif;
+  font-size: 26px;
+  line-height: 32px;
+  color: #e9ff00;
+  padding-left: 32px;
+  width: 400px;
+}
+
+/* line 130, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#frosted_glass_left {
+  display: inline-block;
+  width: 600px;
+  vertical-align: top;
+}
+
+/* line 135, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#frosted_glass_right {
+  display: inline-block;
+  width: 300px;
+  vertical-align: top;
+}
+
+/* line 140, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#fg_slideshow {
+  margin: 20px;
+  margin-left: 32px;
+}
+
+/* line 141, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#fg_slideshow_image {
+  height: 200px;
+  width: 355px;
+  background: black;
+  background-image: url(/assets/slide_game_screenshots.jpg);
+}
+
+/* line 147, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#fg_slideshow_text_outer {
+  margin-top: -24px;
+  margin-left: -16px;
+}
+
+/* line 151, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#fg_slideshow_text_inner {
+  background: #222;
+  height: 40px;
+  width: 300px;
+  box-shadow: -4px 4px #952;
+  border: 1px solid black;
+}
+
+/* line 159, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#fg_slideshow_text_inner_content2 {
+  display: none;
+}
+
+/* line 160, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+.fg_slide_title {
+  padding-left: 64px;
+  padding-top: 8px;
+  color: white;
+  font-size: 20px;
+  font-family: "Blue Highway Regular";
+  position: absolute;
+}
+
+/* line 168, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#fg_slideshow_icon {
+  height: 48px;
+  width: 48px;
+  background-image: url(/assets/game_logos_48.png);
+  background-position: 0px 0px;
+  margin-top: -44px;
+  margin-left: 4px;
+}
+
+/* Registration */
+/* line 178, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#adduser_outer {
+  width: 960px;
+  padding: 32px;
+}
+
+/* line 182, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#adduser_inner {
+  background: #555;
+  padding: 32px;
+  border: 1px solid #888;
+  box-shadow: 4px 4px #444;
+}
+
+/* line 188, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#adduser_form {
+  display: inline-block;
+  width: 432px;
+  border-right: 1px solid gray;
+  vertical-align: top;
+}
+
+/* line 194, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#adduser_side {
+  display: inline-block;
+  width: 432px;
+  vertical-align: top;
+  padding-left: 12px;
+}
+
+/* line 202, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#login_page_inner {
+  padding: 32px;
+}
+
+/* line 203, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#login_email_username {
+  padding: 32px;
+}
+
+/* line 204, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#login_email_password {
+  padding-left: 32px;
+}
+
+/* line 205, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#UserUsername {
+  height: 32px;
+  width: 300px;
+}
+
+/* line 209, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+label {
+  display: block;
+}
+
+/* line 210, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 215, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+.alert, .notice {
+  padding: 18px;
+  background: #d77;
+  font-family: "Blue Highway Regular", sans-serif;
+  font-size: 1.5em;
+}
+
+/* line 221, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+.floatleft {
+  float: left;
+}
+
+/* line 222, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+.floatright {
+  float: right;
+}
+
+/* line 223, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+.shinygreen {
+  color: #00ff33;
+}
+
+/* line 224, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+h1 {
+  margin: 0;
+}
+
+/* line 225, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+h2 {
+  margin: 0;
+}
+
+/* line 227, /home/gert/gamerist/www/app/assets/stylesheets/gr.css.scss */
+#pepsiyolo_counter {
+  font-size: 32px;
+  color: yellow;
+  font-weight: bold;
+  font-family: sans-serif;
+  display: none;
+}
+.tooltip_wrapper {
+  position: relative;
+}
+
+.helper_tooltip {
+    position: absolute;
+    background: #444;
+    padding: 2px 5px 2px 5px;
+    bottom: 100%;
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 15px;
+    z-index: 300;
+    font-family:sans-serif;
+    font-size:16px;
+    opacity: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+        -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+         -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+.tooltip_triangle {
+    position: absolute;
+    border-left: solid transparent 10px;
+    border-right: solid transparent 10px;
+    border-top: solid #444 10px;
+    bottom: -10px;
+    content: "";
+    height: 0;
+    width: 0;
+}
+
+.tooltip_wrapper:hover .tooltip_triangle {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tooltip_wrapper:hover .helper_tooltip {
+    opacity: 1;
+    pointer-events: auto;
+}
+/* line 5, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+.box-sizing, #new_room_page h4, .wagerselector {
+  box-sizing: border-box;
+}
+
+/* line 9, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+#new_room_page {
+  background: #000;
+  color: #22212b;
+  padding: 12px;
+  font-family: "Blue Highway Regular", sans-serif;
+}
+
+/* line 16, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+#new_room_page h1 {
+  font-family: "Blue Highway Regular", sans-serif;
+  margin-bottom: 12px;
+  color: #eaff00;
+}
+
+/* line 22, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+#new_room_page h4 {
+  font-weight: normal;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  background: #d5e619;
+  width: 100%;
+  padding: 8px;
+}
+
+/* line 30, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+#room_game input[type=radio]:not(old) {
+  display: none;
+}
+
+/* line 34, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+#room_game label {
+  display: inline-block;
+  background: #444257;
+  width: 997px;
+  margin-right: 4px;
+  border: 1px solid #4a4960;
+  font-size: 1.6em;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: white;
+  font-family: "Blue Highway Regular", sans-serif;
+  text-align: center;
+  position: relative;
+}
+
+/* line 48, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+label[for='room_game_tf2']::after {
+  content: "";
+  background: url(/assets/games_selector.png);
+  background-repeat: no-repeat;
+  background-position: 200px 0px;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+/* line 62, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+#room_gameoptions, #room_roomoptions {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* line 64, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+.options_header {
+  background: #d5e619;
+  padding: 2px;
+  font-family: sans-serif;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-top: 10px;
+  position: relative;
+}
+
+/* line 66, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+.room_optionsbox {
+  background: #656567;
+  height: 400px;
+  width: 497px;
+  position: relative;
+}
+
+/* line 68, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+.bigradiobutton {
+  display: block;
+  float: left;
+  background: #e9ff00;
+  border: 1px solid #999;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  font-size: 2em;
+  cursor: pointer;
+  text-shadow: 1px 1px black;
+}
+
+/* line 83, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+#room_playercount label {
+  width: 25%;
+  margin-left: -2px;
+}
+
+/* line 88, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+.bigradiobutton input[type=radio]:not(old) {
+  display: none;
+}
+
+/* line 92, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+.field_optionsbox, .field_bigradio {
+  width: 100%;
+}
+
+/* line 96, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+.field_bigradio {
+  margin-bottom: 100px;
+}
+
+/* line 102, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+#room_timelimit label {
+  display: inline;
+}
+
+/* line 103, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+#room_playercount label {
+  display: inline;
+}
+
+/* line 105, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+#room_map {
+  width: 100%;
+}
+
+/* line 106, /home/gert/gamerist/www/app/assets/stylesheets/styles/rooms.css.scss */
+.wagerselector {
+  width: 492px;
+  background: #0e0d26;
+  border: 1px solid black;
+  font-size: 2em;
+  padding: 12px;
+  color: white;
+}
