@@ -14,3 +14,4 @@ RDoc::Task.new :ardoc do |rdoc|
   rdoc.title = "App Documentation"
   rdoc.options << "--all" 
 end
+
