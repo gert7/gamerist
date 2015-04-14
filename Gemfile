@@ -6,7 +6,7 @@ gem 'rails', '4.1.10'
 
 # PostgreSQL
 group :development, :production do
-  gem 'activerecord-jdbcpostgresql-adapter'
+  gem 'activerecord-jdbcpostgresql-adapter', '1.3.7'
 end
 
 # Use SCSS for stylesheets
@@ -63,6 +63,7 @@ gem 'sinatra', require: false
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'puma', '2.11.1'
+gem 'heroku-forward'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -76,7 +77,7 @@ gem 'puma', '2.11.1'
 # end
 
 group :development, :test do
-  gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'activerecord-jdbcsqlite3-adapter', '1.3.7'
   gem 'rspec', require: false
   gem 'rspec-rails', require: false
   gem 'capybara', require: false
