@@ -63,7 +63,6 @@ gem 'sinatra', require: false
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'puma', '2.11.1', require: false
-gem 'newrelic_rpm', require: false
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -87,3 +86,5 @@ group :development, :test do
   gem 'mocha', require: false
   gem 'require_all'#, require: false
 end
+
+gem 'newrelic_rpm'
