@@ -1,2 +1,2 @@
-bundle exec rails server puma -p 80 -e production
+bundle exec rails server puma -p $PORT -e production
 
