@@ -6,24 +6,24 @@ gem 'rails', '4.1.10'
 
 # PostgreSQL
 group :development, :production do
-  gem 'activerecord-jdbcpostgresql-adapter', '1.3.7'
+  gem 'activerecord-jdbcpostgresql-adapter', '1.3.7', require: false
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.0', require: false
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 1.3.0', require: false
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0', require: false
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'execjs'
-gem 'therubyrhino', platforms: :ruby
+gem 'execjs', require: false
+gem 'therubyrhino', platforms: :ruby, require: false
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', require: false
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -42,28 +42,28 @@ end
 gem 'devise', "~> 3.4.1" # 3.2.4
 gem 'omniauth'
 gem 'omniauth-steam'
-gem 'paypal-sdk-rest' # 0.6.1
-gem 'geocoder' # 1.2.0
+gem 'paypal-sdk-rest', require: false # 0.6.1
+gem 'geocoder', require: false # 1.2.0
 
-gem 'redis' # 3.0.7
-gem 'redis-rails' # 4.0.0
-gem 'redis-objects'
+gem 'redis', require: false # 3.0.7
+gem 'redis-rails', require: false # 4.0.0
+gem 'redis-objects', require: false
 gem 'mlanett-redis-lock', require: 'redis-lock'
-gem 'rack-cache'
-gem 'redis-namespace'
-gem 'redis-rack-cache'
-gem 'march_hare' # 2.1.2-java
+gem 'rack-cache', require: false
+gem 'redis-namespace', require: false
+gem 'redis-rack-cache', require: false
+gem 'march_hare', require: false # 2.1.2-java
 
 gem 'ejs', require: 'ejs'
-gem 'annotate'
-gem 'sidekiq'
+gem 'annotate', require: false
+gem 'sidekiq', require: false
 gem 'sinatra', require: false
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-gem 'puma', '2.11.1'
-gem 'heroku-forward'
+gem 'puma', '2.11.1', require: false
+gem 'newrelic_rpm', require: false
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -77,7 +77,7 @@ gem 'heroku-forward'
 # end
 
 group :development, :test do
-  gem 'activerecord-jdbcsqlite3-adapter', '1.3.7'
+  gem 'activerecord-jdbcsqlite3-adapter', '1.3.7', require: false
   gem 'rspec', require: false
   gem 'rspec-rails', require: false
   gem 'capybara', require: false
