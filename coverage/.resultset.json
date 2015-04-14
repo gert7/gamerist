@@ -78,11 +78,14 @@
       "/home/gert/gamerist/www/app/controllers/welcome_controller.rb": [
         1,
         1,
-        5,
-        5,
-        5,
-        5,
-        5
+        10,
+        0,
+        null,
+        10,
+        0,
+        0,
+        0,
+        0
       ],
       "/home/gert/gamerist/www/app/views/elements/_header.html.erb": [
         36,
@@ -727,7 +730,6 @@
         null,
         null,
         1,
-        1,
         null,
         null,
         null,
@@ -749,6 +751,9 @@
         1,
         1,
         1,
+        1,
+        null,
+        null,
         1
       ],
       "/home/gert/gamerist/www/app/views/rooms/show.html.erb": [
@@ -916,6 +921,6 @@
         1
       ]
     },
-    "timestamp": 1429026997
+    "timestamp": 1429044684
   }
 }
