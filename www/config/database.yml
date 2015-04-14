@@ -28,11 +28,11 @@ test: &test
 production:
   adapter: postgresql
   encoding: unicode
-  database: gamerist_test
+  database: da1soglq2o61kh
   pool: 5
-  username: postgres
-  password: password
-  host: localhost
+  username: yfdyjcpssqpifa
+  password: 12kkFoNE4r63RZ4g6ojoSUgByW
+  host: ec2-54-228-224-127.eu-west-1.compute.amazonaws.com
 
 cucumber:
   <<: *test
