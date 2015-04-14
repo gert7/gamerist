@@ -1,0 +1,9 @@
+task :build_all do
+  [:debug, :release].each do |t|
+    $build_type = t
+    Rake::Task["db:migrate"].reenable
+    Rake::Task["db:migrate"].invoke
+    Rake::Task["assets:precompile"].reenable
+    Rake::Task["assets:precompile"].invoke
+  end
+end
