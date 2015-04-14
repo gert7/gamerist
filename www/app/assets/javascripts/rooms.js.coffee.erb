@@ -46,7 +46,7 @@ declare_closest_server = (ip, name) ->
   ping("http://" + ip).then (v) -> 
     if(closest_server == null)
       closest_server = name
-      alert("Closest server is " + name + " at " + ip)
+      console.log("Closest server is " + name + " at " + ip)
 
 $(document).ready () ->
   $("input").parents("#room_playercount label").each () ->
