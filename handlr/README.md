@@ -1,1 +1,0 @@
-Node component of Gamerist

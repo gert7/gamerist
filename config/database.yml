@@ -1,0 +1,38 @@
+
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: gamerist_development
+  pool: 5
+  username: postgres
+  password: password
+  host: localhost
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+  
+test: &test
+  adapter: sqlite3
+  min_messages: ERROR
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000
+
+#test:
+#  adapter: sqlite3
+#  database: db/test.sqlite3
+#  pool: 5
+#  timeout: 5000
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: da1soglq2o61kh
+  pool: 5
+  username: yfdyjcpssqpifa
+  password: 12kkFoNE4r63RZ4g6ojoSUgByW
+  host: ec2-54-228-224-127.eu-west-1.compute.amazonaws.com
+
+cucumber:
+  <<: *test

@@ -1,0 +1,133 @@
+<NotepadPlus>
+    <Project name="Gamerist">
+        <Folder name="gamerist">
+            <Folder name="app">
+                <Folder name="assets">
+                    <Folder name="images">
+                        <File name="app\assets\images\.keep" />
+                    </Folder>
+                    <Folder name="javascripts">
+                        <File name="app\assets\javascripts\application.js" />
+                    </Folder>
+                    <Folder name="stylesheets">
+                        <File name="app\assets\stylesheets\application.css" />
+                    </Folder>
+                </Folder>
+                <Folder name="controllers">
+                    <Folder name="concerns">
+                        <File name="app\controllers\concerns\.keep" />
+                    </Folder>
+                    <File name="app\controllers\application_controller.rb" />
+                </Folder>
+                <Folder name="helpers">
+                    <File name="app\helpers\application_helper.rb" />
+                </Folder>
+                <Folder name="mailers">
+                    <File name="app\mailers\.keep" />
+                </Folder>
+                <Folder name="models">
+                    <Folder name="concerns">
+                        <File name="app\models\concerns\.keep" />
+                    </Folder>
+                    <File name="app\models\.keep" />
+                </Folder>
+                <Folder name="views">
+                    <Folder name="layouts">
+                        <File name="app\views\layouts\application.html.erb" />
+                    </Folder>
+                </Folder>
+            </Folder>
+            <Folder name="bin">
+                <File name="bin\bundle" />
+                <File name="bin\rails" />
+                <File name="bin\rake" />
+            </Folder>
+            <Folder name="config">
+                <Folder name="environments">
+                    <File name="config\environments\development.rb" />
+                    <File name="config\environments\production.rb" />
+                    <File name="config\environments\test.rb" />
+                </Folder>
+                <Folder name="initializers">
+                    <File name="config\initializers\backtrace_silencers.rb" />
+                    <File name="config\initializers\filter_parameter_logging.rb" />
+                    <File name="config\initializers\inflections.rb" />
+                    <File name="config\initializers\mime_types.rb" />
+                    <File name="config\initializers\secret_token.rb" />
+                    <File name="config\initializers\session_store.rb" />
+                    <File name="config\initializers\wrap_parameters.rb" />
+                </Folder>
+                <Folder name="locales">
+                    <File name="config\locales\en.yml" />
+                </Folder>
+                <File name="config\application.rb" />
+                <File name="config\boot.rb" />
+                <File name="config\database.yml" />
+                <File name="config\environment.rb" />
+                <File name="config\routes.rb" />
+            </Folder>
+            <Folder name="db">
+                <File name="db\seeds.rb" />
+            </Folder>
+            <Folder name="lib">
+                <Folder name="assets">
+                    <File name="lib\assets\.keep" />
+                </Folder>
+                <Folder name="tasks">
+                    <File name="lib\tasks\.keep" />
+                </Folder>
+            </Folder>
+            <Folder name="log">
+                <File name="log\.keep" />
+            </Folder>
+            <Folder name="public">
+                <File name="public\404.html" />
+                <File name="public\422.html" />
+                <File name="public\500.html" />
+                <File name="public\favicon.ico" />
+                <File name="public\robots.txt" />
+            </Folder>
+            <Folder name="test">
+                <Folder name="controllers">
+                    <File name="test\controllers\.keep" />
+                </Folder>
+                <Folder name="fixtures">
+                    <File name="test\fixtures\.keep" />
+                </Folder>
+                <Folder name="helpers">
+                    <File name="test\helpers\.keep" />
+                </Folder>
+                <Folder name="integration">
+                    <File name="test\integration\.keep" />
+                </Folder>
+                <Folder name="mailers">
+                    <File name="test\mailers\.keep" />
+                </Folder>
+                <Folder name="models">
+                    <File name="test\models\.keep" />
+                </Folder>
+                <File name="test\test_helper.rb" />
+            </Folder>
+            <Folder name="tmp">
+                <Folder name="cache">
+                    <Folder name="assets" />
+                </Folder>
+            </Folder>
+            <Folder name="vendor">
+                <Folder name="assets">
+                    <Folder name="javascripts">
+                        <File name="vendor\assets\javascripts\.keep" />
+                    </Folder>
+                    <Folder name="stylesheets">
+                        <File name="vendor\assets\stylesheets\.keep" />
+                    </Folder>
+                </Folder>
+            </Folder>
+            <File name=".gitignore" />
+            <File name="config.ru" />
+            <File name="Gemfile" />
+            <File name="Rakefile" />
+            <File name="README.rdoc" />
+        </Folder>
+    </Project>
+</NotepadPlus>

@@ -1,0 +1,33 @@
+<h1>Listing servers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Server address</th>
+      <th>Dispatch address</th>
+      <th>Dispatch version</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @servers.each do |server| %>
+      <tr>
+        <td><%= server.number %></td>
+        <td><%= server.server_address %></td>
+        <td><%= server.dispatch_address %></td>
+        <td><%= server.dispatch_version %></td>
+        <td><%= link_to 'Show', server %></td>
+        <td><%= link_to 'Edit', edit_server_path(server) %></td>
+        <td><%= link_to 'Destroy', server, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Server', new_server_path %>
