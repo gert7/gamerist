@@ -347,7 +347,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   coveralls
   database_cleaner
-  devise (= 3.4.1)
+  devise (~> 3.4.1)
   ejs
   execjs
   factory_girl_rails
