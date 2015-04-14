@@ -1,0 +1,42 @@
+# Logfile created on 2015-04-14 19:19:30 +0300 by logger.rb/v1.2.7
+[04/14/15 19:19:30 +0300 gert-N56VZ (9345)] INFO : Starting the New Relic agent in "development" environment.
+[04/14/15 19:19:30 +0300 gert-N56VZ (9345)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/14/15 19:19:30 +0300 gert-N56VZ (9345)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/14/15 19:19:30 +0300 gert-N56VZ (9345)] INFO : New Relic Agent Developer Mode enabled.
+[04/14/15 19:19:30 +0300 gert-N56VZ (9345)] INFO : Environment: development
+[04/14/15 19:19:30 +0300 gert-N56VZ (9345)] INFO : No known dispatcher detected.
+[04/14/15 19:19:30 +0300 gert-N56VZ (9345)] INFO : Application: My Application (Development)
+[04/14/15 19:19:33 +0300 gert-N56VZ (9345)] INFO : Installing Net instrumentation
+[04/14/15 19:19:33 +0300 gert-N56VZ (9345)] INFO : Installing deferred Rack instrumentation
+[04/14/15 19:19:33 +0300 gert-N56VZ (9345)] INFO : Installing Rack::Builder middleware instrumentation
+[04/14/15 19:19:33 +0300 gert-N56VZ (9345)] INFO : Installing Rails 3+ middleware instrumentation
+[04/14/15 19:19:33 +0300 gert-N56VZ (9345)] INFO : Installing ActiveRecord 4 instrumentation
+[04/14/15 19:19:33 +0300 gert-N56VZ (9345)] INFO : Installing Rails 4 view instrumentation
+[04/14/15 19:19:33 +0300 gert-N56VZ (9345)] INFO : Installing Rails 4 Error instrumentation
+[04/14/15 19:19:33 +0300 gert-N56VZ (9345)] INFO : Installing Rails 4 Controller instrumentation
+[04/14/15 19:19:33 +0300 gert-N56VZ (9345)] INFO : Finished instrumentation
+[04/14/15 19:19:34 +0300 gert-N56VZ (9345)] INFO : Installing Sidekiq instrumentation
+[04/14/15 19:19:35 +0300 gert-N56VZ (9345)] INFO : Reporting to: https://rpm.newrelic.com/accounts/959645/applications/6181998
+[04/14/15 19:19:37 +0300 gert-N56VZ (9345)] INFO : Doing deferred dependency-detection before Rack startup
+[04/14/15 19:19:37 +0300 gert-N56VZ (9345)] INFO : Installing Sinatra instrumentation
+[04/14/15 19:22:07 +0300 gert-N56VZ (9345)] INFO : Reporting to: https://rpm.newrelic.com/accounts/959645/applications/6181998
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Starting the New Relic agent in "development" environment.
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : New Relic Agent Developer Mode enabled.
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Environment: development
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : No known dispatcher detected.
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Application: Gamerist
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Installing Net instrumentation
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Installing deferred Rack instrumentation
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Installing Rack::Builder middleware instrumentation
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Installing Rails 3+ middleware instrumentation
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Installing ActiveRecord 4 instrumentation
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Installing Rails 4 view instrumentation
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Installing Rails 4 Error instrumentation
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Installing Rails 4 Controller instrumentation
+[04/14/15 19:23:25 +0300 gert-N56VZ (9592)] INFO : Finished instrumentation
+[04/14/15 19:23:27 +0300 gert-N56VZ (9592)] INFO : Installing Sidekiq instrumentation
+[04/14/15 19:23:28 +0300 gert-N56VZ (9592)] INFO : Reporting to: https://rpm.newrelic.com/accounts/959645/applications/6182023
+[04/14/15 19:23:29 +0300 gert-N56VZ (9592)] INFO : Doing deferred dependency-detection before Rack startup
+[04/14/15 19:23:29 +0300 gert-N56VZ (9592)] INFO : Installing Sinatra instrumentation
