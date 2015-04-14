@@ -1,2 +1,2 @@
-bundle exec rails server puma -p $PORT -e production
+bundle exec rails server puma ${PORT:-3000} -e ${RACK_ENV:-development}
 
