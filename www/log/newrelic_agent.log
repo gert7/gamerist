@@ -661,3 +661,22 @@
 [04/15/15 01:35:26 +0300 gert-N56VZ (8563)] INFO : Installing Sinatra instrumentation
 [04/15/15 01:35:26 +0300 gert-N56VZ (8563)] INFO : Installing Sidekiq instrumentation
 [04/15/15 01:35:27 +0300 gert-N56VZ (8563)] INFO : Doing deferred dependency-detection before Rack startup
+[04/15/15 17:33:40 +0300 gert-N56VZ (16506)] INFO : Starting the New Relic agent in "production" environment.
+[04/15/15 17:33:40 +0300 gert-N56VZ (16506)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/15/15 17:33:40 +0300 gert-N56VZ (16506)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/15/15 17:33:40 +0300 gert-N56VZ (16506)] INFO : Environment: production
+[04/15/15 17:33:40 +0300 gert-N56VZ (16506)] INFO : No known dispatcher detected.
+[04/15/15 17:33:40 +0300 gert-N56VZ (16506)] INFO : Application: Gamerist
+[04/15/15 17:33:40 +0300 gert-N56VZ (16506)] INFO : Installing Net instrumentation
+[04/15/15 17:33:40 +0300 gert-N56VZ (16506)] INFO : Installing deferred Rack instrumentation
+[04/15/15 17:33:40 +0300 gert-N56VZ (16506)] INFO : Installing Rack::Builder middleware instrumentation
+[04/15/15 17:33:40 +0300 gert-N56VZ (16506)] INFO : Installing Rails 3+ middleware instrumentation
+[04/15/15 17:33:41 +0300 gert-N56VZ (16506)] INFO : Installing ActiveRecord 4 instrumentation
+[04/15/15 17:33:41 +0300 gert-N56VZ (16506)] INFO : Installing Rails 4 view instrumentation
+[04/15/15 17:33:41 +0300 gert-N56VZ (16506)] INFO : Installing Rails 4 Error instrumentation
+[04/15/15 17:33:41 +0300 gert-N56VZ (16506)] INFO : Installing Rails 4 Controller instrumentation
+[04/15/15 17:33:41 +0300 gert-N56VZ (16506)] INFO : Finished instrumentation
+[04/15/15 17:33:43 +0300 gert-N56VZ (16506)] INFO : Reporting to: https://rpm.newrelic.com/accounts/959645/applications/6182023
+[04/15/15 17:33:44 +0300 gert-N56VZ (16506)] INFO : Installing Sinatra instrumentation
+[04/15/15 17:33:44 +0300 gert-N56VZ (16506)] INFO : Installing Sidekiq instrumentation
+[04/15/15 17:33:45 +0300 gert-N56VZ (16506)] INFO : Doing deferred dependency-detection before Rack startup

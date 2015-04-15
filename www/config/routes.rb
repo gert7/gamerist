@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   
   resources :rooms
-  resources :rulesets
-  resources :maps
-  resources :servers
-  resources :games
   resources :accounts
   resources :paypals
 

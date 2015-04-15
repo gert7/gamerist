@@ -133,6 +133,8 @@ GEM
       multi_json (>= 1.2.0)
     jdbc-postgres (9.3.1101)
     jdbc-sqlite3 (3.7.2.1)
+    jquery-cdn (1.10.2)
+      sprockets (>= 2)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -351,7 +353,7 @@ DEPENDENCIES
   factory_girl_rails
   geocoder
   jbuilder (~> 1.2)
-  jquery-rails
+  jquery-cdn (= 1.10.2)
   march_hare
   mlanett-redis-lock
   mocha

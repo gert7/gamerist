@@ -10,10 +10,9 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
 //= require turbolinks
 //= require tooltips
 //= require_tree .
 //= require ./welcome/jquery.animate-shadow-min
 //= require ./welcome/welcome
+

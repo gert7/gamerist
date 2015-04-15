@@ -1,5 +1,6 @@
 require 'config/initializers/apikeys_accessor'
 require 'march_hare'
+require 'sidekiq'
 
 #connection = MarchHare.connect(:host => 'localhost')
 #channel = connection.create_channel
@@ -36,8 +37,6 @@ module GameDispatch
 end
 
 # code that handles the upstream
-
-require 'sidekiq'
 
 # code that handles the downstream
 

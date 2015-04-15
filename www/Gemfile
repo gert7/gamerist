@@ -23,7 +23,7 @@ gem 'execjs', require: false
 gem 'therubyrhino', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', require: false
+gem 'jquery-cdn', '1.10.2'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
