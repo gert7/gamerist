@@ -9,9 +9,7 @@ git checkout heroku
 rm -rf *
 cp -R /tmp/gameristwww/** .
 
-cd www
 RAILS_ENV=production bundle exec rake assets:precompile
-cd ..
 
 git add -A
 read -p "Please add a commit message: " herokucmes
