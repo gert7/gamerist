@@ -1,1 +1,5 @@
 steam: 82141B7737012EE7BBC499B6A3EC7B17
+rabbitmq_hostname: turtle.rmq.cloudamqp.com
+rabbitmq_username: gxjhkelj
+rabbitmq_vhost: gxjhkelj
+rabbitmq_password: kgk9O_NcOpEnFd-3C4Po6zJLqn7R6aIS
