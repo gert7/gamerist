@@ -23,6 +23,8 @@ module Gamerist
     # config.i18n.default_locale = :de
     config.autoload_paths += Dir["#{config.root}/lib/workers/**/"]
     config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
+    #config.assets.initialize_on_precompile = false
+    #config.assets.precompile += %w( active_admin.css active_admin/print.css active_admin.js )
   end
   
   Rails.application.config.middleware.use OmniAuth::Builder do
