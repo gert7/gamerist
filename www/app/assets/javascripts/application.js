@@ -13,6 +13,4 @@
 //= require turbolinks
 //= require tooltips
 //= require_tree .
-//= require ./welcome/jquery.animate-shadow-min
-//= require ./welcome/welcome
 

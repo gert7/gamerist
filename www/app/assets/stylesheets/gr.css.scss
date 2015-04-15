@@ -1,3 +1,15 @@
+.saturatedText {
+    color: hsl(65, 100, 50);
+}
+
+.saturatedBackground {
+    background-color: hsl(65, 100, 50);
+}
+
+.saturatedBackground2 {
+    background:hsl(65,80,50);
+}
+
 @font-face {
     font-family: "Blue Highway Regular";
     src: font-url("blue_highway_rg.ttf"), font-url("blue_highway_rg.eot");
@@ -6,9 +18,10 @@ body {
     text-align: center;
     background-color: #606060;
     background-image: image-url('background.png');
-	background-repeat:repeat-x;
+    background-repeat:repeat-x;
     margin: 0;
     font-family: sans-serif;
+    box-sizing:border-box;
 }
 #main {
     width: 1024px;
@@ -20,7 +33,6 @@ body {
     width: 100%;
     text-align: center;
     height: 4px;
-    background: #e9ff00;
 }
 #headermain {
     text-align: left;
@@ -35,26 +47,20 @@ body {
     margin-top: 16px;
     background-repeat: repeat-x;
     background-image: image-url("head_gradient.png");
-	text-align:center;
+    text-align:center;
 }
 #headbar_inner {
 	width:1024px;
 	margin:auto;
 }
 #headbarlogo {
-    float: left;
     background-image: image-url("gamerist.png");
-    background-position: 320px;
     background-repeat: no-repeat;
-	position:absolute;
-    width: 681px;
+	  position:absolute;
+    width: 360px;
     height: 81px;
 }
-#headbar_right {
-    width: 330px;
-    height: 59px;
-    float: right;
-}
+
 #headbar_right_content {
     font-family: "Blue Highway Regular", sans-serif;
     font-size: 19px;
@@ -70,9 +76,22 @@ body {
 	padding-left:30px;
 }
 #headbar_left {
+    vertical-align:top;
     width: 320px;
     height: 59px;
-    float: left;
+    display:inline-block;
+}
+#headbar_center {
+  vertical-align:top;
+  width:360px;
+  display:inline-block;
+  height:59px;
+}
+#headbar_right {
+    vertical-align:top;
+    width: 320px;
+    height: 59px;
+    display:inline-block;
 }
 #headbar_left_content {
 	font-family: "Blue Highway Regular", sans-serif;
@@ -81,10 +100,10 @@ body {
     text-align: left;
     padding-top: 28px;
 }
+
 #headbarlogo_link {
     width: 361px;
     height: 59px;
-    float: right;
 }
 #headbar_loggedin_name :link {
 	color:white;
@@ -218,10 +237,8 @@ p {
 	font-family:"Blue Highway Regular", sans-serif;
 	font-size:1.5em;
 }
-.floatleft { float: left }
-.floatright { float: right }
-.shinygreen { color: #00ff33 }
+.floatleft { float: left; }
+.floatright { float: right; }
 h1 {margin:0;}
 h2 {margin:0;}
 
-#pepsiyolo_counter {font-size: 32px; color:yellow; font-weight:bold; font-family:sans-serif; display:none;}
