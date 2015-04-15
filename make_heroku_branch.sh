@@ -3,7 +3,7 @@ set -e
 git checkout master
 
 rm -rf ../gameristh/**
-cp -r www ../gameristh/.
+cp -r www/** ../gameristh/.
 
 cd ../gameristh
 
