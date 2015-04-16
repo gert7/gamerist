@@ -1,8 +1,8 @@
 Rails.application.configure do
-  config.action_dispatch.rack_cache = {
-    metastore:   'redis://' + $GAMERIST_API_KEYS["redis_production"] + '/1/metastore',
-    entitystore: 'redis://' + $GAMERIST_API_KEYS["redis_production"] + 'localhost:6379/1/entitystore'
-  }
+  #config.action_dispatch.rack_cache = {
+  #  metastore:   'redis://' + $GAMERIST_API_KEYS["redis_production"] + '/1/metastore',
+  #  entitystore: 'redis://' + $GAMERIST_API_KEYS["redis_production"] + '/1/entitystore'
+  #}
 
   # Settings specified here will take precedence over those in config/application.rb.
 
