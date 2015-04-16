@@ -114,8 +114,10 @@ describe Room do
   end
   
   describe "#remove_player!" do
+    include_context "when players have money"
     it "removes the player from the room" do
       room.append_player! player1
+      expect(room.srules["players"].count).to eq 1
       room.remove_player! player1
       expect(room.srules["players"].count).to eq 0
     end

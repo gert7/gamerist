@@ -4,7 +4,6 @@ class RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
   end
 
   # GET /rooms/1
@@ -48,16 +47,6 @@ class RoomsController < ApplicationController
         format.html { render action: 'edit' }
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /rooms/1
-  # DELETE /rooms/1.json
-  def destroy
-    @room.destroy
-    respond_to do |format|
-      format.html { redirect_to rooms_url }
-      format.json { head :no_content }
     end
   end
 
