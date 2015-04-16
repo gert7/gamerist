@@ -6580,3 +6580,811 @@ ActionController::RoutingError (No route matches [GET] "/javascripts/application
   puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
 
 
+I, [2015-04-16T15:37:52.987000 #10002]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:37:52 +0300
+I, [2015-04-16T15:37:54.132000 #10002]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:37:55.601000 #10002]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (3.0ms)
+I, [2015-04-16T15:37:55.614000 #10002]  INFO -- :   Rendered elements/_header.html.erb (3.0ms)
+I, [2015-04-16T15:37:55.628000 #10002]  INFO -- :   Rendered elements/_headbar.html.erb (12.0ms)
+I, [2015-04-16T15:37:55.630000 #10002]  INFO -- : Completed 200 OK in 1497ms (Views: 44.0ms | ActiveRecord: 781.0ms)
+I, [2015-04-16T15:37:55.736000 #10002]  INFO -- : Started GET "/stylesheets/application.css" for 127.0.0.1 at 2015-04-16 15:37:55 +0300
+I, [2015-04-16T15:37:55.736000 #10002]  INFO -- : Started GET "/javascripts/application.js" for 127.0.0.1 at 2015-04-16 15:37:55 +0300
+F, [2015-04-16T15:37:55.796000 #10002] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/stylesheets/application.css"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:37:55.807000 #10002] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/javascripts/application.js"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+I, [2015-04-16T15:38:45.635000 #10002]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:38:45 +0300
+I, [2015-04-16T15:38:45.644000 #10002]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:38:45.657000 #10002]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (1.0ms)
+I, [2015-04-16T15:38:45.661000 #10002]  INFO -- :   Rendered elements/_header.html.erb (1.0ms)
+I, [2015-04-16T15:38:45.664000 #10002]  INFO -- :   Rendered elements/_headbar.html.erb (3.0ms)
+I, [2015-04-16T15:38:45.666000 #10002]  INFO -- : Completed 200 OK in 21ms (Views: 11.0ms | ActiveRecord: 1.0ms)
+I, [2015-04-16T15:38:45.723000 #10002]  INFO -- : Started GET "/stylesheets/application.css" for 127.0.0.1 at 2015-04-16 15:38:45 +0300
+I, [2015-04-16T15:38:45.723000 #10002]  INFO -- : Started GET "/javascripts/application.js" for 127.0.0.1 at 2015-04-16 15:38:45 +0300
+F, [2015-04-16T15:38:45.749000 #10002] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/javascripts/application.js"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:38:45.751000 #10002] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/stylesheets/application.css"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+I, [2015-04-16T15:38:47.429000 #10002]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:38:47 +0300
+I, [2015-04-16T15:38:47.434000 #10002]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:38:47.444000 #10002]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (1.0ms)
+I, [2015-04-16T15:38:47.447000 #10002]  INFO -- :   Rendered elements/_header.html.erb (0.0ms)
+I, [2015-04-16T15:38:47.451000 #10002]  INFO -- :   Rendered elements/_headbar.html.erb (2.0ms)
+I, [2015-04-16T15:38:47.452000 #10002]  INFO -- : Completed 200 OK in 17ms (Views: 10.0ms | ActiveRecord: 1.0ms)
+I, [2015-04-16T15:38:47.515000 #10002]  INFO -- : Started GET "/javascripts/application.js" for 127.0.0.1 at 2015-04-16 15:38:47 +0300
+I, [2015-04-16T15:38:47.522000 #10002]  INFO -- : Started GET "/stylesheets/application.css" for 127.0.0.1 at 2015-04-16 15:38:47 +0300
+F, [2015-04-16T15:38:47.529000 #10002] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/javascripts/application.js"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:38:47.539000 #10002] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/stylesheets/application.css"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+I, [2015-04-16T15:38:48.642000 #10002]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:38:48 +0300
+I, [2015-04-16T15:38:48.652000 #10002]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:38:48.677000 #10002]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (1.0ms)
+I, [2015-04-16T15:38:48.681000 #10002]  INFO -- :   Rendered elements/_header.html.erb (0.0ms)
+I, [2015-04-16T15:38:48.684000 #10002]  INFO -- :   Rendered elements/_headbar.html.erb (3.0ms)
+I, [2015-04-16T15:38:48.686000 #10002]  INFO -- : Completed 200 OK in 31ms (Views: 12.0ms | ActiveRecord: 6.0ms)
+I, [2015-04-16T15:38:48.747000 #10002]  INFO -- : Started GET "/stylesheets/application.css" for 127.0.0.1 at 2015-04-16 15:38:48 +0300
+I, [2015-04-16T15:38:48.751000 #10002]  INFO -- : Started GET "/javascripts/application.js" for 127.0.0.1 at 2015-04-16 15:38:48 +0300
+F, [2015-04-16T15:38:48.761000 #10002] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/stylesheets/application.css"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:38:48.770000 #10002] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/javascripts/application.js"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+I, [2015-04-16T15:38:51.186000 #10002]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:38:51 +0300
+I, [2015-04-16T15:38:51.197000 #10002]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:38:51.211000 #10002]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (2.0ms)
+I, [2015-04-16T15:38:51.215000 #10002]  INFO -- :   Rendered elements/_header.html.erb (0.0ms)
+I, [2015-04-16T15:38:51.218000 #10002]  INFO -- :   Rendered elements/_headbar.html.erb (3.0ms)
+I, [2015-04-16T15:38:51.220000 #10002]  INFO -- : Completed 200 OK in 23ms (Views: 12.0ms | ActiveRecord: 1.0ms)
+I, [2015-04-16T15:38:51.274000 #10002]  INFO -- : Started GET "/stylesheets/application.css" for 127.0.0.1 at 2015-04-16 15:38:51 +0300
+I, [2015-04-16T15:38:51.276000 #10002]  INFO -- : Started GET "/javascripts/application.js" for 127.0.0.1 at 2015-04-16 15:38:51 +0300
+F, [2015-04-16T15:38:51.284000 #10002] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/stylesheets/application.css"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:38:51.289000 #10002] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/javascripts/application.js"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+I, [2015-04-16T15:39:17.882000 #10353]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:39:17 +0300
+I, [2015-04-16T15:39:18.716000 #10353]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:39:19.623000 #10353]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (3.0ms)
+I, [2015-04-16T15:39:19.636000 #10353]  INFO -- :   Rendered elements/_header.html.erb (2.0ms)
+I, [2015-04-16T15:39:19.651000 #10353]  INFO -- :   Rendered elements/_headbar.html.erb (14.0ms)
+I, [2015-04-16T15:39:19.653000 #10353]  INFO -- : Completed 200 OK in 936ms (Views: 39.0ms | ActiveRecord: 8.0ms)
+I, [2015-04-16T15:39:19.815000 #10353]  INFO -- : Started GET "/assets/head_gradient.png" for 127.0.0.1 at 2015-04-16 15:39:19 +0300
+I, [2015-04-16T15:39:19.815000 #10353]  INFO -- : Started GET "/assets/background.png" for 127.0.0.1 at 2015-04-16 15:39:19 +0300
+I, [2015-04-16T15:39:19.816000 #10353]  INFO -- : Started GET "/assets/blue_highway_rg.ttf" for 127.0.0.1 at 2015-04-16 15:39:19 +0300
+I, [2015-04-16T15:39:19.853000 #10353]  INFO -- : Started GET "/assets/gamerist.png" for 127.0.0.1 at 2015-04-16 15:39:19 +0300
+I, [2015-04-16T15:39:19.856000 #10353]  INFO -- : Started GET "/assets/slide_game_screenshots.jpg" for 127.0.0.1 at 2015-04-16 15:39:19 +0300
+I, [2015-04-16T15:39:19.864000 #10353]  INFO -- : Started GET "/assets/crystal_field.png" for 127.0.0.1 at 2015-04-16 15:39:19 +0300
+F, [2015-04-16T15:39:19.929000 #10353] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/blue_highway_rg.ttf"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:39:19.929000 #10353] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/gamerist.png"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:39:19.931000 #10353] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/background.png"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:39:19.933000 #10353] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/head_gradient.png"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:39:19.936000 #10353] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/crystal_field.png"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:39:19.937000 #10353] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/slide_game_screenshots.jpg"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+I, [2015-04-16T15:39:19.956000 #10353]  INFO -- : Started GET "/assets/game_logos_48.png" for 127.0.0.1 at 2015-04-16 15:39:19 +0300
+F, [2015-04-16T15:39:19.972000 #10353] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/game_logos_48.png"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/static.rb:84:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:63:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+I, [2015-04-16T15:40:19.844000 #10453]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:40:19 +0300
+I, [2015-04-16T15:40:20.711000 #10453]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:40:21.438000 #10453]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (3.0ms)
+I, [2015-04-16T15:40:21.451000 #10453]  INFO -- :   Rendered elements/_header.html.erb (3.0ms)
+I, [2015-04-16T15:40:21.466000 #10453]  INFO -- :   Rendered elements/_headbar.html.erb (13.0ms)
+I, [2015-04-16T15:40:21.468000 #10453]  INFO -- : Completed 200 OK in 757ms (Views: 39.0ms | ActiveRecord: 10.0ms)
+I, [2015-04-16T15:40:21.544000 #10453]  INFO -- : Started GET "/assets/application-993f2f0d6672badc273b38c38a64a0b522d83652b082ee4eded67809c1c276bc.css" for 127.0.0.1 at 2015-04-16 15:40:21 +0300
+I, [2015-04-16T15:40:21.547000 #10453]  INFO -- : Started GET "/assets/application-4c88f4d8632842c4e819797aed3dad461e991cf298f8aa48b07ece7a917f8346.js" for 127.0.0.1 at 2015-04-16 15:40:21 +0300
+F, [2015-04-16T15:40:21.630000 #10453] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-993f2f0d6672badc273b38c38a64a0b522d83652b082ee4eded67809c1c276bc.css"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+F, [2015-04-16T15:40:21.646000 #10453] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-4c88f4d8632842c4e819797aed3dad461e991cf298f8aa48b07ece7a917f8346.js"):
+  actionpack (4.1.10) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.10) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  actionpack (4.1.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  railties (4.1.10) lib/rails/engine.rb:514:in `call'
+  railties (4.1.10) lib/rails/application.rb:144:in `call'
+  newrelic_rpm (3.11.2.286) lib/new_relic/agent/instrumentation/middleware_tracing.rb:67:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma-2.11.1 (java) lib/puma/server.rb:507:in `handle_request'
+  puma-2.11.1 (java) lib/puma/server.rb:375:in `process_client'
+  puma-2.11.1 (java) lib/puma/server.rb:262:in `run'
+  org/jruby/RubyProc.java:271:in `call'
+  puma-2.11.1 (java) lib/puma/thread_pool.rb:104:in `spawn_thread'
+
+
+I, [2015-04-16T15:42:42.069000 #10782]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:42:42 +0300
+I, [2015-04-16T15:42:42.803000 #10782]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:42:43.497000 #10782]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (4.0ms)
+I, [2015-04-16T15:42:43.509000 #10782]  INFO -- :   Rendered elements/_header.html.erb (2.0ms)
+I, [2015-04-16T15:42:43.525000 #10782]  INFO -- :   Rendered elements/_headbar.html.erb (14.0ms)
+I, [2015-04-16T15:42:43.527000 #10782]  INFO -- : Completed 200 OK in 724ms (Views: 41.0ms | ActiveRecord: 8.0ms)
+I, [2015-04-16T15:42:48.537000 #10782]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:42:48 +0300
+I, [2015-04-16T15:42:48.550000 #10782]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:42:48.568000 #10782]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (1.0ms)
+I, [2015-04-16T15:42:48.573000 #10782]  INFO -- :   Rendered elements/_header.html.erb (0.0ms)
+I, [2015-04-16T15:42:48.577000 #10782]  INFO -- :   Rendered elements/_headbar.html.erb (2.0ms)
+I, [2015-04-16T15:42:48.578000 #10782]  INFO -- : Completed 200 OK in 27ms (Views: 14.0ms | ActiveRecord: 2.0ms)
+I, [2015-04-16T15:42:56.886000 #10782]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:42:56 +0300
+I, [2015-04-16T15:42:56.896000 #10782]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:42:56.908000 #10782]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (1.0ms)
+I, [2015-04-16T15:42:56.912000 #10782]  INFO -- :   Rendered elements/_header.html.erb (1.0ms)
+I, [2015-04-16T15:42:56.916000 #10782]  INFO -- :   Rendered elements/_headbar.html.erb (2.0ms)
+I, [2015-04-16T15:42:56.917000 #10782]  INFO -- : Completed 200 OK in 21ms (Views: 11.0ms | ActiveRecord: 2.0ms)
+I, [2015-04-16T15:52:36.976000 #10782]  INFO -- : Started GET "/index" for 127.0.0.1 at 2015-04-16 15:52:36 +0300
+I, [2015-04-16T15:52:36.984000 #10782]  INFO -- : Processing by WelcomeController#index as HTML
+I, [2015-04-16T15:52:36.998000 #10782]  INFO -- :   Rendered welcome/index.html.erb within layouts/application (1.0ms)
+I, [2015-04-16T15:52:37.001000 #10782]  INFO -- :   Rendered elements/_header.html.erb (1.0ms)
+I, [2015-04-16T15:52:37.004000 #10782]  INFO -- :   Rendered elements/_headbar.html.erb (3.0ms)
+I, [2015-04-16T15:52:37.005000 #10782]  INFO -- : Completed 200 OK in 20ms (Views: 12.0ms | ActiveRecord: 1.0ms)

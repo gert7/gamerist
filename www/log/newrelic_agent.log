@@ -680,3 +680,79 @@
 [04/15/15 17:33:44 +0300 gert-N56VZ (16506)] INFO : Installing Sinatra instrumentation
 [04/15/15 17:33:44 +0300 gert-N56VZ (16506)] INFO : Installing Sidekiq instrumentation
 [04/15/15 17:33:45 +0300 gert-N56VZ (16506)] INFO : Doing deferred dependency-detection before Rack startup
+[04/16/15 15:37:46 +0300 gert-N56VZ (10002)] INFO : Starting the New Relic agent in "production" environment.
+[04/16/15 15:37:46 +0300 gert-N56VZ (10002)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/16/15 15:37:46 +0300 gert-N56VZ (10002)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/16/15 15:37:46 +0300 gert-N56VZ (10002)] INFO : Environment: production
+[04/16/15 15:37:46 +0300 gert-N56VZ (10002)] INFO : No known dispatcher detected.
+[04/16/15 15:37:46 +0300 gert-N56VZ (10002)] INFO : Application: Gamerist
+[04/16/15 15:37:47 +0300 gert-N56VZ (10002)] INFO : Installing Net instrumentation
+[04/16/15 15:37:47 +0300 gert-N56VZ (10002)] INFO : Installing deferred Rack instrumentation
+[04/16/15 15:37:47 +0300 gert-N56VZ (10002)] INFO : Installing Rack::Builder middleware instrumentation
+[04/16/15 15:37:47 +0300 gert-N56VZ (10002)] INFO : Installing Rails 3+ middleware instrumentation
+[04/16/15 15:37:47 +0300 gert-N56VZ (10002)] INFO : Installing ActiveRecord 4 instrumentation
+[04/16/15 15:37:47 +0300 gert-N56VZ (10002)] INFO : Installing Rails 4 view instrumentation
+[04/16/15 15:37:47 +0300 gert-N56VZ (10002)] INFO : Installing Rails 4 Error instrumentation
+[04/16/15 15:37:47 +0300 gert-N56VZ (10002)] INFO : Installing Rails 4 Controller instrumentation
+[04/16/15 15:37:47 +0300 gert-N56VZ (10002)] INFO : Finished instrumentation
+[04/16/15 15:37:49 +0300 gert-N56VZ (10002)] INFO : Reporting to: https://rpm.newrelic.com/accounts/959645/applications/6182023
+[04/16/15 15:37:50 +0300 gert-N56VZ (10002)] INFO : Installing Sinatra instrumentation
+[04/16/15 15:37:50 +0300 gert-N56VZ (10002)] INFO : Installing Sidekiq instrumentation
+[04/16/15 15:37:50 +0300 gert-N56VZ (10002)] INFO : Doing deferred dependency-detection before Rack startup
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Starting the New Relic agent in "production" environment.
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Environment: production
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : No known dispatcher detected.
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Application: Gamerist
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Installing Net instrumentation
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Installing deferred Rack instrumentation
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Installing Rack::Builder middleware instrumentation
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Installing Rails 3+ middleware instrumentation
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Installing ActiveRecord 4 instrumentation
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Installing Rails 4 view instrumentation
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Installing Rails 4 Error instrumentation
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Installing Rails 4 Controller instrumentation
+[04/16/15 15:39:13 +0300 gert-N56VZ (10353)] INFO : Finished instrumentation
+[04/16/15 15:39:15 +0300 gert-N56VZ (10353)] INFO : Reporting to: https://rpm.newrelic.com/accounts/959645/applications/6182023
+[04/16/15 15:39:16 +0300 gert-N56VZ (10353)] INFO : Installing Sinatra instrumentation
+[04/16/15 15:39:16 +0300 gert-N56VZ (10353)] INFO : Installing Sidekiq instrumentation
+[04/16/15 15:39:17 +0300 gert-N56VZ (10353)] INFO : Doing deferred dependency-detection before Rack startup
+[04/16/15 15:40:12 +0300 gert-N56VZ (10453)] INFO : Starting the New Relic agent in "production" environment.
+[04/16/15 15:40:12 +0300 gert-N56VZ (10453)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/16/15 15:40:12 +0300 gert-N56VZ (10453)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/16/15 15:40:12 +0300 gert-N56VZ (10453)] INFO : Environment: production
+[04/16/15 15:40:12 +0300 gert-N56VZ (10453)] INFO : No known dispatcher detected.
+[04/16/15 15:40:12 +0300 gert-N56VZ (10453)] INFO : Application: Gamerist
+[04/16/15 15:40:13 +0300 gert-N56VZ (10453)] INFO : Installing Net instrumentation
+[04/16/15 15:40:13 +0300 gert-N56VZ (10453)] INFO : Installing deferred Rack instrumentation
+[04/16/15 15:40:13 +0300 gert-N56VZ (10453)] INFO : Installing Rack::Builder middleware instrumentation
+[04/16/15 15:40:13 +0300 gert-N56VZ (10453)] INFO : Installing Rails 3+ middleware instrumentation
+[04/16/15 15:40:13 +0300 gert-N56VZ (10453)] INFO : Installing ActiveRecord 4 instrumentation
+[04/16/15 15:40:13 +0300 gert-N56VZ (10453)] INFO : Installing Rails 4 view instrumentation
+[04/16/15 15:40:13 +0300 gert-N56VZ (10453)] INFO : Installing Rails 4 Error instrumentation
+[04/16/15 15:40:13 +0300 gert-N56VZ (10453)] INFO : Installing Rails 4 Controller instrumentation
+[04/16/15 15:40:13 +0300 gert-N56VZ (10453)] INFO : Finished instrumentation
+[04/16/15 15:40:15 +0300 gert-N56VZ (10453)] INFO : Reporting to: https://rpm.newrelic.com/accounts/959645/applications/6182023
+[04/16/15 15:40:16 +0300 gert-N56VZ (10453)] INFO : Installing Sinatra instrumentation
+[04/16/15 15:40:16 +0300 gert-N56VZ (10453)] INFO : Installing Sidekiq instrumentation
+[04/16/15 15:40:17 +0300 gert-N56VZ (10453)] INFO : Doing deferred dependency-detection before Rack startup
+[04/16/15 15:42:37 +0300 gert-N56VZ (10782)] INFO : Starting the New Relic agent in "production" environment.
+[04/16/15 15:42:37 +0300 gert-N56VZ (10782)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/16/15 15:42:37 +0300 gert-N56VZ (10782)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/16/15 15:42:37 +0300 gert-N56VZ (10782)] INFO : Environment: production
+[04/16/15 15:42:37 +0300 gert-N56VZ (10782)] INFO : No known dispatcher detected.
+[04/16/15 15:42:37 +0300 gert-N56VZ (10782)] INFO : Application: Gamerist
+[04/16/15 15:42:38 +0300 gert-N56VZ (10782)] INFO : Installing Net instrumentation
+[04/16/15 15:42:38 +0300 gert-N56VZ (10782)] INFO : Installing deferred Rack instrumentation
+[04/16/15 15:42:38 +0300 gert-N56VZ (10782)] INFO : Installing Rack::Builder middleware instrumentation
+[04/16/15 15:42:38 +0300 gert-N56VZ (10782)] INFO : Installing Rails 3+ middleware instrumentation
+[04/16/15 15:42:38 +0300 gert-N56VZ (10782)] INFO : Installing ActiveRecord 4 instrumentation
+[04/16/15 15:42:38 +0300 gert-N56VZ (10782)] INFO : Installing Rails 4 view instrumentation
+[04/16/15 15:42:38 +0300 gert-N56VZ (10782)] INFO : Installing Rails 4 Error instrumentation
+[04/16/15 15:42:38 +0300 gert-N56VZ (10782)] INFO : Installing Rails 4 Controller instrumentation
+[04/16/15 15:42:38 +0300 gert-N56VZ (10782)] INFO : Finished instrumentation
+[04/16/15 15:42:40 +0300 gert-N56VZ (10782)] INFO : Reporting to: https://rpm.newrelic.com/accounts/959645/applications/6182023
+[04/16/15 15:42:41 +0300 gert-N56VZ (10782)] INFO : Installing Sinatra instrumentation
+[04/16/15 15:42:41 +0300 gert-N56VZ (10782)] INFO : Installing Sidekiq instrumentation
+[04/16/15 15:42:41 +0300 gert-N56VZ (10782)] INFO : Doing deferred dependency-detection before Rack startup
