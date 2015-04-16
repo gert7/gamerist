@@ -44,14 +44,12 @@ gem 'omniauth'
 gem 'omniauth-steam'
 gem 'paypal-sdk-rest', require: false # 0.6.1
 gem 'geocoder', require: false # 1.2.0
+gem 'json_vat', github: 'adamcooke/json-vat', ref: 'dba4172', require: false
 
 gem 'redis', require: false # 3.0.7
 gem 'redis-rails', require: false # 4.0.0
 #gem 'redis-objects', require: false
 gem 'mlanett-redis-lock', require: 'redis-lock'
-gem 'rack-cache', require: false
-gem 'redis-namespace', require: false
-gem 'redis-rack-cache', require: false
 gem 'march_hare', require: false # 2.1.2-java
 
 gem 'ejs', require: 'ejs'
