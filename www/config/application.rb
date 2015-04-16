@@ -7,6 +7,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 require 'omniauth'
+require 'config/initializers/apikeys_accessor'
 
 module Gamerist
   class Application < Rails::Application
@@ -22,7 +23,11 @@ module Gamerist
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.autoload_paths += Dir["#{config.root}/lib/workers/**/"]
-    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
+    if(Rails.env.production?)
+      config.cache_store = :redis_store, 'redis://' + $GAMERIST_API_KEYS["redis_production"] + '/0/cache', { expires_in: 90.minutes }
+    else
+      config.cache_store = :redis_store, 'redis://' + $GAMERIST_API_KEYS["redis_development"] + '/0/cache', { expires_in: 90.minutes }
+    end
     #config.assets.initialize_on_precompile = false
     #config.assets.precompile += %w( active_admin.css active_admin/print.css active_admin.js )
   end

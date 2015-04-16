@@ -26,7 +26,7 @@ gem 'therubyrhino', platforms: :ruby
 gem 'jquery-cdn', '1.10.2'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+#gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -47,7 +47,7 @@ gem 'geocoder', require: false # 1.2.0
 
 gem 'redis', require: false # 3.0.7
 gem 'redis-rails', require: false # 4.0.0
-gem 'redis-objects', require: false
+#gem 'redis-objects', require: false
 gem 'mlanett-redis-lock', require: 'redis-lock'
 gem 'rack-cache', require: false
 gem 'redis-namespace', require: false

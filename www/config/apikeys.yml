@@ -3,4 +3,5 @@ rabbitmq_hostname: turtle.rmq.cloudamqp.com
 rabbitmq_username: gxjhkelj
 rabbitmq_vhost: gxjhkelj
 rabbitmq_password: kgk9O_NcOpEnFd-3C4Po6zJLqn7R6aIS
-
+redis_production: localhost:6379
+redis_development: localhost:6379

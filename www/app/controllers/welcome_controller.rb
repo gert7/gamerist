@@ -1,7 +1,6 @@
 class WelcomeController < ApplicationController
   def index
     expires_in 6.hours, public: true
-    puts "CURRENT USER : " + current_user.to_s
     if(current_user)
       expires_now if stale?(etag: current_user, public: false)
     elsif(flash[:notice])

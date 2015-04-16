@@ -1,4 +1,5 @@
 require 'redis-lock'
+require 'config/initializers/apikeys_accessor'
 
 class Redis
   def fetch n, &b
@@ -13,5 +14,9 @@ class Redis
   end
 end
 
-$redis = ConnectionPool::Wrapper.new(size: 5, timeout: 5) { Redis.new }
+if(Rails.env.production?)
+  $redis = ConnectionPool::Wrapper.new(size: 5, timeout: 5) { Redis.new(:url => "redis://" + $GAMERIST_API_KEYS["redis_production"]) }
+else
+  $redis = ConnectionPool::Wrapper.new(size: 5, timeout: 5) { Redis.new(:url => "redis://" + $GAMERIST_API_KEYS["redis_development"]) }
+end
 
