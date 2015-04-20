@@ -1,11 +1,12 @@
+<%= cache do %>
 <div id="headbar">
 	<div id="headbar_inner">
 	  <div id="headbar_left">
 		  <div id="headbar_left_content">
 				<%if (user_signed_in?)%>
 				  <div id="headbar_loggedin_name">
-					<%=link_to("Sign out", destroy_user_session_path, method: :delete, data: {no_turbolink: true}) %> | 
-          <div id="headbar_loggedin_name_email"><%= link_to current_user.email, account_path(id: current_user.id), method: :get %></div>
+					<%=link_to("Sign out", destroy_user_session_path, method: :delete) %> | 
+          <div id="headbar_loggedin_name_email"><%= link_to current_user.email, accounts_path, method: :get %></div>
 				  </div>
 				<%else%>
 				  <div id="headbar_loggedin_name">
@@ -16,7 +17,6 @@
 		</div>
 	  <div id="headbar_center">
 			<a href="<%= url_for controller: '/welcome', action: :index %>" data-no-turbolink><div id="headbarlogo_link"><div id="headbarlogo"></div></div></a>
-			
 		</div>
 		<div id="headbar_right">
 			<div id="headbar_right_content">
@@ -29,3 +29,5 @@
 		</div>
 	</div>
 </div>
+<% end %>
+

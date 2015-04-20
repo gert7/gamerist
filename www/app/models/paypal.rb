@@ -41,6 +41,7 @@ class Paypal < ActiveRecord::Base
     total     = subtotal*(1 + country[:vat])
     tax       = total - subtotal
     pp        = Paypal.create
+    
     subtotal_s= "%.2f" % subtotal
     total_s   = "%.2f" % total
     tax_s     = "%.2f" % tax

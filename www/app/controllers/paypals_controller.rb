@@ -1,5 +1,6 @@
 class PaypalsController < ApplicationController
   before_action :set_paypal, only: [:show]
+  before_filter :authenticate_user!
   
   def new
   end

@@ -28,7 +28,7 @@ end
 
 describe Paypal do
   let(:user) { FactoryGirl.create :user }
-  let(:p) { mock("payment")}
+  let(:p) { mock("payment") }
   let(:redirlink) { "http://www.success.paypal.com" }
 
   before {

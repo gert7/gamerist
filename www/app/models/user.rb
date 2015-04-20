@@ -29,6 +29,14 @@ class User < ActiveRecord::Base
   has_many :transactions, inverse_of: :user
   has_many :paypals, inverse_of: :user
 
+  after_save do
+    unless(self.account)
+      Account.create do |a|
+        a.user_id = self.id
+      end
+    end
+  end
+
   def name
     self.email
   end
