@@ -63,7 +63,9 @@ $(document).ready () ->
     
 
   #declare_closest_server("127.0.0.1", "localhost")
-  declare_closest_server("tesco.co.uk", "london")
-  declare_closest_server("ytv.ca", "francisco")
-  declare_closest_server("abc.com.au", "sydney")
+  a = () ->
+    declare_closest_server("tesco.co.uk", "london")
+    declare_closest_server("ytv.ca", "francisco")
+    declare_closest_server("abc.com.au", "sydney")
+  setTimeout(a, 3000)
   

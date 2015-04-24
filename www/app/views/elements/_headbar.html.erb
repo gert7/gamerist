@@ -1,18 +1,11 @@
-<%= cache do %>
+<%= cache "Headbar" do %>
 <div id="headbar">
 	<div id="headbar_inner">
 	  <div id="headbar_left">
 		  <div id="headbar_left_content">
-				<%if (user_signed_in?)%>
 				  <div id="headbar_loggedin_name">
-					<%=link_to("Sign out", destroy_user_session_path, method: :delete) %> | 
-          <div id="headbar_loggedin_name_email"><%= link_to current_user.email, accounts_path, method: :get %></div>
-				  </div>
-				<%else%>
-				  <div id="headbar_loggedin_name">
-					<%=link_to "Sign in", new_user_session_path%>
-				  </div>
-				<%end%>
+				  <noscript>Please enable Javascript</noscript>
+					</div>
 			</div>
 		</div>
 	  <div id="headbar_center">
@@ -20,11 +13,6 @@
 		</div>
 		<div id="headbar_right">
 			<div id="headbar_right_content">
-			<%if (user_signed_in?)%>
-				<div id="headbar_points">
-					<%= current_user.total_balance %>
-				</div>
-			<% end %>
 			</div>
 		</div>
 	</div>

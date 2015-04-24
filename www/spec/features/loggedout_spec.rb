@@ -6,7 +6,7 @@ describe 'Logged out' do
     expect(page).to have_content('Win games for money')
   end
 
-  it 'logs in the user and shows the sign out link' do
+  it 'logs in the user and shows the sign out link', js: true do
     user = FactoryGirl.build(:user)
     visit '/'
     expect(page.find("#headbar_loggedin_name")).to have_content("Sign in")
@@ -15,7 +15,7 @@ describe 'Logged out' do
     expect(page.find("#headbar_loggedin_name")).to have_content("Sign out")
   end
   
-  it 'logs in the user then logs out' do
+  it 'logs in the user then logs out', js: true do
     user = FactoryGirl.create(:user)
     login_as(user)
     visit '/'
@@ -33,7 +33,7 @@ describe 'Logged out' do
     expect(page).to have_content "You need to sign in or sign up before continuing."
   end
   
-  it 'creates a new room' do
+  it 'creates a new room', js: true do
     user = FactoryGirl.create(:user)
     login_as(user)#, :scope => :user, :run_callbacks => false)
     

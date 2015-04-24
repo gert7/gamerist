@@ -84,6 +84,7 @@ group :development, :test do
   gem 'database_cleaner', require: false
   gem 'mocha', require: false
   gem 'require_all'#, require: false
+  gem 'selenium-webdriver'
 end
 
 group :production do

@@ -9,4 +9,6 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Gamerist::Application.config.secret_key_base = '3d911ad4c7fdb0a650550ed6abd0c749c7c838c20f949ebccd051c34219d5fc5ad8385d3ef140b251532ea141ae56e3a0d2fad310774b2330d99066820e3543e'
+require 'config/initializers/apikeys_accessor'
+
+Gamerist::Application.config.secret_key_base = $GAMERIST_API_KEYS["secret_key_base"]
