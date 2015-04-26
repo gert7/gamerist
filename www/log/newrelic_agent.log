@@ -809,3 +809,153 @@
 [04/16/15 18:26:14 +0300 gert-N56VZ (19149)] INFO : Installing Sinatra instrumentation
 [04/16/15 18:26:14 +0300 gert-N56VZ (19149)] INFO : Installing Sidekiq instrumentation
 [04/16/15 18:26:14 +0300 gert-N56VZ (19149)] INFO : Doing deferred dependency-detection before Rack startup
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Starting the New Relic agent in "production" environment.
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Environment: production
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : No known dispatcher detected.
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Application: Gamerist
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Installing Net instrumentation
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Installing deferred Rack instrumentation
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Installing Rack::Builder middleware instrumentation
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Installing Rails 3+ middleware instrumentation
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Installing ActiveRecord 4 instrumentation
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Installing Rails 4 view instrumentation
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Installing Rails 4 Error instrumentation
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Installing Rails 4 Controller instrumentation
+[04/24/15 19:10:40 +0300 gert-N56VZ (8621)] INFO : Finished instrumentation
+[04/24/15 19:10:44 +0300 gert-N56VZ (8621)] INFO : Installing Sinatra instrumentation
+[04/24/15 19:10:44 +0300 gert-N56VZ (8621)] INFO : Installing Sidekiq instrumentation
+[04/24/15 19:10:46 +0300 gert-N56VZ (8621)] INFO : Doing deferred dependency-detection before Rack startup
+[04/24/15 19:10:51 +0300 gert-N56VZ (8621)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[04/24/15 19:10:51 +0300 gert-N56VZ (8621)] ERROR : OpenSSL::SSL::SSLError: Connection reset by peer
+[04/24/15 19:10:51 +0300 gert-N56VZ (8621)] INFO : Will re-attempt in 60 seconds
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Starting the New Relic agent in "production" environment.
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Environment: production
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : No known dispatcher detected.
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Application: Gamerist
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Installing Net instrumentation
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Installing deferred Rack instrumentation
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Installing Rack::Builder middleware instrumentation
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Installing Rails 3+ middleware instrumentation
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Installing ActiveRecord 4 instrumentation
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Installing Rails 4 view instrumentation
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Installing Rails 4 Error instrumentation
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Installing Rails 4 Controller instrumentation
+[04/24/15 19:12:08 +0300 gert-N56VZ (8737)] INFO : Finished instrumentation
+[04/24/15 19:12:13 +0300 gert-N56VZ (8737)] INFO : Installing Sinatra instrumentation
+[04/24/15 19:12:13 +0300 gert-N56VZ (8737)] INFO : Installing Sidekiq instrumentation
+[04/24/15 19:12:13 +0300 gert-N56VZ (8737)] INFO : Doing deferred dependency-detection before Rack startup
+[04/24/15 19:14:36 +0300 gert-N56VZ (8925)] INFO : Starting the New Relic agent in "production" environment.
+[04/24/15 19:14:36 +0300 gert-N56VZ (8925)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/24/15 19:14:36 +0300 gert-N56VZ (8925)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/24/15 19:14:36 +0300 gert-N56VZ (8925)] INFO : Environment: production
+[04/24/15 19:14:36 +0300 gert-N56VZ (8925)] INFO : No known dispatcher detected.
+[04/24/15 19:14:36 +0300 gert-N56VZ (8925)] INFO : Application: Gamerist
+[04/24/15 19:14:37 +0300 gert-N56VZ (8925)] INFO : Installing Net instrumentation
+[04/24/15 19:14:37 +0300 gert-N56VZ (8925)] INFO : Installing deferred Rack instrumentation
+[04/24/15 19:14:37 +0300 gert-N56VZ (8925)] INFO : Installing Rack::Builder middleware instrumentation
+[04/24/15 19:14:37 +0300 gert-N56VZ (8925)] INFO : Installing Rails 3+ middleware instrumentation
+[04/24/15 19:14:37 +0300 gert-N56VZ (8925)] INFO : Installing ActiveRecord 4 instrumentation
+[04/24/15 19:14:37 +0300 gert-N56VZ (8925)] INFO : Installing Rails 4 view instrumentation
+[04/24/15 19:14:37 +0300 gert-N56VZ (8925)] INFO : Installing Rails 4 Error instrumentation
+[04/24/15 19:14:37 +0300 gert-N56VZ (8925)] INFO : Installing Rails 4 Controller instrumentation
+[04/24/15 19:14:37 +0300 gert-N56VZ (8925)] INFO : Finished instrumentation
+[04/24/15 19:14:40 +0300 gert-N56VZ (8925)] INFO : Installing Sinatra instrumentation
+[04/24/15 19:14:40 +0300 gert-N56VZ (8925)] INFO : Installing Sidekiq instrumentation
+[04/24/15 19:14:41 +0300 gert-N56VZ (8925)] INFO : Doing deferred dependency-detection before Rack startup
+[04/24/15 19:14:54 +0300 gert-N56VZ (8925)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[04/24/15 19:14:54 +0300 gert-N56VZ (8925)] ERROR : OpenSSL::SSL::SSLError: Connection reset by peer
+[04/24/15 19:14:54 +0300 gert-N56VZ (8925)] INFO : Will re-attempt in 60 seconds
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Starting the New Relic agent in "production" environment.
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Environment: production
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : No known dispatcher detected.
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Application: Gamerist
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Installing Net instrumentation
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Installing deferred Rack instrumentation
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Installing Rack::Builder middleware instrumentation
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Installing Rails 3+ middleware instrumentation
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Installing ActiveRecord 4 instrumentation
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Installing Rails 4 view instrumentation
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Installing Rails 4 Error instrumentation
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Installing Rails 4 Controller instrumentation
+[04/24/15 19:15:26 +0300 gert-N56VZ (9018)] INFO : Finished instrumentation
+[04/24/15 19:15:30 +0300 gert-N56VZ (9018)] INFO : Installing Sinatra instrumentation
+[04/24/15 19:15:30 +0300 gert-N56VZ (9018)] INFO : Installing Sidekiq instrumentation
+[04/24/15 19:15:30 +0300 gert-N56VZ (9018)] INFO : Doing deferred dependency-detection before Rack startup
+[04/24/15 19:15:37 +0300 gert-N56VZ (9018)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[04/24/15 19:15:37 +0300 gert-N56VZ (9018)] ERROR : OpenSSL::SSL::SSLError: Connection reset by peer
+[04/24/15 19:15:37 +0300 gert-N56VZ (9018)] INFO : Will re-attempt in 60 seconds
+[04/24/15 19:16:42 +0300 gert-N56VZ (9129)] INFO : Starting the New Relic agent in "production" environment.
+[04/24/15 19:16:42 +0300 gert-N56VZ (9129)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/24/15 19:16:42 +0300 gert-N56VZ (9129)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/24/15 19:16:42 +0300 gert-N56VZ (9129)] INFO : Environment: production
+[04/24/15 19:16:42 +0300 gert-N56VZ (9129)] INFO : No known dispatcher detected.
+[04/24/15 19:16:42 +0300 gert-N56VZ (9129)] INFO : Application: Gamerist
+[04/24/15 19:16:42 +0300 gert-N56VZ (9129)] INFO : Installing Net instrumentation
+[04/24/15 19:16:42 +0300 gert-N56VZ (9129)] INFO : Installing deferred Rack instrumentation
+[04/24/15 19:16:42 +0300 gert-N56VZ (9129)] INFO : Installing Rack::Builder middleware instrumentation
+[04/24/15 19:16:43 +0300 gert-N56VZ (9129)] INFO : Installing Rails 3+ middleware instrumentation
+[04/24/15 19:16:43 +0300 gert-N56VZ (9129)] INFO : Installing ActiveRecord 4 instrumentation
+[04/24/15 19:16:43 +0300 gert-N56VZ (9129)] INFO : Installing Rails 4 view instrumentation
+[04/24/15 19:16:43 +0300 gert-N56VZ (9129)] INFO : Installing Rails 4 Error instrumentation
+[04/24/15 19:16:43 +0300 gert-N56VZ (9129)] INFO : Installing Rails 4 Controller instrumentation
+[04/24/15 19:16:43 +0300 gert-N56VZ (9129)] INFO : Finished instrumentation
+[04/24/15 19:16:46 +0300 gert-N56VZ (9129)] INFO : Installing Sinatra instrumentation
+[04/24/15 19:16:46 +0300 gert-N56VZ (9129)] INFO : Installing Sidekiq instrumentation
+[04/24/15 19:16:47 +0300 gert-N56VZ (9129)] INFO : Doing deferred dependency-detection before Rack startup
+[04/24/15 19:16:53 +0300 gert-N56VZ (9129)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[04/24/15 19:16:53 +0300 gert-N56VZ (9129)] ERROR : OpenSSL::SSL::SSLError: Connection reset by peer
+[04/24/15 19:16:53 +0300 gert-N56VZ (9129)] INFO : Will re-attempt in 60 seconds
+[04/24/15 19:18:09 +0300 gert-N56VZ (9129)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[04/24/15 19:18:09 +0300 gert-N56VZ (9129)] ERROR : OpenSSL::SSL::SSLError: Connection reset by peer
+[04/24/15 19:18:09 +0300 gert-N56VZ (9129)] INFO : Will re-attempt in 120 seconds
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Starting the New Relic agent in "production" environment.
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Environment: production
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : No known dispatcher detected.
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Application: Gamerist
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Installing Net instrumentation
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Installing deferred Rack instrumentation
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Installing Rack::Builder middleware instrumentation
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Installing Rails 3+ middleware instrumentation
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Installing ActiveRecord 4 instrumentation
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Installing Rails 4 view instrumentation
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Installing Rails 4 Error instrumentation
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Installing Rails 4 Controller instrumentation
+[04/24/15 19:19:41 +0300 gert-N56VZ (9319)] INFO : Finished instrumentation
+[04/24/15 19:19:45 +0300 gert-N56VZ (9319)] INFO : Installing Sinatra instrumentation
+[04/24/15 19:19:45 +0300 gert-N56VZ (9319)] INFO : Installing Sidekiq instrumentation
+[04/24/15 19:19:46 +0300 gert-N56VZ (9319)] INFO : Doing deferred dependency-detection before Rack startup
+[04/24/15 19:20:01 +0300 gert-N56VZ (9319)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[04/24/15 19:20:01 +0300 gert-N56VZ (9319)] ERROR : OpenSSL::SSL::SSLError: Connection reset by peer
+[04/24/15 19:20:01 +0300 gert-N56VZ (9319)] INFO : Will re-attempt in 60 seconds
+[04/24/15 19:21:12 +0300 gert-N56VZ (9319)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[04/24/15 19:21:12 +0300 gert-N56VZ (9319)] ERROR : OpenSSL::SSL::SSLError: Connection reset by peer
+[04/24/15 19:21:12 +0300 gert-N56VZ (9319)] INFO : Will re-attempt in 120 seconds
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Starting the New Relic agent in "production" environment.
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Reading configuration from config/newrelic.yml (/home/gert/gamerist/www)
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Environment: production
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : No known dispatcher detected.
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Application: Gamerist
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Installing Net instrumentation
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Installing deferred Rack instrumentation
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Installing Rack::Builder middleware instrumentation
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Installing Rails 3+ middleware instrumentation
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Installing ActiveRecord 4 instrumentation
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Installing Rails 4 view instrumentation
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Installing Rails 4 Error instrumentation
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Installing Rails 4 Controller instrumentation
+[04/24/15 19:21:50 +0300 gert-N56VZ (9434)] INFO : Finished instrumentation
+[04/24/15 19:21:54 +0300 gert-N56VZ (9434)] INFO : Installing Sinatra instrumentation
+[04/24/15 19:21:54 +0300 gert-N56VZ (9434)] INFO : Installing Sidekiq instrumentation
+[04/24/15 19:21:54 +0300 gert-N56VZ (9434)] INFO : Doing deferred dependency-detection before Rack startup
+[04/24/15 19:22:01 +0300 gert-N56VZ (9434)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[04/24/15 19:22:01 +0300 gert-N56VZ (9434)] ERROR : OpenSSL::SSL::SSLError: Connection reset by peer
+[04/24/15 19:22:01 +0300 gert-N56VZ (9434)] INFO : Will re-attempt in 60 seconds

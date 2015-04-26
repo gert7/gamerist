@@ -38,12 +38,13 @@ describe 'Logged out' do
     login_as(user)#, :scope => :user, :run_callbacks => false)
     
     visit '/rooms/new'
-    choose('room_game_team_fortress_2')
-    choose('room_playercount_16')
+    expect(page.find("#headbar_loggedin_name")).to have_content("Sign out")
+    #choose('room_game_team_fortress_2', visible: false)
+    find("label[for=room_playercount_16]").click
     fill_in('room[wager]', with: 20)
     select('ctf_2fort', from: "room[map]")
     click_on("Create Room")
-    expect(page).to have_content("1 player in lobby")
+    expect(page).to have_content("Room created: team fortress 2")
   end
 end
 

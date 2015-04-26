@@ -51,7 +51,10 @@ gem 'redis', require: false # 3.0.7
 gem 'redis-rails', require: false # 4.0.0
 #gem 'redis-objects', require: false
 gem 'mlanett-redis-lock', require: 'redis-lock'
-gem 'march_hare', require: false # 2.1.2-java
+
+#group :production, :development, :test do
+gem "bunny", require: false
+#envd
 
 gem 'ejs', require: 'ejs'
 gem 'annotate', require: false
@@ -84,7 +87,7 @@ group :development, :test do
   gem 'database_cleaner', require: false
   gem 'mocha', require: false
   gem 'require_all'#, require: false
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', require: false
 end
 
 group :production do

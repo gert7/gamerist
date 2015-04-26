@@ -1,5 +1,5 @@
 require 'config/initializers/apikeys_accessor'
-require 'march_hare'
+#require 'bunny'
 require 'sidekiq'
 
 #connection = MarchHare.connect(:host => 'localhost')
