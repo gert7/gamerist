@@ -49,12 +49,9 @@ gem 'json_vat', github: 'adamcooke/json-vat', ref: 'dba4172', require: false
 gem 'rack-cache', require: false
 gem 'redis', require: false # 3.0.7
 gem 'redis-rails', require: false # 4.0.0
-#gem 'redis-objects', require: false
 gem 'mlanett-redis-lock', require: 'redis-lock'
 
-#group :production, :development, :test do
 gem "bunny", require: false
-#envd
 
 gem 'ejs', require: 'ejs'
 gem 'annotate', require: false
