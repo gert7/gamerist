@@ -1,3 +1,11 @@
+form {
+  display:inline-block;
+}
+
+.srules_wagerselect_bg {
+  background-color:hsl(244,50,10);
+}
+
 #srules_info {
   background: #333;
   color: #fff;
@@ -19,8 +27,118 @@
   line-height:32px;
 }
 
-#srules_hr {
+.srules_hr {
   width:100%;
   height:2px;
   display:block;
+}
+
+#srules_buttons {
+  background-color:#333;
+}
+
+#srules_wager {
+  background-color:#333;
+  padding:12px;
+  width:500px;
+  display:inline-block;
+  box-sizing:border-box;
+}
+
+#srules_ready {
+  background-color:#333;
+  padding:12px;
+  width:500px;
+  display:inline-block;
+  box-sizing:border-box;
+  vertical-align:top;
+}
+
+.srules_wagerselect {
+  box-sizing:border-box;
+  border:1px solid #aaa;
+  padding:2px;
+  vertical-align:top;
+  height:61px;
+}
+
+.srules_wagerselector {
+  width:130px;
+  border:1px solid #aaa;
+  font-size:1.6em;
+  padding:12px;
+  color:white;
+  display:inline-block;
+  background-color:hsl(244,50,24);
+}
+
+.srules_wagersubmitc {
+  border:1px solid #aaa;
+  width:94px;
+  display:inline-block;
+  margin-top:15px;
+  vertical-align:top;
+}
+
+.srules_wagersubmit {
+  border:0;
+  background:#eee;
+  width:90px;
+  margin:2px;
+  color:#226;
+  cursor:pointer;
+}
+
+.srules_roomwager_label {
+  display:inline-block;
+  font-size:0.7em;
+  color:#aaa;
+  font-style:italic;
+  width:70px;
+  margin-left:4px;
+  margin-top:25px;
+  vertical-align:top;
+}
+
+.srules_roomwager {
+  width:100px;
+  border:0;
+  font-size:1.6em;
+  padding:12px;
+  color:#aaa;
+  display:inline-block;
+  text-align:right;
+}
+
+#srules_readylabel {
+  padding:12px;
+  padding-left:44px;
+  font-size:1.6em;
+  color:white;
+  width:240px;
+  display:inline-block;
+  font-family: "Blue Highway Regular";
+  box-sizing:border-box;
+}
+
+#srules_readybutton_outer {
+  display:inline-block;
+  vertical-align:top;
+  margin-top:6px;
+  border:1px solid hsl(224,25,55);
+}
+
+#srules_readybutton {
+  width:218px;
+  height:40px;
+  background:hsl(65,100,25);
+  border:1px solid hsl(65,100,50);
+  font-size:1.3em;
+  color:white;
+  font-family: "Blue Highway Regular";
+  cursor:pointer;
+}
+
+#srules_readybutton:hover {
+  background:hsl(65,100,35);
 }

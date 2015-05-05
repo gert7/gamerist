@@ -1,17 +1,46 @@
+<%= cache do %>
 <div id="rooms">
   <div id="srules_info">
     <div class="srules_info_column">
-      <p>Game: <%=@room.srules["game"]%></p>
-      <p>Map: <%=@room.srules["map"]%></p>
+      <p>Game: </p>
+      <p>Map: </p>
     </div>
     <div class="srules_info_column">
-      <p>Playercount: <%=@room.srules["playercount"]%></p>
+      <p>Playercount: </p>
       <p>Server: Any</p>
     </div>
   </div>
-  <div id="srules_hr" class="saturatedBackground"></div>
+  <div class="srules_hr saturatedBackground"></div>
+  <div id="srules_buttons">
+    <div id="srules_wager">
+      <div class="srules_wagerselect srules_wagerselect_bg">
+        <%= form_tag do %>
+          <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" class="srules_wagerselector"></input>
+          <div class="srules_wagersubmitc">
+            <input type="submit" class="srules_wagersubmit"></input>
+          </div>
+        <% end %>
+        <label class="srules_roomwager_label">Room wager:</label>
+        <div class="srules_roomwager">
+          5
+        </div>
+      </div>
+    </div>
+    <div id="srules_ready">
+      <div class="srules_wagerselect srules_wagerselect_bg">  
+        <%= form_tag do %>
+        <label id="srules_readylabel">
+          Not Ready
+        </label>
+        <div id="srules_readybutton_outer">
+          <input type="submit" id="srules_readybutton" value="Ready"></input>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  <div class="srules_hr saturatedBackground"></div>
   <div id="srules_players">
-    <%= render "accounts/account" %>
   </div>
 </div>
+<% end %>
 
