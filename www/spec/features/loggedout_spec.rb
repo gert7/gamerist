@@ -44,7 +44,7 @@ describe 'Logged out' do
     fill_in('room[wager]', with: 20)
     select('ctf_2fort', from: "room[map]")
     click_on("Create Room")
-    expect(page).to have_content("Room created: team fortress 2")
+    expect(page).to have_content("Game: team fortress 2")
   end
 end
 

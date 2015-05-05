@@ -1,8 +1,17 @@
 <div id="rooms">
-Room created:
-
-<%= @room.srules["game"] %>
-
-
+  <div id="srules_info">
+    <div class="srules_info_column">
+      <p>Game: <%=@room.srules["game"]%></p>
+      <p>Map: <%=@room.srules["map"]%></p>
+    </div>
+    <div class="srules_info_column">
+      <p>Playercount: <%=@room.srules["playercount"]%></p>
+      <p>Server: Any</p>
+    </div>
+  </div>
+  <div id="srules_hr" class="saturatedBackground"></div>
+  <div id="srules_players">
+    <%= render "accounts/account" %>
+  </div>
 </div>
 

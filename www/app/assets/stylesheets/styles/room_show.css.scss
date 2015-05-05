@@ -1,0 +1,26 @@
+#srules_info {
+  background: #333;
+  color: #fff;
+  width:1024px;
+  text-align:center;
+}
+
+.srules_info_column {
+  width:500px;
+  display:inline-block;
+  padding:14px;
+  box-sizing:border-box;
+  font-size:0.9em;
+  text-align:left;
+  vertical-align:top;
+}
+
+.srules_info_column p {
+  line-height:32px;
+}
+
+#srules_hr {
+  width:100%;
+  height:2px;
+  display:block;
+}

@@ -86,6 +86,19 @@
         null,
         0
       ],
+      "/home/gert/gamerist/www/app/views/accounts/_account.html.erb": [
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        0
+      ],
       "/home/gert/gamerist/www/app/models/paypal.rb": [
         null,
         null,
@@ -847,7 +860,16 @@
         null,
         null,
         0,
+        0,
         null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
         null,
         null,
         null,
@@ -1036,6 +1058,6 @@
         0
       ]
     },
-    "timestamp": 1430067905
+    "timestamp": 1430740877
   }
 }
