@@ -14,8 +14,10 @@
   <div id="srules_buttons">
     <div id="srules_wager">
       <div class="srules_wagerselect srules_wagerselect_bg">
-        <%= form_tag do %>
-          <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" class="srules_wagerselector"></input>
+        <%= form_tag({}, {id: "srules_wagerform"}) do %>
+          <div id="srules_wagerselector_outer">
+            <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" class="srules_wagerselector pointsIcon"></input>
+          </div>
           <div class="srules_wagersubmitc">
             <input type="submit" class="srules_wagersubmit"></input>
           </div>

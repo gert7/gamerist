@@ -10,6 +10,11 @@
     background:hsl(65,80,50);
 }
 
+.pointsIcon {
+    background-image:image-url('green_diamond.png');
+    background-repeat:no-repeat;
+}
+
 @font-face {
     font-family: "Blue Highway Regular";
     src: font-url("blue_highway_rg.ttf"), font-url("blue_highway_rg.eot");

@@ -40,7 +40,7 @@ form {
 #srules_wager {
   background-color:#333;
   padding:12px;
-  width:500px;
+  width:508px;
   display:inline-block;
   box-sizing:border-box;
 }
@@ -48,10 +48,18 @@ form {
 #srules_ready {
   background-color:#333;
   padding:12px;
-  width:500px;
+  width:508px;
   display:inline-block;
   box-sizing:border-box;
   vertical-align:top;
+}
+
+#srules_wagerform {
+  background-color:hsl(244,50,24);
+  border:1px solid #333;
+  padding-right:12px;
+  height:53px;
+  width:240px;
 }
 
 .srules_wagerselect {
@@ -62,14 +70,24 @@ form {
   height:61px;
 }
 
+#srules_wagerselector_outer {
+  padding:10px;
+  width:110px;
+  display:inline-block;
+  vertical-align:top;
+}
+
 .srules_wagerselector {
-  width:130px;
-  border:1px solid #aaa;
+  width:110px;
   font-size:1.6em;
-  padding:12px;
+  padding-left:32px;
   color:white;
   display:inline-block;
   background-color:hsl(244,50,24);
+  background-position:7px 7px;
+  border:1px solid #eaff00;
+  font-family:"Blue Highway Regular";
+  box-sizing:border-box;
 }
 
 .srules_wagersubmitc {
@@ -87,6 +105,10 @@ form {
   margin:2px;
   color:#226;
   cursor:pointer;
+}
+
+.srules_wagersubmit:hover {
+  background:#fafafa;
 }
 
 .srules_roomwager_label {
@@ -108,10 +130,12 @@ form {
   color:#aaa;
   display:inline-block;
   text-align:right;
+  font-family: "Blue Highway Regular";
+  vertical-align:top;
 }
 
 #srules_readylabel {
-  padding:12px;
+  padding:10px;
   padding-left:44px;
   font-size:1.6em;
   color:white;
@@ -141,4 +165,8 @@ form {
 
 #srules_readybutton:hover {
   background:hsl(65,100,35);
+}
+
+#srules_readybutton:active {
+  background:hsl(65,100,15);
 }
