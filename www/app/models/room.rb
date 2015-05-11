@@ -63,9 +63,9 @@ class Room < ActiveRecord::Base
   before_save do
     self.rules ||= JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager, server: @server, players: []})
   end
-
+  
   def rapidkey(s)
-    "gamerist-room" + s + "-#{id}"
+    "gamerist-room {" + s + "}" + self.id.to_s
   end
   
   def srules
@@ -101,33 +101,15 @@ class Room < ActiveRecord::Base
   end
   
   # append players live
-  def append_player!(player)
-    $redis.lock(rapidkey("rules"), life: 5) do
-      mrules = self.srules
-      if(self.rstate == STATE_PUBLIC and
-         mrules["players"].count < mrules["playercount"] and
-         not player.is_reserved? and
-         player.total_balance >= srules["wager"])
-        mrules["players"].push({id: player.id, ready: 0, wager: srules["wager"]})
-        $redis.multi do
-          player.reserve! Transaction::KIND_ROOM, self.id
-          self.srules = mrules
-        end
-        return true
-      end
-      return false
-    end
-  end
-  
-  # remove players live
-  def remove_player!(player)
+  def _append_player!(player)
     mrules = self.srules # read shared data /
-    pi = mrules["players"].find_index { |v| v["id"].to_i == player.id }
-    if(pi and
-       self.rstate == STATE_PUBLIC)
-      mrules["players"].delete_at(pi)
+    if(self.rstate == STATE_PUBLIC and
+       mrules["players"].count < mrules["playercount"] and
+       not player.is_reserved? and
+       player.total_balance >= srules["wager"])
+      mrules["players"].push({id: player.id, ready: 0, wager: srules["wager"]})
       $redis.multi do
-        player.unreserve!
+        player.reserve! Transaction::KIND_ROOM, self.id
         self.srules = mrules # / write shared data
       end
       return true
@@ -135,18 +117,65 @@ class Room < ActiveRecord::Base
     return false
   end
   
+  def append_player!(player)
+    $redis.lock("PLAYER: " + player.id.to_s, life: 1) do
+      $redis.lock("ROOM: " + self.id.to_s, life: 1) do
+        _append_player! player
+      end
+    end
+  end
+  
+  def fetch_player(mrules, player)
+    mrules["players"].find_index { |v| v["id"].to_i == player.id }
+  end
+  
+  # remove players live
+  def remove_player!(player)
+    $redis.lock("PLAYER: " + player.id.to_s, life: 1) do
+      $redis.lock("ROOM: " + self.id.to_s, life: 1) do
+        mrules = self.srules # read shared data /
+        pi = fetch_player(mrules, player)
+        if(pi and
+           self.rstate == STATE_PUBLIC)
+          mrules["players"].delete_at(pi)
+          $redis.multi do
+            player.unreserve!
+            self.srules = mrules # / write shared data
+          end
+          return true
+        end
+        return false
+      end
+    end
+  end
+  
   # amend players live
   def amend_player!(player, hash)
-    mrules = srules # read shared data /
-    pi = mrules["players"].find_index { |v| v["id"].to_i == player.id }
-    if(pi and
-       (hash["wager"] ? (hash["wager"] > WAGER_MIN and hash["wager"] < WAGER_MAX) : true))
-      mrules["players"][pi] = mrules["players"][pi].merge(hash)
-      check_ready(mrules)
-      self.srules = mrules # / write shared data
-      return true
+    $redis.lock("PLAYER: " + player.id.to_s, life: 1) do
+      $redis.lock("ROOM: " + self.id.to_s, life: 1) do
+        mrules = srules # read shared data /
+        unless(fetch_player(mrules, player))
+          puts(append_player! player)
+        end
+        mrules = srules
+        puts mrules
+        pi = fetch_player(mrules, player)
+        if(pi and
+           (hash["wager"] ? (hash["wager"] >= WAGER_MIN and hash["wager"] <= WAGER_MAX) : true))
+          puts mrules["players"][pi]
+          mrules["players"][pi] = mrules["players"][pi].merge(hash)
+          puts mrules["players"][pi]
+          check_ready(mrules)
+          self.srules = mrules # / write shared data
+          return true
+        end
+        return false
+      end
     end
-    return false
+  end
+  
+  def update_xhr(cuser, params)
+    amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})
   end
 end
 

@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, except: [:show]
+  skip_before_action :verify_authenticity_token
   # GET /rooms
   # GET /rooms.json
   def index
@@ -39,14 +40,11 @@ class RoomsController < ApplicationController
   # PATCH/PUT /rooms/1
   # PATCH/PUT /rooms/1.json
   def update
+    puts params
+    @room.update_xhr(current_user, params)
     respond_to do |format|
-      if @room.update(room_params)
-        format.html { redirect_to @room, notice: 'Room was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to @room }
+      format.json { render action: 'show', location: @room }
     end
   end
 

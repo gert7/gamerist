@@ -1,5 +1,6 @@
 <%= form_tag("/paypals", method: "post") do %>
   <%= label_tag(:points, "Amount of points (1:1 €):") %>
-    <%= text_field_tag(:points) %>
-      <%= submit_tag("PAY WITH PAYPAL") %>
+  <%= text_field_tag(:points) %>
+  <%= check_box_tag(:debugmode) %>
+  <%= submit_tag("PAY WITH PAYPAL") %>
 <% end %>

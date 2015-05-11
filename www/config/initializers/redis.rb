@@ -12,6 +12,14 @@ class Redis
       r
     end
   end
+  
+  def lock2(obj1, obj2, time, &block)
+    self.lock(obj1, life: time) do
+      self.lock(obj2, life: time) do
+        block.call
+      end
+    end
+  end
 end
 
 if(Rails.env.production?)

@@ -7,7 +7,20 @@ class PaypalsController < ApplicationController
 
   # Accept a new PayPal query
   def create
-    @paypal = Paypal::start_paypal_add(current_user, params[:points].to_i, :SWE)
+    if(params[:debugmode] == "1")
+      puts "hey"
+      if(Rails.env.development?)
+        Transaction.create do |t|
+          t.user = current_user
+          t.state = Transaction::STATE_FINAL
+          t.kind  = Transaction::KIND_PAYPAL
+          t.amount = params[:points]
+          t.detail = 1
+        end
+      end
+    else
+      @paypal = Paypal::start_paypal_add(current_user, params[:points].to_i, :SWE)
+    end
   end
 
   # User redirect

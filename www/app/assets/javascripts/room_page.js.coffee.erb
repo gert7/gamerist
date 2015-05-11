@@ -1,0 +1,42 @@
+fetchCurrentPlayer = (data) ->
+  finder = (v) ->
+    v.id == data.reqid
+  ply = $.grep(data.rules.players, finder, false)[0]
+  console.dir(ply)
+  if(ply)
+    return ply
+  else
+    return {wager: data.rules.wager}
+
+updatePageObject = (data) ->
+  console.dir(data)
+  $("#srules_info_column_game").text("Game: " + data.rules.game)
+  $("#srules_info_column_map").text("Map: " + data.rules.map)
+  $("#srules_info_column_playercount").text("Players: " + data.rules.playercount)
+  $("#srules_info_column_server").text("Server: " + data.rules.server)
+  $("#srules_roomwager").text(data.rules.wager)
+  $("#srules_wagerselector").val(fetchCurrentPlayer(data).wager)
+
+toggleReady = () ->
+  if($("#srules_readystatus").val() == "0")
+    $("#srules_readystatus").val("1")
+    $("#srules_readybutton").val("Not Ready")
+    $("#srules_readylabel").text("Ready")
+  else
+    $("#srules_readystatus").val("0")
+    $("#srules_readybutton").val("Ready")
+    $("#srules_readylabel").text("Not Ready")
+
+updatePage = () ->
+  comei = {"_method": "patch", "wager": $("#srules_wagerselector").val(), "ready": $("#srules_readystatus").val()}
+  console.dir(comei)
+  $.post(document.location + ".json", comei, updatePageObject)
+
+$(document).ready () ->
+  if $("#srules_info").length
+    #setInterval(updatePage, 1000)
+    $("#srules_wagersubmit").click () ->
+      updatePage()
+    $("#srules_readybutton").click () ->
+      toggleReady()
+      updatePage()
