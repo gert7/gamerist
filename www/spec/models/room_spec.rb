@@ -126,6 +126,14 @@ describe Room do
       room.remove_player! player1
       expect(player1.is_reserved?).to eq false
     end
+    it "removes the player from between" do
+      room.append_player! player1
+      room.append_player! player2
+      room.append_player! player3
+      room.remove_player! player2
+      expect(room.srules["players"].count).to eq 2
+      expect(room.srules["players"][1]["id"]).to eq player3.id
+    end
   end
   
   describe "#check_ready" do

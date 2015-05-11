@@ -1,1 +1,4 @@
-json.extract! @room, :owner, :game_id, :ruleset_id, :state, :server_id, :created_at, :updated_at
+json.id @room.id
+json.state @room.state
+json.rules @room.srules
+
