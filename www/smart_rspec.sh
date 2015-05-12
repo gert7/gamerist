@@ -1,6 +1,7 @@
 #! /bin/bash
 
-JRUBY="jruby --dev"
+#export JRUBY_OPTS="-Xcli.debug=true --debug"
+JRUBY='jruby --dev'
 RSPEC="-S rspec -fd"
 
 # Looking for nailgun

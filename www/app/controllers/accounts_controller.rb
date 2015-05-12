@@ -19,9 +19,14 @@ class AccountsController < ApplicationController
   end
 
   def unfreeze
-    current_user.unreserve!
     respond_to do |format|
-      format.html { redirect_to "/" }
+      if(res = current_user.get_reservation)
+        if(res.class == Room)
+          format.html {redirect_to res}
+        end
+      else
+        format.html {redirect_to "/"}
+      end
     end
   end
 

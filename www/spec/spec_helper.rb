@@ -97,6 +97,8 @@ Coveralls.wear!('rails')
   end
 
   ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+  
+  Capybara.default_wait_time = 10
 #end
 
 #Spork.each_run do

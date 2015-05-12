@@ -1,6 +1,17 @@
 {
   "RSpec": {
     "coverage": {
+      "/home/gert/gamerist/www/app/views/rooms/show.json.jbuilder": [
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        0
+      ],
       "/home/gert/gamerist/www/app/controllers/rooms_controller.rb": [
         0,
         0,
@@ -179,52 +190,6 @@
         0,
         0,
         null,
-        0
-      ],
-      "/home/gert/gamerist/www/app/assets/javascripts/room_page.js.coffee.erb": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
         0
       ],
       "/home/gert/gamerist/www/app/models/user.rb": [
@@ -893,6 +858,13 @@
         null,
         null,
         0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        0,
         null,
         null,
         0,
@@ -1075,6 +1047,6 @@
         0
       ]
     },
-    "timestamp": 1431427212
+    "timestamp": 1431437718
   }
 }

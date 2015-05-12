@@ -36,6 +36,8 @@ class Room < ActiveRecord::Base
   WAGER_MIN = 5
   WAGER_MAX = 50
   
+  ROOM_TIMEOUT = 30.seconds
+  
   has_many :users, inverse_of: :rooms
   
   def map_in_maplist()
@@ -91,7 +93,16 @@ class Room < ActiveRecord::Base
     $redis.set rapidkey("state"), self.state
   end
   
+  def dump_timeout_players(mrules)
+    mrules["players"].each_index do |i|
+      if(mrules["players"][i]["timeout"] and mrules["players"][i]["timeout"] > Time.now.to_i)
+        mrules["players"].delete_at(i)
+      end
+    end
+  end
+  
   def check_ready(ruleset)
+    dump_timeout_players(ruleset)
     if(ruleset["players"].count == ruleset["playercount"] and
        self.rstate == STATE_PUBLIC and
        ruleset["players"].inject(true) {|acc, v| acc and v["ready"].to_i == 1})
@@ -100,9 +111,22 @@ class Room < ActiveRecord::Base
     end
   end
   
+  def remove_from_other_room(user)
+    r = user.get_reservation
+    puts "Reservation: " + r.to_s
+    if(r and r.class == Room)
+      $redis.lock(r, life: 1) do
+        (r._remove_player! user) or user.unreserve!
+      end
+    end
+    return false
+  end
+  
   # append players live
   def _append_player!(player)
     mrules = self.srules # read shared data /
+    remove_from_other_room(player)
+    player.is_reserved?
     if(self.rstate == STATE_PUBLIC and
        mrules["players"].count < mrules["playercount"] and
        not player.is_reserved? and
@@ -127,21 +151,25 @@ class Room < ActiveRecord::Base
     mrules["players"].find_index { |v| v["id"].to_i == player.id }
   end
   
+  def _remove_player!(player)
+    mrules = self.srules # read shared data /
+    pi = fetch_player(mrules, player)
+    if(pi and
+      self.rstate == STATE_PUBLIC)
+      mrules["players"].delete_at(pi)
+      $redis.multi do
+        player.unreserve!
+        self.srules = mrules # / write shared data
+      end
+      return true
+    end
+    return false
+  end
+  
   # remove players live
   def remove_player!(player)
     $redis.lock2(player, self, 1) do
-      mrules = self.srules # read shared data /
-      pi = fetch_player(mrules, player)
-      if(pi and
-         self.rstate == STATE_PUBLIC)
-        mrules["players"].delete_at(pi)
-        $redis.multi do
-          player.unreserve!
-          self.srules = mrules # / write shared data
-        end
-        return true
-      end
-      return false
+      _remove_player! player
     end
   end
   
@@ -150,10 +178,9 @@ class Room < ActiveRecord::Base
     $redis.lock2(player, self, 1) do
       mrules = srules # read shared data /
       unless(fetch_player(mrules, player))
-        puts(append_player! player)
+        _append_player! player
       end
       mrules = srules
-      puts mrules
       pi = fetch_player(mrules, player)
       if(pi and
          (hash["wager"] ? (hash["wager"] >= WAGER_MIN and hash["wager"] <= WAGER_MAX) : true))
@@ -169,7 +196,7 @@ class Room < ActiveRecord::Base
   end
   
   def update_xhr(cuser, params)
-    amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})
+    amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i, "timeout" => (Time.now + ROOM_TIMEOUT).to_i})
   end
 end
 
