@@ -118,10 +118,8 @@ class Room < ActiveRecord::Base
   end
   
   def append_player!(player)
-    $redis.lock("PLAYER: " + player.id.to_s, life: 1) do
-      $redis.lock("ROOM: " + self.id.to_s, life: 1) do
-        _append_player! player
-      end
+    $redis.lock2(player, self, 1) do
+      _append_player! player
     end
   end
   
@@ -131,46 +129,42 @@ class Room < ActiveRecord::Base
   
   # remove players live
   def remove_player!(player)
-    $redis.lock("PLAYER: " + player.id.to_s, life: 1) do
-      $redis.lock("ROOM: " + self.id.to_s, life: 1) do
-        mrules = self.srules # read shared data /
-        pi = fetch_player(mrules, player)
-        if(pi and
-           self.rstate == STATE_PUBLIC)
-          mrules["players"].delete_at(pi)
-          $redis.multi do
-            player.unreserve!
-            self.srules = mrules # / write shared data
-          end
-          return true
+    $redis.lock2(player, self, 1) do
+      mrules = self.srules # read shared data /
+      pi = fetch_player(mrules, player)
+      if(pi and
+         self.rstate == STATE_PUBLIC)
+        mrules["players"].delete_at(pi)
+        $redis.multi do
+          player.unreserve!
+          self.srules = mrules # / write shared data
         end
-        return false
+        return true
       end
+      return false
     end
   end
   
   # amend players live
   def amend_player!(player, hash)
-    $redis.lock("PLAYER: " + player.id.to_s, life: 1) do
-      $redis.lock("ROOM: " + self.id.to_s, life: 1) do
-        mrules = srules # read shared data /
-        unless(fetch_player(mrules, player))
-          puts(append_player! player)
-        end
-        mrules = srules
-        puts mrules
-        pi = fetch_player(mrules, player)
-        if(pi and
-           (hash["wager"] ? (hash["wager"] >= WAGER_MIN and hash["wager"] <= WAGER_MAX) : true))
-          puts mrules["players"][pi]
-          mrules["players"][pi] = mrules["players"][pi].merge(hash)
-          puts mrules["players"][pi]
-          check_ready(mrules)
-          self.srules = mrules # / write shared data
-          return true
-        end
-        return false
+    $redis.lock2(player, self, 1) do
+      mrules = srules # read shared data /
+      unless(fetch_player(mrules, player))
+        puts(append_player! player)
       end
+      mrules = srules
+      puts mrules
+      pi = fetch_player(mrules, player)
+      if(pi and
+         (hash["wager"] ? (hash["wager"] >= WAGER_MIN and hash["wager"] <= WAGER_MAX) : true))
+        puts mrules["players"][pi]
+        mrules["players"][pi] = mrules["players"][pi].merge(hash)
+        puts mrules["players"][pi]
+        check_ready(mrules)
+        self.srules = mrules # / write shared data
+        return true
+      end
+      return false
     end
   end
   

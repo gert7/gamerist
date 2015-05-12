@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   
   resources :rooms
-  
   resources :accounts
+  get '/account/unfreeze' => 'accounts#unfreeze'
   resources :paypals
 
   devise_for :users

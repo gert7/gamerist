@@ -18,6 +18,13 @@ class AccountsController < ApplicationController
     end
   end
 
+  def unfreeze
+    current_user.unreserve!
+    respond_to do |format|
+      format.html { redirect_to "/" }
+    end
+  end
+
   def paypal_callback
   end
   

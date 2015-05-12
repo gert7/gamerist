@@ -1,9 +1,10 @@
+CHANGED_WAGER = false
+
 fetchCurrentPlayer = (data) ->
   finder = (v) ->
     v.id == data.reqid
   ply = $.grep(data.rules.players, finder, false)[0]
-  console.dir(ply)
-  if(ply)
+  if(ply && CHANGED_WAGER)
     return ply
   else
     return {wager: data.rules.wager}
@@ -15,7 +16,9 @@ updatePageObject = (data) ->
   $("#srules_info_column_playercount").text("Players: " + data.rules.playercount)
   $("#srules_info_column_server").text("Server: " + data.rules.server)
   $("#srules_roomwager").text(data.rules.wager)
-  $("#srules_wagerselector").val(fetchCurrentPlayer(data).wager)
+  if(!CHANGED_WAGER)
+    $("#srules_wagerselector").val(data.rules.wager)
+    CHANGED_WAGER = true
 
 toggleReady = () ->
   if($("#srules_readystatus").val() == "0")
@@ -29,12 +32,12 @@ toggleReady = () ->
 
 updatePage = () ->
   comei = {"_method": "patch", "wager": $("#srules_wagerselector").val(), "ready": $("#srules_readystatus").val()}
-  console.dir(comei)
   $.post(document.location + ".json", comei, updatePageObject)
 
 $(document).ready () ->
   if $("#srules_info").length
-    #setInterval(updatePage, 1000)
+    updatePage()
+    setInterval(updatePage, 3000)
     $("#srules_wagersubmit").click () ->
       updatePage()
     $("#srules_readybutton").click () ->
