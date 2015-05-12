@@ -32,14 +32,14 @@ describe User do
     user = User.new(FactoryGirl.attributes_for(:user))
     user.attach_steam OmniAuth.config.mock_auth[:steam]
     
-    user.steamid.should == Steamid.last
-    user.steamid.user.id.should == user.id
-    user.steamid.steamid.class.should be String
+    expect(user.steamid).to eq Steamid.last
+    expect(user.steamid.user.id).to eq user.id
+    expect(user.steamid.steamid.class).to eq String
   end
   
   it "checks a new user's balance" do
     user = User.new(FactoryGirl.attributes_for(:user))
-    user.total_balance.should == 0
+    expect(user.total_balance).to eq(0)
   end
   
   it "adds PayPal funds to a user and checks its balance" do
@@ -51,7 +51,7 @@ describe User do
       t.kind    = Transaction::KIND_PAYPAL
       t.detail  = 8391 # reference to paypal
     end
-    user.total_balance.should == 50
+    expect(user.total_balance).to eq(50)
     a = Transaction.create do |t|
       t.user    = user
       t.amount  = 30
@@ -59,6 +59,32 @@ describe User do
       t.kind    = Transaction::KIND_PAYPAL
       t.detail  = 4810
     end
-    user.total_balance.should == 80
+    expect(user.total_balance).to eq(80)
+  end
+  
+  describe "#reserve!" do
+    it "reserves the player" do
+      user = User.new(FactoryGirl.attributes_for(:user))
+      user.reserve! Transaction::KIND_PAYPAL, 193
+      expect(user.is_reserved?).to eq true
+    end
+    it "reserves the player as a room" do
+      user = User.create(FactoryGirl.attributes_for(:user))
+      room = Room.create(FactoryGirl.attributes_for(:room))
+      user.reserve! Transaction::KIND_ROOM, room.id
+      expect(user.get_reservation.class).to eq Room
+      expect(user.get_reservation.id).to eq room.id
+    end
+  end
+  
+  describe "#unreserve!" do
+    it "unreserves the player" do
+      user = User.create(FactoryGirl.attributes_for(:user))
+      room = Room.create(FactoryGirl.attributes_for(:room))
+      user.reserve! Transaction::KIND_ROOM, room.id
+      user.unreserve!
+      expect(user.is_reserved?).to eq false
+    end
   end
 end
+

@@ -113,7 +113,6 @@ class Room < ActiveRecord::Base
   
   def remove_from_other_room(user)
     r = user.get_reservation
-    puts "Reservation: " + r.to_s
     if(r and r.class == Room and r != self)
       $redis.lock(r, life: 1) do
         (r._remove_player! user) or user.unreserve!
@@ -184,9 +183,7 @@ class Room < ActiveRecord::Base
       pi = fetch_player(mrules, player)
       if(pi and
          (hash["wager"] ? (hash["wager"] >= WAGER_MIN and hash["wager"] <= WAGER_MAX) : true))
-        puts mrules["players"][pi]
         mrules["players"][pi] = mrules["players"][pi].merge(hash)
-        puts mrules["players"][pi]
         check_ready(mrules)
         self.srules = mrules # / write shared data
         return true

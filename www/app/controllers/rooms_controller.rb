@@ -40,7 +40,6 @@ class RoomsController < ApplicationController
   # PATCH/PUT /rooms/1
   # PATCH/PUT /rooms/1.json
   def update
-    puts params
     @room.update_xhr(current_user, params)
     respond_to do |format|
       format.html { redirect_to @room }

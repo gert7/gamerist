@@ -94,7 +94,6 @@ class User < ActiveRecord::Base
     if reserve
       resp = reserve.split(":")
       if(resp[0].to_i == Transaction::KIND_ROOM)
-        puts "is room"
         return Room.find(resp[1].to_i)
       end
     end

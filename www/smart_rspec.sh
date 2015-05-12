@@ -1,6 +1,6 @@
 #! /bin/bash
 
-#export JRUBY_OPTS="-Xcli.debug=true --debug"
+#export JRUBY_OPTS="-Xcli.debug=true"
 JRUBY='jruby --dev'
 RSPEC="-S rspec -fd"
 
