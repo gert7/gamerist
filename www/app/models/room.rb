@@ -114,7 +114,7 @@ class Room < ActiveRecord::Base
   def remove_from_other_room(user)
     r = user.get_reservation
     puts "Reservation: " + r.to_s
-    if(r and r.class == Room)
+    if(r and r.class == Room and r != self)
       $redis.lock(r, life: 1) do
         (r._remove_player! user) or user.unreserve!
       end
@@ -126,7 +126,7 @@ class Room < ActiveRecord::Base
   def _append_player!(player)
     mrules = self.srules # read shared data /
     remove_from_other_room(player)
-    player.is_reserved?
+    # player.is_reserved?
     if(self.rstate == STATE_PUBLIC and
        mrules["players"].count < mrules["playercount"] and
        not player.is_reserved? and
