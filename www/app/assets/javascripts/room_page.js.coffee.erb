@@ -4,21 +4,7 @@ fetchCurrentPlayer = (data) ->
   finder = (v) ->
     v.id == data.reqid
   ply = $.grep(data.rules.players, finder, false)[0]
-  if(ply && CHANGED_WAGER)
-    return ply
-  else
-    return {wager: data.rules.wager}
-
-updatePageObject = (data) ->
-  console.dir(data)
-  $("#srules_info_column_game").text("Game: " + data.rules.game)
-  $("#srules_info_column_map").text("Map: " + data.rules.map)
-  $("#srules_info_column_playercount").text("Players: " + data.rules.playercount)
-  $("#srules_info_column_server").text("Server: " + data.rules.server)
-  $("#srules_roomwager").text(data.rules.wager)
-  if(!CHANGED_WAGER)
-    $("#srules_wagerselector").val(data.rules.wager)
-    CHANGED_WAGER = true
+  return ply
 
 toggleReady = () ->
   if($("#srules_readystatus").val() == "0")
@@ -30,8 +16,23 @@ toggleReady = () ->
     $("#srules_readybutton").val("Ready")
     $("#srules_readylabel").text("Not Ready")
 
+updatePageObject = (data) ->
+  console.dir(data)
+  $("#srules_info_column_game").text("Game: " + data.rules.game)
+  $("#srules_info_column_map").text("Map: " + data.rules.map)
+  $("#srules_info_column_playercount").text("Players: " + data.rules.playercount)
+  $("#srules_info_column_server").text("Server: " + data.rules.server)
+  $("#srules_roomwager").text(data.rules.wager)
+  if(!CHANGED_WAGER)
+    $("#srules_wagerselector").val(data.rules.wager)
+    CHANGED_WAGER = true
+  if((fetchCurrentPlayer(data).ready == 1) == ($("#srules_readystatus") == "1"))
+    toggleReady()
+
 updatePage = () ->
-  comei = {"_method": "patch", "wager": $("#srules_wagerselector").val(), "ready": $("#srules_readystatus").val()}
+  comei = {"_method": "patch", "ready": $("#srules_readystatus").val()}
+  if(CHANGED_WAGER)
+    comei.wager = $("#srules_wagerselector").val()
   $.post(document.location + ".json", comei, updatePageObject)
 
 $(document).ready () ->

@@ -177,15 +177,10 @@ describe Room do
     context "when everyone is ready" do
       before {
         room.append_player! player1
-        #puts room.srules
         room.amend_player! player1, "ready" => 1
-        #puts room.srules
         room.append_player! player2
-        #puts room.srules
         room.amend_player! player2, "ready" => 1
-        #puts room.srules
         room.append_player! player3
-        #puts room.srules
         room.amend_player! player3, "ready" => 1
         room.append_player! player4
         room.amend_player! player4, "ready" => 1
