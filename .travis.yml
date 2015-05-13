@@ -12,8 +12,6 @@ env:
   - DB=postgresql
 before_install:
   - cd www
-after_install:
-  - cd ..
 script:
   - cd www
   - RAILS_ENV=test bundle exec rake --trace db:migrate:reset
@@ -24,7 +22,6 @@ script:
   - source npminstall.sh
   - mocha
 before_script:
-  - cd www
   - mkdir tmp/cache
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database gamerist_test' -U postgres
