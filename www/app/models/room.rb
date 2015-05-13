@@ -36,7 +36,11 @@ class Room < ActiveRecord::Base
   WAGER_MIN = 5
   WAGER_MAX = 50
   
-  ROOM_TIMEOUT = 30.seconds
+  if(Rails.env.test?)
+    ROOM_TIMEOUT = 30.minutes
+  else
+    ROOM_TIMEOUT = 30.seconds
+  end
   
   has_many :users, inverse_of: :rooms
   
