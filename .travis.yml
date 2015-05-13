@@ -10,10 +10,14 @@ addons:
   firefox: "17.0"
 env:
   - DB=postgresql
+before_install:
+  - cd www
+after_install:
+  - cd ..
 script:
   - cd www
   - RAILS_ENV=test bundle exec rake --trace db:migrate:reset
-  - ./smart_rspec.sh
+  - bundle exec rspec -fd
   - cd ..
   - ./nodeinstall.sh
   - cd handlr
