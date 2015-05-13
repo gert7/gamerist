@@ -105,8 +105,18 @@ class Room < ActiveRecord::Base
     end
   end
   
+  def check_wager(mrules)
+    minmax = mrules["players"].inject([nil, nil]) {|acc, v| [ [(acc[0] or v["wager"]), v["wager"]].min, [(acc[1] or v["wager"]), v["wager"]].max]}
+    if(minmax[0] > mrules["wager"])
+      mrules["wager"] = minmax[0]
+    elsif(minmax[1] < mrules["wager"])
+      mrules["wager"] = minmax[1]
+    end
+  end
+  
   def check_ready(ruleset)
     dump_timeout_players(ruleset)
+    check_wager(ruleset)
     if(ruleset["players"].count == ruleset["playercount"] and
        self.rstate == STATE_PUBLIC and
        ruleset["players"].inject(true) {|acc, v| acc and v["ready"].to_i == 1})
@@ -150,13 +160,14 @@ class Room < ActiveRecord::Base
     end
   end
   
-  def fetch_player(mrules, player)
+  def fetch_player(player)
+    mrules = srules
     mrules["players"].find_index { |v| v["id"].to_i == player.id }
   end
   
   def _remove_player!(player)
     mrules = self.srules # read shared data /
-    pi = fetch_player(mrules, player)
+    pi = fetch_player(player)
     if(pi and
       self.rstate == STATE_PUBLIC)
       mrules["players"].delete_at(pi)
@@ -179,14 +190,14 @@ class Room < ActiveRecord::Base
   # amend players live
   def amend_player!(player, hash)
     $redis.lock2(player, self, 1) do
-      mrules = srules # read shared data /
-      unless(fetch_player(mrules, player))
+      unless(fetch_player(player))
         _append_player! player
       end
       mrules = srules
-      pi = fetch_player(mrules, player)
+      pi = fetch_player(player)
       if(pi and
-         (hash["wager"] ? (hash["wager"] >= WAGER_MIN and hash["wager"] <= WAGER_MAX) : true))
+         (hash["wager"] ? (hash["wager"] >= WAGER_MIN and hash["wager"] <= WAGER_MAX) : true) and
+         player.total_balance >= (hash["wager"] or 0))
         mrules["players"][pi] = mrules["players"][pi].merge(hash)
         check_ready(mrules)
         self.srules = mrules # / write shared data

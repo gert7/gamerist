@@ -137,15 +137,55 @@ describe Room do
     end
   end
   
+  describe "#check_wager" do
+    include_context "when players have money"
+    before {
+      room.append_player! player1
+      room.append_player! player2
+      room.amend_player! player1, "wager" => 10
+      room.amend_player! player2, "wager" => 8
+    }
+    it "increases wager to lowest common PW" do
+      expect(room.srules["wager"]).to eq 8
+    end
+    it "decreases wager to highest common PW" do
+      room.amend_player! player1, "wager" => 7
+      room.amend_player! player2, "wager" => 5
+      expect(room.srules["wager"]).to eq 7
+    end
+    it "increases wager on player leave" do
+      room.remove_player! player2
+      room.amend_player! player1, {}
+      expect(room.srules["wager"]).to eq 10
+    end
+    it "doesn't allow backsies" do
+      room.amend_player! player2, "wager" => 10
+      room.amend_player! player2, "wager" => 8
+      expect(room.srules["wager"]).to eq 10
+    end
+    it "reduces wager on player leave" do
+      room.amend_player! player2, "wager" => 10
+      room.amend_player! player2, "wager" => 8
+      room.remove_player! player1
+      room.amend_player! player2, {}
+      expect(room.srules["wager"]).to eq 8
+    end
+  end
+  
   describe "#check_ready" do
     include_context "when players have money"
     context "when everyone is ready" do
       before {
         room.append_player! player1
+        #puts room.srules
         room.amend_player! player1, "ready" => 1
+        #puts room.srules
         room.append_player! player2
+        #puts room.srules
         room.amend_player! player2, "ready" => 1
+        #puts room.srules
         room.append_player! player3
+        #puts room.srules
         room.amend_player! player3, "ready" => 1
         room.append_player! player4
         room.amend_player! player4, "ready" => 1
@@ -173,8 +213,9 @@ describe Room do
     include_context "when players have money"
     it "edits the player" do
       room.append_player! player1
-      room.amend_player! player1, "wager" => 45
-      expect(room.srules["players"][0]["wager"]).to eq 45
+      expect(room.srules["players"][0]["wager"]).to eq 5
+      room.amend_player! player1, "wager" => 15
+      expect(room.srules["players"][0]["wager"]).to eq 15
     end
     it "doesn't allow an incorrect wager" do
       room.append_player! player1
@@ -185,6 +226,11 @@ describe Room do
       expect(room.srules["players"].count).to eq 0
       room.amend_player! player1, "wager" => 10
       expect(room.srules["players"][0]["wager"]).to eq 10
+    end
+    it "doesn't allow a wager greater than funds" do
+      room.append_player! player1 # only has 25
+      room.amend_player! player1, "wager" => 45
+      expect(room.srules["players"][0]["wager"]).not_to eq 45
     end
   end
   
