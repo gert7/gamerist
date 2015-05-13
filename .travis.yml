@@ -15,7 +15,7 @@ before_install:
 script:
   - cd www
   - RAILS_ENV=test bundle exec rake --trace db:migrate:reset
-  - bundle exec rspec -fd
+  - jruby --dev -S bundle exec rspec -fd
   - cd ..
   - ./nodeinstall.sh
   - cd handlr
