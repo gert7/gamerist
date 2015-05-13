@@ -70,9 +70,8 @@ Coveralls.wear!('rails')
     #end
 
     require 'database_cleaner'
-    #DatabaseCleaner[:redis].strategy = :truncation
-    
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner[:redis].strategy = :truncation
+    DatabaseCleaner[:active_record].strategy = :truncation
     config.before(:each) do
       Rails.cache.clear
       DatabaseCleaner.clean

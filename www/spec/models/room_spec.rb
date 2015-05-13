@@ -12,10 +12,10 @@ describe Room do
 
   shared_context("when players have money") do
     before {
-      player1.stubs(:total_balance).returns 15
-      player2.stubs(:total_balance).returns 15
-      player3.stubs(:total_balance).returns 15
-      player4.stubs(:total_balance).returns 15
+      player1.stubs(:total_balance).returns 25
+      player2.stubs(:total_balance).returns 25
+      player3.stubs(:total_balance).returns 25
+      player4.stubs(:total_balance).returns 25
     }
   end
   
@@ -180,6 +180,32 @@ describe Room do
       room.append_player! player1
       room.amend_player! player1, "wager" => 10000
       expect(room.srules["players"][0]["wager"]).not_to eq 10000
+    end
+  end
+  
+  describe "#update_xhr" do
+    include_context "when players have money"
+    it "modifies the player" do
+      room.append_player! player1
+      room.update_xhr(player1, {"wager" => 10, "ready" => 1})
+      expect(room.srules["players"][0]["wager"]).to eq 10
+      expect(room.srules["players"][0]["ready"]).to eq 1
+    end
+  end
+  
+  describe "#dump_timeout_players" do
+    include_context "when players have money"
+    it "throws out timed out players" do
+      room.append_player! player1
+      room.append_player! player2
+      expect(room.srules["players"].count).to eq 2
+      
+      mrules = room.srules
+      mrules["players"][0]["timeout"] = Time.now.to_i - 40
+      room.srules = mrules
+      
+      room.update_xhr(player2, {"wager" => 10, "ready" => 1})
+      expect(room.srules["players"].count).to eq 1
     end
   end
 end

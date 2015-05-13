@@ -95,7 +95,7 @@ class Room < ActiveRecord::Base
   
   def dump_timeout_players(mrules)
     mrules["players"].each_index do |i|
-      if(mrules["players"][i]["timeout"] and mrules["players"][i]["timeout"] > Time.now.to_i)
+      if(mrules["players"][i]["timeout"] and mrules["players"][i]["timeout"] < Time.now.to_i)
         mrules["players"].delete_at(i)
       end
     end
@@ -130,7 +130,7 @@ class Room < ActiveRecord::Base
        mrules["players"].count < mrules["playercount"] and
        not player.is_reserved? and
        player.total_balance >= srules["wager"])
-      mrules["players"].push({id: player.id, ready: 0, wager: srules["wager"]})
+      mrules["players"].push({"id" => player.id, "ready" => 0, "wager" => srules["wager"], "timeout" => Time.now.to_i})
       $redis.multi do
         player.reserve! Transaction::KIND_ROOM, self.id
         self.srules = mrules # / write shared data
