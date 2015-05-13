@@ -2,7 +2,7 @@
 
 export JRUBY_OPTS="-Xcli.debug=true"
 JRUBY='jruby --debug'
-RSPEC="-S rspec -fd"
+RSPEC="-S bundle exec rspec -fd"
 
 # Looking for nailgun
 lsof -i :2113 > /dev/null
