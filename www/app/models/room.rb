@@ -197,7 +197,11 @@ class Room < ActiveRecord::Base
   end
   
   def update_xhr(cuser, params)
-    amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i, "timeout" => (Time.now + ROOM_TIMEOUT).to_i})
+    if(params["wager"].to_i == 0)
+      remove_player! cuser
+    else
+      amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i, "timeout" => (Time.now + ROOM_TIMEOUT).to_i})
+    end
   end
 end
 

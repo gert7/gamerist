@@ -181,6 +181,11 @@ describe Room do
       room.amend_player! player1, "wager" => 10000
       expect(room.srules["players"][0]["wager"]).not_to eq 10000
     end
+    it "adds the player if they're not already in" do
+      expect(room.srules["players"].count).to eq 0
+      room.amend_player! player1, "wager" => 10
+      expect(room.srules["players"][0]["wager"]).to eq 10
+    end
   end
   
   describe "#update_xhr" do
@@ -190,6 +195,11 @@ describe Room do
       room.update_xhr(player1, {"wager" => 10, "ready" => 1})
       expect(room.srules["players"][0]["wager"]).to eq 10
       expect(room.srules["players"][0]["ready"]).to eq 1
+    end
+    it "removes the player if wager is zero" do
+      room.append_player! player1
+      room.update_xhr(player1, {"wager" => 0, "ready" => 0})
+      expect(room.srules["players"].count).to eq 0
     end
   end
   
