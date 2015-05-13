@@ -14,8 +14,7 @@ before_install:
   - cd www
 script:
   - RAILS_ENV=test bundle exec rake --trace db:migrate:reset
-  - ./www/smart_rspec.sh
-  - bundle exec rspec -f d --drb
+  - ./smart_rspec.sh
   - cd ..
   - ./nodeinstall.sh
   - cd handlr
