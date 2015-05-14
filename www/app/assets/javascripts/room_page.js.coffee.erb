@@ -22,6 +22,13 @@ toggleReady = () ->
   else
     setUnready()
 
+renderPlayerList = (data) ->
+  srulesPlayers = document.createElement("div")
+  $(srulesPlayers).attr("id", "srules_players")
+  for i in [0..(data.rules.playercount-1)]
+    $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_avatar'></div><div class='account_mini_name'>" + (if data.rules.players[i] then data.rules.players[i].id else "") + "</div></div></div>")
+  $("#srules_players").replaceWith(srulesPlayers)
+
 updatePageObject = (data) ->
   console.dir(data)
   $("#srules_info_column_game").text("Game: " + data.rules.game)
@@ -37,6 +44,7 @@ updatePageObject = (data) ->
     setReady()
   else
     setUnready()
+  renderPlayerList(data)
 
 updatePage = () ->
   comei = {"_method": "patch", "ready": $("#srules_readystatus").val()}
@@ -47,7 +55,7 @@ updatePage = () ->
 $(document).ready () ->
   if $("#srules_info").length
     updatePage()
-    setInterval(updatePage, 3000)
+    #setInterval(updatePage, 3000)
     $("#srules_wagersubmit").click () ->
       updatePage()
     $("#srules_readybutton").click () ->

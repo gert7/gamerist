@@ -171,3 +171,15 @@ form {
 #srules_readybutton:active {
   background:hsl(65,100,15);
 }
+
+#srules_players {
+  width:604px;
+  background:#aaa;
+}
+
+.srules_player {
+  width:200px;
+  display:inline-block;
+  margin-right:1px;
+  margin-bottom:1px;
+}
