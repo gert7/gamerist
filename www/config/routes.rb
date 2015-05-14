@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   get Paypal::paypal_route, to: "accounts#paypal_callback"
-  get "/auth/steam/callback", to: "steamid#attach" 
   get "/account", to: "accounts#show"
   get "/index", to: "welcome#index"
   
