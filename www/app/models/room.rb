@@ -107,9 +107,9 @@ class Room < ActiveRecord::Base
   
   def check_wager(mrules)
     minmax = mrules["players"].inject([nil, nil]) {|acc, v| [ [(acc[0] or v["wager"]), v["wager"]].min, [(acc[1] or v["wager"]), v["wager"]].max]}
-    if(minmax[0] > mrules["wager"])
+    if(minmax[0] and (minmax[0] > mrules["wager"]))
       mrules["wager"] = minmax[0]
-    elsif(minmax[1] < mrules["wager"])
+    elsif(minmax[1] and (minmax[1] < mrules["wager"]))
       mrules["wager"] = minmax[1]
     end
   end

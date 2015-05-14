@@ -176,13 +176,9 @@ describe Room do
     include_context "when players have money"
     context "when everyone is ready" do
       before {
-        room.append_player! player1
         room.amend_player! player1, "ready" => 1
-        room.append_player! player2
         room.amend_player! player2, "ready" => 1
-        room.append_player! player3
         room.amend_player! player3, "ready" => 1
-        room.append_player! player4
         room.amend_player! player4, "ready" => 1
       }
       it "locks the room" do
@@ -193,12 +189,9 @@ describe Room do
       end
     end
     it "doesn't lock when someone isn't ready" do
-      room.append_player! player1
       room.amend_player! player1, "ready" => 1
-      room.append_player! player2
       room.amend_player! player2, "ready" => 1
-      room.append_player! player3
-      room.append_player! player4
+      room.amend_player! player3, {}
       room.amend_player! player4, "ready" => 1
       expect(room.state).to eq Room::STATE_PUBLIC
     end

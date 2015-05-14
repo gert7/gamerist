@@ -138,7 +138,7 @@ body {
 /* Front page */
 #frosted_glass {
     width: 1024px;
-    height: 256px;
+    height: 300px;
     background-image: image-url("crystal_field.png");
 }
 #win_games {
@@ -251,3 +251,35 @@ p {
 h1 {margin:0;}
 h2 {margin:0;}
 
+#footer {
+  width:1024px;
+  height:150px;
+  background-image: image-url("footer.png");
+  background-repeat:repeat-x;
+  background-color:#606060;
+  box-sizing:border-box;
+  padding-left:128px;
+  padding-top:24px;
+  font-size:0.8em;
+  color:white;
+  border-top:4px solid hsl(244,50,11);
+}
+
+.footercolumn250 {
+  box-sizing:border-box;
+  vertical-align:top;
+  display:inline-block;
+  width:250px;
+  line-height:20px;
+}
+
+#footer a {
+  color:white;
+  text-decoration:none;
+  display:block;
+}
+
+#footer a:hover {
+  color:white;
+  text-decoration:underline;
+}
