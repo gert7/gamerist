@@ -6,15 +6,21 @@ fetchCurrentPlayer = (data) ->
   ply = $.grep(data.rules.players, finder, false)[0]
   return ply
 
+setReady = () ->
+  $("#srules_readystatus").val("1")
+  $("#srules_readybutton").val("Not Ready")
+  $("#srules_readylabel").text("Ready")
+  
+setUnready = () ->
+  $("#srules_readystatus").val("0")
+  $("#srules_readybutton").val("Ready")
+  $("#srules_readylabel").text("Not Ready")
+
 toggleReady = () ->
   if($("#srules_readystatus").val() == "0")
-    $("#srules_readystatus").val("1")
-    $("#srules_readybutton").val("Not Ready")
-    $("#srules_readylabel").text("Ready")
+    setReady()
   else
-    $("#srules_readystatus").val("0")
-    $("#srules_readybutton").val("Ready")
-    $("#srules_readylabel").text("Not Ready")
+    setUnready()
 
 updatePageObject = (data) ->
   console.dir(data)
@@ -26,8 +32,11 @@ updatePageObject = (data) ->
   if(!CHANGED_WAGER)
     $("#srules_wagerselector").val(data.rules.wager)
     CHANGED_WAGER = true
-  if((fetchCurrentPlayer(data).ready == 1) == ($("#srules_readystatus") == "1"))
-    toggleReady()
+  curp = fetchCurrentPlayer(data)
+  if(curp and curp.ready == 1)
+    setReady()
+  else
+    setUnready()
 
 updatePage = () ->
   comei = {"_method": "patch", "ready": $("#srules_readystatus").val()}
@@ -44,3 +53,4 @@ $(document).ready () ->
     $("#srules_readybutton").click () ->
       toggleReady()
       updatePage()
+      

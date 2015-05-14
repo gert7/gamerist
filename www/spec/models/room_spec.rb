@@ -74,8 +74,8 @@ describe Room do
       end
       it "doesn't allow joining several rooms" do
         room.append_player! player1
-        expect(room2.append_player! player1).to eq true
-        expect(room.srules["players"].count).to eq 0
+        expect(room2.append_player! player1).to eq false
+        expect(room2.srules["players"].count).to eq 0
       end
       it "reserves the player" do
         room.append_player! player1

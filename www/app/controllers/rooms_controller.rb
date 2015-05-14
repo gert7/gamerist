@@ -10,6 +10,14 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
+    respond_to do |format|
+      format.json { render json: @room }
+      if current_user and (res = current_user.get_reservation) and res.id != @room.id
+        format.html { redirect_to :controller => 'rooms', :action => 'show', :id => res.id }
+      else
+        format.html { render action: 'show', location: @room }
+      end
+    end
   end
 
   # GET /rooms/new

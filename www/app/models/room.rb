@@ -138,7 +138,7 @@ class Room < ActiveRecord::Base
   # append players live
   def _append_player!(player)
     mrules = self.srules # read shared data /
-    remove_from_other_room(player)
+    # remove_from_other_room(player)
     # player.is_reserved?
     if(self.rstate == STATE_PUBLIC and
        mrules["players"].count < mrules["playercount"] and
