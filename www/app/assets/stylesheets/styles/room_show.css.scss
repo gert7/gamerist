@@ -172,14 +172,64 @@ form {
   background:hsl(65,100,15);
 }
 
+#srules_players_chat {
+  background:#333;
+}
+
 #srules_players {
-  width:604px;
+  width:606px;
   background:#aaa;
+  display:inline-block;
+  vertical-align:top;
 }
 
 .srules_player {
   width:200px;
   display:inline-block;
   margin-right:1px;
-  margin-bottom:1px;
+  margin-bottom:2px;
+  margin-left:1px;
+  box-sizing:border-box;
+}
+
+#srules_chatbox {
+  width:410px;
+  display:inline-block;
+  height:312px;
+  vertical-align:top;
+  box-sizing:border-box;
+  padding:12px;
+}
+
+#srules_chatbox_text {
+  border:1px solid #ccc;
+  background:#ddd;
+  width:100%;
+  height:206px;
+}
+
+#srules_chatbox_insertzone {
+  border:1px solid #ccc;
+  background:#ddd;
+  width:100%;
+  height:70px;
+  margin-top:8px;
+}
+
+#srules_chatbox_input {
+  width:298px;
+  display:inline-block;
+  height:70px;
+  vertical-align:top;
+  resize:none;
+  padding:4px;
+  box-sizing:border-box;
+  font-family:sans-serif;
+}
+
+#srules_chatbox_inputsubmit {
+  width:88px;
+  height:70px;
+  display:inline-block;
+  vertical-align:top;
 }

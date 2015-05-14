@@ -10,6 +10,10 @@
     background:hsl(65,80,50);
 }
 
+.saturatedBorder {
+    border:1px solid hsl(65,100,50);
+}
+
 .pointsIcon {
     background-image:image-url('green_diamond.png');
     background-repeat:no-repeat;
