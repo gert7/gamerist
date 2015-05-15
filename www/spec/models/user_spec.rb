@@ -20,10 +20,6 @@
 require 'spec_helper'
 
 describe User do
-  before :each do
-    OmniAuth.config.test_mode = true
-  end
-  
   it "checks a new user's balance" do
     user = User.new(FactoryGirl.attributes_for(:user))
     expect(user.total_balance).to eq(0)

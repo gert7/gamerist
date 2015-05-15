@@ -76,10 +76,22 @@ Coveralls.wear!('rails')
       Rails.cache.clear
       DatabaseCleaner.clean
     end
+    config.after(:each) do
+      Rails.cache.clear
+      DatabaseCleaner.clean
+    end
+    config.before(:suite) do
+      Rails.cache.clear
+      DatabaseCleaner.clean
+    end
+    config.after(:suite) do
+      DatabaseCleaner.clean
+    end
     
     config.include Warden::Test::Helpers
-    config.before(:suite) do
+    config.before(:each) do
       Warden.test_mode!
+      OmniAuth.config.test_mode = true
     end
     Gamerist::Application.config.session_store :cookie_store,
       key: '_gamerist_session',
