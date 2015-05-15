@@ -366,22 +366,31 @@
         0,
         null,
         0,
+        null,
+        null,
+        0,
+        null,
+        null,
         0,
         null,
         null,
         0,
         0,
         null,
+        null,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        0,
         0,
         0,
         null,
         0,
         0,
-        0,
-        0,
-        null,
-        null,
-        null,
         0
       ],
       "/home/gert/gamerist/www/app/helpers/rooms_helper.rb": [
@@ -620,6 +629,6 @@
         0
       ]
     },
-    "timestamp": 1431703362
+    "timestamp": 1431704843
   }
 }
