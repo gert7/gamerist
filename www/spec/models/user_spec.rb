@@ -22,19 +22,6 @@ require 'spec_helper'
 describe User do
   before :each do
     OmniAuth.config.test_mode = true
-    OmniAuth.config.mock_auth[:steam] = OmniAuth::AuthHash.new({
-      :provider => 'steam',
-      :uid => '76561198010202071'
-    })
-  end
-  
-  it 'attaches an Omniauth test Steam ID' do
-    user = User.new(FactoryGirl.attributes_for(:user))
-    user.attach_steam OmniAuth.config.mock_auth[:steam]
-    
-    expect(user.steamid).to eq Steamid.last
-    expect(user.steamid.user.id).to eq user.id
-    expect(user.steamid.steamid.class).to eq String
   end
   
   it "checks a new user's balance" do
