@@ -39,7 +39,7 @@ group :doc do
 end
 
 # Gamerist-specific
-gem 'devise', "~> 3.4.1" # 3.2.4
+gem 'devise'#, "~> 3.4.1" # 3.2.4
 gem 'omniauth'
 gem 'omniauth-steam'
 gem 'paypal-sdk-rest', require: false # 0.6.1

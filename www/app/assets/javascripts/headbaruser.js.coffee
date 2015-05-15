@@ -7,3 +7,4 @@ $(document).ready () ->
       $("#headbar_right_content").html("<div id='headbar_points'>" + current_user.total_balance + "</div> | <a href='/account/unfreeze'>Current game</a>")
     else
       $("#headbar_loggedin_name").html('<a data-method="get" href="/users/sign_in" rel="nofollow">Sign in</a>')
+

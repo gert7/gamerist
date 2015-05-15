@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: add0928290f38545ba9cad3d183e886838ff9962
+  revision: 9941609e040df391264de5b50eed08d5391a79f5
   specs:
     activeadmin (1.0.0.pre1)
       arbre (~> 1.0, >= 1.0.2)
@@ -365,7 +365,7 @@ DEPENDENCIES
   coffee-rails
   coveralls
   database_cleaner
-  devise (~> 3.4.1)
+  devise
   ejs
   execjs
   factory_girl_rails

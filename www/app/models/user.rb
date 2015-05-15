@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   devise :omniauthable, omniauth_providers: [:steam]
-
+  
   has_one :account, inverse_of: :user
   accepts_nested_attributes_for :account
   has_one :steamid, inverse_of: :user
@@ -42,10 +42,9 @@ class User < ActiveRecord::Base
   def name
     self.email
   end
-
-  def attach_steam(access_token)
-    steamuid = access_token['uid']
-    @steamid = self.create_steamid(steamid: steamuid)
+  
+  def rapidkey(s)
+    "gamerist-user {" + s + "}" + self.id.to_s
   end
   
   # unrealized + realized
@@ -102,12 +101,14 @@ class User < ActiveRecord::Base
   end
   
   # account stuff
-  def fetch_avatar_id
-    self.cache_fetch_symbol_else "avatar_id" do
+  def fetch_avatar_url
+    Rails.cache.fetch rapidkey("avatar_url") do
       require 'open-uri'
       steamapik = $GAMERIST_API_KEYS["steam"]
-      response = JSON.parse(open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid.steamid}").read)
-      response["response"]["players"][0]["avatar"][/avatars\/(.*)\./, 1]
+      response = JSON.parse(open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid.to_s}").read)
+      player = response["response"]["players"][0]
+      player["avatar"] + " " + player["avatarmedium"] + " " + player["avatarfull"]
     end
   end
 end
+
