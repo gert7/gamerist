@@ -27,11 +27,10 @@ renderPlayerList = (data) ->
   $(srulesPlayers).attr("id", "srules_players")
   for i in [0..(data.rules.playercount-1)]
     ply = data.rules.players[i]
-    $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_avatar'></div><div class='account_mini_name'>" + (if ply then ply.id else "") + "</div></div></div>")
+    $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_avatar'>" + (if ply then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if ply then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if ply then ply.wager else "") + "</div></div></div>")
   $("#srules_players").replaceWith(srulesPlayers)
 
 updatePageObject = (data) ->
-  console.dir(data)
   $("#srules_info_column_game").text("Game: " + data.rules.game)
   $("#srules_info_column_map").text("Map: " + data.rules.map)
   $("#srules_info_column_playercount").text("Players: " + data.rules.playercount)
@@ -47,19 +46,19 @@ updatePageObject = (data) ->
     setUnready()
   renderPlayerList(data)
 
-updatePage = () ->
+updatePage = (dowager) ->
   comei = {"_method": "patch", "ready": $("#srules_readystatus").val()}
-  if(CHANGED_WAGER)
+  if(CHANGED_WAGER && dowager)
     comei.wager = $("#srules_wagerselector").val()
   $.post(document.location + ".json", comei, updatePageObject)
 
 $(document).ready () ->
   if $("#srules_info").length
-    updatePage()
+    updatePage(false)
     setInterval(updatePage, 3000)
     $("#srules_wagersubmit").click () ->
-      updatePage()
+      updatePage(true)
     $("#srules_readybutton").click () ->
       toggleReady()
-      updatePage()
+      updatePage(false)
       

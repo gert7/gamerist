@@ -39,8 +39,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  class NoSteamID < Exception
+  end
+
   def name
-    self.email[0..3] + "..."
+    steam_name or (self.email[0..3] + "...")
   end
   
   def rapidkey(s)
@@ -109,6 +112,7 @@ class User < ActiveRecord::Base
   # account stuff
   def fetch_steamapi
     $redis.hfetch hrapidkey, "steamapi" do
+      raise NoSteamID unless self.steamid
       require 'open-uri'
       steamapik = $GAMERIST_API_KEYS["steam"]
       response = JSON.parse(open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid.to_s}").read)
@@ -119,14 +123,22 @@ class User < ActiveRecord::Base
     end
   end
   
-  def fetch_steam_name
-    fetch_steamapi
-    $redis.hget hrapidkey, "steamname"
+  def steam_name
+    begin
+      fetch_steamapi
+      return $redis.hget hrapidkey, "steamname"
+    rescue NoSteamID
+      return nil
+    end
   end
   
-  def fetch_avatar_urls
-    fetch_steamapi
-    $redis.hget hrapidkey, "avatar_urls"
+  def steam_avatar_urls
+    begin
+      fetch_steamapi
+      return $redis.hget hrapidkey, "avatar_urls"
+    rescue NoSteamID
+      return nil
+    end
   end
 end
 

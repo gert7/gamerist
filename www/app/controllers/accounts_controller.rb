@@ -7,7 +7,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if current_user
-        format.html { format.html { render action: 'show', location: current_user } }
+        format.html { redirect_to "/accounts/" + current_user.id.to_s }
         format.json { render json: { user_id: current_user.name, total_balance: current_user.total_balance } }
       else
         format.html { redirect_to "/" }
@@ -32,6 +32,9 @@ class AccountsController < ApplicationController
   end
   
   def show
+    puts "NIG NOG"
+    @user = current_user
+    puts @user.to_s + " YORUEAOUROA"
   end
   
   private

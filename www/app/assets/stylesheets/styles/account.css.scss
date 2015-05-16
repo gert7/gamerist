@@ -12,20 +12,69 @@
 }
 
 .account_mini_avatar {
-  width:50px;
+  width:42px;
   height:50px;
-  padding:2px;
+  padding:9px;
   box-sizing:border-box;
   display:inline-block;
   vertical-align:top;
 }
 
 .account_mini_name {
-  width:150px;
+  width:100px;
   height:50px;
   padding:8px;
+  padding-right:0px;
   box-sizing:border-box;
   display:inline-block;
   vertical-align:top;
+  font-family: "Blue Highway Regular";
+  font-size:1.1em;
 }
 
+.account_mini_wager {
+  width:50px;
+  height:50px;
+  box-sizing:border-box;
+  display:inline-block;
+  vertical-align:top;
+  font-family: "Blue Highway Regular";
+  color:#999;
+  font-size:2em;
+  padding:4px;
+  text-align:right;
+}
+
+#account_page {
+  width:1024px;
+  background:#fafafa;
+  padding:24px;
+  box-sizing:border-box;
+}
+
+#account_maxi {
+  width:400px;
+  height:500px;
+  background:#333;
+  display:inline-block;
+  vertical-align:top;
+  box-sizing:border-box;
+  padding:12px;
+}
+
+#account_maxi_avatar {
+  display:inline-block;
+  vertical-align:top;
+  box-sizing:border-box;
+  width:80px;
+  height:80px;
+}
+
+#account_maxi_steamname {
+  display:inline-block;
+  vertical-align:top;
+  box-sizing:border-box;
+  font-family:"Blue Highway Regular";
+  font-size:2em;
+  color:white;
+}

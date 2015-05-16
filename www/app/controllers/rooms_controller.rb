@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, except: [:show]
+  before_filter :authenticate_user!
   skip_before_action :verify_authenticity_token
   # GET /rooms
   # GET /rooms.json
@@ -11,7 +11,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1.json
   def show
     respond_to do |format|
-      format.json { render json: @room }
+      format.json { render action: 'show', location: @room }
       if current_user and (res = current_user.get_reservation) and res.id != @room.id
         format.html { redirect_to :controller => 'rooms', :action => 'show', :id => res.id }
       else

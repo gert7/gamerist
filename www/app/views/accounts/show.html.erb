@@ -1,2 +1,10 @@
-<%= current_user.fetch_avatar_url %>
-
+<div id="account_page">
+  <div id="account_maxi">
+    <div id="account_maxi_avatar">
+      <img src="<%= @user.steam_avatar_urls.split(" ")[1] %>"/>
+    </div>
+    <div id="account_maxi_steamname">
+      <%= @user.steam_name %>
+    </div>
+  </div>
+</div>

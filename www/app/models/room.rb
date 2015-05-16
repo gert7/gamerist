@@ -146,7 +146,7 @@ class Room < ActiveRecord::Base
        mrules["players"].count < mrules["playercount"] and
        not player.is_reserved? and
        player.total_balance >= srules["wager"])
-      mrules["players"].push({"id" => player.id, "ready" => 0, "wager" => srules["wager"], "timeout" => Time.now.to_i})
+      mrules["players"].push({"id" => player.id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "timeout" => Time.now.to_i})
       $redis.multi do
         player.reserve! Transaction::KIND_ROOM, self.id
         self.srules = mrules # / write shared data
@@ -215,7 +215,7 @@ class Room < ActiveRecord::Base
   end
   
   def update_xhr(cuser, params)
-    if(params["wager"].to_i == 0)
+    if(params["wager"] and params["wager"].to_i == 0)
       remove_player! cuser
     else
       amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})

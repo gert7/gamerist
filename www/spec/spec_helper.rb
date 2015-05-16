@@ -1,10 +1,10 @@
-require 'simplecov'
-require 'coveralls'
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-SimpleCov.start do
-  add_filter 'app/admin'
-end
-Coveralls.wear!('rails')
+#require 'simplecov'
+#require 'coveralls'
+#SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+#SimpleCov.start do
+#  add_filter 'app/admin'
+#end
+#Coveralls.wear!('rails')
 
 #require 'spork'
 
@@ -99,17 +99,17 @@ Coveralls.wear!('rails')
   end
   
   class ActiveRecord::Base
-  mattr_accessor :shared_connection
-  @@shared_connection = nil
+    mattr_accessor :shared_connection
+    @@shared_connection = nil
 
-  def self.connection
-    @@shared_connection || ConnectionPool::Wrapper.new(:size => 1) { retrieve_connection }
-  end
+    def self.connection
+      @@shared_connection || ConnectionPool::Wrapper.new(:size => 1) { retrieve_connection }
+    end
   end
 
   ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
   
-  Capybara.default_wait_time = 10
+  Capybara.default_wait_time = 7
 #end
 
 #Spork.each_run do
