@@ -97,6 +97,10 @@ class Room < ActiveRecord::Base
     $redis.set rapidkey("state"), self.state
   end
   
+  def is_public?
+    self.rstate == STATE_PUBLIC
+  end
+  
   def dump_timeout_players(mrules)
     mrules["players"].each_index do |i|
       if(mrules["players"][i]["timeout"] and mrules["players"][i]["timeout"] < Time.now.to_i)
@@ -106,11 +110,12 @@ class Room < ActiveRecord::Base
   end
   
   def check_wager(mrules)
-    minmax = mrules["players"].inject([nil, nil]) {|acc, v| [ [(acc[0] or v["wager"]), v["wager"]].min, [(acc[1] or v["wager"]), v["wager"]].max]}
-    if(minmax[0] and (minmax[0] > mrules["wager"]))
-      mrules["wager"] = minmax[0]
-    elsif(minmax[1] and (minmax[1] < mrules["wager"]))
-      mrules["wager"] = minmax[1]
+    wagers = mrules["players"].map {|v| v["wager"]}
+    min, max = wagers.min, wagers.max
+    if(min and (min > mrules["wager"]))
+      mrules["wager"] = min
+    elsif(max and (max < mrules["wager"]))
+      mrules["wager"] = max
     end
   end
   
@@ -118,29 +123,26 @@ class Room < ActiveRecord::Base
     dump_timeout_players(ruleset)
     check_wager(ruleset)
     if(ruleset["players"].count == ruleset["playercount"] and
-       self.rstate == STATE_PUBLIC and
+       self.is_public? and
        ruleset["players"].inject(true) {|acc, v| acc and v["ready"].to_i == 1})
       self.rstate = STATE_LOCKED
       self.save!
     end
   end
   
-  def remove_from_other_room(user)
-    r = user.get_reservation
-    if(r and r.class == Room and r != self)
-      $redis.lock(r, life: 1) do
-        (r._remove_player! user) or user.unreserve!
-      end
-    end
-    return false
-  end
+  #def remove_from_other_room(user)
+  #  r = user.get_reservation
+  #  if(r and r.class == Room and r != self)
+  #    $redis.lock(r, life: 1) do
+  #      (r._remove_player! user) or user.unreserve!
+  #    end
+  #  end
+  #  return false
+  #end
   
   # append players live
-  def _append_player!(player)
-    mrules = self.srules # read shared data /
-    # remove_from_other_room(player)
-    # player.is_reserved?
-    if(self.rstate == STATE_PUBLIC and
+  def _append_player!(player, mrules)
+    if(self.is_public? and
        mrules["players"].count < mrules["playercount"] and
        not player.is_reserved? and
        player.total_balance >= srules["wager"])
@@ -151,59 +153,64 @@ class Room < ActiveRecord::Base
       end
       return true
     end
-    return false
+    false
   end
   
   def append_player!(player)
     $redis.lock2(player, self, 1) do
-      _append_player! player
+      _append_player! player, srules
     end
   end
   
-  def fetch_player(player)
-    mrules = srules
+  def fetch_player(player, mrules)
     mrules["players"].find_index { |v| v["id"].to_i == player.id }
   end
   
-  def _remove_player!(player)
-    mrules = self.srules # read shared data /
-    pi = fetch_player(player)
+  def _remove_player!(player, mrules)
+    pi = fetch_player(player, mrules)
     if(pi and
-      self.rstate == STATE_PUBLIC)
+       self.is_public?)
       mrules["players"].delete_at(pi)
-      $redis.multi do
-        player.unreserve!
-        self.srules = mrules # / write shared data
-      end
       return true
     end
-    return false
+    false
   end
   
   # remove players live
   def remove_player!(player)
     $redis.lock2(player, self, 1) do
-      _remove_player! player
+      mrules = srules
+      if(_remove_player! player, mrules)
+        $redis.multi do
+          player.unreserve!
+          self.srules = mrules # / write shared data
+        end
+      end
     end
+  end
+  
+  def _amend_player!(player, mrules, hash)
+    _append_player! player, mrules unless fetch_player(player, mrules)
+    pi = fetch_player(player, mrules)
+    
+    if(pi and
+       (hash["wager"] ? (hash["wager"] >= WAGER_MIN and hash["wager"] <= WAGER_MAX) : true) and
+       player.total_balance >= (hash["wager"] or 0))
+      hash["timeout"] = (Time.now + ROOM_TIMEOUT).to_i
+      mrules["players"][pi] = mrules["players"][pi].merge(hash)
+      return true
+    end
+    false
   end
   
   # amend players live
   def amend_player!(player, hash)
     $redis.lock2(player, self, 1) do
-      unless(fetch_player(player))
-        _append_player! player
-      end
       mrules = srules
-      pi = fetch_player(player)
-      if(pi and
-         (hash["wager"] ? (hash["wager"] >= WAGER_MIN and hash["wager"] <= WAGER_MAX) : true) and
-         player.total_balance >= (hash["wager"] or 0))
-        mrules["players"][pi] = mrules["players"][pi].merge(hash)
+      if(_amend_player! player, mrules, hash)
         check_ready(mrules)
-        self.srules = mrules # / write shared data
-        return true
+        self.srules = mrules
       end
-      return false
     end
   end
   
@@ -211,7 +218,7 @@ class Room < ActiveRecord::Base
     if(params["wager"].to_i == 0)
       remove_player! cuser
     else
-      amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i, "timeout" => (Time.now + ROOM_TIMEOUT).to_i})
+      amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})
     end
   end
 end
