@@ -145,6 +145,7 @@ class Room < ActiveRecord::Base
     if(self.is_public? and
        mrules["players"].count < mrules["playercount"] and
        not player.is_reserved? and
+       player.steamid and
        player.total_balance >= srules["wager"])
       mrules["players"].push({"id" => player.id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "timeout" => Time.now.to_i})
       $redis.multi do
@@ -194,8 +195,9 @@ class Room < ActiveRecord::Base
     pi = fetch_player(player, mrules)
     
     if(pi and
-       (hash["wager"] ? (hash["wager"] >= WAGER_MIN and hash["wager"] <= WAGER_MAX) : true) and
-       player.total_balance >= (hash["wager"] or 0))
+       (hash["wager"] ? (hash["wager"] >= WAGER_MIN and
+       hash["wager"] <= WAGER_MAX and
+       player.total_balance >= hash["wager"]) : true))
       hash["timeout"] = (Time.now + ROOM_TIMEOUT).to_i
       mrules["players"][pi] = mrules["players"][pi].merge(hash)
       return true
@@ -210,7 +212,9 @@ class Room < ActiveRecord::Base
       if(_amend_player! player, mrules, hash)
         check_ready(mrules)
         self.srules = mrules
+        return true
       end
+      false
     end
   end
   

@@ -1,4 +1,5 @@
 CHANGED_WAGER = false
+STAGING_WAGER = 
 
 fetchCurrentPlayer = (data) ->
   finder = (v) ->
@@ -48,8 +49,10 @@ updatePageObject = (data) ->
 
 updatePage = (dowager) ->
   comei = {"_method": "patch", "ready": $("#srules_readystatus").val()}
-  if(CHANGED_WAGER && dowager)
-    comei.wager = $("#srules_wagerselector").val()
+  if(dowager)
+    STAGING_WAGER = $("#srules_wagerselector").val()
+  if(CHANGED_WAGER)
+    comei.wager = STAGING_WAGER
   $.post(document.location + ".json", comei, updatePageObject)
 
 $(document).ready () ->

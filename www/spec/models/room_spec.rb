@@ -7,8 +7,6 @@ describe Room do
   let(:player3) { FactoryGirl.create :player3 }
   let(:player4) { FactoryGirl.create :player4 }
   let(:room2) { FactoryGirl.create :room2 }
-  before(:each) do
-  end
 
   shared_context("when players have money") do
     before {
@@ -168,6 +166,7 @@ describe Room do
       room.amend_player! player2, "wager" => 8
       room.remove_player! player1
       room.amend_player! player2, {}
+      puts room.srules
       expect(room.srules["wager"]).to eq 8
     end
   end

@@ -27,7 +27,7 @@ class MethHash < Hash
 end
 
 describe Paypal do
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { User.new(FactoryGirl.attributes_for(:user)) }
   let(:p) { mock("payment") }
   let(:redirlink) { "http://www.success.paypal.com" }
 

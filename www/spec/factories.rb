@@ -1,27 +1,36 @@
 FactoryGirl.define do
+  factory :steamid do
+    steamid "4718236478123"
+  end
+
   factory :user do
     email "useroni@mail.ch"
     password "larkheid"
+    association :steamid, factory: :steamid
   end
   
   factory :player1, class: :user do
     email "bonk@bonkmail.se"
     password "faradays"
+    association :steamid, factory: :steamid
   end
   
   factory :player2, class: :user do
     email "fire@firemail.no"
     password "triangles"
+    association :steamid, factory: :steamid
   end
   
   factory :player3, class: :user do
     email "brine@brinemail.dk"
     password "cubicles"
+    association :steamid, factory: :steamid
   end
   
   factory :player4, class: :user do
     email "fetch@fetchmail.de"
     password "quadruples"
+    association :steamid, factory: :steamid
   end
   
   factory :paypal do
