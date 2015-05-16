@@ -40,11 +40,15 @@ class User < ActiveRecord::Base
   end
 
   def name
-    self.email
+    self.email[0..3] + "..."
   end
   
   def rapidkey(s)
     "gamerist-user {" + s + "}" + self.id.to_s
+  end
+  
+  def hrapidkey
+    "gamerist-user {}" + self.id.to_s
   end
   
   # unrealized + realized
@@ -55,23 +59,25 @@ class User < ActiveRecord::Base
   end
   
   def balance_unrealized
-    Rails.cache.fetch "#{cache_key}/balance_unrealized", expires_in: 10.minutes do
-      load_balance; @unrealized
-    end
+    $redis.hfetch hrapidkey, "balance_unrealized" do
+      load_balance
+      @unrealized
+    end.to_i
   end
   
   def balance_unrealized= (v)
-    Rails.cache.write "#{cache_key}/balance_unrealized", v, expires_in: 10.minutes
+    $redis.hset hrapidkey, "balance_unrealized", v
   end
   
   def balance_realized
-    Rails.cache.fetch "#{cache_key}/balance_realized", expires_in: 10.minutes do
-      load_balance; @realized
-    end
+    $redis.hfetch hrapidkey, "balance_realized" do
+      load_balance
+      @realized
+    end.to_i
   end
   
   def balance_realized= (v)
-    Rails.cache.write "#{cache_key}/balance_realized", v, expires_in: 10.minutes
+    $redis.hset hrapidkey, "balance_realized", v
   end
 
   def total_balance
@@ -79,19 +85,19 @@ class User < ActiveRecord::Base
   end
   
   def reserve! (kind, id)
-    $redis.set "player-reservation-#{self.id}", kind.to_s + ":" + id.to_s
+    $redis.hset hrapidkey, "reservation", kind.to_s + ":" + id.to_s
   end
   
   def unreserve!
-    $redis.del "player-reservation-#{self.id}"
+    $redis.hdel hrapidkey, "reservation"
   end
   
   def is_reserved?
-    ($redis.get "player-reservation-#{self.id}") != nil
+    ($redis.hget hrapidkey, "reservation") != nil
   end
   
   def get_reservation
-    reserve = $redis.get "player-reservation-#{self.id}"
+    reserve = $redis.hget hrapidkey, "reservation"
     if reserve
       resp = reserve.split(":")
       if(resp[0].to_i == Transaction::KIND_ROOM)
@@ -101,14 +107,26 @@ class User < ActiveRecord::Base
   end
   
   # account stuff
-  def fetch_avatar_url
-    Rails.cache.fetch rapidkey("avatar_url") do
+  def fetch_steamapi
+    $redis.hfetch hrapidkey, "steamapi" do
       require 'open-uri'
       steamapik = $GAMERIST_API_KEYS["steam"]
       response = JSON.parse(open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid.to_s}").read)
       player = response["response"]["players"][0]
-      player["avatar"] + " " + player["avatarmedium"] + " " + player["avatarfull"]
+      $redis.hset hrapidkey, "avatar_urls", (player["avatar"] + " " + player["avatarmedium"] + " " + player["avatarfull"])
+      $redis.hset hrapidkey, "steamname", player["personaname"]
+      "1"
     end
+  end
+  
+  def fetch_steam_name
+    fetch_steamapi
+    $redis.hget hrapidkey, "steamname"
+  end
+  
+  def fetch_avatar_urls
+    fetch_steamapi
+    $redis.hget hrapidkey, "avatar_urls"
   end
 end
 

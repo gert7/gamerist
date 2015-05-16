@@ -2,13 +2,24 @@ require 'redis-lock'
 require 'config/initializers/apikeys_accessor'
 
 class Redis
-  def fetch n, &b
+  def fetch(n, &b)
     a = self.get(n)
     if(a)
       a
     else
       r = b.call()
       self.set(n, r)
+      r
+    end
+  end
+  
+  def hfetch(h, k, &b)
+    a = self.hget(h, k)
+    if(a)
+      a
+    else
+      r = b.call()
+      self.hset(h, k, r)
       r
     end
   end
