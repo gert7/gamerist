@@ -22,9 +22,7 @@ class Redis
   end
 end
 
-if(Rails.env.production?)
-  $redis = ConnectionPool::Wrapper.new(size: 5, timeout: 5) { Redis.new(:url => "redis://" + $GAMERIST_API_KEYS["redis_production"]) }
-else
-  $redis = ConnectionPool::Wrapper.new(size: 5, timeout: 5) { Redis.new(:url => "redis://" + $GAMERIST_API_KEYS["redis_development"]) }
-end
+redisuri = (Rails.env.production? ? $GAMERIST_API_KEYS["redis_production"] : $GAMERIST_API_KEYS["redis_development"])
+
+$redis = ConnectionPool::Wrapper.new(size: 5, timeout: 5) { Redis.new(:url => "redis://" + redisuri) }
 
