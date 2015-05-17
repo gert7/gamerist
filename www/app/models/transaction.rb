@@ -66,13 +66,14 @@ class Transaction < ActiveRecord::Base
       self.balance_u = self.amount
       self.balance_r = 0
     end
+    lasttr ? lasttr.id : nil
   end
   
   before_save do
     #if self.amount < 0 then    
       #throw [self.amount >= 0, self.realized_kind?, lasttr != nil]
     #end
-    kind_handler()
+    l = kind_handler()
      
     if(self.balance_u < 0 or self.balance_r < 0)
       raise ActiveRecord::Rollback, "Balance becomes less than 0: U = #{balance_u} R = #{balance_r}"
@@ -81,6 +82,7 @@ class Transaction < ActiveRecord::Base
     # update the cache
     self.user.balance_unrealized = self.balance_u
     self.user.balance_realized = self.balance_r
+    self.lastref = l or 0
   end
 
   # try to generalize

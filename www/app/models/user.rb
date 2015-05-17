@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 
   class NoSteamID < Exception
   end
-
+  
   def name
     steam_name or (self.email[0..3] + "...")
   end
