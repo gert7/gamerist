@@ -93,6 +93,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    connection_pool (2.2.0)
     coveralls (0.8.1)
       json (~> 1.8)
       rest-client (>= 1.6.8, < 2)
@@ -349,6 +350,7 @@ DEPENDENCIES
   bunny
   capybara
   coffee-rails
+  connection_pool
   coveralls
   database_cleaner
   devise
