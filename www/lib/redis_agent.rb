@@ -1,12 +1,15 @@
-require 'redis'
-require 'redis-lock'
-require 'json'
-
 module Agis
+  require 'redis'
+  require 'redis-lock'
+  require 'json'
   @agis_methods = Hash.new
 
+  def agis_mailbox_name= (v)
+    @agis_mailbox_name = v
+  end
+
   def agis_mailbox
-    "AGIS TERMINAL : " + self.class.to_s + " : " + self.id.to_s
+    "AGIS TERMINAL : " + self.class.to_s + " : " + (@agis_mailbox_name or self.id.to_s)
   end
   
   def agis_defm0(name, &b)

@@ -55,7 +55,7 @@ gem "bunny", require: false
 
 gem 'ejs', require: 'ejs'
 gem 'annotate', require: false
-gem 'sidekiq', require: false
+gem 'agis', require: false
 gem 'sinatra', require: false
 
 # Use ActiveModel has_secure_password
