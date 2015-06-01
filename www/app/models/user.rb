@@ -17,7 +17,10 @@
 #  updated_at             :datetime
 #
 
+require 'agis'
+
 class User < ActiveRecord::Base
+  include Agis
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -40,6 +43,10 @@ class User < ActiveRecord::Base
   end
 
   class NoSteamID < Exception
+  end
+  
+  def agis_id
+    self.id
   end
   
   def name
@@ -91,12 +98,38 @@ class User < ActiveRecord::Base
     $redis.hset hrapidkey, "reservation", kind.to_s + ":" + id.to_s
   end
   
+  def reservation_is_room? (room_id)
+    res = self.reservation
+    (res and res[0].to_i == Transaction::KIND_ROOM.to_i and res[1].to_i == room_id.to_i)
+  end
+  
+  def areserve_room (room_id, ruleset)
+    res = self.reservation
+    return false if (self.is_reserved? and not reservation_is_room?(room_id))
+    return true if reservation_is_room?(room_id)
+    vself = User.find(self.id) # load the data from the database
+      return false unless not vself.is_reserved?
+      return false unless vself.steamid
+      return false unless vself.total_balance >= ruleset["wager"].to_i
+    $redis.hset hrapidkey, "reservation", Transaction::KIND_ROOM.to_s + ":" + room_id.to_s
+    return true
+  end
+  
+  def reserve_room! (room_id, ruleset)
+    self.acall($redis, :areserve_room, room_id, ruleset)
+  end
+  
   def unreserve!
     $redis.hdel hrapidkey, "reservation"
   end
   
   def is_reserved?
     ($redis.hget hrapidkey, "reservation") != nil
+  end
+  
+  def reservation
+    return nil unless reserve = $redis.hget(hrapidkey, "reservation")
+    reserve.split(":")
   end
   
   def get_reservation
@@ -141,6 +174,11 @@ class User < ActiveRecord::Base
     rescue NoSteamID
       return nil
     end
+  end
+  
+  def initialize(attributes={})
+    super(attributes)
+    agis_defm2(:areserve_room)
   end
 end
 

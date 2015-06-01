@@ -75,6 +75,7 @@
     config.before(:each) do
       Rails.cache.clear
       DatabaseCleaner.clean
+      DatabaseCleaner[:redis].clean
     end
     config.after(:each) do
       Rails.cache.clear

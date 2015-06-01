@@ -9,8 +9,11 @@
 #  rules      :text
 #
 
+require 'agis'
+
 class Room < ActiveRecord::Base
   attr_accessor :game, :map, :playercount, :wager, :spreadmode, :spread, :server
+  include Agis
   
   STATE_DRAFT   = 0  # draft --unused
   STATE_PUBLIC  = 1  # waiting for players in browser
@@ -107,6 +110,7 @@ class Room < ActiveRecord::Base
         mrules["players"].delete_at(i)
       end
     end
+    mrules
   end
   
   def check_wager(mrules)
@@ -117,105 +121,83 @@ class Room < ActiveRecord::Base
     elsif(max and (max < mrules["wager"]))
       mrules["wager"] = max
     end
+    mrules
   end
   
   def check_ready(ruleset)
-    dump_timeout_players(ruleset)
-    check_wager(ruleset)
+    ruleset = dump_timeout_players(ruleset)
+    ruleset = check_wager(ruleset)
     if(ruleset["players"].count == ruleset["playercount"] and
        self.is_public? and
        ruleset["players"].inject(true) {|acc, v| acc and v["ready"].to_i == 1})
       self.rstate = STATE_LOCKED
       self.save!
     end
+    ruleset
   end
   
-  #def remove_from_other_room(user)
-  #  r = user.get_reservation
-  #  if(r and r.class == Room and r != self)
-  #    $redis.lock(r, life: 1) do
-  #      (r._remove_player! user) or user.unreserve!
-  #    end
-  #  end
-  #  return false
-  #end
-  
-  # append players live
-  def _append_player!(player, mrules)
-    if(self.is_public? and
-       mrules["players"].count < mrules["playercount"] and
-       not player.is_reserved? and
-       player.steamid and
-       player.total_balance >= srules["wager"])
-      mrules["players"].push({"id" => player.id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "timeout" => Time.now.to_i})
-      $redis.multi do
-        player.reserve! Transaction::KIND_ROOM, self.id
-        self.srules = mrules # / write shared data
-      end
-      return true
-    end
-    false
+  def fetch_player(pid, mrules)
+    mrules["players"].find_index { |v| v["id"].to_i == pid }
   end
   
-  def append_player!(player)
-    $redis.lock2(player, self, 1) do
-      _append_player! player, srules
-    end
-  end
-  
-  def fetch_player(player, mrules)
-    mrules["players"].find_index { |v| v["id"].to_i == player.id }
-  end
-  
-  def _remove_player!(player, mrules)
-    pi = fetch_player(player, mrules)
+  def _remove_player!(player_id, mrules)
+    pi = fetch_player(player_id, mrules)
     if(pi and
        self.is_public?)
       mrules["players"].delete_at(pi)
-      return true
     end
-    false
+    mrules
   end
   
-  # remove players live
-  def remove_player!(player)
-    $redis.lock2(player, self, 1) do
-      mrules = srules
-      if(_remove_player! player, mrules)
-        $redis.multi do
-          player.unreserve!
-          self.srules = mrules # / write shared data
-        end
-      end
-    end
+  def append_player_hash(mrules, player_id)
+    player = User.find(player_id)
+    mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "timeout" => Time.now.to_i})
+    mrules
   end
   
-  def _amend_player!(player, mrules, hash)
-    _append_player! player, mrules unless fetch_player(player, mrules)
-    pi = fetch_player(player, mrules)
-    
-    if(pi and
-       (hash["wager"] ? (hash["wager"] >= WAGER_MIN and
+  def amend_player_hash(mrules, player, hash)
+    mrules = append_player_hash(mrules, player.id) unless pi = fetch_player(player.id, mrules)
+    pi = fetch_player(player.id, mrules)
+    if(hash["wager"] ? (hash["wager"] >= WAGER_MIN and
        hash["wager"] <= WAGER_MAX and
-       player.total_balance >= hash["wager"]) : true))
-      hash["timeout"] = (Time.now + ROOM_TIMEOUT).to_i
+       player.total_balance >= hash["wager"]) : true)
       mrules["players"][pi] = mrules["players"][pi].merge(hash)
-      return true
     end
-    false
+    mrules
   end
   
-  # amend players live
+  def aamend_player(player_id, hash)
+    mrules = self.srules
+    player = User.new(id: player_id)
+      return false unless (self.is_public?)
+      return false unless (mrules["players"].count < mrules["playercount"])
+      return false unless (player.reserve_room!(self.id, mrules))
+    hash["timeout"] = (Time.now + ROOM_TIMEOUT).to_i
+    mrules = amend_player_hash(mrules, player, hash)
+    mrules = check_ready(mrules)
+    self.srules = mrules
+    true
+  end
+  
+  def aremove_player(player_id)
+    p = User.new(id: player_id)
+    mrules = srules
+    mrules = _remove_player!(player_id, mrules)
+    self.srules = mrules
+    return true unless p.reservation_is_room?(self.id)
+    User.new(id: player_id).unreserve!
+  end
+  
   def amend_player!(player, hash)
-    $redis.lock2(player, self, 1) do
-      mrules = srules
-      if(_amend_player! player, mrules, hash)
-        check_ready(mrules)
-        self.srules = mrules
-        return true
-      end
-      false
-    end
+    self.acall($redis, :aamend_player, player.id, (hash or {}))
+  end
+  
+  def remove_player!(player)
+    self.acall($redis, :aremove_player, player.id)
+  end
+  
+  def append_player!(player)
+    self.acall($redis, :aamend_player, player.id, {})
   end
   
   def update_xhr(cuser, params)
@@ -224,6 +206,11 @@ class Room < ActiveRecord::Base
     else
       amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})
     end
+  end
+  
+  after_initialize do
+    agis_defm1(:aremove_player)
+    agis_defm2(:aamend_player)
   end
 end
 

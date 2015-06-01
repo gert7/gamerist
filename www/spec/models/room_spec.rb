@@ -2,27 +2,21 @@ require 'spec_helper'
 
 describe Room do
   let(:room) { FactoryGirl.create :room }
-  let(:player1) { FactoryGirl.create :player1 }
-  let(:player2) { FactoryGirl.create :player2 }
-  let(:player3) { FactoryGirl.create :player3 }
-  let(:player4) { FactoryGirl.create :player4 }
+  let(:player1) { FactoryGirl.create(:player1) }
+  let(:player2) { FactoryGirl.create(:player2) }
+  let(:player3) { FactoryGirl.create(:player3) }
+  let(:player4) { FactoryGirl.create(:player4) }
   let(:room2) { FactoryGirl.create :room2 }
 
   shared_context("when players have money") do
     before {
-      player1.stubs(:total_balance).returns 25
-      player2.stubs(:total_balance).returns 25
-      player3.stubs(:total_balance).returns 25
-      player4.stubs(:total_balance).returns 25
+      User.any_instance.stubs(:total_balance).returns 25
     }
   end
   
   shared_context("when players have no money") do
     before {
-      player1.stubs(:total_balance).returns 0
-      player2.stubs(:total_balance).returns 0
-      player3.stubs(:total_balance).returns 0
-      player4.stubs(:total_balance).returns 0
+      User.any_instance.stubs(:total_balance).returns 0
     }
   end
 
