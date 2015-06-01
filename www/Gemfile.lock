@@ -61,7 +61,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    agis (0.2.2)
+    agis (0.2.4)
     amq-protocol (1.9.2)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
