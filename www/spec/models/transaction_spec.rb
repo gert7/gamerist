@@ -50,13 +50,7 @@ describe Transaction do
       end
 
       it 'allows consecutive realized funds' do
-        Transaction.create do |t|
-          t.state   = Transaction::STATE_FINAL,
-          t.user    = user,
-          t.kind    = Transaction::KIND_COUPON,
-          t.detail  = 3080,
-          t.amount  = 30
-        end
+        Transaction.create(state: Transaction::STATE_FINAL, user: user, kind: Transaction::KIND_COUPON, detail: 3080, amount: 30)
         Transaction.create do |t|
           t.state   = Transaction::STATE_FINAL,
           t.user    = user,
@@ -150,6 +144,15 @@ describe Transaction do
       trac.amount = -20
       trac.trickle_down_score(0, 30)
       expect([trac.balance_u, trac.balance_r]).to eq [0, 10]
+    end
+  end
+  
+  describe "#make_transaction" do
+    it "creates a new transaction actorly" do
+      tr = Transaction.make_transaction(state: Transaction::STATE_FINAL, user_id: user.id, kind: Transaction::KIND_COUPON, detail: 192, amount: 19)
+      expect(user.total_balance).to eq 19
+      expect(user.balance_unrealized).to eq 19
+      expect(user.balance_realized).to eq 0
     end
   end
 end

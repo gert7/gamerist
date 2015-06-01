@@ -15,7 +15,10 @@
 #  updated_at :datetime
 #
 
+require 'agis'
+
 class Transaction < ActiveRecord::Base
+  include Agis
   
   STATE_INVALID    = 0
   STATE_INCOMPLETE = 1
@@ -84,16 +87,30 @@ class Transaction < ActiveRecord::Base
     self.user.balance_realized = self.balance_r
     self.lastref = l or 0
   end
+  
+  def agis_id
+    self.user_id
+  end
+  
+  def amake_transaction(hash)
+    tr = Transaction.new(hash)
+    tr.save!
+    return tr.id
+  end
+  
+  def self.make_transaction(hash)
+    mh = {user_id: hash[:user_id], amount: hash[:amount], state: hash[:state], kind: hash[:kind], detail: hash[:detail]}
+    dum = Transaction.new(mh) # to hell with this!
+    return Transaction.find(dum.acall($redis, :amake_transaction, mh))
+  end
 
   # try to generalize
   def self.paypal_finalize(user, amount, detail)
-    Transaction.create do |t|
-      t.user    = user
-      t.amount  = amount
-      t.state   = Transaction::STATE_FINAL
-      t.kind    = Transaction::KIND_PAYPAL
-      t.detail  = detail
-    end
+    Transaction.make_transaction(user_id: user.id, amount: amount, detail: detail, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL)
+  end
+  
+  after_initialize do
+    agis_defm1 :amake_transaction
   end
 end
 

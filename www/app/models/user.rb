@@ -176,8 +176,7 @@ class User < ActiveRecord::Base
     end
   end
   
-  def initialize(attributes={})
-    super(attributes)
+  after_initialize do
     agis_defm2(:areserve_room)
   end
 end
