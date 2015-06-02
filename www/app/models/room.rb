@@ -77,6 +77,10 @@ class Room < ActiveRecord::Base
     "gamerist-room {" + s + "}" + self.id.to_s
   end
   
+  def is_alive?
+    true if $redis.get(rapidkey "rules")
+  end
+  
   def srules
     a = $redis.fetch(rapidkey "rules") do
       self.rules

@@ -98,6 +98,11 @@ class User < ActiveRecord::Base
     $redis.hset hrapidkey, "reservation", kind.to_s + ":" + id.to_s
   end
   
+  def reservation_lives?(res)
+    return true if (res and res[0].to_i == Transaction::KIND_ROOM.to_i and Room.new(id: res[1].to_i).is_alive?)
+    return false
+  end
+  
   def reservation_is_room? (room_id)
     res = self.reservation
     (res and res[0].to_i == Transaction::KIND_ROOM.to_i and res[1].to_i == room_id.to_i)
@@ -105,7 +110,7 @@ class User < ActiveRecord::Base
   
   def areserve_room (room_id, ruleset)
     res = self.reservation
-    return false if (self.is_reserved? and not reservation_is_room?(room_id))
+    return false if (self.is_reserved? and not reservation_is_room?(room_id) and reservation_lives?(res))
     return true if reservation_is_room?(room_id)
     vself = User.find(self.id) # load the data from the database
       return false unless not vself.is_reserved?
