@@ -213,6 +213,13 @@ describe Room do
       room.amend_player! player1, "wager" => 45
       expect(room.srules["players"][0]["wager"]).not_to eq 45
     end
+    it "removes the player if they lose the reservation" do
+      room.append_player! player1
+      player1.unreserve!
+      room2.append_player! player1 # make another reservation
+      room.amend_player! player1, "wager" => 8
+      expect(room.srules["players"].count).to eq 0
+    end
   end
   
   describe "#update_xhr" do

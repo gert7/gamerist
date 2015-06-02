@@ -74,7 +74,6 @@ class Room < ActiveRecord::Base
   end
   
   after_save do
-    puts rapidkey("e")
     $redis.set rapidkey("is_alive"), "true"
   end
   
@@ -180,7 +179,11 @@ class Room < ActiveRecord::Base
     player = User.new(id: player_id)
       return false unless (self.is_public?)
       return false unless (mrules["players"].count < mrules["playercount"])
-      return false unless (player.reserve_room!(self.id, mrules))
+      unless (player.reserve_room!(self.id, mrules))
+        mrules = _remove_player! player_id, mrules
+        self.srules = mrules
+        return false
+      end
     hash["timeout"] = (Time.now + ROOM_TIMEOUT).to_i
     mrules = amend_player_hash(mrules, player, hash)
     mrules = check_ready(mrules)
