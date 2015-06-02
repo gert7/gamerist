@@ -63,7 +63,7 @@ class Room < ActiveRecord::Base
   # validates :server
   
   before_validation  do
-    self.state ||= STATE_PUBLIC
+    self.state  ||= STATE_PUBLIC
     self.server ||= $gamerist_serverdata["servers"][0]["name"]
     @playercount = playercount.to_i
     @wager = wager.to_i.floor
@@ -73,12 +73,17 @@ class Room < ActiveRecord::Base
     self.rules ||= JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager, server: @server, players: []})
   end
   
+  after_save do
+    puts rapidkey("e")
+    $redis.set rapidkey("is_alive"), "true"
+  end
+  
   def rapidkey(s)
     "gamerist-room {" + s + "}" + self.id.to_s
   end
   
   def is_alive?
-    true if $redis.get(rapidkey "rules")
+    true if $redis.get(rapidkey "is_alive") == "true"
   end
   
   def srules
