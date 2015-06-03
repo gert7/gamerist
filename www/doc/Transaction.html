@@ -1,0 +1,736 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Transaction
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!Transaction.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (T)</a> &raquo;
+    
+    
+    <span class="title">Transaction</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Transaction
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName"><span class='object_link'><a href="ActiveRecord/Base.html" title="ActiveRecord::Base (class)">ActiveRecord::Base</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="ActiveRecord/Base.html" title="ActiveRecord::Base (class)">ActiveRecord::Base</a></span></li>
+          
+            <li class="next">Transaction</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2">Agis</dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">app/models/transaction.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="STATE_INVALID-constant" class="">STATE_INVALID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="STATE_INCOMPLETE-constant" class="">STATE_INCOMPLETE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="STATE_FINAL-constant" class="">STATE_FINAL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="KIND_UNREALIZED-constant" class="">KIND_UNREALIZED =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>IN: R | OUT: U</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0b0000</span></pre></dd>
+      
+        <dt id="KIND_REALIZED-constant" class="">KIND_REALIZED =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>IN: U then R OUT: R</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0b0001</span></pre></dd>
+      
+        <dt id="KIND_NONE-constant" class="">KIND_NONE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0b0000</span></pre></dd>
+      
+        <dt id="KIND_ROOM-constant" class="">KIND_ROOM =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>winnings if positive, wager if negative</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0b0001</span></pre></dd>
+      
+        <dt id="KIND_PAYPAL-constant" class="">KIND_PAYPAL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0b0010</span></pre></dd>
+      
+        <dt id="KIND_COUPON-constant" class="">KIND_COUPON =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>TODO</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0b0100</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#make_transaction-class_method" title="make_transaction (class method)">+ (Object) <strong>make_transaction</strong>(hash) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#paypal_finalize-class_method" title="paypal_finalize (class method)">+ (Object) <strong>paypal_finalize</strong>(user, amount, detail) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>try to generalize.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#agis_id-instance_method" title="#agis_id (instance method)">- (Object) <strong>agis_id</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#amake_transaction-instance_method" title="#amake_transaction (instance method)">- (Object) <strong>amake_transaction</strong>(hash) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#kind_handler-instance_method" title="#kind_handler (instance method)">- (Object) <strong>kind_handler</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#realized_kind%3F-instance_method" title="#realized_kind? (instance method)">- (Boolean) <strong>realized_kind?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trickle_down_score-instance_method" title="#trickle_down_score (instance method)">- (Object) <strong>trickle_down_score</strong>(lastu, lastr) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>First unrealized, then realized.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="ActiveRecord/Base.html" title="ActiveRecord::Base (class)">ActiveRecord::Base</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="ActiveRecord/Base.html#reset_subclasses-class_method" title="ActiveRecord::Base.reset_subclasses (method)">reset_subclasses</a></span></p>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="make_transaction-class_method">
+  
+    + (<tt>Object</tt>) <strong>make_transaction</strong>(hash) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103
+104
+105</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_make_transaction'>make_transaction</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mh'>mh</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>user_id:</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>amount:</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:amount</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>state:</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:state</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>kind:</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:kind</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>detail:</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:detail</span><span class='rbracket'>]</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_dum'>dum</span> <span class='op'>=</span> <span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_mh'>mh</span><span class='rparen'>)</span> <span class='comment'># to hell with this!
+</span>  <span class='kw'>return</span> <span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_dum'>dum</span><span class='period'>.</span><span class='id identifier rubyid_acall'>acall</span><span class='lparen'>(</span><span class='gvar'>$redis</span><span class='comma'>,</span> <span class='symbol'>:amake_transaction</span><span class='comma'>,</span> <span class='id identifier rubyid_mh'>mh</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="paypal_finalize-class_method">
+  
+    + (<tt>Object</tt>) <strong>paypal_finalize</strong>(user, amount, detail) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>try to generalize</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 108</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_paypal_finalize'>paypal_finalize</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_amount'>amount</span><span class='comma'>,</span> <span class='id identifier rubyid_detail'>detail</span><span class='rparen'>)</span>
+  <span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_make_transaction'>make_transaction</span><span class='lparen'>(</span><span class='label'>user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>amount:</span> <span class='id identifier rubyid_amount'>amount</span><span class='comma'>,</span> <span class='label'>detail:</span> <span class='id identifier rubyid_detail'>detail</span><span class='comma'>,</span> <span class='label'>state:</span> <span class='const'>Transaction</span><span class='op'>::</span><span class='const'>STATE_FINAL</span><span class='comma'>,</span> <span class='label'>kind:</span> <span class='const'>Transaction</span><span class='op'>::</span><span class='const'>KIND_PAYPAL</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="agis_id-instance_method">
+  
+    - (<tt>Object</tt>) <strong>agis_id</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 91</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_agis_id'>agis_id</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_user_id'>user_id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="amake_transaction-instance_method">
+  
+    - (<tt>Object</tt>) <strong>amake_transaction</strong>(hash) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97
+98
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 95</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_amake_transaction'>amake_transaction</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_tr'>tr</span> <span class='op'>=</span> <span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_tr'>tr</span><span class='period'>.</span><span class='id identifier rubyid_save!'>save!</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_tr'>tr</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="kind_handler-instance_method">
+  
+    - (<tt>Object</tt>) <strong>kind_handler</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 52</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_kind_handler'>kind_handler</span><span class='lparen'>(</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_lasttr'>lasttr</span> <span class='op'>=</span> <span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>user_id:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
+  <span class='kw'>case</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span> <span class='op'>&gt;=</span> <span class='int'>0</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_realized_kind?'>realized_kind?</span><span class='comma'>,</span> <span class='id identifier rubyid_lasttr'>lasttr</span> <span class='op'>!=</span> <span class='kw'>nil</span><span class='rbracket'>]</span>
+  <span class='kw'>when</span> <span class='lbracket'>[</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rbracket'>]</span> <span class='comment'># wager win (amount positive) or cash out (amount negative)
+</span>    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_r'>balance_r</span> <span class='op'>=</span> <span class='id identifier rubyid_lasttr'>lasttr</span><span class='period'>.</span><span class='id identifier rubyid_balance_r'>balance_r</span> <span class='op'>+</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_u'>balance_u</span> <span class='op'>=</span> <span class='id identifier rubyid_lasttr'>lasttr</span><span class='period'>.</span><span class='id identifier rubyid_balance_u'>balance_u</span>
+  <span class='kw'>when</span> <span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rbracket'>]</span> <span class='comment'># new wager
+</span>    <span class='id identifier rubyid_trickle_down_score'>trickle_down_score</span><span class='lparen'>(</span><span class='id identifier rubyid_lasttr'>lasttr</span><span class='period'>.</span><span class='id identifier rubyid_balance_u'>balance_u</span><span class='comma'>,</span> <span class='id identifier rubyid_lasttr'>lasttr</span><span class='period'>.</span><span class='id identifier rubyid_balance_r'>balance_r</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='lbracket'>[</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rbracket'>]</span> <span class='comment'># add funds
+</span>    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_u'>balance_u</span> <span class='op'>=</span> <span class='id identifier rubyid_lasttr'>lasttr</span><span class='period'>.</span><span class='id identifier rubyid_balance_u'>balance_u</span> <span class='op'>+</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_r'>balance_r</span> <span class='op'>=</span> <span class='id identifier rubyid_lasttr'>lasttr</span><span class='period'>.</span><span class='id identifier rubyid_balance_r'>balance_r</span>
+  <span class='kw'>when</span> <span class='lbracket'>[</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rbracket'>]</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_r'>balance_r</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_u'>balance_u</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='kw'>when</span> <span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>Rollback</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Negative balance!</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>when</span> <span class='lbracket'>[</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rbracket'>]</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_u'>balance_u</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_r'>balance_r</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_lasttr'>lasttr</span> <span class='op'>?</span> <span class='id identifier rubyid_lasttr'>lasttr</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="realized_kind?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>realized_kind?</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_realized_kind?'>realized_kind?</span>
+  <span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_kind'>kind</span> <span class='op'>&amp;</span> <span class='int'>0b0001</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='int'>1</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="trickle_down_score-instance_method">
+  
+    - (<tt>Object</tt>) <strong>trickle_down_score</strong>(lastu, lastr) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>First unrealized, then realized</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_trickle_down_score'>trickle_down_score</span> <span class='lparen'>(</span><span class='id identifier rubyid_lastu'>lastu</span><span class='comma'>,</span> <span class='id identifier rubyid_lastr'>lastr</span><span class='rparen'>)</span>
+  <span class='kw'>if</span><span class='lparen'>(</span><span class='id identifier rubyid_lastu'>lastu</span> <span class='op'>&lt;</span> <span class='lparen'>(</span><span class='int'>0</span> <span class='op'>-</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_u'>balance_u</span> <span class='op'>=</span> <span class='int'>0</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_r'>balance_r</span> <span class='op'>=</span> <span class='id identifier rubyid_lastr'>lastr</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_lastu'>lastu</span> <span class='op'>+</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span><span class='rparen'>)</span> <span class='comment'># remaining
+</span>  <span class='kw'>else</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_u'>balance_u</span> <span class='op'>=</span> <span class='id identifier rubyid_lastu'>lastu</span> <span class='op'>+</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance_r'>balance_r</span> <span class='op'>=</span> <span class='id identifier rubyid_lastr'>lastr</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Wed Jun  3 19:39:35 2015 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.2.0).
+</div>
+
+  </body>
+</html>

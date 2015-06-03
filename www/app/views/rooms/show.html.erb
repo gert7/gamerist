@@ -1,6 +1,9 @@
 <%= cache do %>
 <div id="rooms">
   <div id="srules_info">
+    <div id="srules_shybar">
+      Room id: <span id="srules_shybar_id"></span>
+    </div>
     <div class="srules_info_column">
       <p id="srules_info_column_game">Game: </p>
       <p id="srules_info_column_map">Map: </p>
@@ -10,6 +13,7 @@
       <p id="srules_info_column_server">Server: Any</p>
     </div>
   </div>
+  <div id="srules_notice">&nbsp;</div>
   <div class="srules_hr saturatedBackground"></div>
   <div id="srules_buttons">
     <div id="srules_wager">

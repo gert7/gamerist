@@ -6,6 +6,17 @@ form {
   background-color:hsl(244,50,10);
 }
 
+#srules_shybar {
+  width:99%;
+  text-align:right;
+  margin-bottom:-18px;
+  height:18px;
+  margin-right:18px;
+  font-size:0.9em;
+  color:#666;
+  font-style:italic;
+}
+
 #srules_info {
   background: #333;
   color: #fff;
@@ -25,6 +36,17 @@ form {
 
 .srules_info_column p {
   line-height:32px;
+}
+
+#srules_notice {
+  height:48px;
+  width:100%;
+  background:hsl(0, 80, 65);
+  display:none;
+  padding:8px;
+  box-sizing:border-box;
+  text-align:center;
+  font-size:1.3em;
 }
 
 .srules_hr {
@@ -232,5 +254,5 @@ form {
   height:70px;
   display:inline-block;
   vertical-align:top;
-  background:#aaa;
+  background:hsl(65,100,50);
 }

@@ -1,7 +1,9 @@
 CHANGED_WAGER = false
-STAGING_WAGER = 
+STAGING_WAGER = null
+UPTIMEOUT     = 3000
 
 fetchCurrentPlayer = (data) ->
+  return null if !data
   finder = (v) ->
     v.id == data.reqid
   ply = $.grep(data.rules.players, finder, false)[0]
@@ -31,37 +33,63 @@ renderPlayerList = (data) ->
     $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_avatar'>" + (if ply then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if ply then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if ply then ply.wager else "") + "</div></div></div>")
   $("#srules_players").replaceWith(srulesPlayers)
 
+declareInRoom = (t) ->
+  if(t)
+    $("#srules_notice").css("display", "none")
+  else
+    $("#srules_notice").css("display", "block")
+    $("#srules_notice").text("You are not in this room!")
+    UPTIMEOUT = 12000
+
+renderChat = () ->
+  
+
 updatePageObject = (data) ->
   $("#srules_info_column_game").text("Game: " + data.rules.game)
   $("#srules_info_column_map").text("Map: " + data.rules.map)
   $("#srules_info_column_playercount").text("Players: " + data.rules.playercount)
   $("#srules_info_column_server").text("Server: " + data.rules.server)
   $("#srules_roomwager").text(data.rules.wager)
+  $("#srules_shybar_id").text(data.id)
+  renderChat(data)
   if(!CHANGED_WAGER)
     $("#srules_wagerselector").val(data.rules.wager)
+    STAGING_WAGER = data.rules.wager
     CHANGED_WAGER = true
   curp = fetchCurrentPlayer(data)
-  if(curp and curp.ready == 1)
-    setReady()
+  if curp
+    declareInRoom(true)
+    if curp.ready == 1
+      setReady()
+    else
+      setUnready()
   else
-    setUnready()
+    declareInRoom(false)
   renderPlayerList(data)
+  if(data.state != 1)
+    UPTIMEOUT = 12000
 
-updatePage = (dowager) ->
-  comei = {"_method": "patch", "ready": $("#srules_readystatus").val()}
-  if(dowager)
-    STAGING_WAGER = $("#srules_wagerselector").val()
-  if(CHANGED_WAGER)
-    comei.wager = STAGING_WAGER
-  $.post(document.location + ".json", comei, updatePageObject)
+updatePage = (now, dowager, NEXTUP) ->
+  if(now or !NEXTUP or (Date.now() >= NEXTUP))
+    comei = {"_method": "patch", "upclass": "readywager", "ready": $("#srules_readystatus").val()}
+    if(dowager)
+      STAGING_WAGER = $("#srules_wagerselector").val()
+    if(CHANGED_WAGER)
+      comei.wager = STAGING_WAGER
+    $.post(document.location + ".json", comei, updatePageObject)
+  if NEXTUP
+    if(Date.now() >= NEXTUP)
+      setTimeout((() -> updatePage(false, false, NEXTUP + UPTIMEOUT)), UPTIMEOUT)
+    else
+      setTimeout((() -> updatePage(false, false, NEXTUP)), UPTIMEOUT)
 
 $(document).ready () ->
   if $("#srules_info").length
-    updatePage(false)
-    setInterval(updatePage, 3000)
+    updatePage(true, false)
+    setTimeout((() -> updatePage(false, false, Date.now() + UPTIMEOUT)), UPTIMEOUT)
     $("#srules_wagersubmit").click () ->
-      updatePage(true)
+      updatePage(true, true)
     $("#srules_readybutton").click () ->
       toggleReady()
-      updatePage(false)
+      updatePage(true, false)
       

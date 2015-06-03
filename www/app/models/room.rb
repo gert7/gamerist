@@ -81,10 +81,12 @@ class Room < ActiveRecord::Base
     "gamerist-room {" + s + "}" + self.id.to_s
   end
   
+  # Check if the is_alive key is set for this room in Redis
   def is_alive?
     true if $redis.get(rapidkey "is_alive") == "true"
   end
   
+  # @return hash containing the ruleset for this room, includes all central data except state (see rstate)
   def srules
     a = $redis.fetch(rapidkey "rules") do
       self.rules
@@ -92,26 +94,39 @@ class Room < ActiveRecord::Base
     JSON.parse(a)
   end
   
+  # @param [Hash] a hash of rules that will be converted into JSON object
   def srules=(a)
     self.rules = JSON.generate(a)
     $redis.set rapidkey("rules"), self.rules
   end
   
+  # STATE_DRAFT   = 0  draft --unused
+  # STATE_PUBLIC  = 1  waiting for players in browser
+  # STATE_LOCKED  = 2  everybody is ready, waiting for server
+  # STATE_ACTIVE  = 4  game is being played
+  # STATE_OVER    = 8  game is done
+  # STATE_FAILED  = 16 game has failed for whatever reason
+  # @return [Integer] number enum of room state
   def rstate
     $redis.fetch(rapidkey "state") do
       self.state
     end.to_i
   end
   
+  # @param [Integer] a specify a new enum of room state
   def rstate=(a)
     self.state = a
     $redis.set rapidkey("state"), self.state
   end
   
+  # @return [Boolean] whether or not the room state is 1 (STATE_PUBLIC)
   def is_public?
     self.rstate == STATE_PUBLIC
   end
   
+  # Remove all players who are over their timeout
+  # @param [Hash] mrules old version of srules
+  # @return [Hash] new version of srules
   def dump_timeout_players(mrules)
     mrules["players"].each_index do |i|
       if(mrules["players"][i]["timeout"] and mrules["players"][i]["timeout"] < Time.now.to_i)
@@ -121,6 +136,16 @@ class Room < ActiveRecord::Base
     mrules
   end
   
+  # Sets the new wager for mrules.
+  # If the lowest common wager for the room is
+  # greater than the current, it shall be the new
+  # shared wager.
+  # If the highest common wager for the room is
+  # lower than the current, it shall be the new
+  # shared wager.
+  #
+  # @param [Hash] mrules old version of srules
+  # @return [Hash] new version of srules
   def check_wager(mrules)
     wagers = mrules["players"].map {|v| v["wager"]}
     min, max = wagers.min, wagers.max
@@ -132,6 +157,12 @@ class Room < ActiveRecord::Base
     mrules
   end
   
+  # Locks the room and saves it in ActiveRecord
+  # if 1) the room is full 2) everyone is ready
+  #
+  # This method writes to ActiveRecord
+  # @param [Hash] ruleset old version of srules
+  # @return [Hash] new version of srules
   def check_ready(ruleset)
     ruleset = dump_timeout_players(ruleset)
     ruleset = check_wager(ruleset)
@@ -144,10 +175,18 @@ class Room < ActiveRecord::Base
     ruleset
   end
   
+  # Find the players array index of a player in the given ruleset
+  # @param [Integer] pid the id of the User of this player
+  # @param [Hash] mrules a version of srules
+  # @return [Integer] The position of the player in the given ruleset's player list
   def fetch_player(pid, mrules)
     mrules["players"].find_index { |v| v["id"].to_i == pid }
   end
   
+  # Removes the player from the given mrules if the room is public
+  # @param [Integer] player_id ID of the given player's User
+  # @param [Hash] mrules old version of srules
+  # @return new version of srules
   def _remove_player!(player_id, mrules)
     pi = fetch_player(player_id, mrules)
     if(pi and
@@ -157,12 +196,21 @@ class Room < ActiveRecord::Base
     mrules
   end
   
+  # Adds the player by ID to the given srules
+  # @param [Hash] mrules old version of srules
+  # @param [Integer] player_id ID of player to add
+  # @return [Hash] new version of srules
   def append_player_hash(mrules, player_id)
     player = User.find(player_id)
     mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "timeout" => Time.now.to_i})
     mrules
   end
   
+  # Modifies a player's hash in a ruleset
+  # @param [Hash] mrules old version of srules
+  # @param [User] player ActiveModel instance of the given player
+  # @param [Hash] hash the given modifications to the user
+  # @return [Hash] new version of srules
   def amend_player_hash(mrules, player, hash)
     mrules = append_player_hash(mrules, player.id) unless pi = fetch_player(player.id, mrules)
     pi = fetch_player(player.id, mrules)
@@ -191,38 +239,97 @@ class Room < ActiveRecord::Base
     true
   end
   
+  # Add a remove notice to the given srules' chatbox
+  # @param [Hash] mrules old version of mrules
+  # @param [Integer] player_id the given player's User's id
+  # @return [Hash] new version of srules
+  def removenoticemsg(mrules, player_id)
+    pi = fetch_player(player_id, mrules)
+    return mrules unless pi
+    add = "left:" + mrules["players"][pi]["steamname"] + " has left the room"
+    mrules["messages"] ||= []
+    if(mrules["messages"].count == 0)
+      mrules["messages"] << {"message" => "TOP", "user_id" => 0, "addendum" => [add]}
+    else
+      mrules["messages"].last["addendum"] << add
+    end
+    mrules
+  end
+  
   def aremove_player(player_id)
     p = User.new(id: player_id)
     mrules = srules
+    mrules = removenoticemsg(mrules, player_id)
     mrules = _remove_player!(player_id, mrules)
     self.srules = mrules
     return true unless p.reservation_is_room?(self.id)
     User.new(id: player_id).unreserve!
   end
   
+  # Amend the given player's standing in the Room's ruleset
+  # 
+  # This method writes to Redis and possibly to ActiveRecord
+  # @param [User] player ActiveRecord instance of the player
+  # @param [Hash] hash set of changes to user in Room
   def amend_player!(player, hash)
     self.acall($redis, :aamend_player, player.id, (hash or {}))
   end
   
+  # Remove the given player from the Room's ruleset
+  # Doesn't care if the player is already removed
+  #
+  # This method writes to Redis
+  # @param [User] player ActiveRecord instance of the player
   def remove_player!(player)
     self.acall($redis, :aremove_player, player.id)
   end
   
+  # Add the player to the Room's ruleset.
+  # Amend player does the same thing, use that instead
+  # @param [User] player ActiveRecord instance of the player
   def append_player!(player)
     self.acall($redis, :aamend_player, player.id, {})
   end
   
+  def aappend_chatmessage(player_id, msg)
+    mrules = srules
+    mrules["messages"] ||= []
+    mrules["messages"] << {"message" => msg, "user_id" => player_id, "addendum" => []}
+    mrules = mrules[1..-1] if(mrules["messages"].count > 40)
+    self.srules = mrules
+  end
+  
+  # Append a chat message associated with a user
+  # to the Room's chatbox. Each message contains an
+  # unrelated addendum array for messages about
+  # players entering or leaving the room.
+  # The chatroom only persists the last 40 messages
+  # @param [User] player ActiveRecord instance of the player
+  # @param [String] message string of the user's message
+  def append_chatmessage!(player, message)
+    self.acall($redis, aappend_chatmessage, player.id, msg)
+  end
+  
+  # XHR direct line to amending a player.
+  # params upclass: readywager (default) or chatroom
+  # @param [User] cuser ActiveRecord instance of the player
+  # @param [Hash] params parameters sent through controller PATCH method
   def update_xhr(cuser, params)
-    if(params["wager"] and params["wager"].to_i == 0)
-      remove_player! cuser
-    else
-      amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})
+    if(params["upclass"] == "readywager" or params["upclass"] == nil)
+      if(params["wager"] and params["wager"].to_i == 0)
+        remove_player! cuser
+      else
+        amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})
+      end
+    elsif(params["upclass"] == "chatroom")
+      append_chatmessage!(cuser, params["message"])
     end
   end
   
   after_initialize do
     agis_defm1(:aremove_player)
     agis_defm2(:aamend_player)
+    agis_defm2(:aappend_chatmessage)
   end
 end
 
