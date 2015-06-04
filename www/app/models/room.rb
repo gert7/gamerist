@@ -74,21 +74,21 @@ class Room < ActiveRecord::Base
   end
   
   after_save do
-    $redis.set rapidkey("is_alive"), "true"
+    $redis.hset rapidkey, "is_alive", "true"
   end
   
-  def rapidkey(s)
-    "gamerist-room {" + s + "}" + self.id.to_s
+  def rapidkey
+    "gamerist-room {" + self.id.to_s + "}"
   end
   
   # Check if the is_alive key is set for this room in Redis
   def is_alive?
-    true if $redis.get(rapidkey "is_alive") == "true"
+    true if $redis.hget(rapidkey, "is_alive") == "true"
   end
   
   # @return hash containing the ruleset for this room, includes all central data except state (see rstate)
   def srules
-    a = $redis.fetch(rapidkey "rules") do
+    a = $redis.hfetch(rapidkey, "rules") do
       self.rules
     end
     JSON.parse(a)
@@ -97,7 +97,7 @@ class Room < ActiveRecord::Base
   # @param [Hash] a hash of rules that will be converted into JSON object
   def srules=(a)
     self.rules = JSON.generate(a)
-    $redis.set rapidkey("rules"), self.rules
+    $redis.hset rapidkey, "rules", self.rules
   end
   
   # STATE_DRAFT   = 0  draft --unused
@@ -108,7 +108,7 @@ class Room < ActiveRecord::Base
   # STATE_FAILED  = 16 game has failed for whatever reason
   # @return [Integer] number enum of room state
   def rstate
-    $redis.fetch(rapidkey "state") do
+    $redis.hfetch rapidkey, "state" do
       self.state
     end.to_i
   end
@@ -116,7 +116,7 @@ class Room < ActiveRecord::Base
   # @param [Integer] a specify a new enum of room state
   def rstate=(a)
     self.state = a
-    $redis.set rapidkey("state"), self.state
+    $redis.hset rapidkey, "state", self.state
   end
   
   # @return [Boolean] whether or not the room state is 1 (STATE_PUBLIC)
@@ -129,7 +129,8 @@ class Room < ActiveRecord::Base
   # @return [Hash] new version of srules
   def dump_timeout_players(mrules)
     mrules["players"].each_index do |i|
-      if(mrules["players"][i]["timeout"] and mrules["players"][i]["timeout"] < Time.now.to_i)
+      p = mrules["players"][i]
+      if((p["timeout"] and p["timeout"] < Time.now.to_i) or not User.new(id: p["id"]).reservation_is_room?(self.id))
         mrules["players"].delete_at(i)
       end
     end

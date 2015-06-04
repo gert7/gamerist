@@ -233,7 +233,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Thread-safe version of Transaction#create.</p>
+</div></span>
   
 </li>
 
@@ -413,20 +415,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Thread-safe version of Transaction#create</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-101
 102
 103
 104
-105</pre>
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_make_transaction'>make_transaction</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_mh'>mh</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>user_id:</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>amount:</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:amount</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>state:</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:state</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>kind:</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:kind</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>detail:</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:detail</span><span class='rbracket'>]</span><span class='rbrace'>}</span>
@@ -464,12 +477,12 @@
       <pre class="lines">
 
 
-108
 109
-110</pre>
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'app/models/transaction.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_paypal_finalize'>paypal_finalize</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_amount'>amount</span><span class='comma'>,</span> <span class='id identifier rubyid_detail'>detail</span><span class='rparen'>)</span>
   <span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_make_transaction'>make_transaction</span><span class='lparen'>(</span><span class='label'>user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>amount:</span> <span class='id identifier rubyid_amount'>amount</span><span class='comma'>,</span> <span class='label'>detail:</span> <span class='id identifier rubyid_detail'>detail</span><span class='comma'>,</span> <span class='label'>state:</span> <span class='const'>Transaction</span><span class='op'>::</span><span class='const'>STATE_FINAL</span><span class='comma'>,</span> <span class='label'>kind:</span> <span class='const'>Transaction</span><span class='op'>::</span><span class='const'>KIND_PAYPAL</span><span class='rparen'>)</span>
@@ -727,7 +740,7 @@
 </div>
 
     <div id="footer">
-  Generated on Wed Jun  3 19:39:35 2015 by
+  Generated on Thu Jun  4 13:16:54 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.0).
 </div>

@@ -49,6 +49,9 @@ class User < ActiveRecord::Base
     self.id
   end
   
+  # Either the name of the user's Steam account
+  # or the first four characters of their email
+  # address
   def name
     steam_name or (self.email[0..3] + "...")
   end
@@ -61,13 +64,18 @@ class User < ActiveRecord::Base
     "gamerist-user {}" + self.id.to_s
   end
   
-  # unrealized + realized
+  # Ask ActiveRecord for the user's most recent
+  # transaction balance. Loads up both realized
+  # and unrealized
   def load_balance
     l = Transaction.where(user_id: self.id).last
     @unrealized = (l != nil ? l.balance_u : 0)
     @realized = (l != nil ? l.balance_r : 0)
+    $redis.hset hrapidkey, "balance_unrealized", @unrealized
+    $redis.hset hrapidkey, "balance_realized", @realized
   end
   
+  # Total balance exclusively of unrealized funds
   def balance_unrealized
     $redis.hfetch hrapidkey, "balance_unrealized" do
       load_balance
@@ -75,10 +83,12 @@ class User < ActiveRecord::Base
     end.to_i
   end
   
+  # Change the total unrealized balance in Redis
   def balance_unrealized= (v)
     $redis.hset hrapidkey, "balance_unrealized", v
   end
   
+  # Total balance for realized funds
   def balance_realized
     $redis.hfetch hrapidkey, "balance_realized" do
       load_balance
@@ -86,23 +96,38 @@ class User < ActiveRecord::Base
     end.to_i
   end
   
+  # Change the total realized balance in Redis
   def balance_realized= (v)
     $redis.hset hrapidkey, "balance_realized", v
   end
-
+  
+  # Total balance of unrealized + realized
+  # funds. Realized funds can do everything
+  # unrealized funds can do.
   def total_balance
     balance_unrealized + balance_realized
   end
   
+  # Reserve the User with an associated row in
+  # some table.
+  # @param [Integer] kind Transaction::KIND_ enum for this reserver
+  # @param [Integer] id ID for the row in this reserver type's table
   def reserve! (kind, id)
     $redis.hset hrapidkey, "reservation", kind.to_s + ":" + id.to_s
   end
   
+  # Check if the Room associated with the User is alive.
+  # Queries the Room's is_alive?
+  # @param [Array] res The reservation provided by User#reservation
+  # @return whether or not the Room is alive and data loss has not occured
   def reservation_lives?(res)
     return true if (res and res[0].to_i == Transaction::KIND_ROOM.to_i and Room.new(id: res[1].to_i).is_alive?)
     return false
   end
   
+  # Check if the reservation is a given Room
+  # @param [Integer] room_id ID for the given Room
+  # @return Whether or not the User is reserved right now by this Room
   def reservation_is_room? (room_id)
     res = self.reservation
     (res and res[0].to_i == Transaction::KIND_ROOM.to_i and res[1].to_i == room_id.to_i)
@@ -120,23 +145,33 @@ class User < ActiveRecord::Base
     return true
   end
   
+  # Reserve a new room if the User is not already
+  # reserved and is valid for reservation
+  # @param [Integer] room_id ID for the given room
+  # @param [Hash] ruleset Room#srules for this given room
+  # @return [Boolean] Whether or not the User is now reserved
   def reserve_room! (room_id, ruleset)
     self.acall($redis, :areserve_room, room_id, ruleset)
   end
   
+  # Forcefully and blindly destroy the User's reservation
   def unreserve!
     $redis.hdel hrapidkey, "reservation"
   end
   
+  # Whether or not the User is currently reserved at all
   def is_reserved?
     ($redis.hget hrapidkey, "reservation") != nil
   end
   
+  # Array containing 1) the Transaction::KIND_ enum for the current reserver
+  # 2) the ID for the row in the current reserver's table
   def reservation
     return nil unless reserve = $redis.hget(hrapidkey, "reservation")
     reserve.split(":")
   end
   
+  # Returns an ActiveRecord instance of Room, only if the current reservation is a Room
   def get_reservation
     reserve = $redis.hget hrapidkey, "reservation"
     if reserve
@@ -147,7 +182,7 @@ class User < ActiveRecord::Base
     end
   end
   
-  # account stuff
+  # Load up steam_name and steam_avatar_urls for the User. They themselves call this implicitly
   def fetch_steamapi
     $redis.hfetch hrapidkey, "steamapi" do
       raise NoSteamID unless self.steamid
@@ -161,6 +196,7 @@ class User < ActiveRecord::Base
     end
   end
   
+  # Steam name of the current user
   def steam_name
     return "Hello" if Rails.env.test?
     begin
@@ -171,6 +207,8 @@ class User < ActiveRecord::Base
     end
   end
   
+  # Three avatar URLs for the given user, increasing in size,
+  # separated by spaces
   def steam_avatar_urls
     return "http:// http:// http://" if Rails.env.test?
     begin

@@ -1,8 +1,8 @@
 app/admin/user.rb 9aa30b1e6b8b4476310276f89c5da188c3807bea
 app/admin/room.rb 13033147abd4bab429d286bb3fada007b68605c7
 app/admin/admin.rb 4a0b6ab31b5d27de9b9784329c0fbe52a4d7668a
-app/models/user.rb 144513423a027128b3d72af22694b74c80161310
-app/models/room.rb 4d610fd763f89cfd6a71157017c2f7d96b6d9aa5
+app/models/user.rb 3e64693e83fd8bb9073a0bd8873e676f86683f3b
+app/models/room.rb 51c290783fc8fbbce31e41f59084f9ed95b8603e
 app/admin/paypal.rb 42a9cb1708e85c29e8a09cdcddfbca2f0ed91faf
 app/models/admin.rb e3cd88f3667dc7beadbc6414199a0e173ecb244c
 app/admin/steamid.rb 31ddea1b3f736314dba924870d0f145398f5cfae
@@ -11,7 +11,7 @@ app/models/account.rb 74117c971823ce1ca2695ae25867b4e3f79c5b89
 app/models/steamid.rb 1e0e62311246658ac7085f2f1dd0cb6c3de2cc21
 app/admin/dashboard.rb 0e9ff608f9658200a7db9de9ed6bd7d5ce59fb63
 app/admin/transaction.rb 892a8b09a81c654c313d37aeb43a9f9b53ac073f
-app/models/transaction.rb 4226f9aab75c6ebfcdbf1393c683f8f68f93dc1b
+app/models/transaction.rb 83226fb9c8a20c7fb17be4509735a40099412b89
 lib/workers/yolo_worker.rb b701fbcf7f2c991dc5e445b91ebd79741af01faf
 app/helpers/rooms_helper.rb 7c724273b04bbe65302864993e84d7c73a7628a6
 app/helpers/account_helper.rb ea00b7428c3af1378f3c38dbe293defd779d1fe5

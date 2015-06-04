@@ -98,6 +98,7 @@ class Transaction < ActiveRecord::Base
     return tr.id
   end
   
+  # Thread-safe version of Transaction#create
   def self.make_transaction(hash)
     mh = {user_id: hash[:user_id], amount: hash[:amount], state: hash[:state], kind: hash[:kind], detail: hash[:detail]}
     dum = Transaction.new(mh) # to hell with this!
