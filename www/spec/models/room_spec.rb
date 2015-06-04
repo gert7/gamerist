@@ -215,7 +215,7 @@ describe Room do
     end
     it "removes the player if they lose the reservation" do
       room.append_player! player1
-      player1.unreserve!
+      player1.unreserve_from_room(room.id)
       room2.append_player! player1 # make another reservation
       room.amend_player! player1, "wager" => 8
       expect(room.srules["players"].count).to eq 0

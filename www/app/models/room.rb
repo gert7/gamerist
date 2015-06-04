@@ -264,7 +264,7 @@ class Room < ActiveRecord::Base
     mrules = _remove_player!(player_id, mrules)
     self.srules = mrules
     return true unless p.reservation_is_room?(self.id)
-    User.new(id: player_id).unreserve!
+    User.new(id: player_id).unreserve_from_room(self.id)
   end
   
   # Amend the given player's standing in the Room's ruleset

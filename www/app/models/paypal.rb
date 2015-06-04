@@ -33,7 +33,7 @@ class Paypal < ActiveRecord::Base
     p.links.detect{|v| v.method == "REDIRECT" }.href
   end
 
-  # Make a Transaction, 
+  # Make a Transaction
   def self.start_paypal_add(user, points, countrycode)
     (points >= 0) or throw ArgumentError
     country   = Gamerist::country(countrycode)

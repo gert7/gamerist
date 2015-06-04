@@ -154,9 +154,17 @@ class User < ActiveRecord::Base
     self.acall($redis, :areserve_room, room_id, ruleset)
   end
   
-  # Forcefully and blindly destroy the User's reservation
-  def unreserve!
+  def aunreserve_from_room(room_id)
+    return false unless self.reservation_is_room?(room_id)
     $redis.hdel hrapidkey, "reservation"
+    true
+  end
+  
+  # Unreserve user if the Room ID is correct
+  # @param [Integer] room_id ID of the room to check
+  # @return [Boolean] whether or not the User was successfully unreserved
+  def unreserve_from_room(room_id)
+    self.acall($redis, :aunreserve_from_room, room_id)
   end
   
   # Whether or not the User is currently reserved at all
@@ -221,6 +229,7 @@ class User < ActiveRecord::Base
   
   after_initialize do
     agis_defm2(:areserve_room)
+    agis_defm1(:aunreserve_from_room)
   end
 end
 

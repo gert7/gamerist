@@ -60,12 +60,12 @@ describe User do
     end
   end
   
-  describe "#unreserve!" do
+  describe "#unreserve_from_room" do
     it "unreserves the player" do
       user = User.create(FactoryGirl.attributes_for(:user))
       room = Room.create(FactoryGirl.attributes_for(:room))
       user.reserve! Transaction::KIND_ROOM, room.id
-      user.unreserve!
+      user.unreserve_from_room(room.id)
       expect(user.is_reserved?).to eq false
     end
   end
