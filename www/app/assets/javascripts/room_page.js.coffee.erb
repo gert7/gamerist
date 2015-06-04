@@ -1,13 +1,42 @@
+autoLink = (options...) ->
+  pattern = ///
+    (^|[\s\n]|<br\/?>) # Capture the beginning of string or line or leading whitespace
+    (
+      (?:https?|ftp):// # Look for a valid URL protocol (non-captured)
+      [\-A-Z0-9+\u0026\u2019@#/%?=()~_|!:,.;]* # Valid URL characters (any number of times)
+      [\-A-Z0-9+\u0026@#/%=~()_|] # String must end in a valid URL character
+    )
+  ///gi
+
+  return @replace(pattern, "$1<a href='$2'>$2</a>") unless options.length > 0
+
+  option = options[0]
+  linkAttributes = (
+    " #{k}='#{v}'" for k, v of option when k isnt 'callback'
+  ).join('')
+
+  @replace pattern, (match, space, url) ->
+    link = option.callback?(url) or
+      "<a href='#{url}'#{linkAttributes}>#{url}</a>"
+
+    "#{space}#{link}"
+
+String.prototype['autoLink'] = autoLink
+
 CHANGED_WAGER = false
 STAGING_WAGER = null
 UPTIMEOUT     = 3000
+CHATRENDERED  = false
 
-fetchCurrentPlayer = (data) ->
+fetchPlayer = (data, id) ->
   return null if !data
   finder = (v) ->
-    v.id == data.reqid
+    v.id == id
   ply = $.grep(data.rules.players, finder, false)[0]
   return ply
+
+fetchCurrentPlayer = (data) ->
+  return fetchPlayer(data, data.reqid)
 
 setReady = () ->
   $("#srules_readystatus").val("1")
@@ -28,7 +57,7 @@ toggleReady = () ->
 renderPlayerList = (data) ->
   srulesPlayers = document.createElement("div")
   $(srulesPlayers).attr("id", "srules_players")
-  for i in [0..(data.rules.playercount-1)]
+  for i in [0..(data.rules.playercount - 1)]
     ply = data.rules.players[i]
     $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_avatar'>" + (if ply then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if ply then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if ply then ply.wager else "") + "</div></div></div>")
   $("#srules_players").replaceWith(srulesPlayers)
@@ -41,8 +70,30 @@ declareInRoom = (t) ->
     $("#srules_notice").text("You are not in this room!")
     UPTIMEOUT = 12000
 
-renderChat = () ->
-  
+chatLine = (steamname, message) ->
+  name = $("<div/>").text(steamname).html()
+  msg  = $("<div/>").text(message.message).html()
+  return '<div class="srules_chatbox_steamname">' + name + '</div>: <div class="srules_chatbox_messagecontent">' + msg.autoLink() + "</div>"
+
+renderChat = (data) ->
+  srulesChat = document.createElement("div")
+  $(srulesChat).attr("id", "srules_chatbox_text")
+  for i in [0..(data.rules.messages.length - 1)]
+    msg = data.rules.messages[i]
+    ply = fetchPlayer(data, msg.user_id)
+    if ply
+      $(srulesChat).append("<div class='srules_chatbox_message' index='" + msg.index + "'>" + chatLine(ply.steamname, msg) + "</div>")
+  $("#srules_chatbox_text").replaceWith(srulesChat)
+  $("#srules_chatbox_text").animate({ scrollTop: 9999999 }, 0)
+
+updateChat = (data) ->
+  if(data and data.rules.messages)
+    msg = $(data.rules.messages).last()[0]
+    ply = fetchPlayer(data, msg.user_id)
+    return null if $("#srules_chatbox_text").children().last().attr("index") == undefined
+    if String($("#srules_chatbox_text").children().last().attr("index")) != String(msg.index)
+      $("#srules_chatbox_text").append("<div class='srules_chatbox_message' index='" + msg.index + "'>" + chatLine(ply.steamname, msg) + "</div>")
+      $("#srules_chatbox_text").animate({ scrollTop: 9999999 }, 0)
 
 updatePageObject = (data) ->
   $("#srules_info_column_game").text("Game: " + data.rules.game)
@@ -51,7 +102,10 @@ updatePageObject = (data) ->
   $("#srules_info_column_server").text("Server: " + data.rules.server)
   $("#srules_roomwager").text(data.rules.wager)
   $("#srules_shybar_id").text(data.id)
-  renderChat(data)
+  if(!CHATRENDERED)
+    renderChat(data)
+    CHATRENDERED = true
+  updateChat(data)
   if(!CHANGED_WAGER)
     $("#srules_wagerselector").val(data.rules.wager)
     STAGING_WAGER = data.rules.wager
@@ -83,6 +137,10 @@ updatePage = (now, dowager, NEXTUP) ->
     else
       setTimeout((() -> updatePage(false, false, NEXTUP)), UPTIMEOUT)
 
+sendChatMessage = () ->
+  comei = {"_method": "patch", "upclass": "chatroom", "message": $("#srules_chatbox_input").val()}
+  $.post(document.location + ".json", comei, updatePageObject)
+
 $(document).ready () ->
   if $("#srules_info").length
     updatePage(true, false)
@@ -92,4 +150,12 @@ $(document).ready () ->
     $("#srules_readybutton").click () ->
       toggleReady()
       updatePage(true, false)
-      
+    $("#srules_chatbox_inputsubmit").click () ->
+      sendChatMessage()
+    $("#srules_chatbox_input").keydown (e) ->
+      if(e.which == 13)
+        sendChatMessage()
+    $("#srules_chatbox_input").keyup (e) ->
+      if(e.which == 13)
+        $("#srules_chatbox_input").val("")
+        

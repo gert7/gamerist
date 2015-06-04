@@ -159,20 +159,27 @@ class Room < ActiveRecord::Base
   end
   
   # Locks the room and saves it in ActiveRecord
-  # if 1) the room is full 2) everyone is ready
-  #
-  # This method writes to ActiveRecord
-  # @param [Hash] ruleset old version of srules
-  # @return [Hash] new version of srules
-  def check_ready(ruleset)
-    ruleset = dump_timeout_players(ruleset)
-    ruleset = check_wager(ruleset)
+  # if 1) the room is full 2) everyone is ready.
+  # This method may write to ActiveRecord
+  def lock_if_ready(ruleset)
     if(ruleset["players"].count == ruleset["playercount"] and
        self.is_public? and
        ruleset["players"].inject(true) {|acc, v| acc and v["ready"].to_i == 1})
       self.rstate = STATE_LOCKED
       self.save!
     end
+    ruleset
+  end
+  
+  # Calls dump_timeout_players, check_wager and
+  # lock_if_ready in sequence.
+  #
+  # @param [Hash] ruleset old version of srules
+  # @return [Hash] new version of srules
+  def check_ready(ruleset)
+    ruleset = dump_timeout_players(ruleset)
+    ruleset = check_wager(ruleset)
+    ruleset = lock_if_ready(ruleset)
     ruleset
   end
   
@@ -295,8 +302,8 @@ class Room < ActiveRecord::Base
   def aappend_chatmessage(player_id, msg)
     mrules = srules
     mrules["messages"] ||= []
-    mrules["messages"] << {"message" => msg, "user_id" => player_id, "addendum" => []}
-    mrules = mrules[1..-1] if(mrules["messages"].count > 40)
+    mrules["messages"] << {"index" => mrules["messages"].last["index"] + 1, "message" => msg, "user_id" => player_id, "addendum" => []}
+    mrules["messages"] = mrules["messages"][1..-1] if(mrules["messages"].count > 40)
     self.srules = mrules
   end
   
@@ -308,7 +315,7 @@ class Room < ActiveRecord::Base
   # @param [User] player ActiveRecord instance of the player
   # @param [String] message string of the user's message
   def append_chatmessage!(player, message)
-    self.acall($redis, aappend_chatmessage, player.id, msg)
+    self.acall($redis, :aappend_chatmessage, player.id, message)
   end
   
   # XHR direct line to amending a player.
@@ -323,7 +330,7 @@ class Room < ActiveRecord::Base
         amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})
       end
     elsif(params["upclass"] == "chatroom")
-      append_chatmessage!(cuser, params["message"])
+      append_chatmessage!(cuser, params["message"]) unless params["message"].gsub(/\s+/, "") == ""
     end
   end
   

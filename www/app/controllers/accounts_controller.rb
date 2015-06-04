@@ -17,6 +17,7 @@ class AccountsController < ApplicationController
   end
   
   def unfreeze
+    current_user.unreserve_from_room(current_user.reservation[1].to_i)
     respond_to do |format|
       if(res = current_user.get_reservation)
         if(res.class == Room)
