@@ -39,11 +39,9 @@ class Room < ActiveRecord::Base
   WAGER_MIN = 5
   WAGER_MAX = 50
   
-  if(Rails.env.test?)
-    ROOM_TIMEOUT = 30.minutes
-  else
-    ROOM_TIMEOUT = 30.seconds
-  end
+  MESSAGES_STORE_MAX = 40
+  
+  Rails.env.test? ? ROOM_TIMEOUT = 30.minutes : ROOM_TIMEOUT = 30.seconds
   
   has_many :users, inverse_of: :rooms
   
@@ -130,7 +128,8 @@ class Room < ActiveRecord::Base
   def dump_timeout_players(mrules)
     mrules["players"].each_index do |i|
       p = mrules["players"][i]
-      if((p["timeout"] and p["timeout"] < Time.now.to_i) or not User.new(id: p["id"]).reservation_is_room?(self.id))
+      if((p["timeout"].to_i < Time.now.to_i) or
+         not User.new(id: p["id"]).reservation_is_room?(self.id))
         mrules["players"].delete_at(i)
       end
     end
@@ -177,10 +176,7 @@ class Room < ActiveRecord::Base
   # @param [Hash] ruleset old version of srules
   # @return [Hash] new version of srules
   def check_ready(ruleset)
-    ruleset = dump_timeout_players(ruleset)
-    ruleset = check_wager(ruleset)
-    ruleset = lock_if_ready(ruleset)
-    ruleset
+    (lock_if_ready (check_wager (dump_timeout_players ruleset)))
   end
   
   # Find the players array index of a player in the given ruleset
@@ -236,14 +232,11 @@ class Room < ActiveRecord::Base
       return false unless (self.is_public?)
       return false unless (mrules["players"].count < mrules["playercount"])
       unless (player.reserve_room!(self.id, mrules))
-        mrules = _remove_player! player_id, mrules
-        self.srules = mrules
+        self.srules = _remove_player!(player_id, mrules)
         return false
       end
     hash["timeout"] = (Time.now + ROOM_TIMEOUT).to_i
-    mrules = amend_player_hash(mrules, player, hash)
-    mrules = check_ready(mrules)
-    self.srules = mrules
+    self.srules = check_ready(amend_player_hash(mrules, player, hash))
     true
   end
   
@@ -266,10 +259,7 @@ class Room < ActiveRecord::Base
   
   def aremove_player(player_id)
     p = User.new(id: player_id)
-    mrules = srules
-    mrules = removenoticemsg(mrules, player_id)
-    mrules = _remove_player!(player_id, mrules)
-    self.srules = mrules
+    self.srules = _remove_player!(player_id, removenoticemsg(srules, player_id))
     return true unless p.reservation_is_room?(self.id)
     User.new(id: player_id).unreserve_from_room(self.id)
   end
@@ -303,7 +293,7 @@ class Room < ActiveRecord::Base
     mrules = srules
     mrules["messages"] ||= []
     mrules["messages"] << {"index" => mrules["messages"].last["index"] + 1, "message" => msg, "user_id" => player_id, "addendum" => []}
-    mrules["messages"] = mrules["messages"][1..-1] if(mrules["messages"].count > 40)
+    mrules["messages"] = mrules["messages"][1..-1] if(mrules["messages"].count > Room::MESSAGES_STORE_MAX)
     self.srules = mrules
   end
   
@@ -326,7 +316,7 @@ class Room < ActiveRecord::Base
     if(params["upclass"] == "readywager" or params["upclass"] == nil)
       if(params["wager"] and params["wager"].to_i == 0)
         remove_player! cuser
-      else
+      else 
         amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})
       end
     elsif(params["upclass"] == "chatroom")

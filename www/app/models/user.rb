@@ -120,7 +120,8 @@ class User < ActiveRecord::Base
   # Queries the Room's is_alive?
   # @param [Array] res The reservation provided by User#reservation
   # @return whether or not the Room is alive and data loss has not occured
-  def reservation_lives?(res)
+  def reservation_lives?
+    res = self.reservation
     return true if (res and res[0].to_i == Transaction::KIND_ROOM.to_i and Room.new(id: res[1].to_i).is_alive?)
     return false
   end
@@ -130,15 +131,14 @@ class User < ActiveRecord::Base
   # @return Whether or not the User is reserved right now by this Room
   def reservation_is_room? (room_id)
     res = self.reservation
-    (res and res[0].to_i == Transaction::KIND_ROOM.to_i and res[1].to_i == room_id.to_i)
+    (res and res[0].to_i == Transaction::KIND_ROOM.to_i and res[1].to_i == room_id.to_i and reservation_lives?)
   end
   
   def areserve_room (room_id, ruleset)
     res = self.reservation
-    return false if (self.is_reserved? and not reservation_is_room?(room_id) and reservation_lives?(res))
+    return false if (not reservation_is_room?(room_id) and reservation_lives?)
     return true if reservation_is_room?(room_id)
-    vself = User.find(self.id) # load the data from the database
-      return false unless not vself.is_reserved?
+    vself = User.find(self.id) # now we have to load the data from the database
       return false unless vself.steamid
       return false unless vself.total_balance >= ruleset["wager"].to_i
     $redis.hset hrapidkey, "reservation", Transaction::KIND_ROOM.to_s + ":" + room_id.to_s
