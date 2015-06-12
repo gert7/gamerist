@@ -9,6 +9,26 @@
 #  rules      :text
 #
 
+# Ruleset structure:
+#
+# game
+# map
+# playercount
+# wager
+# server
+# players[]:
+#   id
+#   ready
+#   wager
+#   avatar
+#   steamid
+#   timeout
+# messages[]:
+#   index
+#   message
+#   userid
+#   addendum
+
 require 'agis'
 
 class Room < ActiveRecord::Base
@@ -292,7 +312,9 @@ class Room < ActiveRecord::Base
   def aappend_chatmessage(player_id, msg)
     mrules = srules
     mrules["messages"] ||= []
-    mrules["messages"] << {"index" => mrules["messages"].last["index"] + 1, "message" => msg, "user_id" => player_id, "addendum" => []}
+    ind = mrules["messages"].last["index"] if mrules["messages"].last
+    ind ||= 0
+    mrules["messages"] << {"index" => ind + 1, "message" => msg, "user_id" => player_id, "addendum" => []}
     mrules["messages"] = mrules["messages"][1..-1] if(mrules["messages"].count > Room::MESSAGES_STORE_MAX)
     self.srules = mrules
   end

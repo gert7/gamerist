@@ -23,6 +23,7 @@ module Gamerist
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.autoload_paths += Dir["#{config.root}/lib/workers/**/"]
+    config.eager_load_paths += ["#{Rails.root}/lib"]
     if(Rails.env.production?)
       config.cache_store = :redis_store, 'redis://' + $GAMERIST_API_KEYS["redis_production"] + '/0/cache', { expires_in: 90.minutes }
     else
