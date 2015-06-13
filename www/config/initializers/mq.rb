@@ -6,7 +6,7 @@ $bunny = Bunny.new
 $bunny.start
 
 ch = $bunny.create_channel
-x  = ch.topic("gamerist.topic")
+x  = ch.topic("gamerist.topic" + (Rails.env.test? ? "test" : ""))
 servers = $gamerist_serverdata["servers"]
 
 # Manage the upstream wooooo
@@ -18,9 +18,24 @@ ch.queue("gamerist.dispatch.upstream").bind(x, routing_key: "gamerist.dispatch.u
   end
 end
 
+# TEST ONLY
+# Hijack the downstream for testing
+#if(Rails.env.test?)
+  #ch.queue("gamerist.dispatch.down.centurion").bind(x, routing_key: "gamerist.dispatch.down.centurion").subscribe do |delivery_info, properties, payload|
+    #require 'json'
+    #jdata = JSON.parse payload
+    #if(jdata["protocol_version"].to_i == 1)
+      
+    #end
+  #end
+#end
+
 module DispatchMQ
-  def self.produce_room(roomrules)
+  def self.produce_room(room)
     require "jbuilder"
+    roomrules = room.srules
+    roomid    = room.id
+    
     ch = $bunny.create_channel
     x  = ch.topic("gamerist.topic")
     servers = $gamerist_serverdata["servers"]
@@ -28,17 +43,23 @@ module DispatchMQ
     
     req = Jbuilder.new do |json|
       json.protocol_version 1
-      json.roomdata do
-        json.players(roomrules["players"]) do |player|
-          usr = User.new()
-        end
-      end
+      json.roomdata roomrules
     end
     
     puts req.target!
-    #x.publish(req.to_s, routing_key: "gamerist.dispatch.down." + servername)
+    x.publish(req.target!, routing_key: "gamerist.dispatch.down." + servername)
   end
 end
 
-DispatchMQ::produce_room({"hey" => "haiao", "data" => ["some", "array"]}, "trivium")
+class DummyRoom
+  def srules
+    return {"server" => "centurion", "message" => "Helou Wirld!"}
+  end
+  
+  def id
+    11
+  end
+end
+
+DispatchMQ::produce_room(DummyRoom.new)
 

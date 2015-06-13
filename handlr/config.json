@@ -1,0 +1,12 @@
+{
+  "selfname": "centurion",
+  "testmode": true,
+  "rabbitmq":
+    {
+      "url": "127.0.0.1",
+      "username": "",
+      "vhost": "",
+      "password": "",
+      "exsuffix": "test"
+    }
+}

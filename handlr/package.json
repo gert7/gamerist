@@ -14,8 +14,10 @@
     "handlr"
   ],
   "dependencies": {
-    "amq": "~0.4.8",
-    "coffee-script": "~1.8.0"
+    "amqplib": "",
+    "coffee-script": "~1.8.0",
+    "nedb": "",
+    "pm2": ""
   },
   "devDependencies": {
     "mocha": "~1.21.4"
