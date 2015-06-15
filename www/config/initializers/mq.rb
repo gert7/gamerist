@@ -6,6 +6,7 @@ $bunny = Bunny.new
 $bunny.start
 
 ch = $bunny.create_channel
+puts "Using exchange gamerist.topic" + (Rails.env.test? ? "test" : "")
 x  = ch.topic("gamerist.topic" + (Rails.env.test? ? "test" : ""))
 servers = $gamerist_serverdata["servers"]
 
@@ -37,7 +38,7 @@ module DispatchMQ
     roomid    = room.id
     
     ch = $bunny.create_channel
-    x  = ch.topic("gamerist.topic")
+    x  = ch.topic("gamerist.topic" + (Rails.env.test? ? "test" : ""))
     servers = $gamerist_serverdata["servers"]
     servername = roomrules["server"] or servers[0]["name"]
     
@@ -47,7 +48,8 @@ module DispatchMQ
     end
     
     puts req.target!
-    x.publish(req.target!, routing_key: "gamerist.dispatch.down." + servername)
+    puts "Pushing message to gamerist.dispatch.down." + servername
+    puts x.publish(req.target!, routing_key: "gamerist.dispatch.down." + servername)
   end
 end
 

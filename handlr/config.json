@@ -3,7 +3,7 @@
   "testmode": true,
   "rabbitmq":
     {
-      "url": "127.0.0.1",
+      "url": "amqp://127.0.0.1",
       "username": "",
       "vhost": "",
       "password": "",

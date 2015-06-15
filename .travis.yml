@@ -20,7 +20,7 @@ script:
   - ./nodeinstall.sh
   - cd handlr
   - source npminstall.sh
-  - mocha
+  - mocha --compilers coffee:coffee-script/register
 before_script:
   - mkdir tmp/cache
   - cp config/database.travis.yml config/database.yml
