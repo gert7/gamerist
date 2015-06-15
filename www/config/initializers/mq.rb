@@ -11,7 +11,7 @@ x  = ch.topic("gamerist.topic" + (Rails.env.test? ? "test" : ""))
 servers = $gamerist_serverdata["servers"]
 
 # Manage the upstream wooooo
-ch.queue("gamerist.dispatch.upstream").bind(x, routing_key: "gamerist.dispatch.up.*").subscribe do |delivery_info, properties, payload|
+ch.queue("gamerist.dispatch.upstream", durable: true).bind(x, routing_key: "gamerist.dispatch.up.*").subscribe do |delivery_info, properties, payload|
   require 'json'
   jdata = JSON.parse payload
   if(jdata["protocol_version"].to_i == 1)

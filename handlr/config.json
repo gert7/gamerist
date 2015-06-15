@@ -2,11 +2,17 @@
   "selfname": "centurion",
   "testmode": true,
   "rabbitmq":
-    {
-      "url": "amqp://127.0.0.1",
-      "username": "",
-      "vhost": "",
-      "password": "",
-      "exsuffix": "test"
-    }
+  {
+    "url": "amqp://127.0.0.1",
+    "username": "",
+    "vhost": "",
+    "password": "",
+    "exsuffix": "test"
+  },
+  "timeouts":
+  {
+    "addeach": 3,
+    "timeout": 11
+  },
+  "ports": [27015, 27016, 27017, 27018, 27019, 27020, 27021, 27022]
 }
