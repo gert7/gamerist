@@ -1,7 +1,8 @@
 require("coffee-script")
 require("./test_helper")
+expect = require("chai").expect
 
 describe "Yo", ->
   it "should blow up", ->
-    "a".should.equal "a"
+    expect("a").to.equal "a"
 

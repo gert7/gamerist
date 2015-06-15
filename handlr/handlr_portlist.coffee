@@ -52,6 +52,7 @@ remember_port = (port, room, callback) ->
     (callback || ->)(err)
     
 get_port = (port, callback) ->
+  debug("Getting port " + port)
   servers.find({port: port}, (err, docs) ->
     if(docs[0]) then (callback || ->)(docs[0]) else (callback || ->)(undefined)
   )
@@ -69,24 +70,38 @@ heartbeat_port = (port, callback) ->
     servers.find({port: port}, next)
   .then (next, err, docs) ->
     temp = docs[0]
-    servers.remove({port: port}, {multi: true}, next)
+    next(err, docs)
   return undefined unless temp
   seq
+  .then (next, err, docs) ->
+    servers.remove({port: port}, {multi: true}, next)
   .then (next) ->
     servers.insert({port: temp.port, room: temp.room, timeout: (unixtime() + Config.timeouts.timeout)}, next)
   .then (next, err) ->
     debug("Heartbeat for server on port " + port)
     (callback || -> )(err)
 
+remove_all_ports = (callback) ->
+  seq = Futures.sequence()
+  get_all_ports((ports) ->
+    i   = 0
+    lim = ports.length
+    (callback || ->)() if lim == 0
+    for record in ports
+      debug("Removing port " + record.port)
+      seq
+      .then (next) ->
+        destroy_port.destroy_port(record.port, next)
+      .then (next) ->
+        free_port(record.port, next)
+      seq.then (next) ->
+        i = i + 1
+        (callback || ->)() if i >= lim
+  )
+
 exports.remember_port  = remember_port
 exports.get_port       = get_port
 exports.free_port      = free_port
 exports.heartbeat_port = heartbeat_port
-
-seq = Futures.sequence()
-seq
-.then (next) ->
-  remember_port(27015, 11, next)
-.then (next) ->
-  heartbeat_port(27015)
+exports.remove_all_ports= remove_all_ports
 
