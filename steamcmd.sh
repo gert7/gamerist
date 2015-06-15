@@ -5,7 +5,7 @@ cd steamcmd # CD gamerist/steamcmd
 curl -O http://media.steampowered.com/installer/steamcmd_linux.tar.gz $CURL_O
 tar -xvzf steamcmd_linux.tar.gz
 rm steamcmd_linux.tar.gz
-mkdir tf2
+mkdir tf
 mkdir css
 mkdir cs_go
 sleep 5

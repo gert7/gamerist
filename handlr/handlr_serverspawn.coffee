@@ -47,7 +47,7 @@ spin_up = (port, room, settings, errcallback) ->
     else
       next()
   .then (next) ->
-    srcfolder = (if settings.game == "tf" then "tf2")
+    srcfolder = settings.game
     spawn_indep("../steamcmd/" + srcfolder + "/srcds_run", ["-game", settings.game, "+map", settings.map, "+playercount", settings.playercount, "-port", port], room)
     portlist.remember_port(port, room)
     udp_getport(port, next)
