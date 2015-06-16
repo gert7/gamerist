@@ -7,9 +7,9 @@ fs   = require('fs')
 path = require("path")
 
 describe "portlist", ->
+  beforeEach (done) ->
+    portlist.remove_all_ports(done)
   describe "remember_port", ->
-    beforeEach (done) ->
-      portlist.remove_all_ports(done)
     it "remembers the port", (done) ->
       seq = Futures.sequence()
       .then (next) ->
@@ -36,6 +36,36 @@ describe "portlist", ->
         portlist.remember_port(27015, 81, next)
       .then (next, err) ->
         debug err
+        expect(err).to.equal null
+        done()
+  describe "get_port", ->
+    it "returns the correct record for the port", (done) ->
+      seq = Futures.sequence()
+      .then (next) ->
+        portlist.remember_port(27015, 94, next)
+      .then (next) ->
+        portlist.get_port(27015, next)
+      .then (next, record) ->
+        expect(record.port).to.equal 27015
+        expect(record.room).to.equal 94
+        done()
+    it "returns undefined otherwise", (done) ->
+      seq = Futures.sequence()
+      .then (next) ->
+        portlist.get_port(27015, next)
+      .then (next, record) ->
+        expect(record).to.equal undefined
+        done()
+  describe "free_port", ->
+    it "frees the port for use", (done) ->
+      seq = Futures.sequence()
+      .then (next) ->
+        portlist.remember_port(27015, 95, next)
+      .then (next, record) ->
+        portlist.free_port(27015, next)
+      .then (next) ->
+        portlist.remember_port(27015, 96, next)
+      .then (next, err) ->
         expect(err).to.equal null
         done()
         
