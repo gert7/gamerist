@@ -3,7 +3,7 @@
 # over TCP on port 1996 as a client
 
 net   = require('net')
-debug = require('debug')('downstream')
+debug = require('debug')('southstream')
 
 # Format:
 #

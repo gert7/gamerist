@@ -1,5 +1,6 @@
 child_process = require("child_process")
 debug         = require("debug")("destroy_port")
+Futures       = require("futures")
 
 spawn_indep = (cmd, args, id, closecallback) ->
   out = err =
@@ -13,6 +14,15 @@ spawn_indep = (cmd, args, id, closecallback) ->
   child.on("close", (closecallback || ->))
 
 exports.destroy_port = (port, callback) ->
-  debug("Killing process at UDP port " + port)
-  spawn_indep("fuser", ["-n", "udp", "-k", port], null, callback)
+  Futures.sequence()
+  .then (next) ->
+    spawn_indep("fuser", ["-n", "udp", "-k", port], null, next)
+  .then (next) ->
+    debug("Destroyed process on port " + port)
+    (callback || ->)()
 
+exports.destroy_port_async = (port, endcallback) ->
+  spawn_indep("fuser", ["-n", "udp", "-k", port], null, endcallback)
+  debug("Destroying process on port " + port + "...")
+  (callback || ->)()
+  

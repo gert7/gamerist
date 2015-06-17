@@ -17,7 +17,7 @@ unixtime = ->
   return Math.floor(Date.now() / 1000)
 
 free_port = (port, callback) ->
-  servers.remove({port: port}, {multi: true}, ->
+  servers.remove({port: port}, ->
     debug("Freed port " + port + " in datastore")
     (callback || ->)()
   )
@@ -34,7 +34,7 @@ remove_timeout_ports = (callback) ->
         seq
         .then (next) ->
           destroy_port.destroy_port(record.port, next)
-        .then (next) ->
+        .then (next, code) ->
           free_port(record.port, next)
       seq.then (next) ->
         i = i + 1
@@ -92,7 +92,8 @@ remove_all_ports = (callback) ->
       seq
       .then (next) ->
         destroy_port.destroy_port(record.port, next)
-      .then (next) ->
+      .then (next, code) ->
+        #debug(code)
         free_port(record.port, next)
       seq.then (next) ->
         i = i + 1

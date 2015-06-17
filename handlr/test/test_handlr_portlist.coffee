@@ -8,7 +8,12 @@ path = require("path")
 
 describe "portlist", ->
   beforeEach (done) ->
-    portlist.remove_all_ports(done)
+    seq = Futures.sequence()
+    .then (next) ->
+      portlist.remove_all_ports(next)
+    .then (next) ->
+      debug("Succesfully removed all ports for testing")
+      done()
   describe "remember_port", ->
     it "remembers the port", (done) ->
       seq = Futures.sequence()
