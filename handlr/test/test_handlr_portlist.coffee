@@ -43,6 +43,16 @@ describe "portlist", ->
         debug err
         expect(err).to.equal null
         done()
+    it "doesn't cause a race condition", (done) ->
+      portlist.remember_port(27015, 101, ->)
+      portlist.remember_port(27015, 102, ->)
+      seq = Futures.sequence()      
+      .then (next) ->
+        portlist.get_port(27015, next)
+      .then (next, record) ->
+        debug record
+        expect(record.room).to.equal 101
+        done()
   describe "get_port", ->
     it "returns the correct record for the port", (done) ->
       seq = Futures.sequence()

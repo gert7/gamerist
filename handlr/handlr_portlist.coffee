@@ -100,9 +100,65 @@ remove_all_ports = (callback) ->
         (callback || ->)() if i >= lim
   )
 
-exports.remember_port  = remember_port
-exports.get_port       = get_port
-exports.free_port      = free_port
-exports.heartbeat_port = heartbeat_port
-exports.remove_all_ports= remove_all_ports
+nactor = require("nactor")
+
+plistactor = nactor.actor ->
+  return {
+    remember_port: (data, async) ->
+      async.enable()
+      Futures.sequence()
+      .then (next) ->
+        remember_port(data.port, data.room, next)
+      .then (next, err) ->
+        async.reply(err)
+    
+    get_port: (data, async) ->
+      async.enable()
+      Futures.sequence()
+      .then (next) ->
+        get_port(data.port, next)
+      .then (next, record) ->
+        async.reply(record)
+        
+    free_port: (data, async) ->
+      async.enable()
+      Futures.sequence()
+      .then (next) ->
+        free_port(data.port, next)
+      .then ->
+        async.reply()
+        
+    heartbeat_port: (data, async) ->
+      async.enable()
+      Futures.sequence()
+      .then (next) ->
+        heartbeat_port(data.port, next)
+      .then (next, err) ->
+        async.reply(err)
+        
+    remove_all_ports: (data, async) ->
+      async.enable()
+      Futures.sequence()
+      .then (next) ->
+        remove_all_ports(next)
+      .then ->
+        async.reply()
+  }
+
+plistactor.init()
+
+exports.remember_port  = (port, room, callback) ->
+  plistactor.remember_port({port: port, room: room}, callback)
+
+exports.get_port       = (port, callback) ->
+  plistactor.get_port({port: port}, callback)
+  
+exports.free_port      = (port, callback) ->
+  plistactor.free_port({port: port}, callback)
+  
+exports.heartbeat_port = (port, callback) ->
+  plistactor.heartbeat_port({port: port}, callback)
+  
+exports.remove_all_ports= (callback) ->
+  plistactor.remove_all_ports(null, callback)
 
