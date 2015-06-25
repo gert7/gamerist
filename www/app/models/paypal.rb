@@ -81,18 +81,19 @@ class Paypal < ActiveRecord::Base
   end
   
   def finalize_paypal_add(payerid)
-    payment = PayPal::SDK::REST::Payment.find(self.sid)
+    return Transaction::paypal_finalize(payerid, self)
+    #payment = PayPal::SDK::REST::Payment.find(self.sid)
     # throw [self.user_id, self.amount, self]
-    if(self.state == Paypal::STATE_CREATED and payment.execute(payer_id: payerid))
-      self.state = Paypal::STATE_EXECUTED
-      unless self.save
-        throw "CAN'T SAVE YO"
-        return false
-      end
-      Transaction::paypal_finalize(self.user, self.amount, self)
-      return true
-    end
-    return false
+    #if(self.state == Paypal::STATE_CREATED and payment.execute(payer_id: payerid))
+    #  self.state = Paypal::STATE_EXECUTED
+    #  unless self.save
+    #    throw "CAN'T SAVE YO"
+    #    return false
+    #  end
+    #  Transaction::paypal_finalize(self.user, self.amount, self)
+    #  return true
+    #end
+    #return false
   end
 end
 

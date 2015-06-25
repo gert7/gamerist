@@ -106,12 +106,32 @@ class Transaction < ActiveRecord::Base
   end
 
   # try to generalize
-  def self.paypal_finalize(user, amount, detail)
-    Transaction.make_transaction(user_id: user.id, amount: amount, detail: detail, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL)
+  #def self.paypal_finalize(user, amount, detail)
+  #  Transaction.make_transaction(user_id: user.id, amount: amount, detail: detail, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL)
+  #end
+  
+  def apaypal_finalize(payerid, ppid)
+    payp = Paypal.find(ppid)
+    unless Transaction.find_by(kind: Transaction::KIND_PAYPAL, detail: ppid)
+      tr = Transaction.new(user_id: payp.user_id, amount: payp.amount, kind: Transaction::KIND_PAYPAL, detail: ppid, state: Transaction::STATE_FINAL)
+      tr.save!
+    end
+    payp.state = Paypal::STATE_EXECUTED
+    payp.save!
+    payment = PayPal::SDK::REST::Payment.find(payp.sid)
+    payment.execute(payer_id: payerid)
+    return tr.id
+  end
+
+  def self.paypal_finalize(payerid, pp)
+    mh  = {user_id: 1, amount: 1, state: Transaction::STATE_INVALID, kind: 1, detail: 1}
+    dum = Transaction.new(mh)
+    return Transaction.find(dum.acall($redis, :apaypal_finalize, payerid, pp.id))
   end
   
   after_initialize do
     agis_defm1 :amake_transaction
+    agis_defm2 :apaypal_finalize
   end
 end
 

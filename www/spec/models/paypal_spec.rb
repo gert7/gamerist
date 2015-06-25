@@ -111,7 +111,7 @@ describe Paypal do
         p.expects(:execute).with() do |pid| pid[:payer_id] == "EN-99991" end.returns true
       }
       it "saves the transaction" do
-        expect(payp.finalize_paypal_add("EN-99991")).to eq true
+        expect(payp.finalize_paypal_add("EN-99991").class).to eq Transaction
       end
     end
     context "when payment is already done" do
