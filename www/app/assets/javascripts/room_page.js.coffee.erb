@@ -62,6 +62,7 @@ renderPlayerList = (data) ->
     $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_avatar'>" + (if ply then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if ply then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if ply then ply.wager else "") + "</div></div></div>")
   $("#srules_players").replaceWith(srulesPlayers)
 
+# Pop up an error message if the user isn't in the room
 declareInRoom = (t) ->
   if(t)
     $("#srules_notice").css("display", "none")
@@ -115,10 +116,10 @@ updatePageObject = (data) ->
   curp = fetchCurrentPlayer(data)
   if curp
     declareInRoom(true)
-    if curp.ready == 1
-      setReady()
-    else
-      setUnready()
+    #if curp.ready == 1
+      #setReady()
+    #else
+      #setUnready()
   else
     declareInRoom(false)
   renderPlayerList(data)
