@@ -335,14 +335,14 @@ class Room < ActiveRecord::Base
   # @param [User] cuser ActiveRecord instance of the player
   # @param [Hash] params parameters sent through controller PATCH method
   def update_xhr(cuser, params)
-    if(params["upclass"] == "readywager" or params["upclass"] == nil)
+    if params["upclass"] == "chatroom"
+      append_chatmessage!(cuser, params["message"]) unless params["message"].gsub(/\s+/, "") == ""
+    else # readywager
       if(params["wager"] and params["wager"].to_i == 0)
         remove_player! cuser
       else 
         amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})
       end
-    elsif(params["upclass"] == "chatroom")
-      append_chatmessage!(cuser, params["message"]) unless params["message"].gsub(/\s+/, "") == ""
     end
   end
   

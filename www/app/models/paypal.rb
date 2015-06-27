@@ -33,12 +33,17 @@ class Paypal < ActiveRecord::Base
     p.links.detect{|v| v.method == "REDIRECT" }.href
   end
 
-  # Make a Transaction
+  # Create a new possible Paypal payment.
+  # This does not need to be fulfilled or remembered
+  # @param [User] user Instance of the recipient user
+  # @param [Integer] points Amount of points to be received
+  # @param [String] countrycode Country code in three-letter ISO 3166-1
+  # @return [Paypal] A new Paypal instance
   def self.start_paypal_add(user, points, countrycode)
     (points >= 0) or throw ArgumentError
     country   = Gamerist::country(countrycode)
     subtotal  = points
-    total     = subtotal*(1 + country[:vat])
+    total     = subtotal * (1 + country[:vat])
     tax       = total - subtotal
     pp        = Paypal.create
     
@@ -80,6 +85,8 @@ class Paypal < ActiveRecord::Base
     return pp
   end
   
+  # Finish a Paypal payment with a payerid
+  # received from PayPal
   def finalize_paypal_add(payerid)
     return Transaction::paypal_finalize(payerid, self)
     #payment = PayPal::SDK::REST::Payment.find(self.sid)

@@ -210,6 +210,7 @@ class User < ActiveRecord::Base
       player = load_steamplayer
       $redis.hset hrapidkey, "avatar_urls", (player["avatar"] + " " + player["avatarmedium"] + " " + player["avatarfull"])
       $redis.hset hrapidkey, "steamname", player["personaname"]
+      "1"
     end
   end
   
