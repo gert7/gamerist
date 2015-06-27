@@ -37,13 +37,13 @@ module Gamerist
     provider :steam, $GAMERIST_API_KEYS["steam"]
   end
   
-  require 'json_vat'
+  #require 'json_vat'
   
   def self.country(code)
     case code
     when :SWE
       return {
-        vat: JSONVAT.country("SE").rate / 100,
+        vat: 0.20, #JSONVAT.country("SE").rate / 100,
         compensation: 0.10, # compensate for 10% of VAT
         paypalcurrency: :EUR,
         masspaycurrency: :EUR,
@@ -52,7 +52,7 @@ module Gamerist
       }
     when :EST
       return {
-        vat: JSONVAT.country("ET").rate / 100,
+        vat: 0.20, #JSONVAT.country("ET").rate / 100,
         compensation: 0.10, # compensate for 10% of VAT
         paypalcurrency: :EUR,
         masspaycurrency: :EUR,
