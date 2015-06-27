@@ -77,6 +77,7 @@ class User < ActiveRecord::Base
   
   # Total balance exclusively of unrealized funds
   def balance_unrealized
+    Transaction.new(user_id: self.id).agis_call($redis) if self.id
     $redis.hfetch hrapidkey, "balance_unrealized" do
       load_balance
       @unrealized
@@ -90,6 +91,7 @@ class User < ActiveRecord::Base
   
   # Total balance for realized funds
   def balance_realized
+    Transaction.new(user_id: self.id).agis_call($redis) if self.id
     $redis.hfetch hrapidkey, "balance_realized" do
       load_balance
       @realized
