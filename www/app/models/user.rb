@@ -75,9 +75,13 @@ class User < ActiveRecord::Base
     $redis.hset hrapidkey, "balance_realized", @realized
   end
   
+  def crunch_transactions
+    Transaction.new(user_id: self.id).agis_call($redis) if self.id
+  end
+  
   # Total balance exclusively of unrealized funds
   def balance_unrealized
-    Transaction.new(user_id: self.id).agis_call($redis) if self.id
+    crunch_transactions
     $redis.hfetch hrapidkey, "balance_unrealized" do
       load_balance
       @unrealized
@@ -91,7 +95,7 @@ class User < ActiveRecord::Base
   
   # Total balance for realized funds
   def balance_realized
-    Transaction.new(user_id: self.id).agis_call($redis) if self.id
+    crunch_transactions
     $redis.hfetch hrapidkey, "balance_realized" do
       load_balance
       @realized
@@ -192,41 +196,36 @@ class User < ActiveRecord::Base
     end
   end
   
+  def load_steamplayer
+    require 'open-uri'
+    steamapik = $GAMERIST_API_KEYS["steam"]
+    response = JSON.parse(open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid.to_s}").read)
+    return response["response"]["players"][0]
+  end
+  
   # Load up steam_name and steam_avatar_urls for the User. They themselves call this implicitly
   def fetch_steamapi
     $redis.hfetch hrapidkey, "steamapi" do
-      raise NoSteamID unless self.steamid
-      require 'open-uri'
-      steamapik = $GAMERIST_API_KEYS["steam"]
-      response = JSON.parse(open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid.to_s}").read)
-      player = response["response"]["players"][0]
+      return nil unless self.steamid
+      player = load_steamplayer
       $redis.hset hrapidkey, "avatar_urls", (player["avatar"] + " " + player["avatarmedium"] + " " + player["avatarfull"])
       $redis.hset hrapidkey, "steamname", player["personaname"]
-      "1"
     end
   end
   
   # Steam name of the current user
   def steam_name
     return "Hello" if Rails.env.test?
-    begin
-      fetch_steamapi
-      return $redis.hget hrapidkey, "steamname"
-    rescue NoSteamID
-      return nil
-    end
+    fetch_steamapi
+    return $redis.hget hrapidkey, "steamname"
   end
   
   # Three avatar URLs for the given user, increasing in size,
   # separated by spaces
   def steam_avatar_urls
     return "http:// http:// http://" if Rails.env.test?
-    begin
-      fetch_steamapi
-      return $redis.hget hrapidkey, "avatar_urls"
-    rescue NoSteamID
-      return nil
-    end
+    fetch_steamapi
+    return $redis.hget hrapidkey, "avatar_urls"
   end
   
   after_initialize do
