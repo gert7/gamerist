@@ -40,14 +40,11 @@ module Gamerist
   require 'json_vat'
   
   def self.country(code)
-    countryo = $gamerist_countrydata.find {|c| code.to_s == c["threecode"].to_s }
-    if countryo
-      country = countryo.clone
-    else
-      country = Hash.new
-      country["paypalcurrency"] = :EUR
-    end
-    country["vat"] = JSONVAT.country(country["twocode"]).rate / 100
+    defaultcountry = $gamerist_countrydata[0]
+    countryo = ($gamerist_countrydata.find {|c| code.to_s == c["threecode"].to_s }) or defaultcountry
+    country  = countryo.clone
+    c = JSONVAT.country(country["twocode"]) or JSONVAT.country(defaultcountry["twocode"])
+    country["vat"] = c.rate
     country["masspaycurrency"] = country["paypalcurrency"]
     return country
     

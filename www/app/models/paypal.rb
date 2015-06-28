@@ -42,7 +42,7 @@ class Paypal < ActiveRecord::Base
   def self.start_paypal_add(user, points, countrycode)
     (points >= 0) or throw ArgumentError
     country   = Gamerist::country(countrycode)
-    subtotal  = points * country["pointcost"]
+    subtotal  = points # * country["pointcost"]
     puts country
     total     = subtotal * (1 + country["vat"])
     tax       = total - subtotal
