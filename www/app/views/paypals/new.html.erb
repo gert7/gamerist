@@ -1,6 +1,38 @@
-<%= form_tag("/paypals", method: "post") do %>
-  <%= label_tag(:points, "Amount of points (1:1 €):") %>
-  <%= text_field_tag(:points) %>
-  <%= check_box_tag(:debugmode) %>
-  <%= submit_tag("PAY WITH PAYPAL") %>
-<% end %>
+<div id="paypal_new">
+  <div id="paypal_new_box">
+    <div id="paypal_new_left">
+      Hi
+    </div>
+    <div id="paypal_new_right">
+      <%= form_tag("/paypals", method: "post") do %>
+        <div class="paypal_pointselect", id="paypal_points">
+          <label>Points</label>
+          <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" class="paypal_pointselector"></input>
+        </div>
+        <hr/>
+        <div id="paypal_country_info">
+          <div id="paypal_country_left">
+            <div id="paypal_country_small">
+            <p>Subtotal:</p>
+            <p>With VAT:</p>
+            </div>
+          </div>
+          <div id="paypal_country_right">
+            <%= image_tag("48/ee.png") %>
+            <div id="paypal_country_right_sub">20% VAT <%= tooltip_for("As of 2015, value added tax in the European Union will be paid to the client's country when purchasing an electronic service") do "?" end %>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <div id="paypal_country_total">
+          $45.41
+        </div>
+        <div id="paypal_new_submit">
+        <%= submit_tag("Pay with PayPal") %>
+        </div><div id="paypal_new_submit_cards">
+          <%= image_tag("visa-mastercard-amex-discov.png") %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

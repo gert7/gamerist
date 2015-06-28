@@ -156,7 +156,7 @@ $(document).ready () ->
     $("#srules_chatbox_inputsubmit").click () ->
       sendChatMessage()
     $("#srules_chatbox_input").keydown (e) ->
-      if(e.which == 13)
+      if(e.which == 13) # ENTER
         sendChatMessage()
     $("#srules_chatbox_input").keyup (e) ->
       if(e.which == 13)

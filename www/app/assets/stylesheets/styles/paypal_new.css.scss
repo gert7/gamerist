@@ -1,0 +1,100 @@
+#paypal_new {
+  width:1024px;
+  background:#777;
+  padding-top:30px;
+  padding-bottom:30px;
+  box-sizing:border-box;
+}
+
+#paypal_new_box {
+  background:white;
+  width:950px;
+  margin:auto;
+}
+
+#paypal_new_left {
+  padding:32px;
+  width:450px;
+  display:inline-block;
+  box-sizing:border-box;
+  vertical-align:top;
+}
+
+#paypal_new_right {
+  padding:32px;
+  width:450px;
+  display:inline-block;
+  box-sizing:border-box;
+  vertical-align:top;
+  border-left:1px solid #bbb;
+}
+
+#paypal_new_right label {
+  margin-top:12px;
+  margin-bottom:12px;
+  color:#555;
+  font-size:1.4em;
+}
+
+#paypal_new_right form {
+  display:block;
+}
+
+.paypal_pointselector {
+  width:100%;
+  height:auto;
+  font-size:1.8em;
+  padding:8px;
+}
+
+#paypal_new_right input[name=commit] {
+  background:hsl(200, 80, 30);
+  font-family:"Blue Highway Regular", sans-serif;
+  font-size:1.05em;
+  color:white;
+  padding-bottom:6px;
+  padding-top:6px;
+  padding-left:8px;
+  padding-right:8px;
+  border:1px solid #ccc;
+  cursor:pointer;
+}
+
+#paypal_new_submit {
+  display:inline-block;
+  vertical-align:top;
+}
+
+#paypal_new_submit_cards {
+  display:inline-block;
+  vertical-align:top;
+  margin-left:6px;
+}
+
+#paypal_country_small {
+  color:#555;
+}
+
+#paypal_country_total {
+  font-size:1.6em;
+  margin-bottom:16px;
+  text-align:right;
+}
+
+#paypal_country_left {
+  width:220px;
+  display:inline-block;
+  vertical-align:top;
+}
+
+#paypal_country_right {
+  display:inline-block;
+  vertical-align:top;
+}
+
+#paypal_country_right_sub {
+  padding:8px;
+  display:inline-block;
+  vertical-align:top;
+}
+
