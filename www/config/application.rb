@@ -37,37 +37,48 @@ module Gamerist
     provider :steam, $GAMERIST_API_KEYS["steam"]
   end
   
-  #require 'json_vat'
+  require 'json_vat'
   
   def self.country(code)
-    case code
-    when :SWE
-      return {
-        vat: 0.20, #JSONVAT.country("SE").rate / 100,
-        compensation: 0.10, # compensate for 10% of VAT
-        paypalcurrency: :EUR,
-        masspaycurrency: :EUR,
-        masspayrate: 0.02,
-        masspayfallout: 6.0
-      }
-    when :EST
-      return {
-        vat: 0.20, #JSONVAT.country("ET").rate / 100,
-        compensation: 0.10, # compensate for 10% of VAT
-        paypalcurrency: :EUR,
-        masspaycurrency: :EUR,
-        masspayrate: 0.02,
-        masspayfallout: 6.0
-      }
+    countryo = $gamerist_countrydata.find {|c| code.to_s == c["threecode"].to_s }
+    if countryo
+      country = countryo.clone
     else
-      return {
-        vat: 0.20,
-        compensation: 0.10,
-        paypalcurrency: :EUR,
-        masspaycurrency: :EUR,
-        masspayrate: 0.02,
-        masspayfallout: 35.0
-      }
+      country = Hash.new
+      country["paypalcurrency"] = :EUR
     end
+    country["vat"] = JSONVAT.country(country["twocode"]).rate / 100
+    country["masspaycurrency"] = country["paypalcurrency"]
+    return country
+    
+    #case code
+    #when :SWE
+    #  return {
+    #    vat: JSONVAT.country("SE").rate / 100,
+    #    compensation: 0.10, # compensate for 10% of VAT
+    #    paypalcurrency: :EUR,
+    #    masspaycurrency: :EUR,
+    #    masspayrate: 0.02,
+    #    masspayfallout: 6.0
+    #  }
+    #when :EST
+    #  return {
+    #    vat: JSONVAT.country("ET").rate / 100,
+    #    compensation: 0.10, # compensate for 10% of VAT
+    #    paypalcurrency: :EUR,
+    #    masspaycurrency: :EUR,
+    #    masspayrate: 0.02,
+    #    masspayfallout: 6.0
+    #  }
+    #else
+    #  return {
+    #    vat: 0.20,
+    #    compensation: 0.10,
+    #    paypalcurrency: :EUR,
+    #    masspaycurrency: :EUR,
+    #    masspayrate: 0.02,
+    #    masspayfallout: 35.0
+    #  }
+    #end
   end
 end

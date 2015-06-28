@@ -2,85 +2,113 @@
 - threecode: SWE
   twocode: SE
   name: Sweden
+  currency: SEK
 - threecode: EST
   twocode: ET
   name: Estonia
+  currency: EUR
 - threecode: BEL
   twocode: BE
   name: Belgium
+  currency: EUR
 - threecode: BGR
   twocode: BG
   name: Bulgaria
+  currency: BGN
 - threecode: CZE
   twocode: CZ
   name: Czech Republic
+  currency: CZK
 - threecode: DNK
   twocode: DK
   name: Denmark
+  currency: DKK
 - threecode: DEU
   twocode: DE
   name: Germany
+  currency: EUR
 - threecode: IRL
   twocode: IE
   name: Ireland
+  currency: EUR
 - threecode: GRC
   twocode: EL
   name: Greece
+  currency: EUR
 - threecode: ESP
   twocode: ES
   name: Spain
+  currency: EUR
 - threecode: FRA
   twocode: FR
   name: France
+  currency: EUR
 - threecode: HRV
   twocode: HR
   name: Croatia
+  currency: HRK
 - threecode: ITA
   twocode: IT
   name: Italy
+  currency: EUR
 - threecode: CYP
   twocode: CY
   name: Cyprus
+  currency: EUR
 - threecode: LVA
   twocode: LV
   name: Latvia
+  currency: EUR
 - threecode: LTU
   twocode: LT
   name: Lithuania
+  currency: EUR
 - threecode: LUX
   twocode: LU
   name: Luxembourg
+  currency: EUR
 - threecode: HUN
   twocode: HU
   name: Hungary
+  currency: HUF
 - threecode: MLT
   twocode: MT
   name: Malta
+  currency: EUR
 - threecode: NLD
   twocode: NL
   name: Netherlands
+  currency: EUR
 - threecode: AUT
   twocode: AT
   name: Austria
+  currency: EUR
 - threecode: POL
   twocode: PL
   name: Poland
+  currency: PLN
 - threecode: PRT
   twocode: PT
   name: Portugal
+  currency: EUR
 - threecode: ROU
   twocode: RO
   name: Romania
+  currency: RON
 - threecode: SVN
   twocode: SI
   name: Slovenia
+  currency: EUR
 - threecode: SVK
   twocode: SK
   name: Slovakia
+  currency: EUR
 - threecode: FIN
   twocode: FI
   name: Finland
+  currency: EUR
 - threecode: GBR
   twocode: UK
   name: United Kingdom
-
+  currency: GBP
+  

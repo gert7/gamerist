@@ -42,8 +42,9 @@ class Paypal < ActiveRecord::Base
   def self.start_paypal_add(user, points, countrycode)
     (points >= 0) or throw ArgumentError
     country   = Gamerist::country(countrycode)
-    subtotal  = points
-    total     = subtotal * (1 + country[:vat])
+    subtotal  = points * country["pointcost"]
+    puts country
+    total     = subtotal * (1 + country["vat"])
     tax       = total - subtotal
     pp        = Paypal.create
     
@@ -61,7 +62,7 @@ class Paypal < ActiveRecord::Base
       transactions: [{
         amount: {
           total: total_s,
-          currency: country[:paypalcurrency].to_s,
+          currency: country["paypalcurrency"].to_s,
           details: {
             subtotal: subtotal_s,
             tax: tax_s
@@ -87,6 +88,8 @@ class Paypal < ActiveRecord::Base
   
   # Finish a Paypal payment with a payerid
   # received from PayPal
+  # @param [String] payerid Payerid received from PayPal API
+  # @return [Transaction] A new Transaction object for the user
   def finalize_paypal_add(payerid)
     return Transaction::paypal_finalize(payerid, self)
     #payment = PayPal::SDK::REST::Payment.find(self.sid)
