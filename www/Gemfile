@@ -48,6 +48,7 @@ gem 'omniauth-steam'
 gem 'paypal-sdk-rest', require: false # 0.6.1
 gem 'geocoder', require: false # 1.2.0
 gem 'json_vat', github: 'adamcooke/json-vat', ref: 'dba4172', require: false
+gem 'google_currency', require: false
 
 gem 'rack-cache', require: false
 gem 'redis', require: false # 3.0.7

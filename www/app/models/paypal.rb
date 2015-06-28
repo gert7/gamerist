@@ -33,6 +33,22 @@ class Paypal < ActiveRecord::Base
     p.links.detect{|v| v.method == "REDIRECT" }.href
   end
 
+  # Returns the correct payment properties for
+  # the given country and point number
+  # @param [Integer] points Number of points to be purchased
+  # @param [Symbol] countrycode Three-letter country code, see ISO 3166-1
+  # @return [Hash] Resulting payment info + tax info in BigDecimals! :currency :vat, in local currency the keys :subtotal, :total, :tax
+  def self.calculate_payment(points, countrycode)
+    data      = Hash.new
+    country   = Gamerist::country(countrycode)
+    data[:currency] = country["currency"]
+    data[:subtotal] = (BigDecimal.new(points.to_s) + BigDecimal.new(Gamerist::MARGIN_FIXED_RATE.to_s)) * BigDecimal.new(country["pointcost"].to_f.to_s) * BigDecimal.new(Gamerist::MARGIN_MULT_RATE.to_f.to_s)
+    data[:total]    = data[:subtotal] * BigDecimal.new((1.0 + country["vat"].to_f).to_s)
+    data[:tax]      = data[:total] - data[:subtotal]
+    data[:vat]      = country["vat"]
+    data
+  end
+
   # Create a new possible Paypal payment.
   # This does not need to be fulfilled or remembered
   # @param [User] user Instance of the recipient user
@@ -41,17 +57,14 @@ class Paypal < ActiveRecord::Base
   # @return [Paypal] A new Paypal instance
   def self.start_paypal_add(user, points, countrycode)
     (points >= 0) or throw ArgumentError
-    country   = Gamerist::country(countrycode)
-    subtotal  = points # * country["pointcost"]
-    puts country
-    total     = subtotal * (1 + country["vat"])
-    tax       = total - subtotal
-    pp        = Paypal.create
+
+    data = Paypal.calculate_payment(points, countrycode)
+    pp   = Paypal.create
     
-    subtotal_s= "%.2f" % subtotal
-    total_s   = "%.2f" % total
-    tax_s     = "%.2f" % tax
-    
+    subtotal_s = "%.2f" % data[:subtotal]
+    total_s    = "%.2f" % data[:total]
+    tax_s      = "%.2f" % data[:tax]
+
     pt = {
       intent: "sale",
       payer: {payment_method: "paypal"},
@@ -62,7 +75,7 @@ class Paypal < ActiveRecord::Base
       transactions: [{
         amount: {
           total: total_s,
-          currency: country["paypalcurrency"].to_s,
+          currency: data[:currency].to_s,
           details: {
             subtotal: subtotal_s,
             tax: tax_s
@@ -76,8 +89,8 @@ class Paypal < ActiveRecord::Base
     end
     pud = {user: user,
           amount: points,
-          subtotal: subtotal, 
-          tax: total - subtotal, 
+          subtotal: data[:subtotal],
+          tax: data[:tax], 
           state: Paypal::STATE_CREATED, 
           sid: payment.id, 
           redirect: get_redir(payment)

@@ -83,6 +83,7 @@
 
 #paypal_country_left {
   width:220px;
+  padding:6px;
   display:inline-block;
   vertical-align:top;
 }
@@ -92,8 +93,12 @@
   vertical-align:top;
 }
 
+#paypal_country_vatrate {
+  border-bottom:1px dotted black;
+}
+
 #paypal_country_right_sub {
-  padding:8px;
+  padding:6px;
   display:inline-block;
   vertical-align:top;
 }

@@ -13,13 +13,13 @@
         <div id="paypal_country_info">
           <div id="paypal_country_left">
             <div id="paypal_country_small">
-            <p>Subtotal:</p>
+            <p>Subtotal: 5.21</p>
             <p>With VAT:</p>
             </div>
           </div>
           <div id="paypal_country_right">
             <%= image_tag("48/ee.png") %>
-            <div id="paypal_country_right_sub">20% VAT <%= tooltip_for("As of 2015, value added tax in the European Union will be paid to the client's country when purchasing an electronic service") do "?" end %>
+            <div id="paypal_country_right_sub"><div id="paypal_country_vatcountry">Estonia</div><%= tooltip_for("As of 2015, value added tax in the European Union will be paid to the client's country when purchasing an electronic service") do %><div id="paypal_country_vatrate">20% VAT</div><% end %>
             </div>
           </div>
         </div>

@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get "/account", to: "accounts#show"
   get "/index", to: "welcome#index"
   
+  get "/paydata", to: "paypals#paydata"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

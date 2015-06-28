@@ -37,45 +37,32 @@ module Gamerist
     provider :steam, $GAMERIST_API_KEYS["steam"]
   end
   
+  MARGIN_FIXED_RATE = 1
+  MARGIN_MULT_RATE  = 1.0
+  
   require 'json_vat'
+  require 'money'
+  require 'money/bank/google_currency'
+  require 'config/initializers/gamerist'
+  
+  Money::Bank::GoogleCurrency.ttl_in_seconds = 600
+  Money.default_bank = Money::Bank::GoogleCurrency.new
+
+  @@pointcost = Money.new(1_00, "EUR") # amount is in cents
   
   def self.country(code)
     defaultcountry = $gamerist_countrydata[0]
-    countryo = ($gamerist_countrydata.find {|c| code.to_s == c["threecode"].to_s }) or defaultcountry
+    puts (($gamerist_countrydata.find {|c| code.to_s == c["threecode"].to_s}) or defaultcountry)
+    countryo = (($gamerist_countrydata.find {|c| (code.to_s == c["threecode"].to_s) or (code.to_s == c["twocode"]) }) or defaultcountry)
+    puts countryo
     country  = countryo.clone
-    c = JSONVAT.country(country["twocode"]) or JSONVAT.country(defaultcountry["twocode"])
-    country["vat"] = c.rate
-    country["masspaycurrency"] = country["paypalcurrency"]
-    return country
     
-    #case code
-    #when :SWE
-    #  return {
-    #    vat: JSONVAT.country("SE").rate / 100,
-    #    compensation: 0.10, # compensate for 10% of VAT
-    #    paypalcurrency: :EUR,
-    #    masspaycurrency: :EUR,
-    #    masspayrate: 0.02,
-    #    masspayfallout: 6.0
-    #  }
-    #when :EST
-    #  return {
-    #    vat: JSONVAT.country("ET").rate / 100,
-    #    compensation: 0.10, # compensate for 10% of VAT
-    #    paypalcurrency: :EUR,
-    #    masspaycurrency: :EUR,
-    #    masspayrate: 0.02,
-    #    masspayfallout: 6.0
-    #  }
-    #else
-    #  return {
-    #    vat: 0.20,
-    #    compensation: 0.10,
-    #    paypalcurrency: :EUR,
-    #    masspaycurrency: :EUR,
-    #    masspayrate: 0.02,
-    #    masspayfallout: 35.0
-    #  }
-    #end
+    c = JSONVAT.country(country["twocode"]) or JSONVAT.country(defaultcountry["twocode"])
+    country["vat"] = c.rate / 100
+
+    country["masspaycurrency"] = country["currency"]
+    country["pointcost"] = @@pointcost.exchange_to(country["currency"].to_sym)
+    return country
   end
 end
+

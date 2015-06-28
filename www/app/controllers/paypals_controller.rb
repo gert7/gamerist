@@ -29,6 +29,11 @@ class PaypalsController < ApplicationController
     pp.finalize_paypal_add(params[:PayerID]) ? flash[:notice] = pp.amount.to_s + " has been deposited to your account" : flash[:notice] = "Failed to deposit to account!"
     redirect_to controller: :welcome, action: :index
   end
+  
+  def paydata
+    require "geocoder"
+    @data = Paypal.calculate_payment(params[:points], Geocoder.search(request.remote_ip)[0].country_code)
+  end
 
   private
     def set_paypal
