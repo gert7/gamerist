@@ -22,8 +22,12 @@ class PaypalsController < ApplicationController
     countrycode = Geocoder.search(request.remote_ip)[0].country_code
     threecode   = Paypal::country(countrycode)["threecode"]
     points      = params[:points].to_i
-    paypal      = Paypal::start_paypal_add(current_user, points, threecode)
-    redirect_to paypal.redirect if paypal
+    if points > 0
+      paypal      = Paypal::start_paypal_add(current_user, points, threecode)
+      redirect_to paypal.redirect if paypal
+    else
+      throw "Points is not a positive integer!"
+    end
     #end
   end
 

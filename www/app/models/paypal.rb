@@ -35,11 +35,16 @@ class Paypal < ActiveRecord::Base
   def self.get_redir(p)
     p.links.detect{|v| v.method == "REDIRECT" }.href
   end
-
-  MARGIN_FIXED_RATE  = 0 # not used
-  MARGIN_MULT_PRETTY = 22
-  MARGIN_MULT_RATE   = BigDecimal.new("1.0") + (BigDecimal.new(MARGIN_MULT_PRETTY.to_s) / BigDecimal.new("100.0"))
-  puts "MULT RATE" + MARGIN_MULT_RATE.to_s
+  
+  def self.margin_mult_pretty
+    $redis.fetch("GAMERIST_MULTI_PRETTY") do
+      Gamerist::MARGIN_MULT_PRETTY
+    end
+  end
+  
+  def self.margin_mult_rate
+    BigDecimal.new("1.0") + (BigDecimal.new(Paypal.margin_mult_pretty.to_s) / BigDecimal.new("100.0"))
+  end
   
   require 'json_vat'
   require 'money'
@@ -80,8 +85,8 @@ class Paypal < ActiveRecord::Base
     data      = Hash.new
     country   = Paypal::country(countrycode)
     data[:currency] = country["currency"]
-    data[:subtotal] = (BigDecimal.new(points.to_s) + BigDecimal.new(Paypal::MARGIN_FIXED_RATE.to_s)) * BigDecimal.new(country["pointcost"].to_f.to_s) * BigDecimal.new(Paypal::MARGIN_MULT_RATE.to_f.to_s)
-    data[:subrate]  = Paypal::MARGIN_MULT_PRETTY
+    data[:subtotal] = BigDecimal.new(points.to_s) * BigDecimal.new(country["pointcost"].to_f.to_s) * BigDecimal.new(Paypal.margin_mult_rate.to_f.to_s)
+    data[:subrate]  = Paypal.margin_mult_pretty
     data[:total]    = data[:subtotal] * BigDecimal.new((1.0 + country["vat"].to_f).to_s)
     data[:tax]      = data[:total] - data[:subtotal]
     data[:vat]      = (country["vat"] * 100).to_i
@@ -89,17 +94,13 @@ class Paypal < ActiveRecord::Base
     data[:countryname] = country["name"]
     data
   end
-
-  # Create a new possible Paypal payment.
-  # This does not need to be fulfilled or remembered
-  # @param [User] user Instance of the recipient user
-  # @param [Integer] points Amount of points to be received
-  # @param [String] countrycode Country code in three-letter ISO 3166-1
-  # @return [Paypal] A new Paypal instance
-  def self.start_paypal_add(user, points, countrycode)
-    data = Paypal.calculate_payment(points, countrycode)
-    pp   = Paypal.create
-    
+  
+  # Extracted pure method for producing a hash
+  # input for PayPal SDK new payment
+  # @param [Integer] ppid ID for Paypal
+  # @param [Hash] data Payment data hash from calculate_payment
+  # @return [Hash] Hash to be sent into PayPal::SDK::REST::Payment.new
+  def self.produce_pt(ppid, data)
     subtotal_s = "%.2f" % data[:subtotal]
     total_s    = "%.2f" % data[:total]
     tax_s      = "%.2f" % data[:tax]
@@ -108,7 +109,7 @@ class Paypal < ActiveRecord::Base
       intent: "sale",
       payer: {payment_method: "paypal"},
       redirect_urls: {
-        return_url: $PAYPAL_SDK_RETURN_HOSTNAME + "/paypals/" + pp.id.to_s,
+        return_url: $PAYPAL_SDK_RETURN_HOSTNAME + "/paypals/" + ppid.to_s,
         cancel_url: $PAYPAL_SDK_RETURN_HOSTNAME
         }, # redirect_urls
       transactions: [{
@@ -122,6 +123,20 @@ class Paypal < ActiveRecord::Base
           } # amount
       }] # transaction 1
     }
+    return pt
+  end
+  
+  # Create a new possible Paypal payment.
+  # This does not need to be fulfilled or remembered
+  # @param [User] user Instance of the recipient user
+  # @param [Integer] points Amount of points to be received
+  # @param [String] countrycode Country code in three-letter ISO 3166-1
+  # @return [Paypal] A new Paypal instance
+  def self.start_paypal_add(user, points, countrycode)
+    data = Paypal.calculate_payment(points, countrycode)
+    pp   = Paypal.create
+    
+    pt = Paypal.produce_pt(pp.id, data)
     payment = PayPal::SDK::REST::Payment.new(pt)
     unless payment.create
       raise PaymentCreationFailedException, payment.error

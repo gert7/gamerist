@@ -35,6 +35,8 @@ module Gamerist
     #config.assets.precompile += %w( active_admin.css active_admin/print.css active_admin.js )
   end
   
+  MARGIN_MULT_PRETTY = 22
+  
   Rails.application.config.middleware.use OmniAuth::Builder do
     provider :steam, $GAMERIST_API_KEYS["steam"]
   end
