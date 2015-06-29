@@ -112,7 +112,9 @@ class Transaction < ActiveRecord::Base
   
   def apaypal_finalize(payerid, ppid)
     payp = Paypal.find(ppid)
-    unless Transaction.find_by(kind: Transaction::KIND_PAYPAL, detail: ppid)
+    puts ppid
+    tr = Transaction.find_by(kind: Transaction::KIND_PAYPAL, detail: ppid)
+    unless tr
       tr = Transaction.new(user_id: payp.user_id, amount: payp.amount, kind: Transaction::KIND_PAYPAL, detail: ppid, state: Transaction::STATE_FINAL)
       tr.save!
     end

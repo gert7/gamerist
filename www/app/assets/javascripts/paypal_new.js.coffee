@@ -5,6 +5,7 @@ updatePriceNumbersCallback = (data) ->
   $("#paypal_country_vatrate").html(indata.vat + "% VAT")
   $("#paypal_country_vatcountry").html(indata.countryname)
   $("#paypal_country_right").children().first().attr("src", "/assets/48/" + indata.countrycode.toLowerCase() + ".png")
+  $("#paypal_new_siterate").html(indata.subrate + "%")
 
 updatePriceNumbers = () ->
   $.get("/paydata.json", {"points" : $(".paypal_pointselector").val() }, updatePriceNumbersCallback)

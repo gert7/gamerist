@@ -12,6 +12,7 @@
   twocode: SE
   name: Sweden
   currency: SEK
+  eu: 1
 - threecode: BEL
   twocode: BE
   name: Belgium
@@ -138,7 +139,7 @@
   currency: EUR
   eu: 1
 - threecode: GBR
-  twocode: UK
+  twocode: GB
   name: United Kingdom
   currency: GBP
   eu: 1
@@ -146,5 +147,90 @@
   twocode: US
   name: United States
   currency: USD
+  eu: 0
+- threecode: CAN
+  twocode: CA
+  name: Canada
+  currency: CAD
+  eu: 0
+- threecode: AUS
+  twocode: AU
+  name: Australia
+  currency: AUD
+  eu: 0
+- threecode: JPN
+  twocode: JP
+  name: Japan
+  currency: JPY
+  eu: 0
+- threecode: KOR
+  twocode: KR
+  name: Republic of Korea
+  currency: KRW
+  eu: 0
+- threecode: NOR
+  twocode: "NO"
+  name: Norway
+  currency: NOK
+  eu: 0
+- threecode: RUS
+  twocode: RU
+  name: Russia
+  currency: RUB
+  eu: 0
+- threecode: CHE
+  twocode: CH
+  name: Switzerland
+  currency: CHF
+  eu: 0
+- threecode: ISL
+  twocode: IS
+  name: Iceland
+  currency: ISK
+  eu: 0
+- threecode: MEX
+  twocode: MX
+  name: Mexico
+  currency: MXN
+  eu: 0
+- threecode: TWN
+  twocode: TW
+  name: Republic of China
+  currency: TWD
+  eu: 0
+- threecode: NZL
+  twocode: NZ
+  name: New Zealand
+  currency: NZD
+  eu: 0
+- threecode: IND
+  twocode: IN
+  name: India
+  currency: INR
+  eu: 0
+- threecode: HKG
+  twocode: HK
+  name: Hong Kong
+  currency: HKD
+  eu: 0
+- threecode: MAC
+  twocode: MO
+  name: Macau
+  currency: MOP
+  eu: 0
+- threecode: CHN
+  twocode: CN
+  name: China
+  currency: CNY
+  eu: 0
+- threecode: SRB
+  twocode: RS
+  name: Serbia
+  currency: RSD
+  eu: 0
+- threecode: TUR
+  twocode: TR
+  name: Turkey
+  currency: TRY
   eu: 0
   

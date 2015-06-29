@@ -1,13 +1,17 @@
+<%= cache do %>
 <div id="paypal_new">
   <div id="paypal_new_box">
     <div id="paypal_new_left">
-      Hi
+      <h3>Add Points</h3>
+      <p>1 Point allows a withdrawal of <b>€1</b></p>
+      <p>The current fee is:</p>
+      <div id="paypal_new_siterate" class="paypal_tickermark">XX%</div>
     </div>
     <div id="paypal_new_right">
       <%= form_tag("/paypals", method: "post") do %>
         <div class="paypal_pointselect", id="paypal_points">
           <label>Points</label>
-          <input type="number" name="points" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" class="paypal_pointselector"></input>
+          <input type="number" name="points" min="5" max="100" value="5" autocomplete="off" class="paypal_pointselector"></input>
         </div>
         <hr/>
         <div id="paypal_country_info">
@@ -36,4 +40,4 @@
     </div>
   </div>
 </div>
-
+<% end %>

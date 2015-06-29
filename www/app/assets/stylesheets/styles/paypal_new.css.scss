@@ -20,6 +20,22 @@
   vertical-align:top;
 }
 
+#paypal_new_left p {
+  line-height: 32px;
+}
+
+#paypal_new_left h3 {
+  margin-top:12px;
+  margin-bottom:12px;
+  color:#555;
+  font-size:1.4em;
+  font-weight:normal;
+}
+
+.paypal_tickermark {
+  font-size:4em;
+}
+
 #paypal_new_right {
   padding:32px;
   width:480px;
@@ -96,6 +112,7 @@
 
 #paypal_country_vatrate {
   border-bottom:1px dotted black;
+  display:inline;
 }
 
 #paypal_country_right_sub {

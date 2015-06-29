@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
   before_filter :authenticate_user!, only: [:show]
 
   def index
-    current_user.save unless(not current_user or current_user.account)
+    #current_user.save unless(not current_user or current_user.account)
 
     respond_to do |format|
       if current_user
