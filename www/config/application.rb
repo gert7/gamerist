@@ -29,6 +29,8 @@ module Gamerist
     else
       config.cache_store = :redis_store, 'redis://' + $GAMERIST_API_KEYS["redis_development"] + '/0/cache', { expires_in: 90.minutes }
     end
+    
+    config.active_record.raise_in_transactional_callbacks = true
     #config.assets.initialize_on_precompile = false
     #config.assets.precompile += %w( active_admin.css active_admin/print.css active_admin.js )
   end
@@ -37,4 +39,5 @@ module Gamerist
     provider :steam, $GAMERIST_API_KEYS["steam"]
   end
 end
+
 

@@ -11,7 +11,7 @@ updatePriceNumbers = () ->
   $.get("/paydata.json", {"points" : $(".paypal_pointselector").val() }, updatePriceNumbersCallback)
 
 $(document).ready () ->
-  if($("#paypal_new"))
+  if($("#paypal_new").length)
     console.log("paypal#new")
     updatePriceNumbers()
     $(".paypal_pointselector").change () ->
