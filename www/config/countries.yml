@@ -1,8 +1,13 @@
 ---
+- name: Other
+  twocode: RX
+  currency: EUR
+  eu: 0
 - threecode: EST
   twocode: EE
   name: Estonia
   currency: EUR
+  eu: 1
 - threecode: SWE
   twocode: SE
   name: Sweden
@@ -11,108 +16,135 @@
   twocode: BE
   name: Belgium
   currency: EUR
+  eu: 1
 - threecode: BGR
   twocode: BG
   name: Bulgaria
   currency: BGN
+  eu: 1
 - threecode: CZE
   twocode: CZ
   name: Czech Republic
   currency: CZK
+  eu: 1
 - threecode: DNK
   twocode: DK
   name: Denmark
   currency: DKK
+  eu: 1
 - threecode: DEU
   twocode: DE
   name: Germany
   currency: EUR
+  eu: 1
 - threecode: IRL
   twocode: IE
   name: Ireland
   currency: EUR
+  eu: 1
 - threecode: GRC
   twocode: EL
   name: Greece
   currency: EUR
+  eu: 1
 - threecode: ESP
   twocode: ES
   name: Spain
   currency: EUR
+  eu: 1
 - threecode: FRA
   twocode: FR
   name: France
   currency: EUR
+  eu: 1
 - threecode: HRV
   twocode: HR
   name: Croatia
   currency: HRK
+  eu: 1
 - threecode: ITA
   twocode: IT
   name: Italy
   currency: EUR
+  eu: 1
 - threecode: CYP
   twocode: CY
   name: Cyprus
   currency: EUR
+  eu: 1
 - threecode: LVA
   twocode: LV
   name: Latvia
   currency: EUR
+  eu: 1
 - threecode: LTU
   twocode: LT
   name: Lithuania
   currency: EUR
+  eu: 1
 - threecode: LUX
   twocode: LU
   name: Luxembourg
   currency: EUR
+  eu: 1
 - threecode: HUN
   twocode: HU
   name: Hungary
   currency: HUF
+  eu: 1
 - threecode: MLT
   twocode: MT
   name: Malta
   currency: EUR
+  eu: 1
 - threecode: NLD
   twocode: NL
   name: Netherlands
   currency: EUR
+  eu: 1
 - threecode: AUT
   twocode: AT
   name: Austria
   currency: EUR
+  eu: 1
 - threecode: POL
   twocode: PL
   name: Poland
   currency: PLN
+  eu: 1
 - threecode: PRT
   twocode: PT
   name: Portugal
   currency: EUR
+  eu: 1
 - threecode: ROU
   twocode: RO
   name: Romania
   currency: RON
+  eu: 1
 - threecode: SVN
   twocode: SI
   name: Slovenia
   currency: EUR
+  eu: 1
 - threecode: SVK
   twocode: SK
   name: Slovakia
   currency: EUR
+  eu: 1
 - threecode: FIN
   twocode: FI
   name: Finland
   currency: EUR
+  eu: 1
 - threecode: GBR
   twocode: UK
   name: United Kingdom
   currency: GBP
+  eu: 1
 - threecode: USA
   twocode: US
   name: United States
   currency: USD
+  eu: 0
   

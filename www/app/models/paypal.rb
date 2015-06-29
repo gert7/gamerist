@@ -19,6 +19,9 @@
 class Paypal < ActiveRecord::Base
   STATE_CREATED   = 1
   STATE_EXECUTED  = 2
+  
+  MIN_PURCHASE    = 5
+  MAX_PURCHASE    = 100
 
   class PaymentCreationFailedException < Exception
   end
@@ -33,19 +36,58 @@ class Paypal < ActiveRecord::Base
     p.links.detect{|v| v.method == "REDIRECT" }.href
   end
 
+  MARGIN_FIXED_RATE  = 0 # not used
+  MARGIN_MULT_PRETTY = 12
+  MARGIN_MULT_RATE   = BigDecimal.new("1.0") + (BigDecimal.new(MARGIN_MULT_PRETTY.to_s) / BigDecimal.new("100.0"))
+  puts "MULT RATE" + MARGIN_MULT_RATE.to_s
+  
+  require 'json_vat'
+  require 'money'
+  require 'money/bank/google_currency'
+  require 'config/initializers/gamerist'
+  
+  Money::Bank::GoogleCurrency.ttl_in_seconds = 600
+  Money.default_bank = Money::Bank::GoogleCurrency.new
+
+  @@pointcost = Money.new(1_00, "EUR") # amount is in cents
+  
+  def self.country(code)
+    defaultcountry = $gamerist_countrydata[0]
+    countryo = (($gamerist_countrydata.find {|c| (code.to_s == c["threecode"].to_s) or (code.to_s == c["twocode"]) }) or defaultcountry)
+    country  = countryo.clone
+    puts country
+    
+    if country["twocode"] == "RX" or country["eu"] != 1
+      puts "hello" + country["twocode"]
+      country["vat"] = 0.00
+    else
+      c = JSONVAT.country(country["twocode"])
+      country["vat"] = c.rate / 100
+    end
+    country["masspaycurrency"] = country["currency"]
+    country["pointcost"] = @@pointcost.exchange_to(country["currency"].to_sym)
+    return country
+  end
+
   # Returns the correct payment properties for
   # the given country and point number
   # @param [Integer] points Number of points to be purchased
   # @param [Symbol] countrycode Three-letter country code, see ISO 3166-1
   # @return [Hash] Resulting payment info + tax info in BigDecimals! :currency :vat, in local currency the keys :subtotal, :total, :tax
   def self.calculate_payment(points, countrycode)
+    throw "Number too large!" if points.to_s.length > 6
+    puts points
+    throw "Number out of range!" if points.to_i < Paypal::MIN_PURCHASE or points.to_i > Paypal::MAX_PURCHASE
     data      = Hash.new
-    country   = Gamerist::country(countrycode)
+    country   = Paypal::country(countrycode)
     data[:currency] = country["currency"]
-    data[:subtotal] = (BigDecimal.new(points.to_s) + BigDecimal.new(Gamerist::MARGIN_FIXED_RATE.to_s)) * BigDecimal.new(country["pointcost"].to_f.to_s) * BigDecimal.new(Gamerist::MARGIN_MULT_RATE.to_f.to_s)
+    data[:subtotal] = (BigDecimal.new(points.to_s) + BigDecimal.new(Paypal::MARGIN_FIXED_RATE.to_s)) * BigDecimal.new(country["pointcost"].to_f.to_s) * BigDecimal.new(Paypal::MARGIN_MULT_RATE.to_f.to_s)
+    data[:subrate]  = Paypal::MARGIN_MULT_PRETTY
     data[:total]    = data[:subtotal] * BigDecimal.new((1.0 + country["vat"].to_f).to_s)
     data[:tax]      = data[:total] - data[:subtotal]
-    data[:vat]      = country["vat"]
+    data[:vat]      = (country["vat"] * 100).to_i
+    data[:countrycode] = country["twocode"]
+    data[:countryname] = country["name"]
     data
   end
 

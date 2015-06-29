@@ -36,33 +36,5 @@ module Gamerist
   Rails.application.config.middleware.use OmniAuth::Builder do
     provider :steam, $GAMERIST_API_KEYS["steam"]
   end
-  
-  MARGIN_FIXED_RATE = 1
-  MARGIN_MULT_RATE  = 1.0
-  
-  require 'json_vat'
-  require 'money'
-  require 'money/bank/google_currency'
-  require 'config/initializers/gamerist'
-  
-  Money::Bank::GoogleCurrency.ttl_in_seconds = 600
-  Money.default_bank = Money::Bank::GoogleCurrency.new
-
-  @@pointcost = Money.new(1_00, "EUR") # amount is in cents
-  
-  def self.country(code)
-    defaultcountry = $gamerist_countrydata[0]
-    puts (($gamerist_countrydata.find {|c| code.to_s == c["threecode"].to_s}) or defaultcountry)
-    countryo = (($gamerist_countrydata.find {|c| (code.to_s == c["threecode"].to_s) or (code.to_s == c["twocode"]) }) or defaultcountry)
-    puts countryo
-    country  = countryo.clone
-    
-    c = JSONVAT.country(country["twocode"]) or JSONVAT.country(defaultcountry["twocode"])
-    country["vat"] = c.rate / 100
-
-    country["masspaycurrency"] = country["currency"]
-    country["pointcost"] = @@pointcost.exchange_to(country["currency"].to_sym)
-    return country
-  end
 end
 

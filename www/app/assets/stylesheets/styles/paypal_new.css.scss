@@ -22,7 +22,7 @@
 
 #paypal_new_right {
   padding:32px;
-  width:450px;
+  width:480px;
   display:inline-block;
   box-sizing:border-box;
   vertical-align:top;
@@ -42,6 +42,7 @@
 
 .paypal_pointselector {
   width:100%;
+  box-sizing:border-box;
   height:auto;
   font-size:1.8em;
   padding:8px;
@@ -82,7 +83,7 @@
 }
 
 #paypal_country_left {
-  width:220px;
+  width:150px;
   padding:6px;
   display:inline-block;
   vertical-align:top;

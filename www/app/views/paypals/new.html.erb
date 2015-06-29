@@ -7,25 +7,25 @@
       <%= form_tag("/paypals", method: "post") do %>
         <div class="paypal_pointselect", id="paypal_points">
           <label>Points</label>
-          <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" class="paypal_pointselector"></input>
+          <input type="number" name="points" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" class="paypal_pointselector"></input>
         </div>
         <hr/>
         <div id="paypal_country_info">
           <div id="paypal_country_left">
             <div id="paypal_country_small">
-            <p>Subtotal: 5.21</p>
-            <p>With VAT:</p>
+            <p></p>
+            <p></p>
             </div>
           </div>
           <div id="paypal_country_right">
-            <%= image_tag("48/ee.png") %>
+            <img src="" height=48 width=48/>
             <div id="paypal_country_right_sub"><div id="paypal_country_vatcountry">Estonia</div><%= tooltip_for("As of 2015, value added tax in the European Union will be paid to the client's country when purchasing an electronic service") do %><div id="paypal_country_vatrate">20% VAT</div><% end %>
             </div>
           </div>
         </div>
         <hr/>
         <div id="paypal_country_total">
-          $45.41
+          
         </div>
         <div id="paypal_new_submit">
         <%= submit_tag("Pay with PayPal") %>
@@ -36,3 +36,4 @@
     </div>
   </div>
 </div>
+
