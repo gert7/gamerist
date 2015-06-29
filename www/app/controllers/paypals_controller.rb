@@ -19,8 +19,11 @@ class PaypalsController < ApplicationController
     #    end
     #  end
     #else
-    paypal = Paypal::start_paypal_add(current_user, params[:points].to_i, :SWE)
-    redirect_to paypal.redirect
+    countrycode = Geocoder.search(request.remote_ip)[0].country_code
+    threecode   = Paypal::country(countrycode)["threecode"]
+    points      = params[:points].to_i
+    paypal      = Paypal::start_paypal_add(current_user, points, threecode)
+    redirect_to paypal.redirect if paypal
     #end
   end
 

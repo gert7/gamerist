@@ -76,7 +76,7 @@ class Paypal < ActiveRecord::Base
   # @return [Hash] Resulting payment info + tax info in BigDecimals! :currency :vat, in local currency the keys :subtotal, :total, :tax
   def self.calculate_payment(points, countrycode)
     throw "Number too large!" if points.to_s.length > 6
-    #throw "Number out of range!" if points.to_i < Paypal::MIN_PURCHASE or points.to_i > Paypal::MAX_PURCHASE
+    throw "Number out of range!" if points.to_i < Paypal::MIN_PURCHASE or points.to_i > Paypal::MAX_PURCHASE
     data      = Hash.new
     country   = Paypal::country(countrycode)
     data[:currency] = country["currency"]
@@ -97,8 +97,6 @@ class Paypal < ActiveRecord::Base
   # @param [String] countrycode Country code in three-letter ISO 3166-1
   # @return [Paypal] A new Paypal instance
   def self.start_paypal_add(user, points, countrycode)
-    (points >= 0) or throw ArgumentError
-
     data = Paypal.calculate_payment(points, countrycode)
     pp   = Paypal.create
     
