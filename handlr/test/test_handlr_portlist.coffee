@@ -19,6 +19,7 @@ describe "portlist", ->
       done()
   describe "remember_port", ->
     it "remembers the port", (done) ->
+      debug("Starting remember port")
       seq = Futures.sequence()
       .then (next) ->
         portlist.remember_port(27015, 71, {}, next)

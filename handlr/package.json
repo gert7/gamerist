@@ -20,7 +20,8 @@
     "pm2": "~0.14.0",
     "futures": "~2.3.3",
     "debug": "~2.2.0",
-    "nactor": "0.2.0"
+    "nactor": "0.2.0",
+    "async-for": ""
   },
   "devDependencies": {
     "mocha": "~1.21.4",

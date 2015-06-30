@@ -22,30 +22,34 @@ free_port = (port, callback) ->
     (callback || ->)()
   )
 
-remove_timeout_ports = (callback) ->
-  seq = Futures.sequence()
-  get_all_ports((ports) ->
-    i   = 0
-    lim = ports.length
-    (callback || ->)() if lim == 0
-    for record in ports
-      if(unixtime() > record.timeout)
-        debug("Port " + record.port + " has timed out!")
-        seq
-        .then (next) ->
-          destroy_port.destroy_port(record.port, next)
-        .then (next, code) ->
-          free_port(record.port, next)
-      seq.then (next) ->
-        i = i + 1
-        (callback || ->)() if i >= lim
-        next()
-  )
+afor = require("async-for")
+
+remove_timeout_port = (record, all, callback) ->
+  inseq = Futures.sequence()
+  if(all or (unixtime() > record.timeout))
+    debug("Port " + record.port + " has timed out!")
+    inseq
+    .then (next) ->
+      destroy_port.destroy_port(record.port, next)
+    .then (next, code) ->
+      free_port(record.port, next)
+  inseq.then (next) ->
+    (callback || ->)()
+
+remove_timeout_ports = (all, callback) ->
+  get_all_ports (ports) ->
+    iless  = (i) -> (i < ports.length)
+    iadd   = (i) -> (i + 1)
+    iloop  = (i, _break, _continue) ->
+      debug("Now working " + i)
+      remove_timeout_port(ports[i], all, _continue)
+    mloop   = afor(0, iless, iadd, iloop)
+    mloop(callback)
 
 remember_port = (port, roomid, room, callback) ->
   seq = Futures.sequence()
   .then (next) ->
-    remove_timeout_ports(next)    
+    remove_timeout_ports(false, next)    
   .then (next) ->
     servers.insert({port: port, roomid: roomid, room: room, timeout: (unixtime() + Config.timeouts.timeout)}, next)
   .then (next, err, num) ->
@@ -55,7 +59,7 @@ remember_port = (port, roomid, room, callback) ->
 remember_a_port = (roomid, room, callback) ->
   seq = Futures.sequence()
   .then (next) ->
-    remove_timeout_ports(next)
+    remove_timeout_ports(false, next)
   .then (next) ->
     servers.find({}, next)
   .then (next, err, records) ->
@@ -111,23 +115,7 @@ heartbeat_port = (port, callback) ->
     (callback || -> )(err)
 
 remove_all_ports = (callback) ->
-  seq = Futures.sequence()
-  get_all_ports((ports) ->
-    i   = 0
-    lim = ports.length
-    (callback || ->)() if lim == 0
-    for record in ports
-      debug("Removing port " + record.port)
-      seq
-      .then (next) ->
-        destroy_port.destroy_port(record.port, next)
-      .then (next, code) ->
-        #debug(code)
-        free_port(record.port, next)
-      seq.then (next) ->
-        i = i + 1
-        (callback || ->)() if i >= lim
-  )
+  remove_timeout_ports(true, callback)
 
 nactor = require("nactor")
 
