@@ -55,9 +55,18 @@ spin_up_port = (port, room, settings, errcallback) ->
     errcallback(err)
 
 spin_up = (roomid, room, errcallback) ->
-  
-  spin_up_port()
+  Futures.sequence()
+  .then (next) ->
+    remember_a_port(roomid, room, next)
+  .then (next, port, err) ->
+    if port != 0
+      gamename = ""
+      if room.roomdata.game == "team fortress 2" then gamename = "tf"
+      spin_up_port(port, roomid, {game: gamename, map: room.roomdata.map, playercount: room.roomdata.playercount}, next)
+    else
+      errcallback(true)
+  .then ->
+    errcallback(false)
 
 exports.spin_up = spin_up
-exports.spin_up
 
