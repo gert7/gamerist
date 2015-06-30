@@ -39,7 +39,7 @@ module DispatchMQ
     
     ch = $bunny.create_channel
     x  = ch.topic("gamerist.topic" + (Rails.env.test? ? "test" : ""))
-    servers = $gamerist_serverdata["servers"]
+    servers    = $gamerist_serverdata["servers"]
     servername = roomrules["server"] or servers[0]["name"]
     
     req = Jbuilder.new do |json|
@@ -53,15 +53,17 @@ module DispatchMQ
   end
 end
 
-class DummyRoom
-  def srules
-    return {"server" => "centurion", "message" => "Helou Wirld!"}
-  end
-  
-  def id
-    11
-  end
-end
+require "config/initializers/redis"
 
-DispatchMQ::produce_room(DummyRoom.new)
+if Rails.env.test?
+  User.destroy_all
+  u = User.new(email: "ver@ver.com", password: "dododongo1")
+  (u.steamid = Steamid.new(steamid: "vanwe98wn38328ng2")).save!
+  u.save!
+  r = Room.new(game: "team fortress 2", map: "ctf_2fort", playercount: 16, wager: 5, server: "centurion")
+  r.save!
+  Transaction.make_transaction(user_id: u.id, amount: 15, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL, detail: 12)
+  r.append_player! u
+  DispatchMQ::produce_room(r)
+end
 

@@ -6,6 +6,9 @@ debug    = require("debug")("test")
 fs   = require('fs')
 path = require("path")
 
+fs     = require('fs')
+Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
+
 describe "portlist", ->
   beforeEach (done) ->
     seq = Futures.sequence()
@@ -18,51 +21,51 @@ describe "portlist", ->
     it "remembers the port", (done) ->
       seq = Futures.sequence()
       .then (next) ->
-        portlist.remember_port(27015, 71, next)
+        portlist.remember_port(27015, 71, {}, next)
       .then (next) ->
         portlist.get_port(27015, next)
       .then (next, record) ->
         debug(record)
         expect(record.port).to.equal 27015
-        expect(record.room).to.equal 71
+        expect(record.roomid).to.equal 71
         done()
     it "callbacks an error if the port is already taken", (done) ->
       seq = Futures.sequence()
       .then (next) ->
-        portlist.remember_port(27015, 72, next)
+        portlist.remember_port(27015, 72, {}, next)
       .then (next) ->
-        portlist.remember_port(27015, 78, next)
+        portlist.remember_port(27015, 78, {}, next)
       .then (next, err) ->
         expect(err).not.to.equal null
         done()
     it "doesn't raise an error if available", (done) ->
       seq = Futures.sequence()
       .then (next) ->
-        portlist.remember_port(27015, 81, next)
+        portlist.remember_port(27015, 81, {}, next)
       .then (next, err) ->
         debug err
         expect(err).to.equal null
         done()
     it "doesn't cause a race condition", (done) ->
-      portlist.remember_port(27015, 101, ->)
-      portlist.remember_port(27015, 102, ->)
+      portlist.remember_port(27015, 101, {}, ->)
+      portlist.remember_port(27015, 102, {}, ->)
       seq = Futures.sequence()      
       .then (next) ->
         portlist.get_port(27015, next)
       .then (next, record) ->
         debug record
-        expect(record.room).to.equal 101
+        expect(record.roomid).to.equal 101
         done()
   describe "get_port", ->
     it "returns the correct record for the port", (done) ->
       seq = Futures.sequence()
       .then (next) ->
-        portlist.remember_port(27015, 94, next)
+        portlist.remember_port(27015, 94, {}, next)
       .then (next) ->
         portlist.get_port(27015, next)
       .then (next, record) ->
         expect(record.port).to.equal 27015
-        expect(record.room).to.equal 94
+        expect(record.roomid).to.equal 94
         done()
     it "returns undefined otherwise", (done) ->
       seq = Futures.sequence()
@@ -75,12 +78,36 @@ describe "portlist", ->
     it "frees the port for use", (done) ->
       seq = Futures.sequence()
       .then (next) ->
-        portlist.remember_port(27015, 95, next)
+        portlist.remember_port(27015, 95, {}, next)
       .then (next, record) ->
         portlist.free_port(27015, next)
       .then (next) ->
-        portlist.remember_port(27015, 96, next)
+        portlist.remember_port(27015, 96, {}, next)
       .then (next, err) ->
         expect(err).to.equal null
+        done()
+  describe "remember_a_port", ->
+    it "remembers some available port", (done) ->
+      seq = Futures.sequence()
+      .then (next) ->
+        portlist.remember_a_port(192, {}, next)
+      .then (next, port, err) ->
+        expect(port).to.equal Config.ports[0]
+        portlist.get_port(Config.ports[0], next)
+      .then (next, record) ->
+        expect(record.roomid).to.equal 192
+        done()
+    it "remembers the next available port", (done) ->
+      seq = Futures.sequence()
+      .then (next) ->
+        portlist.remember_a_port(193, {}, next)
+      .then (next, port) ->
+        expect(port).to.equal Config.ports[0]
+        portlist.remember_a_port(194, {}, next)
+      .then (next, port) ->
+        expect(port).to.equal Config.ports[1]
+        portlist.remember_a_port(196, {}, next)
+      .then (next, port) ->
+        expect(port).to.equal Config.ports[2]
         done()
         

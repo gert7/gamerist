@@ -3,10 +3,17 @@ servers:
   - name: trivulum
     location: 51.570699, -0.222105
     ping: 217.163.10.202
+    production: true
   - name: alturus
     location: 33.468601, -112.090616
     ping: 8.3.5.149
+    production: true
   - name: reilian
     location: -31.955341, 115.856660
     ping: 173.199.81.55
+    production: true
+  - name: centurion
+    location: -0, 0
+    ping: 1.1.1.1
+    production: false
     

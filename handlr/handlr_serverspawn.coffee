@@ -32,7 +32,7 @@ udp_getport = (port, errcallback) ->
   )
   server.bind(27015)
 
-spin_up = (port, room, settings, errcallback) ->
+spin_up_port = (port, room, settings, errcallback) ->
   seq = Futures.sequence()
   seq
   .then (next) ->
@@ -54,5 +54,10 @@ spin_up = (port, room, settings, errcallback) ->
   .then (next, err) ->
     errcallback(err)
 
+spin_up = (roomid, room, errcallback) ->
+  
+  spin_up_port()
+
 exports.spin_up = spin_up
+exports.spin_up
 

@@ -39,18 +39,47 @@ remove_timeout_ports = (callback) ->
       seq.then (next) ->
         i = i + 1
         (callback || ->)() if i >= lim
+        next()
   )
 
-remember_port = (port, room, callback) ->
+remember_port = (port, roomid, room, callback) ->
   seq = Futures.sequence()
   .then (next) ->
     remove_timeout_ports(next)    
   .then (next) ->
-    servers.insert({port: port, room: room, timeout: (unixtime() + Config.timeouts.timeout)}, next)
+    servers.insert({port: port, roomid: roomid, room: room, timeout: (unixtime() + Config.timeouts.timeout)}, next)
   .then (next, err, num) ->
-    if err then debug("ERROR: Port " + port + " is still alive and in use!") else debug("Inserting room " + room + " into port " + port)
+    if err then debug("ERROR: Port " + port + " is still alive and in use!") else debug("Inserting room " + roomid + " into port " + port)
     (callback || ->)(err)
-    
+
+remember_a_port = (roomid, room, callback) ->
+  seq = Futures.sequence()
+  .then (next) ->
+    remove_timeout_ports(next)
+  .then (next) ->
+    servers.find({}, next)
+  .then (next, err, records) ->
+    portns = []
+    for portn in Config.ports
+      portns.push({number: portn, taken: false})
+    if records
+      for doc in records
+        for index, portdata of portns
+          if(portdata.number == doc.port)
+            portns[index].taken = true
+    pn = null
+    for portn in portns
+      if(portn.taken == false)
+        debug("Found free port " + portn.number)
+        pn = portn.number
+        break
+    if pn
+      remember_port(pn, roomid, room, ((err) -> next(pn, err)))
+    else
+      next(null, true)
+  .then (next, port, err) ->
+    callback(port, err)
+
 get_port = (port, callback) ->
   debug("Getting port " + port)
   servers.find({port: port}, (err, docs) ->
@@ -108,9 +137,17 @@ plistactor = nactor.actor ->
       async.enable()
       Futures.sequence()
       .then (next) ->
-        remember_port(data.port, data.room, next)
+        remember_port(data.port, data.roomid, data.room, next)
       .then (next, err) ->
         async.reply(err)
+    
+    remember_a_port: (data, async) ->
+      async.enable()
+      Futures.sequence()
+      .then (next) ->
+        remember_a_port(data.roomid, data.room, next)
+      .then (next, port) ->
+        async.reply(port)
     
     get_port: (data, async) ->
       async.enable()
@@ -147,8 +184,11 @@ plistactor = nactor.actor ->
 
 plistactor.init()
 
-exports.remember_port  = (port, room, callback) ->
-  plistactor.remember_port({port: port, room: room}, callback)
+exports.remember_port  = (port, roomid, room, callback) ->
+  plistactor.remember_port({port: port, roomid: roomid, room: room}, callback)
+
+exports.remember_a_port  = (roomid, room, callback) ->
+  plistactor.remember_a_port({roomid: roomid, room: room}, callback)
 
 exports.get_port       = (port, callback) ->
   plistactor.get_port({port: port}, callback)

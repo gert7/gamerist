@@ -72,13 +72,17 @@ class Room < ActiveRecord::Base
       end
     end
   end
+  
+  def server_in_serverlist()
+    errors.add(:server, "Server is invalid!!!") unless($gamerist_serverdata["servers"].find {|s| (s["name"] == @server) and (s["production"] == true or (not Rails.env.production?)) })
+  end
 
   validates :game, inclusion: {in: $gamerist_mapdata["games"].map {|g| g["name"]}, message: "Game is not valid!!!"}
   validate :map_in_maplist
-  validates :playercount, inclusion: {in: [4, 8, 16, 32], message: "Playercount is not valid!!!"}
+  validates :playercount, inclusion: {in: [4, 8, 16, 24, 32], message: "Playercount is not valid!!!"}
   validates :wager, inclusion: {in: (WAGER_MIN-1)...(WAGER_MAX+1), message: "Wager of invalid size!!!"}
-  validates :server, inclusion: {in: [nil, ""].concat($gamerist_serverdata["servers"].map {|g| g["name"]}), message: "Server is not valid!!!"}
-  # validates :server
+  #validates :server, inclusion: {in: [nil, ""].concat($gamerist_serverdata["servers"].map {|g| g["name"]}), message: "Server is not valid!!!"}
+  validate :server_in_serverlist
   
   before_validation  do
     self.state  ||= STATE_PUBLIC
@@ -226,7 +230,7 @@ class Room < ActiveRecord::Base
   # @return [Hash] new version of srules
   def append_player_hash(mrules, player_id)
     player = User.find(player_id)
-    mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "timeout" => Time.now.to_i})
+    mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "steamid" => player.steamid.steamid, "timeout" => Time.now.to_i})
     mrules
   end
   
