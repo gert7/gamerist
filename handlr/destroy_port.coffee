@@ -10,7 +10,7 @@ spawn_indep = (cmd, args, id, closecallback) ->
   else
     out = 'ignore'
     err = 'ignore'
-  child = child_process.spawn(cmd, args, {detached: true, stdio: [ 'ignore', out, err ]})
+  child = child_process.spawn(cmd, args, {stdio: [ 'ignore', out, err ]})
   child.on("close", (closecallback || ->))
 
 exports.destroy_port = (port, callback) ->

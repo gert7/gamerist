@@ -5,8 +5,10 @@ child_process = require("child_process")
 fs            = require("fs")
 Futures       = require("futures")
 debug         = require("debug")("spinup")
+path          = require("path")
+destroy_port  = require("./destroy_port")
 
-spawn_indep = (cmd, args, id, closecallback) ->
+spawn_indep_async = (cmd, args, id, closecallback) ->
   out = err =
   if id
     out = fs.openSync('./output_' + id + '.log', 'a')
@@ -14,19 +16,21 @@ spawn_indep = (cmd, args, id, closecallback) ->
   else
     out = 'ignore'
     err = 'ignore'
-  child = child_process.spawn(cmd, args, {detached: true, stdio: [ 'ignore', out, err ]})
-  child.on("close", (closecallback || ->))
+  child = child_process.spawn(cmd, args, {detached: true})
+  child.on("close", (code, signal) ->
+    debug(code)
+    (closecallback || ->)())
 
 udp_getport = (port, errcallback) ->
   dgram  = require("dgram")
   server = dgram.createSocket("udp4")
   server.on("error", (err) ->
-    debug("server error:\n" + err.stack)
+    debug("UDP Port " + port + " is already bound: \n" + err.stack)
     server.close()
     errcallback(true)
   )
   server.on("listening", () ->
-    debug("server listening ")
+    debug("UDP Port " + port + " is not yet bound")
     server.close()
     errcallback(false)
   )
@@ -43,30 +47,33 @@ spin_up_port = (port, room, settings, errcallback) ->
     if err == true
       debug("Port " + port + " already in use!!")
       debug("Attempting to destroy process...")
-      spawn_indep("fuser", ["-n", "udp", "-k", port], null, next)
+      destroy_port.destroy_port(port, next)
     else
       next()
   .then (next) ->
     srcfolder = settings.game
-    spawn_indep("../steamcmd/" + srcfolder + "/srcds_run", ["-game", settings.game, "+map", settings.map, "+playercount", settings.playercount, "-port", port], room)
-    portlist.remember_port(port, room)
-    udp_getport(port, next)
-  .then (next, err) ->
-    errcallback(err)
+    ipath     = path.resolve("../steamcmd", srcfolder, "srcds_run")
+    debug(ipath)
+    spawn_indep_async(ipath, ["-game", settings.game, "+map", settings.map, "+playercount", settings.playercount, "-port", port, "-norestart"], room, next)
+  .then (next) ->
+    errcallback()
 
 spin_up = (roomid, room, errcallback) ->
+  vport = 0
   Futures.sequence()
   .then (next) ->
-    remember_a_port(roomid, room, next)
+    portlist.remember_a_port(roomid, room, next)
   .then (next, port, err) ->
+    vport = port
     if port != 0
       gamename = ""
-      if room.roomdata.game == "team fortress 2" then gamename = "tf"
-      spin_up_port(port, roomid, {game: gamename, map: room.roomdata.map, playercount: room.roomdata.playercount}, next)
+      debug(room)
+      if room.game == "team fortress 2" then gamename = "tf"
+      spin_up_port(port, roomid, {game: gamename, map: room.map, playercount: room.playercount}, next)
     else
-      errcallback(true)
+      errcallback(true, vport)
   .then ->
-    errcallback(false)
+    errcallback(false, vport)
 
 exports.spin_up = spin_up
 

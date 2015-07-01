@@ -41,7 +41,6 @@ remove_timeout_ports = (all, callback) ->
     iless  = (i) -> (i < ports.length)
     iadd   = (i) -> (i + 1)
     iloop  = (i, _break, _continue) ->
-      debug("Now working " + i)
       remove_timeout_port(ports[i], all, _continue)
     mloop   = afor(0, iless, iadd, iloop)
     mloop(callback)
