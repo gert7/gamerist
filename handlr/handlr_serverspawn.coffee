@@ -9,17 +9,8 @@ path          = require("path")
 destroy_port  = require("./destroy_port")
 
 spawn_indep_async = (cmd, args, id, closecallback) ->
-  out = err =
-  if id
-    out = fs.openSync('./output_' + id + '.log', 'a')
-    err = fs.openSync('./output_' + id + '.log', 'a')
-  else
-    out = 'ignore'
-    err = 'ignore'
-  child = child_process.spawn(cmd, args, {detached: true})
-  child.on("close", (code, signal) ->
-    debug(code)
-    (closecallback || ->)())
+  child_process.spawn(cmd, args, {detached: true})
+  (closecallback || ->)()
 
 udp_getport = (port, errcallback) ->
   dgram  = require("dgram")

@@ -36,7 +36,8 @@ handle_mq_message = (data, callback) ->
           chan = conn.createChannel()
           chan = chan.then((ch) ->
             ch.assertQueue(qu, {durable: true, manual_ack: true})
-            ch.sendToQueue(qu, new Buffer('{"protocol_version":1, "type": "confirm", "id": ' + data.id + ', "port": ' + port + '}'))
+            debug("Sending preliminary server creation confirmation northstream")
+            ch.sendToQueue(qu, new Buffer('{"protocol_version":1, "type": "creating", "id": ' + data.id + ', "port": ' + port + '}'))
           )
           return chan
         ).then(null, console.warn)
@@ -73,7 +74,7 @@ conn.then((conn) ->
       debug("a new message!")
       if (msg != null)
         msgc = JSON.parse(msg.content.toString())
-        northstream.handle_mq_message(msgc, (-> debug("callback raisu")))
+        northstream.handle_mq_message(msgc, (->))
         ch.ack(msg)
     )
   )
