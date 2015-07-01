@@ -146,15 +146,22 @@ class Room < ActiveRecord::Base
     self.rstate == STATE_PUBLIC
   end
   
+  # Find the players array index of a player in the given ruleset
+  # @param [Integer] pid the id of the User of this player
+  # @param [Hash] mrules a version of srules
+  # @return [Integer] The position of the player in the given ruleset's player list
+  def fetch_player(pid, mrules)
+    mrules["players"].find_index { |v| v["id"].to_i == pid }
+  end
+  
   # Remove all players who are over their timeout
   # @param [Hash] mrules old version of srules
   # @return [Hash] new version of srules
   def dump_timeout_players(mrules)
-    mrules["players"].each_index do |i|
-      p = mrules["players"][i]
+    mrules["players"].each_with_index do |p, ind|
       if((p["timeout"].to_i < Time.now.to_i) or
          not User.new(id: p["id"]).reservation_is_room?(self.id))
-        mrules["players"].delete_at(i)
+        mrules["players"].delete_at(ind)
       end
     end
     mrules
@@ -203,14 +210,6 @@ class Room < ActiveRecord::Base
     (lock_if_ready (check_wager (dump_timeout_players ruleset)))
   end
   
-  # Find the players array index of a player in the given ruleset
-  # @param [Integer] pid the id of the User of this player
-  # @param [Hash] mrules a version of srules
-  # @return [Integer] The position of the player in the given ruleset's player list
-  def fetch_player(pid, mrules)
-    mrules["players"].find_index { |v| v["id"].to_i == pid }
-  end
-  
   # Removes the player from the given mrules if the room is public
   # @param [Integer] player_id ID of the given player's User
   # @param [Hash] mrules old version of srules
@@ -230,6 +229,7 @@ class Room < ActiveRecord::Base
   # @return [Hash] new version of srules
   def append_player_hash(mrules, player_id)
     player = User.find(player_id)
+    return mrules if fetch_player(player_id, mrules)
     mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "steamid" => player.steamid.steamid, "timeout" => Time.now.to_i})
     mrules
   end
@@ -240,8 +240,8 @@ class Room < ActiveRecord::Base
   # @param [Hash] hash the given modifications to the user
   # @return [Hash] new version of srules
   def amend_player_hash(mrules, player, hash)
-    mrules = append_player_hash(mrules, player.id) unless pi = fetch_player(player.id, mrules)
-    pi = fetch_player(player.id, mrules)
+    mrules = append_player_hash(mrules, player.id)
+    pi     = fetch_player(player.id, mrules)
     if(hash["wager"] ? (hash["wager"] >= WAGER_MIN and
        hash["wager"] <= WAGER_MAX and
        player.total_balance >= hash["wager"]) : true)
