@@ -57,11 +57,7 @@ class Paypal < ActiveRecord::Base
   @@pointcost = Money.new(1_00, "EUR") # amount is in cents
   
   def self.country(code)
-    defaultcountry = $gamerist_countrydata[0]
-    #countryo = $gamerist_countrydata[code.to_i] if (code.to_i >= 0 and code.to_i <= 100)
-    countryo ||= (($gamerist_countrydata.find {|c| (code.to_s == c["threecode"].to_s) or (code.to_s == c["twocode"]) }) or defaultcountry)
-    country  = countryo.clone
-    #puts country
+    country = (($gamerist_countrydata.find {|c| (code.to_s == c["threecode"].to_s) or (code.to_s == c["twocode"]) }) or $gamerist_countrydata[0]).clone
     
     if country["twocode"] == "RX" or country["eu"] != 1
       country["vat"] = 0.00
@@ -70,7 +66,7 @@ class Paypal < ActiveRecord::Base
       country["vat"] = c.rate / 100
     end
     country["masspaycurrency"] = country["currency"]
-    country["pointcost"] = @@pointcost.exchange_to(country["currency"].to_sym)
+    country["pointcost"]       = @@pointcost.exchange_to(country["currency"].to_sym)
     return country
   end
 
@@ -84,12 +80,12 @@ class Paypal < ActiveRecord::Base
     throw "Number out of range!" if points.to_i < Paypal::MIN_PURCHASE or points.to_i > Paypal::MAX_PURCHASE
     data      = Hash.new
     country   = Paypal::country(countrycode)
-    data[:currency] = country["currency"]
-    data[:subtotal] = BigDecimal.new(points.to_s) * BigDecimal.new(country["pointcost"].to_f.to_s) * BigDecimal.new(Paypal.margin_mult_rate.to_f.to_s)
-    data[:subrate]  = Paypal.margin_mult_pretty
-    data[:total]    = data[:subtotal] * BigDecimal.new((1.0 + country["vat"].to_f).to_s)
-    data[:tax]      = data[:total] - data[:subtotal]
-    data[:vat]      = (country["vat"] * 100).to_i
+    data[:currency]    = country["currency"]
+    data[:subtotal]    = BigDecimal.new(points.to_s) * BigDecimal.new(country["pointcost"].to_f.to_s) * BigDecimal.new(Paypal.margin_mult_rate.to_f.to_s)
+    data[:subrate]     = Paypal.margin_mult_pretty
+    data[:total]       = data[:subtotal] * BigDecimal.new((1.0 + country["vat"].to_f).to_s)
+    data[:tax]         = data[:total] - data[:subtotal]
+    data[:vat]         = (country["vat"] * 100).to_i
     data[:countrycode] = country["twocode"]
     data[:countryname] = country["name"]
     data

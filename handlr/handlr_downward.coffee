@@ -8,42 +8,41 @@ debug = require('debug')('southstream')
 # Format:
 #
 # <- AX = I AM ALIVE
-# -> CA = COPY 
+# -> AK = ACKNOWLEDGED
 # <- RS = RESULTS
+#
 
 crunch_data = (data) ->
   cursor = 0
-  loop
-    break if (cursor >= data.length)
-    if()
+#  loop
+#    break if (cursor >= data.length)
+#    if()
 
-server = net.createServer((c) ->
+server = net.createServer (c) ->
   debug('client connected')
   c.setEncoding("utf8")
-  c.on('end', () ->
+  c.on 'end', () ->
     debug('Client disconnected')
-  )
-  c.on('data', (data) ->
-    crunch_down(data)
-  )
-)
+  c.on 'data', (data) ->
+    debug(data)
+    crunch_data(data)
 
-server.listen(8124, () ->
+server.listen 1996, () ->
   debug('server bound')
-)
 
-client = net.connect({port: 8124}, () ->
+###
+client = net.connect {port: 8124}, () ->
   debug('connected to server!')
   client.write('abcde')
-  setTimeout(() ->
+  setTimeout () ->
     client.write("fghij")
-  , 1000)
-)
-client.on('data', (data) ->
+  , 1000
+
+client.on 'data', (data) ->
   console.log(data.toString())
   client.end()
-)
-client.on('end', () ->
+
+client.on 'end', () ->
   console.log('disconnected from server')
-)
+###
 
