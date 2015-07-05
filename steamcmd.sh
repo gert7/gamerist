@@ -22,4 +22,6 @@ rm attachment.php?attachmentid=83286*
 unzip socket_3.0.1.zip -d s_ocket
 rsync -aP s_ocket/* tf2/tf/
 rm -rf s_ocket
-
+cp tf/tf/addons/sourcemod/plugins/* tf/tf/addons/sourcemod/plugins/disabled
+rm tf/tf/addons/sourcemod/plugins/*
+./../smod_plugin/compile.sh
