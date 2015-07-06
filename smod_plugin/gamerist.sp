@@ -22,14 +22,16 @@ public Plugin:myinfo =
 // hdnlr <- D = Game finished STATE_OVER
 // hndlr <- DP[index|points] = Player with index, score
 // hndlr <- DT[teamindex|points] = Team with index, score
+// hndlr <- H = heartbeat
 
 #define MQLIMIT 64 // total capacity of the message queue
 #define MAX_MESSAGESIZE 256
 #define IDLIMIT 34
 #define MAXIDSIZE 32
 
-#define ERROR_MESSAGES_NOT_BEING_RECEIVED 5
-#define ERROR_MESSAGE_LIMIT_REACHED 6
+#define ERROR_MESSAGES_NOT_BEING_RECEIVED 5 // MQLIMIT is reached!!
+#define ERROR_MESSAGE_LIMIT_REACHED 6 // 4 million messages is too much!!
+#define ERROR_MESSAGE_ACKS_OUT_OF_SYNC 7 // Wrong numbers!!
 
 new String:allowedids[IDLIMIT][MAXIDSIZE]; // 1 string is 24 characters, null terminator included
 
@@ -42,6 +44,12 @@ new nextmid        = 0; // The next mid to be added to the queue (right end of q
 new serverKilled   = 0;
 
 new waitingForResponse = 0;
+
+new communicationState = 0;
+
+// states:
+#define STATE_NODATA 0 // no data received!
+#define STATE_GOTDATA 1 // data received! regular operation
 
 new Handle:sharedSocket;
 
@@ -109,44 +117,74 @@ public OnClientAuthorized(client, const String:auth[])
 public OnSocketConnected(Handle:socket, any:arg)
 {
   PrintToServer("SOCKET CONNECTED");
-  PushMessage("Zayerberg Létzebereg 0+¤&%|||");
+  GetInitialData();
   waitingForResponse = 0;
   sharedSocket = socket;
   TryToPushMessages();
 }
 
+GetInitialData()
+{
+  PushMessage("I");
+}
+
+handleMsgBody(String:str[])
+{
+  
+}
+
 handleMsg(String:str[], lpointer)
 {
   new pointer = lpointer;
-  switch(str[pointer])
+  if(str[pointer] == 'A')
   {
-    // received a new message
-    case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
+  // received a new message
+  // acknowledged our own message
+    // GET THE IDENTIFIER FOR ACK
+    new next = 0;
+    new String:msgn[8];
+    new sid  = 0;
+    while(next == 0)
     {
-    }
-    // acknowledged our own message
-    case 'A':
-    {
-      new next = 0;
-      new String:msgn[8];
-      new sid  = 0;
-      while(next == 0)
+      pointer++;
+      if(str[pointer] == '#')
+        next = 1;
+      else
       {
-        pointer++;
-        if(str[pointer] == '\n')
-          next = 1
-        else
-        {
-          msgn[sid] = str[pointer];
-          sid++;
-        }
+        msgn[sid] = str[pointer];
+        sid++;
       }
-      PrintToServer("Message %d acknowledged!", atoi(msgn, 10), pointer);
-      waitingForResponse = 0;
-      clIndex++;
-      cmid++;
-      return pointer + 1;
     }
+    new stid = atoi(msgn, 10);
+    if(stid != cmid)
+    {
+      KillServer(ERROR_MESSAGE_ACKS_OUT_OF_SYNC);
+      return 0;
+    }
+    PrintToServer("Message %d acknowledged!", atoi(msgn, 10), pointer);
+    clIndex = (clIndex + 1) % MQLIMIT;
+    cmid++;
+    
+    // DEAL WITH THE MESSAGE BODY
+    next = 0;
+    sid  = 0;
+    new String:msg[256];
+    
+    while(next == 0)
+    {
+      pointer++;
+      if(str[pointer] == '\n')
+        next = 1;
+      else
+      {
+        msg[sid] = str[pointer];
+        sid++;
+      }
+    }
+    PrintToServer("Response was %s", msg);
+    handleMsgBody(msg);
+    waitingForResponse = 0;
+    return pointer + 1;
   }
 }
 
@@ -162,7 +200,9 @@ public OnSocketReceive(Handle:socket, String:rdata[], const size, any:arg)
 
 public OnSocketDisconnected(Handle:socket, any:arg)
 {
+  PrintToServer("[GAMERIST] Socket has disconnected!");
   CloseHandle(socket);
+  sharedSocket = 0;
   CreateTimer(5.0, RestartSocket);
 }
 
@@ -170,7 +210,7 @@ public OnSocketError(Handle:socket, const errorType, const errorNum, any:arg)
 {
   if(serverKilled == 0)
   {
-    PrintToServer("[GAMERIST] socket error %d (errno %d)", errorType, errorNum);
+    PrintToServer("[GAMERIST] Socket has disconnected!");
     CloseHandle(socket);
     sharedSocket = 0;
     CreateTimer(5.0, RestartSocket);

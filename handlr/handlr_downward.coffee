@@ -10,7 +10,7 @@ debug = require('debug')('southstream')
 # hndlr <- A[decimal string]\n = Acknowledged message number N
 
 # the following messages are preceded by [msgindex]| and followed by \n
-# hndlr <- I = Connection established
+# hndlr <- I = Connection established, please send L message
 # hndlr -> L[index|steamid1|team number] = add player to list(index, steamid, teamnumber, seperated by pipe, up to 32 characters)
 # hndlr -> P[string] = Print this string to chat
 # hndlr <- E[string] = Error with string, game finished STATE_FAILED
@@ -26,23 +26,21 @@ read_to_newline = (data, cursor) ->
     cursor = cursor + 1
   return str
 
-ackmsg = (client, mid) ->
-  client.write("A" + mid + "\n")
+ackmsg = (client, mid, data) ->
+  client.write("A" + mid + "#" + data + "\n")
 
 crunch_data = (client, data) ->
   cursor = 0
   loop
     break if (cursor >= data.length)
-    if(data[cursor] == "A") # acknowledge a message
-      str = read_to_newline(data, cursor)
-      debug(str)
-      res = str.match(//)
-    else  # other message
-      str = read_to_newline(data, cursor)
-      debug(str)
-      res = str.match(/^(\d+?)#(.+)$/)
-      ackmsg(client, res[1])
-      cursor = str.length + 1
+    str = read_to_newline(data, cursor)
+    res = str.match(/^(\d+?)#(.+)$/)
+    debug("Message number " + res[1] + " is " + res[2])
+    if(res[2][0] == 'I')
+      ackmsg(client, res[1], "hello")
+    else
+      ackmsg(client, res[1], "U")
+    cursor = str.length + 1
       
 server = net.createServer (c) ->
   debug('client connected')
@@ -57,19 +55,19 @@ server.listen 1996, () ->
   debug('server bound')
 
 ###
-debug('wopo')
-client = net.connect {port: 8124}, () ->
-  debug('connected to server!')
-  client.write('abcde')
-  setTimeout () ->
-    client.write("fghij")
-  , 1000
-
-client.on 'data', (data) ->
-  console.log(data.toString())
-  client.end()
-
-client.on 'end', () ->
-  console.log('disconnected from server')
+#debug('wopo')
+#client = net.connect {port: 8124}, () ->
+#  debug('connected to server!')
+#  client.write('abcde')
+#  setTimeout () ->
+#    client.write("fghij")
+#  , 1000
+#
+#client.on 'data', (data) ->
+#  console.log(data.toString())
+#  client.end()
+#
+#client.on 'end', () ->
+#  console.log('disconnected from server')
 ###
 
