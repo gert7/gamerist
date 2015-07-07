@@ -12,16 +12,20 @@ sleep 5
 ./steamcmd.sh +runscript ../steams.txt
 sleep 1
 curl -O http://mirror.pointysoftware.net/alliedmodders/mmsource-1.10.5-linux.tar.gz $CURL_O
-tar -xvzf mmsource-1.10.5-linux.tar.gz -C tf2/tf
+tar -xvzf mmsource-1.10.5-linux.tar.gz -C tf/tf
 curl -O http://mirror.pointysoftware.net/alliedmodders/sourcemod-1.7.2-linux.tar.gz $CURL_O
-tar -xvzf sourcemod-1.7.2-linux.tar.gz -C tf2/tf
+tar -xvzf sourcemod-1.7.2-linux.tar.gz -C tf/tf
 curl -O https://forums.alliedmods.net/attachment.php?attachmentid=83286\&d=1299423920 $CURL_O
 mkdir s_ocket
 cp attachment.php?attachmentid=83286* socket_3.0.1.zip
 rm attachment.php?attachmentid=83286*
 unzip socket_3.0.1.zip -d s_ocket
-rsync -aP s_ocket/* tf2/tf/
+rsync -aP s_ocket/* tf/tf/
 rm -rf s_ocket
 cp tf/tf/addons/sourcemod/plugins/* tf/tf/addons/sourcemod/plugins/disabled
 rm tf/tf/addons/sourcemod/plugins/*
-./../smod_plugin/compile.sh
+cd ../smod_plugin
+./compile.sh
+cd ../steamcmd
+rsync -aP ../game_content/* .
+

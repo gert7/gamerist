@@ -1,0 +1,5 @@
+You are playing in a Gamerist match!
+
+1) Join either team to be automatically moved to the correct one
+2) !votecancel is available within the first 1 minute of the first round after setup (if any)
+

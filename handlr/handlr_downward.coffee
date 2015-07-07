@@ -13,7 +13,6 @@ debug = require('debug')('southstream')
 # hndlr <- I = Connection established
 # hndlr <- L[index] = Send the next player list item
 # hndlr -> L[index|steamid1|team number] = add player to list(index, steamid, teamnumber, seperated by pipe, up to 32 characters)
-# hndlr -> O = no more players in list!
 #
 # hndlr -> P[string] = Print this string to chat
 # hndlr <- E[string] = Error with string, game finished STATE_FAILED
