@@ -90,6 +90,8 @@ public OnPluginStart()
   CreateTimer(2.0, RestartSocket);
   
   GetInitialData();
+  
+  HookEvent("player_spawn", Event_PlayerSpawn, EventHookMode_Post);
 }
 
 KillServer(errno)
@@ -109,13 +111,44 @@ public Action:RestartSocket(Handle:timer)
   SocketConnect(socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "127.0.0.1", 1996)
 }
 
+ClientListIndex(const String:auth[])
+{
+  PrintToServer("Looking for steamid %s", auth);
+  for(new i = 0; i < IDLIMIT; i++)
+  {
+    if(strcmp(auth, allowedids[i]) == 0) {
+      PrintToServer("Found at %d, teamnumber is %d", i, teamnumbers[i]);
+      return i; }
+  }
+  return -1;
+}
+
 public OnClientAuthorized(client, const String:auth[])
 {
   PrintToServer("[GAMERIST] Client %d has SteamID %s", client, auth);
   if(serverKilled != 0)
     KickClient(client, "Game canceled due to error %d", serverKilled);
   else
-    KickClient(client, "You are not in the whitelist!");
+    if(ClientListIndex(auth) == -1)
+      KickClient(client, "You are not in the whitelist!");
+}
+//userid
+public Action:Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast) 
+{
+  new String:sid[MAXIDSIZE];
+  new client = GetClientOfUserId(GetEventInt(event, "userid"));
+  new team   = GetClientTeam(client);
+  
+  GetClientAuthId(client, AuthId_Steam2, sid, MAXIDSIZE);
+  new ind = ClientListIndex(sid);
+  if(ind == -1){
+    KickClient(client);
+    return 0;
+  }
+  PrintToServer("%d has joined team %d, should be team %d", client, team, teamnumbers[ind]);
+  if(teamnumbers[ind] != team)
+    ChangeClientTeam(client, teamnumbers[ind]);
+  return Plugin_Handled;
 }
 
 public OnSocketConnected(Handle:socket, any:arg)
@@ -135,6 +168,7 @@ AskForNextPlayer(index)
 {
   new String:msg[4];
   Format(msg, 4, "L%d", index);
+  PrintToServer("Asking for %d", index);
   PushMessage(msg);
 }
 
@@ -159,11 +193,17 @@ handleMsgBody(String:str[])
       new String:teamnumber[2]; // '2' = red, '3' = blue
       pointer = ReadStringUntil(str, stopnow, pointer, '|');
       pointer = ReadStringUntil(str, index, pointer, '|');
-      new indexn = atoi(index, 10)
+      new indexn = atoi(index, 10);
       pointer = ReadStringUntil(str, suid, pointer, '|');
       PrintToServer(suid);
       pointer = ReadStringUntil(str, teamnumber, pointer, '\0');
-      AskForNextPlayer(atoi(index, 10) + 1);
+      
+      Format(allowedids[indexn], MAXIDSIZE, suid);
+      teamnumbers[indexn] = atoi(teamnumber, 10);
+      PrintToServer("team number %d is %d", indexn, teamnumbers[indexn]);
+      
+      if(stopnow[0] == '0')
+        AskForNextPlayer(atoi(index, 10) + 1);
     }
   }
 }
@@ -265,7 +305,7 @@ TryToPushMessages()
     {
       new String:fstring[256];
       PrintToServer("Pushing message %d#%s\n", cmid, messagequeue[clIndex]);
-      Format(fstring, 256, "%d#%s\n", cmid, messagequeue[clIndex]);
+      Format(fstring, 256, "%d;%d#%s\n", GetConVarInt(FindConVar("hostport")), cmid, messagequeue[clIndex]);
       SocketSend(sharedSocket, fstring);
       waitingForResponse = 1;
     } 

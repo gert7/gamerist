@@ -39,15 +39,23 @@ crunch_data = (client, data) ->
   loop
     break if (cursor >= data.length)
     str = read_to_newline(data, cursor)
-    res = str.match(/^(\d+?)#(.+)$/)
-    debug("Message number " + res[1] + " is " + res[2])
-    body = res[2]
+    res = str.match(/^(\d+);(\d+)#(.+)$/)
+    
+    roomdata = {"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","steamid":"STEAM_0:1:18525941","timeout":1435667836}]}
+    
+    debug("Port " + res[1] + " Message number " + res[2] + " is " + res[3])
+    body = res[3]
     if(body[0] == 'I')
-      ackmsg(client, res[1], "I")
+      ackmsg(client, res[2], "I")
     else if(body[0] == 'L')
-      ackmsg(client, res[1], "L1|0|STEAM_0:1:78421722|2")
+      ind = body.substring(1)
+      debug(ind)
+      debug(roomdata.players.length - 1)
+      stopnow = 0
+      stopnow = 1 if(ind == String(roomdata.players.length - 1))
+      ackmsg(client, res[2], ("L" + stopnow + "|" + ind + "|" + roomdata.players[ind].steamid + "|2"))
     else
-      ackmsg(client, res[1], "U")
+      ackmsg(client, res[2], "U")
     cursor = str.length + 1
       
 server = net.createServer (c) ->
