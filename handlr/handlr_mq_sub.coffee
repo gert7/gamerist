@@ -81,3 +81,13 @@ conn.then((conn) ->
   return chan;
 ).then(null, console.warn)
 
+exports.send_upstream = (msg) ->
+  conn.then((conn) ->
+    chan = conn.createChannel()
+    chan = chan.then((ch) ->
+      ch.assertQueue(q, {durable: true, manual_ack: true})
+      ch.sendToQueue(q, new Buffer(msg))
+    )
+    return chan
+  ).then(null, console.warn)
+

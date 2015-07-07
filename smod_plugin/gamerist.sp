@@ -34,6 +34,11 @@ public Plugin:myinfo =
 #define ERROR_MESSAGE_LIMIT_REACHED 6 // 4 million messages is too much!!
 #define ERROR_MESSAGE_ACKS_OUT_OF_SYNC 7 // Wrong numbers!!
 
+#define TEAM_RED 2
+#define TEAM_BLU 3
+
+
+
 new String:allowedids[IDLIMIT][MAXIDSIZE]; // 1 string is 24 characters, null terminator included
 new teamnumbers[IDLIMIT];
 

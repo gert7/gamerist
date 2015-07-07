@@ -22,6 +22,11 @@ debug = require('debug')('southstream')
 # hndlr <- DP[index|points] = Player with index, score
 # hndlr <- DT[teamindex|points] = Team with index, score
 
+require("coffee-script")
+portlist = require("./handlr_portlist")
+Futures  = require("futures")
+MQ       = require("./handlr_mq_sub")
+
 read_to_newline = (data, cursor) ->
   str = ""
   loop
@@ -41,19 +46,24 @@ crunch_data = (client, data) ->
     str = read_to_newline(data, cursor)
     res = str.match(/^(\d+);(\d+)#(.+)$/)
     
-    roomdata = {"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","steamid":"STEAM_0:1:18525941","timeout":1435667836}]}
-    
     debug("Port " + res[1] + " Message number " + res[2] + " is " + res[3])
-    body = res[3]
-    if(body[0] == 'I')
-      ackmsg(client, res[2], "I")
-    else if(body[0] == 'L')
-      ind = body.substring(1)
+    msg_port = res[1]
+    msg_ind  = res[2]
+    msg_body = res[3]
+    if(msg_body[0] == 'I')
+      ackmsg(client, msg_ind, "I")
+    else if(msg_body[0] == 'L')
+      ind = msg_body.substring(1)
       debug(ind)
-      debug(roomdata.players.length - 1)
-      stopnow = 0
-      stopnow = 1 if(ind == String(roomdata.players.length - 1))
-      ackmsg(client, res[2], ("L" + stopnow + "|" + ind + "|" + roomdata.players[ind].steamid + "|2"))
+      Futures.sequence()
+      .then (next) ->
+        portlist.get_port(Number(msg_port), next)
+      .then (next, record) ->
+        roomdata = record.room
+        debug(roomdata.players.length - 1)
+        stopnow = 0
+        stopnow = 1 if(ind == String(roomdata.players.length - 1))
+        ackmsg(client, msg_ind, ("L" + stopnow + "|" + ind + "|" + roomdata.players[ind].steamid + "|2"))
     else
       ackmsg(client, res[2], "U")
     cursor = str.length + 1
