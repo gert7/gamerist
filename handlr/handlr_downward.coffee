@@ -46,7 +46,7 @@ crunch_data = (client, data) ->
     res = str.match(/^(\d+);(\d+)#(.+)$/)
     
     debug("Port " + res[1] + " Message number " + res[2] + " is " + res[3])
-    msg_port = res[1]
+    msg_port = Number(res[1])
     msg_ind  = res[2]
     msg_body = res[3]
     if(msg_body[0] == 'I')
@@ -56,15 +56,31 @@ crunch_data = (client, data) ->
       debug(ind)
       Futures.sequence()
       .then (next) ->
-        portlist.get_port(Number(msg_port), next)
+        portlist.remove_timeout_ports(next)
+      .then (next) ->
+        portlist.get_port(msg_port, next)
       .then (next, record) ->
-        roomdata = record.room
-        debug(roomdata.players.length - 1)
-        stopnow = 0
-        stopnow = 1 if(ind == String(roomdata.players.length - 1))
-        ackmsg(client, msg_ind, ("L" + stopnow + "|" + ind + "|" + roomdata.players[ind].steamid + "|2"))
+        if record
+          roomdata = record.room
+          debug(roomdata.players.length - 1)
+          stopnow = 0
+          stopnow = 1 if(ind == String(roomdata.players.length - 1))
+          ackmsg(client, msg_ind, ("L" + stopnow + "|" + ind + "|" + roomdata.players[ind].steamid + "|" + roomdata.players[ind].team))
+    else if(msg_body[0] == 'H')
+      Futures.sequence()
+      .then (next) ->
+        portlist.heartbeat_port(msg_port, next)
+      .then (next, err) ->
+        if err
+          debug("Server on " + msg_port + "has TIMED OUT!!!")
+        else
+          ackmsg(client, msg_ind, "H")
+          debug("Server on " + msg_port + " has heartbeat")
+    else if(msg_body[0] == 'D')
+      debug("here be D")
+      ackmsg(client, msg_ind, "D")
     else
-      ackmsg(client, res[2], "U")
+      ackmsg(client, res[2], "T")
     cursor = str.length + 1
       
 server = net.createServer (c) ->

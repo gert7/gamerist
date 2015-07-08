@@ -12,7 +12,7 @@ q  = "gamerist.dispatch.down." + Config.selfname
 qu = "gamerist.dispatch.upstream"
 ex = "gamerist.topic" + Config.rabbitmq.exsuffix
 
-SAMPLE = '{"protocol_version":1,"type":"spinup","id":81,"roomdata":{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","team":2,"steamid":"STEAM_0:1:18525940","timeout":1435667836}]}}'
+SAMPLE = '{"protocol_version":1,"type":"spinup","id":81,"roomdata":{"game":"team fortress 2","map":"cp_dustbowl","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","team":3,"steamid":"STEAM_0:1:18525940","timeout":1435667836}]}}'
 
 conn.then((conn) ->
   chan = conn.createChannel()

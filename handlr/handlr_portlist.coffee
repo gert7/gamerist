@@ -99,12 +99,16 @@ heartbeat_port = (port, callback) ->
   temp = 
   seq
   .then (next) ->
+    remove_timeout_ports(false, next)
+  .then (next) ->
     servers.find({port: port}, next)
   .then (next, err, docs) ->
     temp = docs[0]
-    next(err, docs)
-  return undefined unless temp
-  seq
+    if temp
+      next(err, docs)
+    else
+      debug("can't find temp on port " + port)
+      (callback || -> )(true)
   .then (next, err, docs) ->
     servers.remove({port: port}, {multi: true}, next)
   .then (next) ->
@@ -167,6 +171,14 @@ plistactor = nactor.actor ->
         remove_all_ports(next)
       .then ->
         async.reply()
+        
+    remove_timeout_ports: (data, async) ->
+      async.enable()
+      Futures.sequence()
+      .then (next) ->
+        remove_timeout_ports(false, next)
+      .then ->
+        async.reply()
   }
 
 plistactor.init()
@@ -189,3 +201,5 @@ exports.heartbeat_port = (port, callback) ->
 exports.remove_all_ports= (callback) ->
   plistactor.remove_all_ports(null, callback)
 
+exports.remove_timeout_ports = (callback) ->
+  plistactor.remove_timeout_ports(null, callback)

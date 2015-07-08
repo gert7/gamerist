@@ -12,8 +12,8 @@ public Plugin:myinfo =
 };
 
 // Message format (square brackets not included, numbers are plain ASCII):
-// hndlr -> A[decimal string]#\n = Acknowledged message number N
-// hndlr <- A[decimal string]#\n = Acknowledged message number N
+// hndlr <- [decimal string]#[MSG]\n = Message N
+// hndlr -> A[decimal string]#[MSG]\n = Acknowledged message number N
 
 // the following messages are preceded by msgindex# and followed by \n
 // hndlr <- I = Connection established
@@ -24,7 +24,10 @@ public Plugin:myinfo =
 // hdnlr <- D = Game finished STATE_OVER
 // hndlr <- DP[index|points] = Player with index, score
 // hndlr <- DT[teamindex|points] = Team with index, score
+//
 // hndlr <- H = heartbeat
+// hndlr -> H = affirm
+// hndlr -> T = server timed out!
 
 #define MQLIMIT         64 // total capacity of the message queue
 #define MAX_MESSAGESIZE 256
@@ -47,6 +50,7 @@ public Plugin:myinfo =
 #define ERROR_MESSAGE_LIMIT_REACHED       6 // 4 million messages is too much!!
 #define ERROR_MESSAGE_ACKS_OUT_OF_SYNC    7 // Getting wrong numbers!!
 #define ERROR_UNRECOGNIZED_MAP            8 // this should not happen at all
+#define ERROR_SERVER_TIMED_OUT            9 // timed out to handlr
 
 #define TEAM_RED 2
 #define TEAM_BLU 3
@@ -66,6 +70,8 @@ new nextmid        = 0; // The next mid to be added to the queue (right end of q
 new serverKilled   = 0;
 
 new waitingForResponse = 0;
+
+new globalRoundsPlayed = 0;
 
 new Handle:sharedSocket;
 
@@ -99,13 +105,14 @@ atoi(String:numero[], base)
 
 public OnPluginStart()
 {
-  PrintToServer("[GAMERIST] Gamerist starting up...");
+  PrintToChatAll("[GAMERIST] Gamerist starting up...");
   
   CreateTimer(2.0, RestartSocket);
+  CreateTimer(10.0, HeartBeat);
   
   GetInitialData();
   
-  PrintToServer(mapdata_names[1]);
+  PrintToChatAll(mapdata_names[1]);
   HookEvent("player_spawn", Event_PlayerSpawn, EventHookMode_Post);
   HookEvent("teamplay_round_win", Event_TeamplayRoundWin, EventHookMode_Post);
 }
@@ -113,27 +120,33 @@ public OnPluginStart()
 KillServer(errno)
 {
   serverKilled = errno;
-  PrintToServer("[GAMERIST] CATASTROPHIC FAILURE, SERVER KILLED, ERROR %d", errno);
+  PrintToChatAll("[GAMERIST] CATASTROPHIC FAILURE, SERVER KILLED, ERROR %d", errno);
   for(new i = 1; i < (GetMaxClients() + 1); i++) {
     if(IsClientConnected(i))
       KickClient(i)
   }
 }
 
+public Action:HeartBeat(Handle:timer)
+{
+  PushMessage("H");
+  CreateTimer(10.0, HeartBeat);
+}
+
 public Action:RestartSocket(Handle:timer)
 {
   new Handle:socket = SocketCreate(SOCKET_TCP, OnSocketError);
-  PrintToServer("[GAMERIST] Starting socket connect...");
+  PrintToChatAll("[GAMERIST] Starting socket connect...");
   SocketConnect(socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "127.0.0.1", 1996)
 }
 
 ClientListIndex(const String:auth[])
 {
-  PrintToServer("Looking for steamid %s", auth);
+  PrintToChatAll("Looking for steamid %s", auth);
   for(new i = 0; i < IDLIMIT; i++)
   {
     if(strcmp(auth, allowedids[i]) == 0) {
-      PrintToServer("Found at %d, teamnumber is %d", i, teamnumbers[i]);
+      PrintToChatAll("Found at %d, teamnumber is %d", i, teamnumbers[i]);
       return i; }
   }
   return -1;
@@ -162,11 +175,19 @@ public OnClientAuthorized(client, const String:auth[])
       KickClient(client, "You are not in the whitelist!");
 }
 
-GracefulShutdown(String:info[])
+PreGracefulShutdown(winteam)
+{
+  new String:winteamStr[4];
+  if(winteam == TEAM_RED) winteamStr = "RED"; else winteamStr = "BLU";
+  PrintToChatAll("[GAMERIST] Game over! Winning team is team %s", winteamStr);
+  CreateTimer(7.0, GracefulShutdown);
+}
+
+public Action:GracefulShutdown(Handle:timer)
 {
   for(new i = 1; i < (GetMaxClients() + 1); i++) {
     if(IsClientConnected(i))
-      KickClient(i, info)
+      KickClient(i)
   }
   KillServer(ERROR_GRACEFUL_SHUTDOWN);
 }
@@ -192,27 +213,35 @@ public Action:Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroa
 
 PushAllPlayerScores()
 {
+  new String:playerScores[512];
+  playerScores[0] = 'D'; playerScores[1] = 'P';
   for(new i = 1; i < (GetMaxClients() + 1); i++) {
     if(IsClientConnected(i))
-      PushMessage("DP%d|%d", i, GetClientFrags(i));
+    {
+      new String:oneplayer[12];
+      Format(oneplayer, 12, "%d|%d|", i, GetClientFrags(i));
+      StrCat(playerScores, 512, oneplayer);
+    }
   }
+  PushMessage(playerScores);
 }
 
 public Action:Event_TeamplayRoundWin(Handle:event, const String:name[], bool:dontBroadcast)
 {
   new ruleset = MapListEnum();
-  if(ruleset & RULESET_BASIC)
+  globalRoundsPlayed++;
+  if(ruleset & RULESET_BASIC) // CTF_2FORT STYLE
   {
     new winningTeam = GetEventInt(event, "team");
     PushMessage("D");
     PushAllPlayerScores();
-    PushMessage("DT1%d", winningTeam);
     new losingTeam;
     if(winningTeam == TEAM_RED) losingTeam = TEAM_BLU;
     else losingTeam = TEAM_RED;
-    PushMessage("DT0%d", losingTeam);
+    PushMessage("DT%d%d", winningTeam, losingTeam); // DT23 or DT32
+    PreGracefulShutdown(winningTeam);
   }
-  else if(ruleset & RULESET_FINAL)
+  else if(ruleset & RULESET_FINAL) // PLR_PIPELINE STYLE
   {
     new roundsMax;
     if(ruleset & RULESET_ROUNDS_1)
@@ -222,21 +251,22 @@ public Action:Event_TeamplayRoundWin(Handle:event, const String:name[], bool:don
     else if(ruleset & RULESET_ROUNDS_3)
       roundsMax = 3;
     
-    if(GetTeamScore(TEAM_RED) + GetTeamScore(TEAM_BLU) == roundsMax)
+    if((GetTeamScore(TEAM_RED) + GetTeamScore(TEAM_BLU)) == roundsMax)
     {
       new winningTeam = GetEventInt(event, "team");
       PushMessage("D");
       PushAllPlayerScores();
-      PushMessage("DT1%d", winningTeam);
       new losingTeam;
       if(winningTeam == TEAM_RED)
         losingTeam = TEAM_BLU;
       else
         losingTeam = TEAM_RED;
-      PushMessage("DT0%d", losingTeam);
+      PushMessage("DT%d%d", winningTeam, losingTeam);
     }
+    else
+      PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")));
   }
-  else if(ruleset & RULESET_RED)
+  else if(ruleset & RULESET_RED) // CP_DUSTBOWL STYLE
   {
     new roundsMax;
     if(ruleset & RULESET_ROUNDS_1)
@@ -245,25 +275,26 @@ public Action:Event_TeamplayRoundWin(Handle:event, const String:name[], bool:don
       roundsMax = 2;
     else if(ruleset & RULESET_ROUNDS_3)
       roundsMax = 3;
+    PrintToChatAll("ROUNDS: %d", roundsMax);
+    
     new rwinningTeam = GetEventInt(event, "team");
-    new winningTeam;
-    if(((GetTeamScore(TEAM_RED) + GetTeamScore(TEAM_BLU)) == roundsMax) && rwinningTeam == TEAM_BLU)
-    {
+    new winningTeam  = 0;
+    if(globalRoundsPlayed == roundsMax && rwinningTeam == TEAM_BLU)
       winningTeam = TEAM_BLU;
-    }
     else if(rwinningTeam == TEAM_RED)
-    {
       winningTeam = TEAM_RED;
-    }
-    PushMessage("D");
-    PushAllPlayerScores();
-    PushMessage("DT1%d", winningTeam);
-    new losingTeam;
-    if(winningTeam == TEAM_RED)
-      losingTeam = TEAM_BLU;
     else
-      losingTeam = TEAM_RED;
-    PushMessage("DT0%d", losingTeam);
+      PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")))
+    if(winningTeam != 0)
+    {
+      PushAllPlayerScores();
+      new losingTeam;
+      if(winningTeam == TEAM_RED)
+        losingTeam = TEAM_BLU;
+      else
+        losingTeam = TEAM_RED;
+      PushMessage("DT%d%d", winningTeam, losingTeam);
+    }
   }
   else
     KillServer(ERROR_UNRECOGNIZED_MAP);
@@ -302,7 +333,7 @@ handleMsgBody(String:str[])
     }
     case 'P':
     {
-      PrintToServer("[GAMERIST] %s", str[1]); // this works apparently :O
+      PrintToChatAll("[GAMERIST] %s", str[1]); // this works apparently :O
     }
     case 'L':
     {
@@ -315,7 +346,7 @@ handleMsgBody(String:str[])
       pointer = ReadStringUntil(str, index, pointer, '|');
       new indexn = atoi(index, 10);
       pointer = ReadStringUntil(str, suid, pointer, '|');
-      PrintToServer(suid);
+      PrintToChatAll(suid);
       pointer = ReadStringUntil(str, teamnumber, pointer, '\0');
       
       Format(allowedids[indexn], MAXIDSIZE, suid);
@@ -324,6 +355,13 @@ handleMsgBody(String:str[])
       
       if(stopnow[0] == '0')
         AskForNextPlayer(atoi(index, 10) + 1);
+    }
+    case 'T':
+    {
+      KillServer(ERROR_SERVER_TIMED_OUT);
+    }
+    case 'A': // generic acknowledge
+    {
     }
   }
 }
@@ -354,13 +392,12 @@ handleMsg(String:str[], lpointer)
   // received a new message
   // acknowledged our own message
     // GET THE IDENTIFIER FOR ACK
-    PrintToServer(str);
+    PrintToChatAll(str);
     new String:msgn[8];
     pointer++;
     pointer = ReadStringUntil(str, msgn, pointer, '#');
     
-    PrintToServer(msgn);
-    PrintToServer("%d", cmid);
+    PrintToChatAll(msgn);
     
     new stid = atoi(msgn, 10);
     if(stid != cmid)
@@ -376,7 +413,7 @@ handleMsg(String:str[], lpointer)
     new String:msg[256];
     pointer = ReadStringUntil(str, msg, pointer, '\n');
     
-    PrintToServer("Response was %s", msg);
+    PrintToChatAll("Response was %s", msg);
     handleMsgBody(msg);
     waitingForResponse = 0;
     return pointer;
@@ -388,7 +425,7 @@ public OnSocketReceive(Handle:socket, String:rdata[], const size, any:arg)
   new pointer = 0;
   while((pointer < strlen(rdata)) && serverKilled == 0)
   {
-    PrintToServer("%d out of %d", pointer, strlen(rdata));
+    PrintToChatAll("%d out of %d", pointer, strlen(rdata));
     pointer = handleMsg(rdata, pointer);
   }
   TryToPushMessages();
@@ -396,7 +433,7 @@ public OnSocketReceive(Handle:socket, String:rdata[], const size, any:arg)
 
 public OnSocketDisconnected(Handle:socket, any:arg)
 {
-  PrintToServer("[GAMERIST] Socket has disconnected!");
+  PrintToChatAll("[GAMERIST] Socket has disconnected!");
   CloseHandle(socket);
   sharedSocket = 0;
   CreateTimer(5.0, RestartSocket);
@@ -406,7 +443,7 @@ public OnSocketError(Handle:socket, const errorType, const errorNum, any:arg)
 {
   if(serverKilled == 0)
   {
-    PrintToServer("[GAMERIST] Socket has disconnected!");
+    PrintToChatAll("[GAMERIST] Socket has disconnected!");
     CloseHandle(socket);
     sharedSocket = 0;
     CreateTimer(5.0, RestartSocket);
@@ -424,7 +461,7 @@ TryToPushMessages()
     if(!waitingForResponse && cmid < nextmid)
     {
       new String:fstring[256];
-      PrintToServer("Pushing message %d#%s\n", cmid, messagequeue[clIndex]);
+      PrintToChatAll("Pushing message %d#%s\n", cmid, messagequeue[clIndex]);
       Format(fstring, 256, "%d;%d#%s\n", GetConVarInt(FindConVar("hostport")), cmid, messagequeue[clIndex]);
       SocketSend(sharedSocket, fstring);
       waitingForResponse = 1;
