@@ -226,79 +226,48 @@ PushAllPlayerScores()
   PushMessage(playerScores);
 }
 
+DeclareWinners(winningTeam)
+{
+  PushAllPlayerScores();
+  new losingTeam;
+  if(winningTeam == TEAM_RED)
+    losingTeam = TEAM_BLU;
+  else
+    losingTeam = TEAM_RED;
+  PushMessage("DT%d%d", winningTeam, losingTeam); // DT23 or DT32
+  PreGracefulShutdown(winningTeam);
+}
+
 public Action:Event_TeamplayRoundWin(Handle:event, const String:name[], bool:dontBroadcast)
 {
   new ruleset = MapListEnum();
   globalRoundsPlayed++;
-  if(ruleset & RULESET_BASIC) // CTF_2FORT STYLE
+  new roundsMax;
+  if(ruleset & RULESET_ROUNDS_1)
+    roundsMax = 1;
+  else if(ruleset & RULESET_ROUNDS_2)
+    roundsMax = 2;
+  else if(ruleset & RULESET_ROUNDS_3)
+    roundsMax = 3;
+  if(ruleset & RULESET_FINAL) // CTF_2FORT/PLR_PIPELINE STYLE
   {
-    new winningTeam = GetEventInt(event, "team");
-    PushMessage("D");
-    PushAllPlayerScores();
-    new losingTeam;
-    if(winningTeam == TEAM_RED) losingTeam = TEAM_BLU;
-    else losingTeam = TEAM_RED;
-    PushMessage("DT%d%d", winningTeam, losingTeam); // DT23 or DT32
-    PreGracefulShutdown(winningTeam);
-  }
-  else if(ruleset & RULESET_FINAL) // PLR_PIPELINE STYLE
-  {
-    new roundsMax;
-    if(ruleset & RULESET_ROUNDS_1)
-      roundsMax = 1;
-    else if(ruleset & RULESET_ROUNDS_2)
-      roundsMax = 2;
-    else if(ruleset & RULESET_ROUNDS_3)
-      roundsMax = 3;
-    
-    if((GetTeamScore(TEAM_RED) + GetTeamScore(TEAM_BLU)) == roundsMax)
-    {
-      new winningTeam = GetEventInt(event, "team");
-      PushMessage("D");
-      PushAllPlayerScores();
-      new losingTeam;
-      if(winningTeam == TEAM_RED)
-        losingTeam = TEAM_BLU;
-      else
-        losingTeam = TEAM_RED;
-      PushMessage("DT%d%d", winningTeam, losingTeam);
-    }
+    if(globalRoundsPlayed == roundsMax)
+      DeclareWinners(GetEventInt(event, "team"));
     else
       PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")));
   }
   else if(ruleset & RULESET_RED) // CP_DUSTBOWL STYLE
   {
-    new roundsMax;
-    if(ruleset & RULESET_ROUNDS_1)
-      roundsMax = 1;
-    else if(ruleset & RULESET_ROUNDS_2)
-      roundsMax = 2;
-    else if(ruleset & RULESET_ROUNDS_3)
-      roundsMax = 3;
-    PrintToChatAll("ROUNDS: %d", roundsMax);
-    
     new rwinningTeam = GetEventInt(event, "team");
-    new winningTeam  = 0;
     if(globalRoundsPlayed == roundsMax && rwinningTeam == TEAM_BLU)
-      winningTeam = TEAM_BLU;
+      DeclareWinners(TEAM_BLU);
     else if(rwinningTeam == TEAM_RED)
-      winningTeam = TEAM_RED;
+      DeclareWinners(TEAM_RED);
     else
-      PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")))
-    if(winningTeam != 0)
-    {
-      PushAllPlayerScores();
-      new losingTeam;
-      if(winningTeam == TEAM_RED)
-        losingTeam = TEAM_BLU;
-      else
-        losingTeam = TEAM_RED;
-      PushMessage("DT%d%d", winningTeam, losingTeam);
-    }
+      PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")));
   }
   else
     KillServer(ERROR_UNRECOGNIZED_MAP);
-
   return Plugin_Handled;
 }
 
