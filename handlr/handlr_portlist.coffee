@@ -112,7 +112,7 @@ heartbeat_port = (port, callback) ->
   .then (next, err, docs) ->
     servers.remove({port: port}, {multi: true}, next)
   .then (next) ->
-    servers.insert({port: temp.port, room: temp.room, timeout: (unixtime() + Config.timeouts.timeout)}, next)
+    servers.insert({port: temp.port, roomid: temp.roomid, room: temp.room, timeout: (unixtime() + Config.timeouts.timeout)}, next)
   .then (next, err) ->
     debug("Heartbeat for server on port " + port)
     (callback || -> )(err)
@@ -203,3 +203,5 @@ exports.remove_all_ports= (callback) ->
 
 exports.remove_timeout_ports = (callback) ->
   plistactor.remove_timeout_ports(null, callback)
+
+setInterval((() -> plistactor.remove_timeout_ports(null, ->)), 7000)

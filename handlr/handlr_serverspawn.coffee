@@ -47,7 +47,7 @@ spin_up_port = (port, room, settings, errcallback) ->
     srcfolder = settings.game
     ipath     = path.resolve("../steamcmd", srcfolder, "srcds_run")
     debug(ipath)
-    spawn_indep_async(ipath, ["-game", settings.game, "+map", settings.map, "+playercount", settings.playercount, "-port", port, "-norestart"], room, next)
+    spawn_indep_async(ipath, ["-game", settings.game, "+map", settings.map, "+playercount", settings.playercount, "-port", port, "+exec", "server.cfg", "-norestart"], room, next)
   .then (next) ->
     errcallback()
 

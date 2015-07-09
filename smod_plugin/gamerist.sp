@@ -23,7 +23,7 @@ public Plugin:myinfo =
 // hndlr <- E[string] = Error with string, game finished STATE_FAILED
 // hdnlr <- D = Game finished STATE_OVER
 // hndlr <- DP[index|points] = Player with index, score
-// hndlr <- DT[teamindex|points] = Team with index, score
+// hndlr <- DT[winningteam][losingteam] = Team with index, score; either DT23 or DT32
 //
 // hndlr <- H = heartbeat
 // hndlr -> H = affirm
@@ -34,16 +34,8 @@ public Plugin:myinfo =
 #define IDLIMIT         34
 #define MAXIDSIZE       32
 
-#define MAPS_NUMBER     2
+#define MAPS_NUMBER     3
 #define MAPNAME_MAXSIZE 16
-
-// Enums for winning modes
-#define RULESET_ROUNDS_1 1
-#define RULESET_ROUNDS_2 2
-#define RULESET_ROUNDS_3 4
-#define RULESET_BASIC    8  // like ctf_2fort - first to win the round, wins
-#define RULESET_FINAL    16 // like plr_pipeline - whoever wins the last round, wins
-#define RULESET_RED      32 // like cp_dustbowl - if red wins any round, they win the game, otherwise blu
 
 #define ERROR_GRACEFUL_SHUTDOWN           4
 #define ERROR_MESSAGES_NOT_BEING_RECEIVED 5 // MQLIMIT is reached!!
@@ -55,8 +47,15 @@ public Plugin:myinfo =
 #define TEAM_RED 2
 #define TEAM_BLU 3
 
-new String:mapdata_names[MAPS_NUMBER][MAPNAME_MAXSIZE] = {"ctf_2fort", "cp_dustbowl"};
-new mapdata_rulesets[MAPS_NUMBER] = {9, 36};
+// Enums for winning modes
+#define RULESET_ROUNDS_1 1
+#define RULESET_ROUNDS_2 2
+#define RULESET_ROUNDS_3 4
+#define RULESET_FINAL    8 // like plr_pipeline/ctf_2fort - whoever wins the last round, wins
+#define RULESET_RED      16 // like cp_dustbowl - if red wins any round, they win the game, otherwise blu
+
+new String:mapdata_names[MAPS_NUMBER][MAPNAME_MAXSIZE] = {"ctf_2fort", "cp_dustbowl", "plr_pipeline"};
+new mapdata_rulesets[MAPS_NUMBER] = {9, 20, 12};
 
 new String:allowedids[IDLIMIT][MAXIDSIZE]; // 1 string is 24 characters, null terminator included
 new teamnumbers[IDLIMIT];
@@ -119,11 +118,11 @@ public OnPluginStart()
 
 KillServer(errno)
 {
+  PushMessage("E%d", errno);
   serverKilled = errno;
-  PrintToChatAll("[GAMERIST] CATASTROPHIC FAILURE, SERVER KILLED, ERROR %d", errno);
   for(new i = 1; i < (GetMaxClients() + 1); i++) {
     if(IsClientConnected(i))
-      KickClient(i)
+      KickClient(i, "Server Error %d", errno)
   }
 }
 
@@ -180,7 +179,7 @@ PreGracefulShutdown(winteam)
   new String:winteamStr[4];
   if(winteam == TEAM_RED) winteamStr = "RED"; else winteamStr = "BLU";
   PrintToChatAll("[GAMERIST] Game over! Winning team is team %s", winteamStr);
-  CreateTimer(7.0, GracefulShutdown);
+  CreateTimer(30.0, GracefulShutdown);
 }
 
 public Action:GracefulShutdown(Handle:timer)
@@ -213,16 +212,20 @@ public Action:Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroa
 
 PushAllPlayerScores()
 {
-  new String:playerScores[512];
+  new String:playerScores[2048];
   playerScores[0] = 'D'; playerScores[1] = 'P';
   for(new i = 1; i < (GetMaxClients() + 1); i++) {
     if(IsClientConnected(i))
     {
-      new String:oneplayer[12];
-      Format(oneplayer, 12, "%d|%d|", i, GetClientFrags(i));
-      StrCat(playerScores, 512, oneplayer);
+      new String:oneplayer[48];
+      
+      new String:stid[MAXIDSIZE];
+      GetClientAuthId(i, AuthId_Steam2, stid, MAXIDSIZE)
+      Format(oneplayer, 48, "%s|%d|", stid, GetClientFrags(i));
+      StrCat(playerScores, 2048, oneplayer);
     }
   }
+  StrCat(playerScores, 2048, "&|"); // If fewer than playercount players are connected
   PushMessage(playerScores);
 }
 
@@ -366,12 +369,10 @@ handleMsg(String:str[], lpointer)
     pointer++;
     pointer = ReadStringUntil(str, msgn, pointer, '#');
     
-    PrintToChatAll(msgn);
-    
     new stid = atoi(msgn, 10);
     if(stid != cmid)
     {
-      // TODO KILL SERVER
+      KillServer(ERROR_MESSAGE_ACKS_OUT_OF_SYNC);
       return pointer + 1;
     }
     PrintToServer("Message %d acknowledged!", atoi(msgn, 10), pointer);
@@ -394,7 +395,6 @@ public OnSocketReceive(Handle:socket, String:rdata[], const size, any:arg)
   new pointer = 0;
   while((pointer < strlen(rdata)) && serverKilled == 0)
   {
-    PrintToChatAll("%d out of %d", pointer, strlen(rdata));
     pointer = handleMsg(rdata, pointer);
   }
   TryToPushMessages();

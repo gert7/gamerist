@@ -26,13 +26,17 @@ portlist = require("./handlr_portlist")
 Futures  = require("futures")
 MQ       = require("./handlr_mq_sub")
 
-read_to_newline = (data, cursor) ->
+read_to_character = (data, scursor, br) ->
   str = ""
+  cursor = scursor
   loop
-    break if data[cursor] == "\n"
+    break if data[cursor] == br
     str = str + data[cursor]
     cursor = cursor + 1
-  return str
+  return [cursor + 1, str]
+  
+read_to_newline = (data, cursor) ->
+  return read_to_character(data, cursor, '\n')[1]
 
 ackmsg = (client, mid, data) ->
   debug("sending A" + mid + "#" + data + "\n")
@@ -77,8 +81,44 @@ crunch_data = (client, data) ->
           ackmsg(client, msg_ind, "H")
           debug("Server on " + msg_port + " has heartbeat")
     else if(msg_body[0] == 'D')
-      debug("here be D")
-      ackmsg(client, msg_ind, "D")
+      if(msg_body[1] == 'T')
+        Futures.sequence()
+        .then (next) ->
+          portlist.get_port(msg_port, next)
+        .then (next, data) ->
+          debug(data)
+          MQ.send_upstream('{"protocol_version":1, "type": "teamwin", "id": ' + data.roomid + ', "winningteam": ' + (msg_body[2]) + ', "losingteam": ' + (msg_body[3]) + '}')
+          ackmsg(client, msg_ind, "A")
+      else if (msg_body[1] == 'P')
+        scores = []
+        Futures.sequence()
+        .then (next) ->
+          portlist.get_port(msg_port, next)
+        .then (next, data) ->
+          debug(data)
+          pcursor = 2
+          for i in [1 .. data.room.players.length]
+            stido   = read_to_character(msg_body, pcursor, '|')
+            pcursor = stido[0]
+            stid    = stido[1]
+            if(stid == '&') # fewer than playercount players were connected at this time
+              break
+            scoreo  = read_to_character(msg_body, pcursor, '|')
+            pcursor = scoreo[0]
+            score   = scoreo[1]
+            scores[i] = {"steamid" : stid, "score": score}
+          kato = '{"protocol_version":1, "type": "playerscores", "id": ' + data.roomid + ', "scores": ' + JSON.stringify(scores) + '}'
+          debug(kato)
+          MQ.send_upstream(kato)
+          ackmsg(client, msg_ind, "A")
+    else if(msg_body[0] == 'E')
+      errno = msg_body.match(/^E(\d+)$/)[1]
+      seq = Futures.sequence()
+      .then (next) ->
+        portlist.get_port(msg_port, next)
+      .then (next, data) ->
+        MQ.send_upstream('{"protocol_version":1, "type": "servererror", "id": ' + data.roomid + ', "errno": ' + errno + '}')
+        # don't bother acking, server's already killed
     else
       ackmsg(client, res[2], "T")
     cursor = str.length + 1
