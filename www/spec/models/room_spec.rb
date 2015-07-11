@@ -252,5 +252,31 @@ describe Room do
       expect(room.srules["players"].count).to eq 1
     end
   end
+  
+  describe "#assign_to_team" do
+    include_context "when players have money"
+    it "assigns to teams correctly" do
+      room.append_player! player1
+      room.append_player! player2
+      room.append_player! player3
+      room.append_player! player4
+      expect(room.srules["players"][0]["team"]).to eq 2
+      expect(room.srules["players"][1]["team"]).to eq 3
+      expect(room.srules["players"][2]["team"]).to eq 2
+      expect(room.srules["players"][3]["team"]).to eq 3
+    end
+    it "assigns teams after leaving" do
+      room.append_player! player1
+      room.append_player! player2
+      room.append_player! player3
+      room.remove_player! player1
+      room.append_player! player4
+      room.append_player! player1
+      expect(room.srules["players"][0]["team"]).to eq 3
+      expect(room.srules["players"][1]["team"]).to eq 2
+      expect(room.srules["players"][2]["team"]).to eq 2
+      expect(room.srules["players"][3]["team"]).to eq 3
+    end
+  end
 end
 

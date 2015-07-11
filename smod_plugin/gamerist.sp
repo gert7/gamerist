@@ -43,6 +43,8 @@ public Plugin:myinfo =
 #define ERROR_MESSAGE_ACKS_OUT_OF_SYNC    7 // Getting wrong numbers!!
 #define ERROR_UNRECOGNIZED_MAP            8 // this should not happen at all
 #define ERROR_SERVER_TIMED_OUT            9 // timed out to handlr
+#define ERROR_NOT_ENOUGH_PLAYERS          10 // not enough players connected!
+#define ERROR_VOTECANCEL                  11
 
 #define TEAM_RED 2
 #define TEAM_BLU 3
@@ -53,6 +55,8 @@ public Plugin:myinfo =
 #define RULESET_ROUNDS_3 4
 #define RULESET_FINAL    8 // like plr_pipeline/ctf_2fort - whoever wins the last round, wins
 #define RULESET_RED      16 // like cp_dustbowl - if red wins any round, they win the game, otherwise blu
+
+#define TEST_ALONE        1
 
 new String:mapdata_names[MAPS_NUMBER][MAPNAME_MAXSIZE] = {"ctf_2fort", "cp_dustbowl", "plr_pipeline"};
 new mapdata_rulesets[MAPS_NUMBER] = {9, 20, 12};
@@ -67,10 +71,17 @@ new cmid           = 0; // Last confirmed mid (left end of queue, big number)
 new nextmid        = 0; // The next mid to be added to the queue (right end of queue, next is this + 1)
 
 new serverKilled   = 0;
+new killingServer  = 0;
 
 new waitingForResponse = 0;
 
 new globalRoundsPlayed = 0;
+
+#define WFP_MAX_TRIES   10
+new wfptries = 1;
+
+new voteCancelAvailable = 1;
+new votedToCancel[32];
 
 new Handle:sharedSocket;
 
@@ -114,15 +125,22 @@ public OnPluginStart()
   PrintToChatAll(mapdata_names[1]);
   HookEvent("player_spawn", Event_PlayerSpawn, EventHookMode_Post);
   HookEvent("teamplay_round_win", Event_TeamplayRoundWin, EventHookMode_Post);
+  HookEvent("player_say", Event_PlayerSay, EventHookMode_Post);
+}
+
+DeclareError(errno)
+{
+  PushMessage("E%d", errno);
 }
 
 KillServer(errno)
 {
-  PushMessage("E%d", errno);
+  if(errno != ERROR_GRACEFUL_SHUTDOWN)
+    DeclareError(errno);
   serverKilled = errno;
   for(new i = 1; i < (GetMaxClients() + 1); i++) {
     if(IsClientConnected(i))
-      KickClient(i, "Server Error %d", errno)
+      KickClient(i, "Game ended with error %d", errno)
   }
 }
 
@@ -135,23 +153,81 @@ public Action:HeartBeat(Handle:timer)
 public Action:RestartSocket(Handle:timer)
 {
   new Handle:socket = SocketCreate(SOCKET_TCP, OnSocketError);
-  PrintToChatAll("[GAMERIST] Starting socket connect...");
+  PrintToServer("[GAMERIST] Starting socket connect...");
   SocketConnect(socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "127.0.0.1", 1996)
 }
 
 ClientListIndex(const String:auth[])
 {
-  PrintToChatAll("Looking for steamid %s", auth);
+  PrintToServer("Looking for steamid %s", auth);
   for(new i = 0; i < IDLIMIT; i++)
   {
     if(strcmp(auth, allowedids[i]) == 0) {
-      PrintToChatAll("Found at %d, teamnumber is %d", i, teamnumbers[i]);
+      PrintToServer("Found at %d, teamnumber is %d", i, teamnumbers[i]);
       return i; }
   }
+  // if(TEST_ALONE == 1) return 0;
   return -1;
 }
 
-// Get the ruleset enum for the current map
+ClientListIndexI(client)
+{
+  new String:sid[MAXIDSIZE];
+  GetClientAuthId(client, AuthId_Steam2, sid, MAXIDSIZE);
+  return ClientListIndex(sid);
+}
+
+//
+// Allow the players to vote cancel
+//
+
+CountVoteCancels()
+{
+  new total = 0;
+  for(new i = 0; i < 32; i++)
+  {
+    if(votedToCancel[i] == 1)
+      total++;
+  }
+  return total;
+}
+
+public Action:VoteCancelSucceeds(Handle:timer)
+{
+  KillServer(ERROR_VOTECANCEL);
+}
+
+public Action:DisableVoteCancel(Handle:timer)
+{
+  PrintToChatAll("[GAMERIST] !votecancel is now disabled");
+  voteCancelAvailable = 0;
+}
+
+public Action:Event_PlayerSay(Handle:event, const String:name[], bool dontBroadcast)
+{
+  new client = GetClientOfUserId(GetEventInt(event, "userid"));
+  new String:text[12];
+  GetEventString(event, "text", text, 12);
+  if(strcmp(text, "!votecancel") == 0)
+    if(voteCancelAvailable == 1)
+    {
+      if(TEST_ALONE == 0) votedToCancel[ClientListIndexI(client)] = 1;
+      else votedToCancel[0] = 1;
+      new count = CountVoteCancels();
+      PrintToChatAll("[GAMERIST] Number of votes to cancel game: %d/4", count); // TODO: ensure 4 is a good number
+      if(count >= 4)
+      {
+        PrintToChatAll("[GAMERIST] Voted to cancel game!!");
+        DeclareError(ERROR_VOTECANCEL);
+        killingServer = 1;
+        CreateTimer(7.0, VoteCancelSucceeds);
+      }
+    }
+}
+
+//
+// Get the rules for this map
+//
 MapListEnum()
 {
   new String:curmap[MAPNAME_MAXSIZE];
@@ -164,16 +240,99 @@ MapListEnum()
   return 0;
 }
 
+//
+// Are there enough players?
+// Should we keep waiting for them?
+//
+public Action:NotEnoughPlayers(Handle:timer)
+{
+  PrintToServer("NOT ENOUGH PLAYERS");
+  KillServer(ERROR_NOT_ENOUGH_PLAYERS);
+}
+
+// Returns 1 or 0 based on whether or not the number of players is sufficient right now
+AreEnoughPlayers()
+{
+  new ccount = 0;
+  for(new i = 0; i < GetMaxClients(); i++)
+  {
+    if(IsClientConnected(i+1) && !IsFakeClient(i+1))
+      ccount++;
+  }
+  new maxplayers = GetMaxClients();
+  // PrintToServer("ccount vs maxplayers: %d/%d", ccount, maxplayers);
+  if(ccount >= (maxplayers - 23)) // TODO: ensure this makes sense
+    return 1;
+  else
+    return 0;
+}
+
+new gameStarted = 0; // in case playercount falls to 0 and it goes back to wfp
+
+CheckPlayerCount(fatalmode)
+{
+  if(gameStarted == 0)
+  {
+    if(AreEnoughPlayers())
+    {
+      gameStarted = 1;
+      PrintToChatAll("[GAMERIST] Enough players have joined!");
+      PrintToChatAll("[GAMERIST] The game will start soon");
+      PrintToChatAll("[GAMERIST] !votecancel will be available for 2 minutes");
+      CreateTimer(120.0, DisableVoteCancel);
+    }
+    else if(fatalmode)
+    {
+      PrintToChatAll("[GAMERIST] Not enough players joined the game!");
+      PrintToChatAll("[GAMERIST] Server shutting down!");
+      CreateTimer(6.0, NotEnoughPlayers);
+    }
+  }
+}
+
+//
+// Is the client in the whitelist?
+//
 public OnClientAuthorized(client, const String:auth[])
 {
   PrintToServer("[GAMERIST] Client %d has SteamID %s", client, auth);
   if(serverKilled != 0)
     KickClient(client, "Game canceled due to error %d", serverKilled);
   else
-    if(ClientListIndex(auth) == -1)
+    if(ClientListIndex(auth) == -1 && TEST_ALONE == 0)
       KickClient(client, "You are not in the whitelist!");
+  CheckPlayerCount(0);
 }
 
+public Action:WaitingForPlayersReboot(Handle:timer)
+{
+  if(AreEnoughPlayers() == 0)
+  {
+    if(wfptries < WFP_MAX_TRIES)
+    {
+      wfptries++;
+      PrintToChatAll("[GAMERIST] Not enough players, waiting for players %d/%d...", wfptries, WFP_MAX_TRIES);
+      ServerCommand("mp_waitingforplayers_restart 1");
+      CreateTimer(25.0, WaitingForPlayersReboot);
+    }
+    else
+      CheckPlayerCount(1);
+  }
+}
+
+public TF2_OnWaitingForPlayersStart()
+{
+  CreateTimer(25.0, WaitingForPlayersReboot);
+}
+
+public TF2_OnWaitingForPlayersEnd()
+{
+  CheckPlayerCount(1);
+}
+
+//
+// Shut down the server, game is done
+//
 PreGracefulShutdown(winteam)
 {
   new String:winteamStr[4];
@@ -186,12 +345,14 @@ public Action:GracefulShutdown(Handle:timer)
 {
   for(new i = 1; i < (GetMaxClients() + 1); i++) {
     if(IsClientConnected(i))
-      KickClient(i)
+      KickClient(i, "Game has ended")
   }
   KillServer(ERROR_GRACEFUL_SHUTDOWN);
 }
 
-//userid
+//
+// Move the user to their team
+//
 public Action:Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast) 
 {
   new String:sid[MAXIDSIZE];
@@ -200,16 +361,19 @@ public Action:Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroa
   
   GetClientAuthId(client, AuthId_Steam2, sid, MAXIDSIZE);
   new ind = ClientListIndex(sid);
-  if(ind == -1){
-    KickClient(client);
+  if(ind == -1 && TEST_ALONE == 0){
+    KickClient(client, "Client not in list somehow!");
     return 0;
   }
-  PrintToServer("%d has joined team %d, should be team %d", client, team, teamnumbers[ind]);
-  if(teamnumbers[ind] != team)
+  // if(ind != -1) PrintToServer("%d has joined team %d, should be team %d", client, team, teamnumbers[ind]);
+  if(ind != -1 && teamnumbers[ind] != team)
     ChangeClientTeam(client, teamnumbers[ind]);
   return Plugin_Handled;
 }
 
+//
+// Tell handlr who won
+//
 PushAllPlayerScores()
 {
   new String:playerScores[2048];
@@ -274,6 +438,9 @@ public Action:Event_TeamplayRoundWin(Handle:event, const String:name[], bool:don
   return Plugin_Handled;
 }
 
+//
+// Deal with handlr
+//
 public OnSocketConnected(Handle:socket, any:arg)
 {
   PrintToServer("[GAMERIST] SOCKET CONNECTED");
@@ -383,7 +550,7 @@ handleMsg(String:str[], lpointer)
     new String:msg[256];
     pointer = ReadStringUntil(str, msg, pointer, '\n');
     
-    PrintToChatAll("Response was %s", msg);
+    PrintToServer("Response was %s", msg);
     handleMsgBody(msg);
     waitingForResponse = 0;
     return pointer;
@@ -397,12 +564,13 @@ public OnSocketReceive(Handle:socket, String:rdata[], const size, any:arg)
   {
     pointer = handleMsg(rdata, pointer);
   }
-  TryToPushMessages();
+  if(serverKilled == 0)
+    TryToPushMessages();
 }
 
 public OnSocketDisconnected(Handle:socket, any:arg)
 {
-  PrintToChatAll("[GAMERIST] Socket has disconnected!");
+  PrintToServer("[GAMERIST] Socket has disconnected!");
   CloseHandle(socket);
   sharedSocket = 0;
   CreateTimer(5.0, RestartSocket);
@@ -412,7 +580,7 @@ public OnSocketError(Handle:socket, const errorType, const errorNum, any:arg)
 {
   if(serverKilled == 0)
   {
-    PrintToChatAll("[GAMERIST] Socket has disconnected!");
+    PrintToServer("[GAMERIST] Socket has disconnected!");
     CloseHandle(socket);
     sharedSocket = 0;
     CreateTimer(5.0, RestartSocket);
@@ -421,36 +589,42 @@ public OnSocketError(Handle:socket, const errorType, const errorNum, any:arg)
 
 TryToPushMessages()
 {
-  if((nextmid - cmid) > MQLIMIT) {
-    KillServer(ERROR_MESSAGES_NOT_BEING_RECEIVED); }
-    
-  if(waitingForResponse == 0 && serverKilled == 0 && sharedSocket != 0)
+  if(TEST_ALONE == 0)
   {
-    PrintToServer("Trying to push messages... There are %d messages to be acknowledged", nextmid - cmid);
-    if(!waitingForResponse && cmid < nextmid)
+    if((nextmid - cmid) > MQLIMIT) {
+      KillServer(ERROR_MESSAGES_NOT_BEING_RECEIVED); }
+      
+    if(waitingForResponse == 0 && serverKilled == 0 && killingServer == 0 && sharedSocket != 0)
     {
-      new String:fstring[256];
-      PrintToChatAll("Pushing message %d#%s\n", cmid, messagequeue[clIndex]);
-      Format(fstring, 256, "%d;%d#%s\n", GetConVarInt(FindConVar("hostport")), cmid, messagequeue[clIndex]);
-      SocketSend(sharedSocket, fstring);
-      waitingForResponse = 1;
-    } 
+      PrintToServer("Trying to push messages... There are %d messages to be acknowledged", nextmid - cmid);
+      if(!waitingForResponse && cmid < nextmid)
+      {
+        new String:fstring[256];
+        PrintToServer("Pushing message %d#%s\n", cmid, messagequeue[clIndex]);
+        Format(fstring, 256, "%d;%d#%s\n", GetConVarInt(FindConVar("hostport")), cmid, messagequeue[clIndex]);
+        SocketSend(sharedSocket, fstring);
+        waitingForResponse = 1;
+      } 
+    }
   }
 }
 
 PushMessage(String:message[], any:...)
 {
-  if(serverKilled == 0)
+  if(TEST_ALONE == 0)
   {
-    if(nextmid > 4000000)
+    if(serverKilled == 0)
     {
-      KillServer(ERROR_MESSAGE_LIMIT_REACHED);
-      return 0;
+      if(nextmid > 4000000)
+      {
+        KillServer(ERROR_MESSAGE_LIMIT_REACHED);
+        return 0;
+      }
+      VFormat(messagequeue[crIndex], MAX_MESSAGESIZE, message, 2);
+      crIndex = (crIndex + 1) % MQLIMIT;
+      nextmid = (nextmid + 1);
+      TryToPushMessages();
     }
-    VFormat(messagequeue[crIndex], MAX_MESSAGESIZE, message, 2);
-    crIndex = (crIndex + 1) % MQLIMIT;
-    nextmid = (nextmid + 1);
-    TryToPushMessages();
   }
 }
 

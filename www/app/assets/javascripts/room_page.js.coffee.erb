@@ -25,7 +25,7 @@ String.prototype['autoLink'] = autoLink
 
 CHANGED_WAGER = false
 STAGING_WAGER = null
-UPTIMEOUT     = 3000
+UPTIMEOUT     = 20000
 CHATRENDERED  = false
 
 fetchPlayer = (data, id) ->
@@ -59,7 +59,7 @@ renderPlayerList = (data) ->
   $(srulesPlayers).attr("id", "srules_players")
   for i in [0..(data.rules.playercount - 1)]
     ply = data.rules.players[i]
-    $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_avatar'>" + (if ply then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if ply then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if ply then ply.wager else "") + "</div></div></div>")
+    $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_teambar_" + (if (ply and ply.team == 2) then "red" else if(ply and ply.team == 3) then "blu") + "'></div><div class='account_mini_avatar'>" + (if ply then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if ply then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if ply then ply.wager else "") + "</div></div></div>")
   $("#srules_players").replaceWith(srulesPlayers)
 
 # Pop up an error message if the user isn't in the room

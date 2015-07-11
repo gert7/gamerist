@@ -230,7 +230,31 @@ class Room < ActiveRecord::Base
   def append_player_hash(mrules, player_id)
     player = User.find(player_id)
     return mrules if fetch_player(player_id, mrules)
-    mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "steamid" => player.steamid.steamid, "timeout" => Time.now.to_i})
+    mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "steamid" => player.steamid.steamid, "timeout" => Time.now.to_i, "team" => 0})
+    mrules
+  end
+  
+  def teamcounts(mrules)
+    teams = [0, 0]
+    mrules["players"].each do |v|
+      if(v["team"] == 2)
+        teams[0] += 1
+      elsif(v["team"] == 3)
+        teams[1] += 1
+      end
+    end
+    return teams
+  end
+  
+  def assign_to_team(pi, mrules)
+    return mrules if mrules["players"][pi]["team"] != 0
+    tcount = self.teamcounts(mrules)
+    if(tcount[0] > tcount[1])
+      give = 3
+    else
+      give = 2 # by default, move to red
+    end
+    mrules["players"][pi]["team"] = give
     mrules
   end
   
@@ -242,6 +266,7 @@ class Room < ActiveRecord::Base
   def amend_player_hash(mrules, player, hash)
     mrules = append_player_hash(mrules, player.id)
     pi     = fetch_player(player.id, mrules)
+    mrules = assign_to_team(pi, mrules)
     if(hash["wager"] ? (hash["wager"] >= WAGER_MIN and
        hash["wager"] <= WAGER_MAX and
        player.total_balance >= hash["wager"]) : true)

@@ -97,7 +97,7 @@ crunch_data = (client, data) ->
         .then (next, data) ->
           debug(data)
           pcursor = 2
-          for i in [1 .. data.room.players.length]
+          for i in [0 .. (data.room.players.length - 1)]
             stido   = read_to_character(msg_body, pcursor, '|')
             pcursor = stido[0]
             stid    = stido[1]
