@@ -79,12 +79,16 @@ class Room < ActiveRecord::Base
 
   validates :game, inclusion: {in: $gamerist_mapdata["games"].map {|g| g["name"]}, message: "Game is not valid!!!"}
   validate :map_in_maplist
-  validates :playercount, inclusion: {in: [4, 8, 16, 24, 32], message: "Playercount is not valid!!!"}
+  if(Rails.env.test? or Rails.env.development?)
+    validates :playercount, inclusion: {in: [4, 8, 16, 24, 32], message: "Playercount is not valid!!!"}
+  else
+    validates :playercount, inclusion: {in: [8, 16, 24, 32], message: "Playercount is not valid!!!"}
+  end
   validates :wager, inclusion: {in: (WAGER_MIN-1)...(WAGER_MAX+1), message: "Wager of invalid size!!!"}
   #validates :server, inclusion: {in: [nil, ""].concat($gamerist_serverdata["servers"].map {|g| g["name"]}), message: "Server is not valid!!!"}
   validate :server_in_serverlist
   
-  before_validation  do
+  before_validation do
     self.state  ||= STATE_PUBLIC
     self.server ||= $gamerist_serverdata["servers"][0]["name"]
     @playercount = playercount.to_i
@@ -246,16 +250,26 @@ class Room < ActiveRecord::Base
     return teams
   end
   
-  def assign_to_team(pi, mrules)
-    return mrules if mrules["players"][pi]["team"] != 0
-    tcount = self.teamcounts(mrules)
-    if(tcount[0] > tcount[1])
-      give = 3
+  def assign_to_team(pi, mrules, hash)
+    piteam = mrules["players"][pi]["team"]
+    return true if ((piteam == hash["team"]) or (piteam != 0))
+    tcount  = self.teamcounts(mrules)
+    perteam = mrules["playercount"] / 2
+    if hash["team"]
+      if(hash["team"] == 2 and tcount[0] < perteam)
+        give = 2
+      elsif(hash["team"] == 3 and tcount[1] < perteam)
+        give = 3
+      end
     else
-      give = 2 # by default, move to red
+      if(tcount[0] > tcount[1])
+        give = 3
+      else
+        give = 2 # by default, move to red
+      end
     end
     mrules["players"][pi]["team"] = give
-    mrules
+    return true
   end
   
   # Modifies a player's hash in a ruleset
@@ -266,7 +280,7 @@ class Room < ActiveRecord::Base
   def amend_player_hash(mrules, player, hash)
     mrules = append_player_hash(mrules, player.id)
     pi     = fetch_player(player.id, mrules)
-    mrules = assign_to_team(pi, mrules)
+    assign_to_team(pi, mrules, hash)
     if(hash["wager"] ? (hash["wager"] >= WAGER_MIN and
        hash["wager"] <= WAGER_MAX and
        player.total_balance >= hash["wager"]) : true)
@@ -311,6 +325,14 @@ class Room < ActiveRecord::Base
     self.srules = _remove_player!(player_id, removenoticemsg(srules, player_id))
     return true unless p.reservation_is_room?(self.id)
     User.new(id: player_id).unreserve_from_room(self.id)
+  end
+  
+  def prejoindata(user)
+    if(user.total_balance < self.srules["wager"])
+      return "NW"
+    else
+      return "Y"
+    end
   end
   
   # Amend the given player's standing in the Room's ruleset
@@ -366,6 +388,8 @@ class Room < ActiveRecord::Base
   def update_xhr(cuser, params)
     if params["upclass"] == "chatroom"
       append_chatmessage!(cuser, params["message"]) unless params["message"].gsub(/\s+/, "") == ""
+    elsif params["upclass"] == "prejoin"
+      a = 0
     else # readywager
       if(params["wager"] and params["wager"].to_i == 0)
         remove_player! cuser
