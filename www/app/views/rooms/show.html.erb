@@ -19,10 +19,10 @@
     <div id="srules_wager">
       <div class="srules_wagerselect srules_wagerselect_bg">
           <div id="srules_wagerselector_outer">
-            <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" id="srules_wagerselector" class="pointsIcon"></input>
+            <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" id="srules_wagerselector" class="pointsIcon" disabled="disabled"></input>
           </div>
           <div id="srules_wagersubmitc">
-            <input type="submit" id="srules_wagersubmit" value="Submit"></input>
+            <input type="submit" id="srules_wagersubmit" value="Submit" disabled="disabled"></input>
           </div>
         <label id="srules_roomwager_label">Room wager:</label>
         <div id="srules_roomwager">
@@ -37,19 +37,29 @@
         </label>
         <div id="srules_readybutton_outer">
           <input type="hidden" id="srules_readystatus" name="room[ready]" value="0"></input>
-          <input type="button" id="srules_readybutton" value="Ready"></input>
+          <input type="button" id="srules_readybutton" value="Ready" disabled="disabled"></input>
         </div>
       </div>
     </div>
   </div>
   <div class="srules_hr saturatedBackground"></div>
   <div id="srules_players_chat">
-    <div id="srules_players">
-      <div id="srules_player_1" class="srules_player">
-        <div class="account_mini">
-          <div class="account_mini_avatar">
-          </div>
-          <div class="account_mini_name">
+    <div id="srules_players_container">
+      <div id="srules_teamselect">
+        <button id="srules_teamselect_red">
+          Join Red Team
+        </button>
+        <button id="srules_teamselect_blu">
+          Join Blu Team
+        </button>
+      </div>
+      <div id="srules_players">
+        <div id="srules_player_1" class="srules_player">
+          <div class="account_mini">
+            <div class="account_mini_avatar">
+            </div>
+            <div class="account_mini_name">
+            </div>
           </div>
         </div>
       </div>

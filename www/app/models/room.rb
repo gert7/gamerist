@@ -163,8 +163,9 @@ class Room < ActiveRecord::Base
   # @return [Hash] new version of srules
   def dump_timeout_players(mrules)
     mrules["players"].each_with_index do |p, ind|
-      if((p["timeout"].to_i < Time.now.to_i) or
-         not User.new(id: p["id"]).reservation_is_room?(self.id))
+      if (p["team"].to_s != "0" and
+          ((p["timeout"].to_i < Time.now.to_i) or
+          not User.new(id: p["id"]).reservation_is_room?(self.id)))
         mrules["players"].delete_at(ind)
       end
     end
@@ -182,11 +183,11 @@ class Room < ActiveRecord::Base
   # @param [Hash] mrules old version of srules
   # @return [Hash] new version of srules
   def check_wager(mrules)
-    wagers = mrules["players"].map {|v| v["wager"]}
+    wagers = mrules["players"].select{|v| v["team"].to_s != "0" and v["wager"].to_i > 0}.map {|v| v["wager"]}
     min, max = wagers.min, wagers.max
-    if(min and (min > mrules["wager"]))
+    if(min and (min > mrules["wager"].to_i))
       mrules["wager"] = min
-    elsif(max and (max < mrules["wager"]))
+    elsif(max and (max < mrules["wager"].to_i))
       mrules["wager"] = max
     end
     mrules
@@ -196,7 +197,7 @@ class Room < ActiveRecord::Base
   # if 1) the room is full 2) everyone is ready.
   # This method may write to ActiveRecord
   def lock_if_ready(ruleset)
-    if(ruleset["players"].count == ruleset["playercount"] and
+    if(self.total_players(ruleset) == ruleset["playercount"] and
        self.is_public? and
        ruleset["players"].inject(true) {|acc, v| acc and v["ready"].to_i == 1})
       self.rstate = STATE_LOCKED
@@ -234,7 +235,7 @@ class Room < ActiveRecord::Base
   def append_player_hash(mrules, player_id)
     player = User.find(player_id)
     return mrules if fetch_player(player_id, mrules)
-    mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => srules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "steamid" => player.steamid.steamid, "timeout" => Time.now.to_i, "team" => 0})
+    mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => mrules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "steamid" => player.steamid.steamid, "team" => 0})
     mrules
   end
   
@@ -250,26 +251,54 @@ class Room < ActiveRecord::Base
     return teams
   end
   
+  def total_players(mrules)
+    teams = self.teamcounts(mrules)
+    return teams[0] + teams[1]
+  end
+  
   def assign_to_team(pi, mrules, hash)
+    puts mrules["players"]
+    return mrules unless hash["team"]
+    mrules["players"][pi]["team"] = 0 if (hash["team"].to_s == "0")
+    return mrules if hash["team"].to_s == "0"
     piteam = mrules["players"][pi]["team"]
-    return true if ((piteam == hash["team"]) or (piteam != 0))
+    return mrules if piteam == hash["team"]
     tcount  = self.teamcounts(mrules)
     perteam = mrules["playercount"] / 2
+    puts perteam
+    puts tcount
     if hash["team"]
-      if(hash["team"] == 2 and tcount[0] < perteam)
-        give = 2
-      elsif(hash["team"] == 3 and tcount[1] < perteam)
-        give = 3
-      end
-    else
-      if(tcount[0] > tcount[1])
-        give = 3
+      if(hash["team"].to_i == 2 and tcount[0] < perteam)
+        mrules["players"][pi]["team"] = 2
+      elsif(hash["team"].to_i == 3 and tcount[1] < perteam)
+        mrules["players"][pi]["team"] = 3
       else
-        give = 2 # by default, move to red
+        mrules["players"][pi]["team"] = 0
       end
+    #else
+    #  if(tcount[0] > tcount[1])
+    #    give = 3
+    #  else
+    #    give = 2 # by default, move to red
+    #  end
     end
-    mrules["players"][pi]["team"] = give
-    return true
+    mrules["players"][pi]["wager"] = mrules["wager"]
+    return mrules
+  end
+  
+  def amend_player_wager(mrules, player, pi, hash)
+    if(hash["wager"] and 
+       hash["wager"].to_i >= WAGER_MIN and
+       hash["wager"].to_i <= WAGER_MAX and
+       player.total_balance >= hash["wager"].to_i)
+      mrules["players"][pi]["wager"] = hash["wager"]
+    end
+    mrules
+  end
+  
+  def amend_player_ready(mrules, pi, hash)    
+    mrules["players"][pi]["ready"] = hash["ready"] if(hash["ready"])
+    mrules
   end
   
   # Modifies a player's hash in a ruleset
@@ -280,25 +309,25 @@ class Room < ActiveRecord::Base
   def amend_player_hash(mrules, player, hash)
     mrules = append_player_hash(mrules, player.id)
     pi     = fetch_player(player.id, mrules)
-    assign_to_team(pi, mrules, hash)
-    if(hash["wager"] ? (hash["wager"] >= WAGER_MIN and
-       hash["wager"] <= WAGER_MAX and
-       player.total_balance >= hash["wager"]) : true)
-      mrules["players"][pi] = mrules["players"][pi].merge(hash)
-    end
+    mrules = assign_to_team(pi, mrules, hash)
+    mrules = amend_player_wager(mrules, player, pi, hash)
+    mrules = amend_player_ready(mrules, pi, hash)
+    mrules["players"][pi]["timeout"] = Time.now.to_i + ROOM_TIMEOUT
     mrules
   end
   
   def aamend_player(player_id, hash)
     mrules = self.srules
     player = User.new(id: player_id)
-      return false unless (self.is_public?)
-      return false unless (mrules["players"].count < mrules["playercount"])
+    return false unless (self.is_public?)
+    if hash["team"] and hash["team"].to_i != 0
+      return false unless (self.total_players(mrules) < mrules["playercount"])
       unless (player.reserve_room!(self.id, mrules))
         self.srules = _remove_player!(player_id, mrules)
         return false
       end
-    hash["timeout"] = (Time.now + ROOM_TIMEOUT).to_i
+      hash["timeout"] = (Time.now + ROOM_TIMEOUT).to_i
+    end
     self.srules = check_ready(amend_player_hash(mrules, player, hash))
     true
   end
@@ -388,13 +417,13 @@ class Room < ActiveRecord::Base
   def update_xhr(cuser, params)
     if params["upclass"] == "chatroom"
       append_chatmessage!(cuser, params["message"]) unless params["message"].gsub(/\s+/, "") == ""
-    elsif params["upclass"] == "prejoin"
+    elsif params["upclass"] == "generic"
       a = 0
     else # readywager
-      if(params["wager"] and params["wager"].to_i == 0)
-        remove_player! cuser
-      else 
-        amend_player!(cuser, {"wager" => params["wager"].to_i, "ready" => params["ready"].to_i})
+      if(params["wager"] and params["wager"].to_s == "0")
+        remove_player!(cuser)
+      else
+        amend_player!(cuser, params)
       end
     end
   end

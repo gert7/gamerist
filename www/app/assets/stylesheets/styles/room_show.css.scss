@@ -198,9 +198,67 @@ form {
   background:#333;
 }
 
+#srules_players_container {
+  vertical-align:top;
+  display:inline-block;
+  width:606px;
+}
+
+#srules_teamselect {
+  width:606px;
+  background:#0e0d26;
+  display:block;
+  vertical-align:top;
+  height:64px;
+}
+
+#srules_teamselect_red {
+  margin-left:32px;
+  margin-top:16px;
+  width:250px;
+  height:32px;
+  display:inline-block;
+  background:hsl(2,66,25);
+  border:1px solid hsl(2,66,50);
+  font-size:1.3em;
+  color:white;
+  font-family: "Blue Highway Regular";
+  cursor:pointer;
+}
+
+#srules_teamselect_red:hover {
+  background:hsl(2,66,35);
+}
+
+#srules_teamselect_red:active {
+  background:hsl(2,66,15);
+}
+
+#srules_teamselect_blu {
+  margin-left:32px;
+  margin-top:16px;
+  width:250px;
+  height:32px;
+  display:inline-block;
+  background:hsl(180,66,25);
+  border:1px solid hsl(180,66,50);
+  font-size:1.3em;
+  color:white;
+  font-family: "Blue Highway Regular";
+  cursor:pointer;
+}
+
+#srules_teamselect_blu:hover {
+  background:hsl(180,66,35);
+}
+
+#srules_teamselect_blu:active {
+  background:hsl(180,66,15);
+}
+
 #srules_players {
   width:606px;
-  background:#aaa;
+  background:#0e0d26;
   display:inline-block;
   vertical-align:top;
 }
@@ -218,7 +276,6 @@ form {
 #srules_chatbox {
   width:410px;
   display:inline-block;
-  height:312px;
   vertical-align:top;
   box-sizing:border-box;
   padding:12px;
@@ -228,7 +285,7 @@ form {
   border:1px solid #ccc;
   background:#ddd;
   width:100%;
-  height:206px;
+  height:380px;
   overflow:scroll;
   padding:8px;
   box-sizing:border-box;

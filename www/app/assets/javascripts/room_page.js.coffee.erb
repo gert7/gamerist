@@ -25,7 +25,7 @@ String.prototype['autoLink'] = autoLink
 
 CHANGED_WAGER = false
 STAGING_WAGER = null
-UPTIMEOUT     = 20000
+UPTIMEOUT     = 5000
 CHATRENDERED  = false
 
 fetchPlayer = (data, id) ->
@@ -69,7 +69,6 @@ declareInRoom = (t) ->
   else
     $("#srules_notice").css("display", "block")
     $("#srules_notice").text("You are not in this room!")
-    UPTIMEOUT = 12000
 
 chatLine = (steamname, message) ->
   name = $("<div/>").text(steamname).html()
@@ -116,23 +115,28 @@ updatePageObject = (data) ->
   curp = fetchCurrentPlayer(data)
   if curp
     declareInRoom(true)
-    #if curp.ready == 1
-      #setReady()
-    #else
-      #setUnready()
+    if curp.ready == 1
+      setReady()
+    else
+      setUnready()
   else
     declareInRoom(false)
   renderPlayerList(data)
   if(data.state != 1)
+    console.log(data.state)
     UPTIMEOUT = 12000
+
+updatePageEdit = (addkey, addvalue) ->
+  comei = {"_method": "patch", "upclass": "readywager"}
+  comei[addkey] = addvalue
+  #STAGING_WAGER = $("#srules_wagerselector").val()
+  #if(CHANGED_WAGER)
+  #  comei.wager = STAGING_WAGER
+  $.post(document.location + ".json", comei, updatePageObject)
 
 updatePage = (now, dowager, NEXTUP) ->
   if(now or !NEXTUP or (Date.now() >= NEXTUP))
-    comei = {"_method": "patch", "upclass": "readywager", "ready": $("#srules_readystatus").val()}
-    if(dowager)
-      STAGING_WAGER = $("#srules_wagerselector").val()
-    if(CHANGED_WAGER)
-      comei.wager = STAGING_WAGER
+    comei = {"_method": "patch", "upclass": "generic"}
     $.post(document.location + ".json", comei, updatePageObject)
   if NEXTUP
     if(Date.now() >= NEXTUP)
@@ -149,10 +153,10 @@ $(document).ready () ->
     updatePage(true, false)
     setTimeout((() -> updatePage(false, false, Date.now() + UPTIMEOUT)), UPTIMEOUT)
     $("#srules_wagersubmit").click () ->
-      updatePage(true, true)
+      updatePageEdit("wager", $("#srules_wagerselector").val())
     $("#srules_readybutton").click () ->
       toggleReady()
-      updatePage(true, false)
+      updatePageEdit("ready", $("#srules_readystatus").val())
     $("#srules_chatbox_inputsubmit").click () ->
       sendChatMessage()
     $("#srules_chatbox_input").keydown (e) ->
