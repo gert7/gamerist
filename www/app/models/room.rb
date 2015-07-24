@@ -109,7 +109,9 @@ class Room < ActiveRecord::Base
   
   # Check if the is_alive key is set for this room in Redis
   def is_alive?
-    true if $redis.hget(rapidkey, "is_alive") == "true"
+    return true if Rails.env.development?
+    return true if $redis.hget(rapidkey, "is_alive") == "true"
+    false
   end
   
   # @return hash containing the ruleset for this room, includes all central data except state (see rstate)
@@ -183,7 +185,7 @@ class Room < ActiveRecord::Base
   # @param [Hash] mrules old version of srules
   # @return [Hash] new version of srules
   def check_wager(mrules)
-    wagers = mrules["players"].select{|v| v["team"].to_s != "0" and v["wager"].to_i > 0}.map {|v| v["wager"]}
+    wagers = mrules["players"].select{|v| v["team"].to_s != "0" and v["wager"].to_i > 0}.map {|v| v["wager"].to_i}
     min, max = wagers.min, wagers.max
     if(min and (min > mrules["wager"].to_i))
       mrules["wager"] = min
@@ -309,9 +311,9 @@ class Room < ActiveRecord::Base
   def amend_player_hash(mrules, player, hash)
     mrules = append_player_hash(mrules, player.id)
     pi     = fetch_player(player.id, mrules)
-    mrules = assign_to_team(pi, mrules, hash)
-    mrules = amend_player_wager(mrules, player, pi, hash)
-    mrules = amend_player_ready(mrules, pi, hash)
+    mrules = assign_to_team(pi, mrules, hash)             if hash["team"]
+    mrules = amend_player_wager(mrules, player, pi, hash) if hash["wager"]
+    mrules = amend_player_ready(mrules, pi, hash)         if hash["ready"]
     mrules["players"][pi]["timeout"] = Time.now.to_i + ROOM_TIMEOUT
     mrules
   end

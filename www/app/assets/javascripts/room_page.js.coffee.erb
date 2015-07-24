@@ -23,6 +23,13 @@ autoLink = (options...) ->
 
 String.prototype['autoLink'] = autoLink
 
+random_unique_signature = () ->
+  text = ""
+  possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for i in [0..7]
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text
+
 CHANGED_WAGER = false
 STAGING_WAGER = null
 UPTIMEOUT     = 5000
@@ -57,15 +64,21 @@ toggleReady = () ->
 renderPlayerList = (data) ->
   srulesPlayers = document.createElement("div")
   $(srulesPlayers).attr("id", "srules_players")
+  console.dir(data)
   for i in [0..(data.rules.playercount - 1)]
-    ply = data.rules.players[i]
-    $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_teambar_" + (if (ply and ply.team == 2) then "red" else if(ply and ply.team == 3) then "blu") + "'></div><div class='account_mini_avatar'>" + (if ply then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if ply then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if ply then ply.wager else "") + "</div></div></div>")
+    ply    = data.rules.players[i]
+    isTeam = false
+    (if ply and String(ply.team) != "0" then isTeam = true)
+    $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_teambar_" + (if (isTeam and ply.team == 2) then "red" else if(isTeam and ply.team == 3) then "blu") + "'></div><div class='account_mini_avatar'>" + (if isTeam then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if isTeam then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if isTeam then ply.wager else "") + "</div></div></div>")
   $("#srules_players").replaceWith(srulesPlayers)
 
 # Pop up an error message if the user isn't in the room
 declareInRoom = (t) ->
   if(t)
     $("#srules_notice").css("display", "none")
+    $("#srules_wagerselector").prop('disabled', false);
+    $("#srules_wagersubmit").prop('disabled', false);
+    $("#srules_readybutton").prop('disabled', false);
   else
     $("#srules_notice").css("display", "block")
     $("#srules_notice").text("You are not in this room!")
@@ -97,7 +110,11 @@ updateChat = (data) ->
       $("#srules_chatbox_text").append("<div class='srules_chatbox_message' index='" + msg.index + "'>" + chatLine(ply.steamname, msg) + "</div>")
       $("#srules_chatbox_text").animate({ scrollTop: 9999999 }, 0)
 
+# ## GLOBAL TO AVOID FLICKERING
+CURRENT_UNIQUE_SIGNATURE = random_unique_signature()
+
 updatePageObject = (data) ->
+  return false if data.uniquesignature != CURRENT_UNIQUE_SIGNATURE
   $("#srules_info_column_game").text("Game: " + data.rules.game)
   $("#srules_info_column_map").text("Map: " + data.rules.map)
   $("#srules_info_column_playercount").text("Players: " + data.rules.playercount)
@@ -115,7 +132,7 @@ updatePageObject = (data) ->
   curp = fetchCurrentPlayer(data)
   if curp
     declareInRoom(true)
-    if curp.ready == 1
+    if curp.ready == "1"
       setReady()
     else
       setUnready()
@@ -127,7 +144,8 @@ updatePageObject = (data) ->
     UPTIMEOUT = 12000
 
 updatePageEdit = (addkey, addvalue) ->
-  comei = {"_method": "patch", "upclass": "readywager"}
+  CURRENT_UNIQUE_SIGNATURE = random_unique_signature()
+  comei = {"_method": "patch", "upclass": "readywager", "uniquesignature": CURRENT_UNIQUE_SIGNATURE}
   comei[addkey] = addvalue
   #STAGING_WAGER = $("#srules_wagerselector").val()
   #if(CHANGED_WAGER)
@@ -136,7 +154,8 @@ updatePageEdit = (addkey, addvalue) ->
 
 updatePage = (now, dowager, NEXTUP) ->
   if(now or !NEXTUP or (Date.now() >= NEXTUP))
-    comei = {"_method": "patch", "upclass": "generic"}
+    CURRENT_UNIQUE_SIGNATURE = random_unique_signature()
+    comei = {"_method": "patch", "upclass": "generic", "uniquesignature": CURRENT_UNIQUE_SIGNATURE}
     $.post(document.location + ".json", comei, updatePageObject)
   if NEXTUP
     if(Date.now() >= NEXTUP)
@@ -165,4 +184,8 @@ $(document).ready () ->
     $("#srules_chatbox_input").keyup (e) ->
       if(e.which == 13)
         $("#srules_chatbox_input").val("")
+    $("#srules_teamselect_red").click () ->
+      updatePageEdit("team", "2");
+    $("#srules_teamselect_blu").click () ->
+      updatePageEdit("team", "3");
         
