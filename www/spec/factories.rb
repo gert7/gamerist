@@ -33,6 +33,12 @@ FactoryGirl.define do
     association :steamid, factory: :steamid
   end
   
+  factory :player5, class: :user do
+    email "stoip@stopi.com"
+    password "virriburus"
+    association :steamid, factory: :steamid
+  end
+  
   factory :paypal do
     amount 100.0
     subtotal 100.0

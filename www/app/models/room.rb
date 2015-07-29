@@ -195,13 +195,20 @@ class Room < ActiveRecord::Base
     mrules
   end
   
+  # Removes all players not in teams
+  def remove_exo_players(mrules)
+    mrules["players"].delete_if {|value| value["team"].to_s == "0"}
+    return mrules
+  end
+  
   # Locks the room and saves it in ActiveRecord
   # if 1) the room is full 2) everyone is ready.
   # This method may write to ActiveRecord
   def lock_if_ready(ruleset)
-    if(self.total_players(ruleset) == ruleset["playercount"] and
-       self.is_public? and
-       ruleset["players"].inject(true) {|acc, v| acc and v["ready"].to_i == 1})
+    if((self.total_players(ruleset) == ruleset["playercount"]) and
+       (self.is_public?) and
+       (ruleset["players"].inject(true) {|acc, v| acc and (v["ready"].to_i == 1 or v["team"].to_s == "0")}))
+      ruleset     = remove_exo_players(ruleset)
       self.rstate = STATE_LOCKED
       self.save!
     end
@@ -259,7 +266,6 @@ class Room < ActiveRecord::Base
   end
   
   def assign_to_team(pi, mrules, hash)
-    puts mrules["players"]
     return mrules unless hash["team"]
     mrules["players"][pi]["team"] = 0 if (hash["team"].to_s == "0")
     return mrules if hash["team"].to_s == "0"
@@ -267,8 +273,6 @@ class Room < ActiveRecord::Base
     return mrules if piteam == hash["team"]
     tcount  = self.teamcounts(mrules)
     perteam = mrules["playercount"] / 2
-    puts perteam
-    puts tcount
     if hash["team"]
       if(hash["team"].to_i == 2 and tcount[0] < perteam)
         mrules["players"][pi]["team"] = 2

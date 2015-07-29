@@ -6,6 +6,7 @@ describe Room do
   let(:player2) { FactoryGirl.create(:player2) }
   let(:player3) { FactoryGirl.create(:player3) }
   let(:player4) { FactoryGirl.create(:player4) }
+  let(:player5) { FactoryGirl.create(:player5) }
   let(:room2) { FactoryGirl.create :room2 }
 
   shared_context("when players have money") do
@@ -202,6 +203,21 @@ describe Room do
       room.amend_player! player3, {}
       room.amend_player! player4, "ready" => 1
       expect(room.state).to eq Room::STATE_PUBLIC
+    end
+  end
+  
+  describe "#remove_exo_players" do
+    include_context "when players have money"
+    it "removes all non-teamed players" do
+      room.amend_player! player1, "team" => 2, "ready" => 1
+      room.amend_player! player2, "team" => 2, "ready" => 1
+      room.amend_player! player3, "team" => 3, "ready" => 1
+      room.amend_player! player4, {}
+      expect(room.state).to eq Room::STATE_PUBLIC
+      room.amend_player! player5, "team" => 3, "ready" => 1
+      expect(room.state).to eq Room::STATE_LOCKED
+      expect(room.total_players(room.srules)).to eq 4
+      expect(room.srules["players"].count).to eq 4
     end
   end
   
