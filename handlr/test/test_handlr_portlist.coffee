@@ -91,7 +91,7 @@ describe "portlist", ->
     it "remembers some available port", (done) ->
       seq = Futures.sequence()
       .then (next) ->
-        portlist.remember_a_port(192, {}, next)
+        portlist.remember_a_port(192, {playercount: 16}, next)
       .then (next, port, err) ->
         expect(port).to.equal Config.ports[0]
         portlist.get_port(Config.ports[0], next)
@@ -101,14 +101,36 @@ describe "portlist", ->
     it "remembers the next available port", (done) ->
       seq = Futures.sequence()
       .then (next) ->
-        portlist.remember_a_port(193, {}, next)
+        portlist.remember_a_port(193, {playercount: 32}, next)
       .then (next, port) ->
         expect(port).to.equal Config.ports[0]
-        portlist.remember_a_port(194, {}, next)
+        portlist.remember_a_port(194, {playercount: 32}, next)
       .then (next, port) ->
         expect(port).to.equal Config.ports[1]
-        portlist.remember_a_port(196, {}, next)
+        portlist.remember_a_port(196, {playercount: 32}, next)
       .then (next, port) ->
         expect(port).to.equal Config.ports[2]
+        portlist.remember_a_port(197, {playercount: 32}, next)
+      .then (next, port) ->
+        expect(port).to.equal Config.ports[3]
+        done()
+    it "fails due to lack of memory", (done) ->
+      seq = Futures.sequence()
+      .then (next) ->
+        portlist.remember_a_port(193, {playercount: 32}, next)
+      .then (next, port) ->
+        expect(port).to.equal Config.ports[0]
+        portlist.remember_a_port(194, {playercount: 32}, next)
+      .then (next, port) ->
+        expect(port).to.equal Config.ports[1]
+        portlist.remember_a_port(196, {playercount: 32}, next)
+      .then (next, port) ->
+        expect(port).to.equal Config.ports[2]
+        portlist.remember_a_port(197, {playercount: 32}, next)
+      .then (next, port) ->
+        expect(port).to.equal Config.ports[3]
+        portlist.remember_a_port(197, {playercount: 32}, next)
+      .then (next, port) ->
+        expect(port).not.to.equal Config.ports[4]
         done()
         

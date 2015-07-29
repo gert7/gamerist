@@ -13,6 +13,17 @@ Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
 servers = new Nedb({filename: "server.db" + (if Config.testmode then ".test"), autoload: true})
 servers.ensureIndex({fieldName: "port", unique: true})
 
+os = require('os')
+if(not Config.testmode)
+  system_total_memory = os.totalmem() - 256000000
+else
+  system_total_memory = 3100000000
+  
+debug(system_total_memory)
+
+SINGLE_SERVER_BASE_RAM = 256000000
+SINGLE_PLAYER_RAM = 16000000
+
 unixtime = ->
   return Math.floor(Date.now() / 1000)
 
@@ -55,6 +66,20 @@ remember_port = (port, roomid, room, callback) ->
     if err then debug("ERROR: Port " + port + " is still alive and in use!") else debug("Inserting room " + roomid + " into port " + port)
     (callback || ->)(err)
 
+enough_room = (records, playercount) ->
+  put_ram_usage = 0
+  for doc in records
+    debug(records.length)
+    pc = doc.room.playercount
+    put_ram_usage += SINGLE_SERVER_BASE_RAM + (SINGLE_PLAYER_RAM * pc)
+  put_ram_usage += SINGLE_SERVER_BASE_RAM + (SINGLE_PLAYER_RAM * playercount)
+  debug(put_ram_usage)
+  debug(system_total_memory)
+  if(put_ram_usage < system_total_memory)
+    return true
+  else
+    return false
+  
 remember_a_port = (roomid, room, callback) ->
   seq = Futures.sequence()
   .then (next) ->
@@ -62,6 +87,12 @@ remember_a_port = (roomid, room, callback) ->
   .then (next) ->
     servers.find({}, next)
   .then (next, err, records) ->
+    if(enough_room(records, room.playercount))
+      next(err, records)
+    else
+      callback(null, true)
+  .then (next, err, records) ->
+    debug(records)
     portns = []
     for portn in Config.ports
       portns.push({number: portn, taken: false})
@@ -79,9 +110,9 @@ remember_a_port = (roomid, room, callback) ->
     if pn
       remember_port(pn, roomid, room, ((err) -> next(pn, err)))
     else
-      next(null, true)
-  .then (next, port, err) ->
-    callback(port, err)
+      callback(null, true)
+  .then (next, pn, err) ->
+    callback(pn, err)
 
 get_port = (port, callback) ->
   debug("Getting port " + port)
