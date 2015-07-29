@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_room, only: [:show, :edit, :destroy]
   before_filter :authenticate_user!
   skip_before_action :verify_authenticity_token
   # GET /rooms
@@ -48,7 +48,9 @@ class RoomsController < ApplicationController
   # PATCH/PUT /rooms/1
   # PATCH/PUT /rooms/1.json
   def update
-    extramessages    = @room.update_xhr(current_user, params)
+    @room = Room.new(id: params[:id])
+    
+    @room.update_xhr(current_user, params)
     @uniquesignature = params["uniquesignature"]
     respond_to do |format|
       format.html { redirect_to @room }

@@ -100,6 +100,8 @@ class Room < ActiveRecord::Base
   end
   
   after_save do
+    $redis.hset rapidkey, "rules", self.rules
+    $redis.hset rapidkey, "state", self.state
     $redis.hset rapidkey, "is_alive", "true"
   end
   
@@ -346,7 +348,10 @@ class Room < ActiveRecord::Base
       end
       hash["timeout"] = (Time.now + ROOM_TIMEOUT).to_i
     end
-    self.srules = check_ready(amend_player_hash(mrules, player, hash))
+    mrules = check_ready(amend_player_hash(mrules, player, hash))
+    puts mrules
+    self.srules = mrules
+    puts self.srules
     true
   end
   
@@ -415,6 +420,7 @@ class Room < ActiveRecord::Base
     mrules["messages"] << {"index" => ind + 1, "message" => msg, "user_id" => player_id, "addendum" => []}
     mrules["messages"] = mrules["messages"][1..-1] if(mrules["messages"].count > Room::MESSAGES_STORE_MAX)
     self.srules = mrules
+    puts self.srules
   end
   
   # Append a chat message associated with a user

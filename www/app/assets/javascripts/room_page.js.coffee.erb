@@ -111,7 +111,7 @@ updateChat = (data) ->
       $("#srules_chatbox_text").animate({ scrollTop: 9999999 }, 0)
 
 # ## GLOBAL TO AVOID FLICKERING
-CURRENT_UNIQUE_SIGNATURE = random_unique_signature()
+CURRENT_UNIQUE_SIGNATURE = ""
 
 postErrorMessages = (data) ->
   if data.personal_messages and (data.personal_messages.length > 0)
@@ -172,7 +172,7 @@ updatePage = (now, dowager, NEXTUP) ->
       setTimeout((() -> updatePage(false, false, NEXTUP)), UPTIMEOUT)
 
 sendChatMessage = () ->
-  comei = {"_method": "patch", "upclass": "chatroom", "message": $("#srules_chatbox_input").val()}
+  comei = {"_method": "patch", "upclass": "chatroom", "message": $("#srules_chatbox_input").val(), "uniquesignature": CURRENT_UNIQUE_SIGNATURE}
   $.post(document.location + ".json", comei, updatePageObject)
 
 $(document).ready () ->
