@@ -32,7 +32,7 @@
 require 'agis'
 
 class Room < ActiveRecord::Base
-  attr_accessor :game, :map, :playercount, :wager, :spreadmode, :spread, :server
+  attr_accessor :game, :map, :playercount, :wager, :spreadmode, :spread, :server, :personal_messages
   include Agis
   
   STATE_DRAFT   = 0  # draft --unused
@@ -274,10 +274,18 @@ class Room < ActiveRecord::Base
     tcount  = self.teamcounts(mrules)
     perteam = mrules["playercount"] / 2
     if hash["team"]
-      if(hash["team"].to_i == 2 and tcount[0] < perteam)
-        mrules["players"][pi]["team"] = 2
-      elsif(hash["team"].to_i == 3 and tcount[1] < perteam)
-        mrules["players"][pi]["team"] = 3
+      if(hash["team"].to_i == 2)
+        if tcount[0] < perteam
+          mrules["players"][pi]["team"] = 2
+        else
+          self.personal_messages << [1, "Team is not available!"]
+        end
+      elsif(hash["team"].to_i == 3)
+        if tcount[1] < perteam
+          mrules["players"][pi]["team"] = 3
+        else
+          self.personal_messages << [1, "Team is not available!"]
+        end
       else
         mrules["players"][pi]["team"] = 0
       end
@@ -293,11 +301,14 @@ class Room < ActiveRecord::Base
   end
   
   def amend_player_wager(mrules, player, pi, hash)
-    if(hash["wager"] and 
-       hash["wager"].to_i >= WAGER_MIN and
+    if(hash["wager"])
+      if(hash["wager"].to_i >= WAGER_MIN and
        hash["wager"].to_i <= WAGER_MAX and
        player.total_balance >= hash["wager"].to_i)
-      mrules["players"][pi]["wager"] = hash["wager"]
+         mrules["players"][pi]["wager"] = hash["wager"]
+      else
+        self.personal_messages << [2, "Wager is not valid!"]
+      end
     end
     mrules
   end
@@ -323,6 +334,7 @@ class Room < ActiveRecord::Base
   end
   
   def aamend_player(player_id, hash)
+    self.personal_messages ||= []
     mrules = self.srules
     player = User.new(id: player_id)
     return false unless (self.is_public?)

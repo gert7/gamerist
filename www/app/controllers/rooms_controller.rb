@@ -48,7 +48,7 @@ class RoomsController < ApplicationController
   # PATCH/PUT /rooms/1
   # PATCH/PUT /rooms/1.json
   def update
-    @room.update_xhr(current_user, params)
+    extramessages    = @room.update_xhr(current_user, params)
     @uniquesignature = params["uniquesignature"]
     respond_to do |format|
       format.html { redirect_to @room }

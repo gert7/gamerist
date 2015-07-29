@@ -113,6 +113,12 @@ updateChat = (data) ->
 # ## GLOBAL TO AVOID FLICKERING
 CURRENT_UNIQUE_SIGNATURE = random_unique_signature()
 
+postErrorMessages = (data) ->
+  if data.personal_messages and (data.personal_messages.length > 0)
+    $("#srules_errormessages").css("display", "block")
+    for erm in data.personal_messages
+      $("#srules_errormessages").append("<p>- " + erm[1] + "</p>")
+
 updatePageObject = (data) ->
   return false if data.uniquesignature != CURRENT_UNIQUE_SIGNATURE
   $("#srules_info_column_game").text("Game: " + data.rules.game)
@@ -121,6 +127,7 @@ updatePageObject = (data) ->
   $("#srules_info_column_server").text("Server: " + data.rules.server)
   $("#srules_roomwager").text(data.rules.wager)
   $("#srules_shybar_id").text(data.id)
+  postErrorMessages(data)
   if(!CHATRENDERED)
     renderChat(data)
     CHATRENDERED = true
@@ -144,6 +151,7 @@ updatePageObject = (data) ->
     UPTIMEOUT = 12000
 
 updatePageEdit = (addkey, addvalue) ->
+  $("#srules_errormessages").css("display", "none")
   CURRENT_UNIQUE_SIGNATURE = random_unique_signature()
   comei = {"_method": "patch", "upclass": "readywager", "uniquesignature": CURRENT_UNIQUE_SIGNATURE}
   comei[addkey] = addvalue

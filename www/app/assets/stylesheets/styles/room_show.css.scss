@@ -256,6 +256,13 @@ form {
   background:hsl(180,66,15);
 }
 
+#srules_errormessages {
+  display:none;
+  width:100%;
+  padding:8px;
+  background:hsl(0, 66, 55);
+}
+
 #srules_players {
   width:606px;
   background:#0e0d26;
