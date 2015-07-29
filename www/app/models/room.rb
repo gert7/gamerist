@@ -32,7 +32,7 @@
 require 'agis'
 
 class Room < ActiveRecord::Base
-  attr_accessor :game, :map, :playercount, :wager, :spreadmode, :spread, :server, :personal_messages
+  attr_accessor :game, :map, :playercount, :wager, :spreadmode, :spread, :server, :server_region, :personal_messages
   include Agis
   
   STATE_DRAFT   = 0  # draft --unused
@@ -96,7 +96,8 @@ class Room < ActiveRecord::Base
   end
   
   before_save do
-    self.rules ||= JSON.generate({game: @game, map: @map, playercount: @playercount, wager: @wager, server: @server, players: []})
+    puts @server_region
+    self.rules ||= JSON.generate({server_region: @server_region, game: @game, map: @map, playercount: @playercount, wager: @wager, server: @server, players: []})
   end
   
   after_save do

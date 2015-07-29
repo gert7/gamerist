@@ -19,6 +19,7 @@ class PaypalsController < ApplicationController
     #    end
     #  end
     #else
+    require "geocoder"
     countrycode = Geocoder.search(request.remote_ip)[0].country_code
     threecode   = Paypal::country(countrycode)["threecode"]
     points      = params[:points].to_i

@@ -1,3 +1,10 @@
+$gamerist_continentdata= JSON.parse(File.read(Rails.root.join("config", "continents.json")))
+
+def get_continent(countryname)
+  i = $gamerist_continentdata["countries"].find_index {|c| c["country"] == countryname }
+  return $gamerist_continentdata["countries"][i]["continent"]
+end
+
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :destroy]
   before_filter :authenticate_user!
@@ -33,6 +40,14 @@ class RoomsController < ApplicationController
   # POST /rooms.json
   def create
     @room = Room.new(room_params)
+    
+    require "geocoder"
+    Geocoder.configure(ip_lookup: :telize)
+    Geocoder.configure(:cache => Redis.new)
+    reported_country = Geocoder.search(request.remote_ip)[0].country
+    reported_country ||= "Reserved"
+
+    @room.server_region = get_continent(reported_country)
 
     respond_to do |format|
       if @room.save
