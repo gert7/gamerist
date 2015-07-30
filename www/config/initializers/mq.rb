@@ -5,51 +5,48 @@ require 'bunny'
 $bunny = Bunny.new
 $bunny.start
 
-ch = $bunny.create_channel
-puts "Using exchange gamerist.topic" + (Rails.env.test? ? "test" : "")
-x  = ch.topic("gamerist.topic" + (Rails.env.test? ? "test" : ""))
+# ch = $bunny.create_channel
+# puts "Using exchange gamerist.topic" + (Rails.env.test? ? "test" : "")
+# x  = ch.direct("gamerist.direct" + (Rails.env.test? ? "test" : ""))
+
 servers = $gamerist_serverdata["servers"]
 
 # Manage the upstream wooooo
-ch.queue("gamerist.dispatch.upstream", durable: true).bind(x, routing_key: "gamerist.dispatch.up.*").subscribe do |delivery_info, properties, payload|
-  require 'json'
-  jdata = JSON.parse payload
-  if(jdata["protocol_version"].to_i == 1)
-    
-  end
-end
-
-# TEST ONLY
-# Hijack the downstream for testing
-#if(Rails.env.test?)
-  #ch.queue("gamerist.dispatch.down.centurion").bind(x, routing_key: "gamerist.dispatch.down.centurion").subscribe do |delivery_info, properties, payload|
-    #require 'json'
-    #jdata = JSON.parse payload
-    #if(jdata["protocol_version"].to_i == 1)
-      
-    #end
-  #end
-#end
+# ch.queue("gamerist.dispatch.upstream", durable: true).subscribe do |delivery_info, properties, payload|
+#   require 'json'
+#   jdata = JSON.parse payload
+#   if(jdata["protocol_version"].to_i == 1)
+#    
+#   end
+# end
 
 module DispatchMQ
-  def self.produce_room(room)
+  require("config/initializers/mq")
+  def self.send_room_requests(room)
     require "jbuilder"
     roomrules = room.srules
     roomid    = room.id
     
     ch = $bunny.create_channel
-    x  = ch.topic("gamerist.topic" + (Rails.env.test? ? "test" : ""))
-    servers    = $gamerist_serverdata["servers"]
-    servername = roomrules["server"] or servers[0]["name"]
+    x  = ch.direct("amq.direct")
+    
+    servers = $gamerist_serverdata["servers"]
+    region  = roomrules["server_region"]
     
     req = Jbuilder.new do |json|
       json.protocol_version 1
+      json.id roomid
       json.roomdata roomrules
+      json.type "spinup"
+      json.timeout Time.now.to_i + 10
     end
     
     puts req.target!
-    puts "Pushing message to gamerist.dispatch.down." + servername
-    puts x.publish(req.target!, routing_key: "gamerist.dispatch.down." + servername)
+    servers.select {|v| v["region"] == region }.each do |v|
+      puts "Pushing message to gamerist.dispatch.down." + v["name"]
+      ch.queue("gamerist.dispatch.down." + v["name"], durable: true).bind(x, routing_key: "gamerist.dispatch.down." + v["name"])
+      x.publish(req.target!, routing_key: "gamerist.dispatch.down." + v["name"])
+    end
   end
 end
 

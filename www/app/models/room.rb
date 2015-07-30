@@ -80,7 +80,7 @@ class Room < ActiveRecord::Base
   validates :game, inclusion: {in: $gamerist_mapdata["games"].map {|g| g["name"]}, message: "Game is not valid!!!"}
   validate :map_in_maplist
   if(Rails.env.test? or Rails.env.development?)
-    validates :playercount, inclusion: {in: [4, 8, 16, 24, 32], message: "Playercount is not valid!!!"}
+    validates :playercount, inclusion: {in: [1, 4, 8, 16, 24, 32], message: "Playercount is not valid!!!"}
   else
     validates :playercount, inclusion: {in: [8, 16, 24, 32], message: "Playercount is not valid!!!"}
   end
@@ -276,6 +276,7 @@ class Room < ActiveRecord::Base
     return mrules if piteam == hash["team"]
     tcount  = self.teamcounts(mrules)
     perteam = mrules["playercount"] / 2
+    perteam = 1 if mrules["playercount"].to_i == 1
     if hash["team"]
       if(hash["team"].to_i == 2)
         if tcount[0] < perteam
@@ -342,7 +343,6 @@ class Room < ActiveRecord::Base
     self.personal_messages ||= []
     mrules = self.srules
     player = User.new(id: player_id)
-    return false unless (self.is_public?)
     if hash["team"] and hash["team"].to_i != 0
       return false unless (self.total_players(mrules) < mrules["playercount"])
       unless (player.reserve_room!(self.id, mrules))
@@ -415,14 +415,12 @@ class Room < ActiveRecord::Base
     self.acall($redis, :aamend_player, player.id, {})
   end
   
-  def aappend_chatmessage(player_id, msg)
+  def aappend_chatmessage(player_id, steamname, msg)
     mrules = srules
-    pi = fetch_player(player_id, mrules)
-    return false unless pi
     mrules["messages"] ||= []
     ind = mrules["messages"].last["index"] if mrules["messages"].last
     ind ||= 0
-    mrules["messages"] << {"index" => ind + 1, "message" => msg, "steamname" => mrules["players"][pi]["steamname"], "addendum" => []}
+    mrules["messages"] << {"index" => ind + 1, "message" => msg, "steamname" => steamname, "addendum" => []}
     mrules["messages"] = mrules["messages"][1..-1] if(mrules["messages"].count > Room::MESSAGES_STORE_MAX)
     self.srules = mrules
   end
@@ -435,7 +433,25 @@ class Room < ActiveRecord::Base
   # @param [User] player ActiveRecord instance of the player
   # @param [String] message string of the user's message
   def append_chatmessage!(player, message)
-    self.acall($redis, :aappend_chatmessage, player.id, message)
+    self.acall($redis, :aappend_chatmessage, player.id, player.steam_name, message)
+  end
+  
+  def achug_room
+    state   = $redis.hget rapidkey, "search_searching"
+    tout    = $redis.hget rapidkey, "search_timeout"
+    results = $redis.hget rapidkey, "search_result"
+    if state == nil or (state == "yes" and tout.to_i < Time.now.to_i)
+      DispatchMQ.send_room_requests(self)
+      $redis.hset rapidkey, "search_searching", "yes"
+      $redis.hset rapidkey, "search_timeout", Time.now.to_i + 20
+    elsif (state == "yes" and results)
+      res = JSON.parse(results)
+      results[""]
+    end
+  end
+  
+  def chug_room
+    self.acall($redis, :achug_room)
   end
   
   # XHR direct line to amending a player.
@@ -443,11 +459,13 @@ class Room < ActiveRecord::Base
   # @param [User] cuser ActiveRecord instance of the player
   # @param [Hash] params parameters sent through controller PATCH method
   def update_xhr(cuser, params)
-    if params["upclass"] == "chatroom"
+    puts self.rstate
+    return unless self.is_alive?
+    if params["upclass"] == "chatroom" and self.is_public?
       append_chatmessage!(cuser, params["message"]) unless params["message"].gsub(/\s+/, "") == ""
     elsif params["upclass"] == "generic"
-      a = 0
-    else # readywager
+      chug_room if self.rstate == STATE_LOCKED
+    elsif self.is_public? # readywager
       if(params["wager"] and params["wager"].to_s == "0")
         remove_player!(cuser)
       else
@@ -459,7 +477,8 @@ class Room < ActiveRecord::Base
   after_initialize do
     agis_defm1(:aremove_player)
     agis_defm2(:aamend_player)
-    agis_defm2(:aappend_chatmessage)
+    agis_defm3(:aappend_chatmessage)
+    agis_defm0(:achug_room)
   end
 end
 
