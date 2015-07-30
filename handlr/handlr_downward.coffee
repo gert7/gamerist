@@ -54,6 +54,7 @@ crunch_data = (client, data) ->
     msg_ind  = res[2]
     msg_body = res[3]
     if(msg_body[0] == 'I')
+      MQ.send_upstream('{"protocol_version":1, "type": "serverstarted", "port": "' + msg_port + '", "id": ' + data.roomid + '}')
       ackmsg(client, msg_ind, "I")
     else if(msg_body[0] == 'L')
       ind = msg_body.substring(1)

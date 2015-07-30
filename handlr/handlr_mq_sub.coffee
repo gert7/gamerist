@@ -15,15 +15,6 @@ ex = "gamerist.topic" + Config.rabbitmq.exsuffix
 
 SAMPLE = '{"protocol_version":1,"type":"spinup","id":81,"roomdata":{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","team":3,"steamid":"STEAM_0:1:18525940","timeout":1435667836}]}}'
 
-conn.then((conn) ->
-  chan = conn.createChannel()
-  chan = chan.then((ch) ->
-    ch.assertQueue(q, {durable: true, manual_ack: true})
-    ch.sendToQueue(q, new Buffer(SAMPLE))
-  )
-  return chan
-).then(null, console.warn)
-
 unixtime = ->
   return Math.floor(Date.now() / 1000)
 
@@ -47,7 +38,7 @@ handle_mq_message = (data, callback) ->
       .then (next) ->
         serverspawn.spin_up(data.id, data.roomdata, next)
       .then (next, err, port) ->
-        sendup('{"protocol_version":1, "server": " ' + Config.selfname + ' ", "type": "creating", "id": ' + data.id + ', "port": ' + port + '}', callback)
+        sendup('{"protocol_version":1, "server": "' + Config.selfname + '", "type": "creating", "id": ' + data.id + ', "port": ' + port + '}', callback)
     else if (data.type == "cancel")
       Futures.sequence()
       .then (next) ->
@@ -58,9 +49,9 @@ handle_mq_message = (data, callback) ->
         else
           next()
       .then (next) ->
-        sendup('{"protocol_version":1, "server": " ' + Config.selfname + ' ", "type": "pcanceled", "id": ' + data.id + '}', callback)
+        sendup('{"protocol_version":1, "server": "' + Config.selfname + '", "type": "pcanceled", "id": ' + data.id + '}', callback)
     else if (data.type == "heartbeat")
-      sendup('{"protocol_version":1, "server": " ' + Config.selfname + ' ", "type": "heartbeat", "signature": "' + data.signature + '}', callback)
+      sendup('{"protocol_version":1, "server": "' + Config.selfname + '", "type": "heartbeat", "signature": "' + data.signature + '}', callback)
     else
       callback()
   else

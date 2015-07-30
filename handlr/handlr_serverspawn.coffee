@@ -9,7 +9,7 @@ path          = require("path")
 destroy_port  = require("./destroy_port")
 
 spawn_indep_async = (cmd, args, id, closecallback) ->
-  child = child_process.spawn(cmd, args, {detached: true})
+  proc = child_process.spawn(cmd, args, {detached: true})
   (closecallback || ->)()
 
 udp_getport = (port, errcallback) ->

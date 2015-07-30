@@ -153,8 +153,6 @@ heartbeat_port = (port, callback) ->
     debug("Heartbeat for server on port " + port)
     (callback || -> )(err)
 
-
-
 remove_all_ports = (callback) ->
   remove_timeout_ports(true, callback)
 

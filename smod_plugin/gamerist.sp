@@ -56,7 +56,7 @@ public Plugin:myinfo =
 #define RULESET_FINAL    8 // like plr_pipeline/ctf_2fort - whoever wins the last round, wins
 #define RULESET_RED      16 // like cp_dustbowl - if red wins any round, they win the game, otherwise blu
 
-#define TEST_ALONE        1
+#define TEST_ALONE        0
 
 new String:mapdata_names[MAPS_NUMBER][MAPNAME_MAXSIZE] = {"ctf_2fort", "cp_dustbowl", "plr_pipeline"};
 new mapdata_rulesets[MAPS_NUMBER] = {9, 20, 12};

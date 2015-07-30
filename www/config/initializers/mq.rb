@@ -5,20 +5,30 @@ require 'bunny'
 $bunny = Bunny.new
 $bunny.start
 
-# ch = $bunny.create_channel
-# puts "Using exchange gamerist.topic" + (Rails.env.test? ? "test" : "")
-# x  = ch.direct("gamerist.direct" + (Rails.env.test? ? "test" : ""))
+ch = $bunny.create_channel
+puts "Using exchange gamerist.topic" + (Rails.env.test? ? "test" : "")
+x  = ch.direct("gamerist.direct" + (Rails.env.test? ? "test" : ""))
 
 servers = $gamerist_serverdata["servers"]
 
 # Manage the upstream wooooo
-# ch.queue("gamerist.dispatch.upstream", durable: true).subscribe do |delivery_info, properties, payload|
-#   require 'json'
-#   jdata = JSON.parse payload
-#   if(jdata["protocol_version"].to_i == 1)
-#    
-#   end
-# end
+ch.queue("gamerist.dispatch.upstream", durable: true).subscribe do |delivery_info, properties, payload|
+  require 'json'
+  jdata = JSON.parse payload
+  puts jdata
+  if(jdata["protocol_version"].to_i == 1)
+    case jdata["type"]
+    when "creating" # preliminary confirmation
+    when "pcanceled" # canceled by Rails
+    when "heartbeat" # node is responsive
+    when "serverstarted" # official confirmation from inside the gameserver
+    when "teamwin" # team wins
+    when "playerscores" # player score data
+    when "servererror" # server encountered an error
+    else
+    end
+  end
+end
 
 module DispatchMQ
   require("config/initializers/mq")
@@ -47,6 +57,20 @@ module DispatchMQ
       ch.queue("gamerist.dispatch.down." + v["name"], durable: true).bind(x, routing_key: "gamerist.dispatch.down." + v["name"])
       x.publish(req.target!, routing_key: "gamerist.dispatch.down." + v["name"])
     end
+  end
+  
+  def self.send_room_cancel(roomid, servername)
+    ch = $bunny.create_channel
+    x  = ch.direct("amq.direct")
+    
+    req = Jbuilder.new do |json|
+      json.protocol_version 1
+      json.id roomid
+      json.type "cancel"
+    end
+    
+    ch.queue("gamerist.dispatch.down." + servername, durable: true).bind(x, routing_key: "gamerist.dispatch.down." + servername)
+    x.publish(req.target!, routing_key: "gamerist.dispatch.down." + servername)
   end
 end
 

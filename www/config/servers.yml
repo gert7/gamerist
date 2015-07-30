@@ -17,7 +17,7 @@ servers:
     region: Oceania
   - name: centurion
     location: -0, 0
-    ping: 1.1.1.1
+    ping: 127.0.0.1
     production: false
     region: Europe
     

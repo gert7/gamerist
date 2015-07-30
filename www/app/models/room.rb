@@ -437,21 +437,30 @@ class Room < ActiveRecord::Base
   end
   
   def achug_room
-    state   = $redis.hget rapidkey, "search_searching"
-    tout    = $redis.hget rapidkey, "search_timeout"
-    results = $redis.hget rapidkey, "search_result"
+    finalserver = $redis.hget rapidkey, "final_server_address"
+    return if finalserver
+    state       = $redis.hget rapidkey, "search_searching"
+    tout        = $redis.hget rapidkey, "search_timeout"
+    results     = $redis.hget rapidkey, "search_result"
     if state == nil or (state == "yes" and tout.to_i < Time.now.to_i)
       DispatchMQ.send_room_requests(self)
       $redis.hset rapidkey, "search_searching", "yes"
       $redis.hset rapidkey, "search_timeout", Time.now.to_i + 20
-    elsif (state == "yes" and results)
-      res = JSON.parse(results)
-      results[""]
+    elsif ((state == "yes") and results)
+      res = JSON.parse(results) # servername, ip, port
+      res["servers"][1..-1].each do |v|
+        DispatchMQ.send_room_cancel(self.id, v["servername"])
+      end
+      $redis.hset rapidkey, "final_server_address", res["ip"] + ":" + res["port"].to_s
     end
   end
   
   def chug_room
     self.acall($redis, :achug_room)
+  end
+  
+  def final_server_address
+    $redis.hget rapidkey, "final_server_address"
   end
   
   # XHR direct line to amending a player.
