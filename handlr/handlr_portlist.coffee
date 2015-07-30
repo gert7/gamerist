@@ -119,7 +119,12 @@ get_port = (port, callback) ->
   servers.find({port: port}, (err, docs) ->
     if(docs[0]) then (callback || ->)(docs[0]) else (callback || ->)(undefined)
   )
-
+  
+get_port_by_id = (roomid, callback) ->
+  servers.find({roomid: roomid}, (err, docs) ->
+    if(docs[0]) then (callback || ->)(docs[0]) else (callback || ->)(undefined)
+  )
+  
 get_all_ports = (callback) ->
   servers.find({port: { $in: Config.ports } }, (err, docs) ->
     (callback || ->)(docs)
@@ -147,6 +152,8 @@ heartbeat_port = (port, callback) ->
   .then (next, err) ->
     debug("Heartbeat for server on port " + port)
     (callback || -> )(err)
+
+
 
 remove_all_ports = (callback) ->
   remove_timeout_ports(true, callback)
@@ -178,7 +185,15 @@ plistactor = nactor.actor ->
         get_port(data.port, next)
       .then (next, record) ->
         async.reply(record)
-        
+    
+    get_port_by_id: (data, async) ->
+      async.enable()
+      Futures.sequence()
+      .then (next) ->
+        get_port_by_id(data.roomid, next)
+      .then (next, record) ->
+        async.reply(record)
+    
     free_port: (data, async) ->
       async.enable()
       Futures.sequence()
@@ -202,7 +217,15 @@ plistactor = nactor.actor ->
         remove_all_ports(next)
       .then ->
         async.reply()
-        
+    
+    remove_timeout_port: (data, async) ->
+      async.enable()
+      Futures.sequence()
+      .then (next) ->
+        remove_timeout_port(data.record, data.all, next)
+      .then ->
+        async.reply()
+    
     remove_timeout_ports: (data, async) ->
       async.enable()
       Futures.sequence()
@@ -222,7 +245,10 @@ exports.remember_a_port  = (roomid, room, callback) ->
 
 exports.get_port       = (port, callback) ->
   plistactor.get_port({port: port}, callback)
-  
+
+exports.get_port_by_id = (roomid, callback) ->
+  plistactor.get_port_by_id({roomid: roomid}, callback)
+
 exports.free_port      = (port, callback) ->
   plistactor.free_port({port: port}, callback)
   
@@ -231,6 +257,9 @@ exports.heartbeat_port = (port, callback) ->
   
 exports.remove_all_ports= (callback) ->
   plistactor.remove_all_ports(null, callback)
+
+exports.remove_timeout_port = (record, all, callback) ->
+  plistactor.remove_timeout_port({record: record, all: all}, callback)
 
 exports.remove_timeout_ports = (callback) ->
   plistactor.remove_timeout_ports(null, callback)

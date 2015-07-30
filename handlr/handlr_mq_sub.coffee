@@ -3,6 +3,7 @@ debug = require('debug')('northstream')
 
 require("coffee-script")
 serverspawn = require("./handlr_serverspawn")
+portlist    = require("./handlr_portlist")
 fs     = require('fs')
 Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
 
@@ -23,25 +24,43 @@ conn.then((conn) ->
   return chan
 ).then(null, console.warn)
 
+unixtime = ->
+  return Math.floor(Date.now() / 1000)
+
+sendup = (data, callback) ->
+  conn.then((conn) ->
+    chan = conn.createChannel()
+    chan = chan.then((ch) ->
+      ch.assertQueue(qu, {durable: true, manual_ack: true})
+      ch.sendToQueue(qu, new Buffer(data))
+    )
+    return chan
+  ).then(null, console.warn)
+  (callback || ->)()
+
 handle_mq_message = (data, callback) ->
   debug("Received MQ data!")
   debug(data)
-  if(data.protocol_version == 1)
+  if(data.protocol_version == 1 and (!data.timeout or data.timeout > unixtime()))
     if(data.type == "spinup")
       Futures.sequence()
       .then (next) ->
         serverspawn.spin_up(data.id, data.roomdata, next)
       .then (next, err, port) ->
-        conn.then((conn) ->
-          chan = conn.createChannel()
-          chan = chan.then((ch) ->
-            ch.assertQueue(qu, {durable: true, manual_ack: true})
-            debug("Sending preliminary server creation confirmation northstream")
-            ch.sendToQueue(qu, new Buffer('{"protocol_version":1, "type": "creating", "id": ' + data.id + ', "port": ' + port + '}'))
-          )
-          return chan
-        ).then(null, console.warn)
-        callback()
+        sendup('{"protocol_version":1, "server": " ' + Config.selfname + ' ", "type": "creating", "id": ' + data.id + ', "port": ' + port + '}', callback)
+    else if (data.type == "cancel")
+      Futures.sequence()
+      .then (next) ->
+        portlist.get_port_by_id(data.id, next)
+      .then (next, record) ->
+        if record
+          portlist.remove_timeout_port(record, true, next)
+        else
+          next()
+      .then (next) ->
+        sendup('{"protocol_version":1, "server": " ' + Config.selfname + ' ", "type": "pcanceled", "id": ' + data.id + '}', callback)
+    else if (data.type == "heartbeat")
+      sendup('{"protocol_version":1, "server": " ' + Config.selfname + ' ", "type": "heartbeat", "signature": "' + data.signature + '}', callback)
     else
       callback()
   else
@@ -65,21 +84,22 @@ northstream.init()
 
 conn.then((conn) ->
   chan = conn.createChannel()
-  chan = chan.then((ch) ->
+  chan = chan.then (ch) ->
     ch.assertQueue(q)
     ch.assertExchange(ex, "topic", {durable: false, })
     ch.bindQueue(q, ex, q)
     ch.prefetch(1) # one message at a time !!!
-    ch.consume(q, (msg) ->
+    ch.consume q, (msg) ->
       debug("a new message!")
       if (msg != null)
         msgc = JSON.parse(msg.content.toString())
         northstream.handle_mq_message(msgc, (->))
         ch.ack(msg)
-    )
-  )
   return chan;
 ).then(null, console.warn)
+
+exports.handle_mq_message = (data, callback) ->
+  northstream.handle_mq_message(data, callback)
 
 exports.send_upstream = (msg) ->
   conn.then((conn) ->
