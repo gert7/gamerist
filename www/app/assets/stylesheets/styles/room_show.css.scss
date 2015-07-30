@@ -207,7 +207,7 @@ form {
 #srules_teamselect {
   width:606px;
   background:#0e0d26;
-  display:block;
+  display:none;
   vertical-align:top;
   height:64px;
 }
@@ -254,6 +254,33 @@ form {
 
 #srules_teamselect_blu:active {
   background:hsl(180,66,15);
+}
+
+#srules_team_leave {
+  width:606px;
+  background:#0e0d26;
+  display:none;
+  vertical-align:top;
+  height:64px;
+  text-align:center;
+}
+
+#srules_teamselect_leave {
+  margin:auto;
+  margin-top:16px;
+  width:250px;
+  height:32px;
+  display:inline-block;
+  background:hsl(224,25,25);
+  border:1px solid hsl(224,25,50);
+  font-size:1.3em;
+  color:white;
+  font-family: "Blue Highway Regular";
+  cursor:pointer;
+}
+
+#srules_teamselect_leave:hover {
+  background:hsl(224,25,35);
 }
 
 #srules_errormessages {

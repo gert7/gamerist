@@ -317,7 +317,8 @@ class Room < ActiveRecord::Base
   end
   
   def amend_player_ready(mrules, pi, hash)    
-    mrules["players"][pi]["ready"] = hash["ready"] if(hash["ready"])
+    mrules["players"][pi]["ready"] = "1" if(hash["ready"].to_s == "1")
+    mrules["players"][pi]["ready"] = "0" if(hash["ready"].to_s == "0" or mrules["players"][pi]["team"].to_s == "0")
     mrules
   end
   
@@ -327,6 +328,7 @@ class Room < ActiveRecord::Base
   # @param [Hash] hash the given modifications to the user
   # @return [Hash] new version of srules
   def amend_player_hash(mrules, player, hash)
+    return mrules unless ((hash["team"] and hash["team"].to_s != "0") or fetch_player(player.id, mrules))
     mrules = append_player_hash(mrules, player.id)
     pi     = fetch_player(player.id, mrules)
     mrules = assign_to_team(pi, mrules, hash)             if hash["team"]
@@ -415,13 +417,14 @@ class Room < ActiveRecord::Base
   
   def aappend_chatmessage(player_id, msg)
     mrules = srules
+    pi = fetch_player(player_id, mrules)
+    return false unless pi
     mrules["messages"] ||= []
     ind = mrules["messages"].last["index"] if mrules["messages"].last
     ind ||= 0
-    mrules["messages"] << {"index" => ind + 1, "message" => msg, "user_id" => player_id, "addendum" => []}
+    mrules["messages"] << {"index" => ind + 1, "message" => msg, "steamname" => mrules["players"][pi]["steamname"], "addendum" => []}
     mrules["messages"] = mrules["messages"][1..-1] if(mrules["messages"].count > Room::MESSAGES_STORE_MAX)
     self.srules = mrules
-    puts self.srules
   end
   
   # Append a chat message associated with a user
