@@ -28,9 +28,9 @@ class Transaction < ActiveRecord::Base
   KIND_REALIZED   = 0b0001 # IN: U then R OUT: R
   
   KIND_NONE       = 0b0000
-  KIND_ROOM       = 0b0001 # winnings if positive, wager if negative
-  KIND_PAYPAL     = 0b0010
-  KIND_COUPON     = 0b0100 # TODO
+  KIND_ROOM       = 0b0001 # IN: U then R OUT: R
+  KIND_PAYPAL     = 0b0010 # IN: R | OUT: R
+  KIND_COUPON     = 0b0100 # OUT: U
   
   belongs_to :user, inverse_of: :transactions
   
@@ -49,25 +49,25 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  # Ignores overdraft
   def kind_handler()
     lasttr = Transaction.where(user_id: self.user_id).last
-    case [self.amount >= 0, self.realized_kind?, lasttr != nil]
-    when [true, true, true], [false, false, true] # wager win (amount positive) or cash out (amount negative)
-      self.balance_r = lasttr.balance_r + self.amount
-      self.balance_u = lasttr.balance_u
-    when [false, true, true] # new wager
-      trickle_down_score(lasttr.balance_u, lasttr.balance_r)
-    when [true, false, true] # add funds
-      self.balance_u = lasttr.balance_u + self.amount
-      self.balance_r = lasttr.balance_r
-    when [true, true, false]
-      self.balance_r = self.amount
-      self.balance_u = 0
-    when [false, true, false], [false, false, false]
-      raise ActiveRecord::Rollback, "Negative balance!"
-    when [true, false, false]
-      self.balance_u = self.amount
-      self.balance_r = 0
+    totr   = lasttr ? lasttr.balance_r : 0
+    totu   = lasttr ? lasttr.balance_u : 0
+    
+    if self.kind == KIND_ROOM
+      if self.amount >= 0
+        self.balance_r = totr + self.amount
+        self.balance_u = totu
+      elsif self.amount < 0
+        trickle_down_score(totu, totr)
+      end
+    elsif self.kind == KIND_PAYPAL
+      self.balance_r = totr + self.amount
+      self.balance_u = totu
+    elsif self.kind == KIND_COUPON
+      self.balance_r = totr
+      self.balance_u = totu + self.amount
     end
     lasttr ? lasttr.id : nil
   end

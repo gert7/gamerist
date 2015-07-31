@@ -61,9 +61,7 @@ describe Room do
       include_context "when players have money"
       it "adds the player successfully" do
         room.append_player! player1
-        puts room.srules
         room.update_xhr(player1, {"team" => 2})
-        puts room.srules
         expect(player1.is_reserved?).to eq true
         expect(room.srules["players"].count).to eq 1
         expect(room.srules["players"][0]["id"]).to eq player1.id
@@ -123,7 +121,7 @@ describe Room do
   describe "#remove_player!" do
     include_context "when players have money"
     it "removes the player from the room" do
-      room.append_player! player1
+      room.amend_player! player1, "team" => 2
       expect(room.srules["players"].count).to eq 1
       room.remove_player! player1
       expect(room.srules["players"].count).to eq 0
@@ -135,9 +133,9 @@ describe Room do
       expect(player1.is_reserved?).to eq false
     end
     it "removes the player from between" do
-      room.append_player! player1
-      room.append_player! player2
-      room.append_player! player3
+      room.amend_player! player1, "team" => 2
+      room.amend_player! player2, "team" => 2
+      room.amend_player! player3, "team" => 3
       room.remove_player! player2
       expect(room.srules["players"].count).to eq 2
       expect(room.srules["players"][1]["id"]).to eq player3.id
@@ -151,7 +149,6 @@ describe Room do
       room.update_xhr(player1, {"team" => 2})
       room.append_player! player2
       room.update_xhr(player2, {"team" => 2})
-      puts room.srules
       room.amend_player! player1, "wager" => 10
       room.amend_player! player2, "wager" => 8
     }
@@ -176,7 +173,6 @@ describe Room do
     it "reduces wager on player leave" do
       room.remove_player! player1
       room.amend_player! player2, {}
-      puts room.srules
       expect(room.srules["wager"]).to eq 8
     end
   end
@@ -224,24 +220,24 @@ describe Room do
   describe "#amend_player!" do
     include_context "when players have money"
     it "edits the player" do
-      room.append_player! player1
+      room.amend_player! player1, "team" => 2
       expect(room.srules["players"][0]["wager"]).to eq 5
       room.amend_player! player1, "wager" => 15
       expect(room.srules["players"][0]["wager"]).to eq 15
     end
     it "doesn't allow an incorrect wager" do
       room.append_player! player1
-      room.amend_player! player1, "wager" => 10000
+      room.amend_player! player1, "wager" => 10000, "team" => 2
       expect(room.srules["players"][0]["wager"]).not_to eq 10000
     end
     it "adds the player if they're not already in" do
       expect(room.srules["players"].count).to eq 0
-      room.amend_player! player1, "wager" => 10
+      room.amend_player! player1, {"wager" => 10, "team" => 2}
       expect(room.srules["players"][0]["wager"]).to eq 10
     end
     it "doesn't allow a wager greater than funds" do
       room.append_player! player1 # only has 25
-      room.amend_player! player1, "wager" => 45
+      room.amend_player! player1, {"wager" => 45, "team" => 2}
       expect(room.srules["players"][0]["wager"]).not_to eq 45
     end
     it "removes the player if they lose the reservation" do
@@ -256,10 +252,10 @@ describe Room do
   describe "#update_xhr" do
     include_context "when players have money"
     it "modifies the player" do
-      room.append_player! player1
+      room.amend_player! player1, "team" => 2
       room.update_xhr(player1, {"wager" => 10, "ready" => 1})
       expect(room.srules["players"][0]["wager"]).to eq 10
-      expect(room.srules["players"][0]["ready"]).to eq 1
+      expect(room.srules["players"][0]["ready"]).to eq "1"
     end
     it "removes the player if wager is zero" do
       room.append_player! player1
@@ -288,16 +284,6 @@ describe Room do
   
   describe "#assign_to_team" do
     include_context "when players have money"
-    it "assigns the no team" do
-      room.append_player! player1
-      room.append_player! player2
-      room.append_player! player3
-      room.append_player! player4
-      expect(room.srules["players"][0]["team"]).to eq 0
-      expect(room.srules["players"][1]["team"]).to eq 0
-      expect(room.srules["players"][2]["team"]).to eq 0
-      expect(room.srules["players"][3]["team"]).to eq 0
-    end
     it "assigns the selected team" do
       room.append_player! player1
       room.update_xhr(player1, {"team" => 2})

@@ -96,7 +96,6 @@ class Room < ActiveRecord::Base
   end
   
   before_save do
-    puts @server_region
     self.rules ||= JSON.generate({server_region: @server_region, game: @game, map: @map, playercount: @playercount, wager: @wager, server: @server, players: []})
   end
   
@@ -352,9 +351,7 @@ class Room < ActiveRecord::Base
       hash["timeout"] = (Time.now + ROOM_TIMEOUT).to_i
     end
     mrules = check_ready(amend_player_hash(mrules, player, hash))
-    puts mrules
     self.srules = mrules
-    puts self.srules
     true
   end
   
@@ -437,6 +434,7 @@ class Room < ActiveRecord::Base
   end
   
   def achug_room
+    return
     finalserver = $redis.hget rapidkey, "final_server_address"
     return if finalserver
     state       = $redis.hget rapidkey, "search_searching"
@@ -468,7 +466,6 @@ class Room < ActiveRecord::Base
   # @param [User] cuser ActiveRecord instance of the player
   # @param [Hash] params parameters sent through controller PATCH method
   def update_xhr(cuser, params)
-    puts self.rstate
     return unless self.is_alive?
     if params["upclass"] == "chatroom" and self.is_public?
       append_chatmessage!(cuser, params["message"]) unless params["message"].gsub(/\s+/, "") == ""
