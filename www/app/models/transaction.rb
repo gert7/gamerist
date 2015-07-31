@@ -127,7 +127,7 @@ class Transaction < ActiveRecord::Base
     payp.save!
     payment = PayPal::SDK::REST::Payment.find(payp.sid)
     payment.execute(payer_id: payerid)
-    ux.unreserve_paypal!(ppid)
+    ux.unreserve_from_paypal(ppid)
     return tr.id
   end
 

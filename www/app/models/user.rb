@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
     return false if (not reservation_is_paypal?(paypal_id) and reservation_lives?)
     # return true if reservation_is_paypal?(paypal_id)
     reserve! Transaction::KIND_PAYPAL, paypal_id
-    $redis.hset hrapidkey, "reservation", Transaction::KIND_PAYPAL.to_s + ":" + room_id.to_s
+    $redis.hset hrapidkey, "reservation", Transaction::KIND_PAYPAL.to_s + ":" + paypal_id.to_s
     $redis.hset hrapidkey, "paypal_timeout", Time.now.to_i + PAYPAL_TIMEOUT
     return true
   end
@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
   
   def paypal_timed_out?
     timeout = $redis.hget hrapidkey, "paypal_timeout"
-    return false if timeout and timeout > Time.now.to_i
+    return false if (timeout and timeout.to_i > Time.now.to_i)
     true
   end
   
@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
     true
   end
   
-  def unreserve_from_room(paypal_id)
+  def unreserve_from_paypal(paypal_id)
     self.acall($redis, :aunreserve_from_paypal, paypal_id)
   end
   
