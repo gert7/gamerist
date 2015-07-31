@@ -88,6 +88,82 @@ describe Transaction do
         expect(user.balance_unrealized).to eq 0
         expect(user.balance_realized).to eq 20
       end
+      
+      it 'receives realized funds from PayPal' do
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_PAYPAL,
+          t.detail  = 3022,
+          t.amount  = 30
+        end
+        expect(user.balance_realized).to eq 30
+        expect(user.balance_unrealized).to eq 0
+      end
+      
+      it 'sends realized funds to PayPal' do
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_PAYPAL,
+          t.detail  = 3022,
+          t.amount  = 30
+        end
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_PAYPAL,
+          t.detail  = 3022,
+          t.amount  = -30
+        end
+        expect(user.balance_realized).to eq 0
+        expect(user.balance_unrealized).to eq 0
+      end
+      
+      it "doesn't send unrealized funds to PayPal" do
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_COUPON,
+          t.detail  = 3022,
+          t.amount  = 30
+        end
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_PAYPAL,
+          t.detail  = 3022,
+          t.amount  = -30
+        end
+        expect(user.balance_realized).to eq 0
+        expect(user.balance_unrealized).to eq 30
+      end
+      
+      it "specifically doesn't send unrealized funds to PayPal" do
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_COUPON,
+          t.detail  = 3022,
+          t.amount  = 30
+        end
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_PAYPAL,
+          t.detail  = 3022,
+          t.amount  = 30
+        end
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_PAYPAL,
+          t.detail  = 3022,
+          t.amount  = -30
+        end
+        expect(user.balance_realized).to eq 0
+        expect(user.balance_unrealized).to eq 30
+      end
 
       it "places and wins a wager" do
         Transaction.create do |t|
