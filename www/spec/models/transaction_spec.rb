@@ -151,18 +151,38 @@ describe Transaction do
           t.state   = Transaction::STATE_FINAL,
           t.user    = user,
           t.kind    = Transaction::KIND_PAYPAL,
-          t.detail  = 3022,
+          t.detail  = 3023,
           t.amount  = 30
         end
         Transaction.create do |t|
           t.state   = Transaction::STATE_FINAL,
           t.user    = user,
           t.kind    = Transaction::KIND_PAYPAL,
-          t.detail  = 3022,
+          t.detail  = 3024,
           t.amount  = -30
         end
         expect(user.balance_realized).to eq 0
         expect(user.balance_unrealized).to eq 30
+      end
+      
+      it "fails to withdraw while the user is reserved" do
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_PAYPAL,
+          t.detail  = 3025,
+          t.amount  = 30
+        end
+        r = FactoryGirl.create(:room)
+        r.amend_player! user, "team" => 2
+        Transaction.create do |t|
+          t.state   = Transaction::STATE_FINAL,
+          t.user    = user,
+          t.kind    = Transaction::KIND_PAYPAL,
+          t.detail  = 3026,
+          t.amount  = -15
+        end
+        expect(user.balance_realized).to eq 30
       end
 
       it "places and wins a wager" do

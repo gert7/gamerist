@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   has_many :transactions, inverse_of: :user
   has_many :paypals, inverse_of: :user
 
+  PAYPAL_TIMEOUT = 30
+
   after_save do
     unless(self.account)
       Account.create do |a|
@@ -122,6 +124,42 @@ class User < ActiveRecord::Base
     $redis.hset hrapidkey, "reservation", kind.to_s + ":" + id.to_s
   end
   
+  def areserve_paypal (paypal_id)
+    res = self.reservation
+    return false if (not reservation_is_paypal?(paypal_id) and reservation_lives?)
+    # return true if reservation_is_paypal?(paypal_id)
+    reserve! Transaction::KIND_PAYPAL, paypal_id
+    $redis.hset hrapidkey, "reservation", Transaction::KIND_PAYPAL.to_s + ":" + room_id.to_s
+    $redis.hset hrapidkey, "paypal_timeout", Time.now.to_i + PAYPAL_TIMEOUT
+    return true
+  end
+  
+  def reserve_paypal! (paypal_id)
+    self.acall($redis, :areserve_paypal, paypal_id)
+  end
+  
+  def reservation_is_paypal?(paypal_id)
+    res = self.reservation
+    (res and res[0].to_i == Transaction::KIND_PAYPAL.to_i and res[1].to_i == paypal_id.to_i and reservation_lives?)
+  end
+  
+  def paypal_timed_out?
+    timeout = $redis.hget hrapidkey, "paypal_timeout"
+    return false if timeout and timeout > Time.now.to_i
+    true
+  end
+  
+  def aunreserve_from_paypal(paypal_id)
+    return false unless self.reservation_is_paypal?(paypal_id)
+    $redis.hdel hrapidkey, "reservation"
+    $redis.hdel hrapidkey, "paypal_timeout"
+    true
+  end
+  
+  def unreserve_from_room(paypal_id)
+    self.acall($redis, :aunreserve_from_paypal, paypal_id)
+  end
+  
   # Check if the Room associated with the User is alive.
   # Queries the Room's is_alive?
   # @param [Array] res The reservation provided by User#reservation
@@ -129,6 +167,7 @@ class User < ActiveRecord::Base
   def reservation_lives?
     res = self.reservation
     return true if (res and res[0].to_i == Transaction::KIND_ROOM.to_i and Room.new(id: res[1].to_i).is_alive?)
+    return true if (res and res[0].to_i == Transaction::KIND_PAYPAL.to_i and not self.paypal_timed_out?)
     return false
   end
   
@@ -232,6 +271,8 @@ class User < ActiveRecord::Base
   after_initialize do
     agis_defm2(:areserve_room)
     agis_defm1(:aunreserve_from_room)
+    agis_defm1(:areserve_paypal)
+    agis_defm1(:aunreserve_from_paypal)
   end
 end
 

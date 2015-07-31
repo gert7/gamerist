@@ -76,8 +76,11 @@ class Transaction < ActiveRecord::Base
     #if self.amount < 0 then    
       #throw [self.amount >= 0, self.realized_kind?, lasttr != nil]
     #end
+    
+    raise ActiveRecord::Rollback if (self.user.is_reserved? and self.user.reservation_lives? and self.amount < 0)
+    
     l = kind_handler()
-     
+    
     if(self.balance_u < 0 or self.balance_r < 0)
       raise ActiveRecord::Rollback, "Balance becomes less than 0: U = #{balance_u} R = #{balance_r}"
     end
@@ -112,6 +115,8 @@ class Transaction < ActiveRecord::Base
   
   def apaypal_finalize(payerid, ppid)
     payp = Paypal.find(ppid)
+    ux   = User.new(id: payp.user_id)
+    return false unless ux.reserve_paypal!(ppid)
     puts ppid
     tr = Transaction.find_by(kind: Transaction::KIND_PAYPAL, detail: ppid)
     unless tr
@@ -122,6 +127,7 @@ class Transaction < ActiveRecord::Base
     payp.save!
     payment = PayPal::SDK::REST::Payment.find(payp.sid)
     payment.execute(payer_id: payerid)
+    ux.unreserve_paypal!(ppid)
     return tr.id
   end
 
