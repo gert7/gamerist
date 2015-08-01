@@ -207,14 +207,13 @@ class Room < ActiveRecord::Base
   # if 1) the room is full 2) everyone is ready.
   # This method may write to ActiveRecord
   def lock_if_ready(ruleset)
-    puts self.total_players(ruleset)
-    puts ruleset["playercount"]
-    if((self.total_players(ruleset) == ruleset["playercount"]) and
-       (self.is_public?) and
+    dself = Room.find(self.id)
+    if((dself.total_players(ruleset) == ruleset["playercount"]) and
+       (dself.is_public?) and
        (ruleset["players"].inject(true) {|acc, v| acc and (v["ready"].to_i == 1 or v["team"].to_s == "0")}))
       ruleset     = remove_exo_players(ruleset)
-      self.rstate = STATE_LOCKED
-      self.save!
+      dself.rstate = STATE_LOCKED
+      dself.save(validate: false)
     end
     ruleset
   end
@@ -459,7 +458,7 @@ class Room < ActiveRecord::Base
       $redis.hset rapidkey, "search_timeout", Time.now.to_i + 20
     elsif ((state == "yes") and results and tout.to_i < Time.now.to_i)
       res = JSON.parse(results)["servers"] # servername, ip, port
-      res[1..-1].each do |v|
+      res[0..-1].each do |v|
         DispatchMQ.send_room_cancel(self.id, v["servername"])
       end
       $redis.hset rapidkey, "final_server_address", res[0]["ip"] + ":" + res[0]["port"].to_s

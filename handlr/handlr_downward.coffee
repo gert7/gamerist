@@ -26,8 +26,7 @@ portlist = require("./handlr_portlist")
 Futures  = require("futures")
 MQ       = require("./handlr_mq_sub")
 
-fs     = require('fs')
-Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
+Config = require("./handlr_config").conf
 
 read_to_character = (data, scursor, br) ->
   str = ""

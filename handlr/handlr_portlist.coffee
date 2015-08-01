@@ -7,10 +7,9 @@ Futures = require('futures')
 require("coffee-script")
 destroy_port = require('./destroy_port')
 
-fs     = require('fs')
-Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
+Config = require("./handlr_config").conf
 
-servers = new Nedb({filename: "server.db" + (if Config.testmode then ".test"), autoload: true})
+servers = new Nedb({filename: "server.db" + Config.selfname + (if Config.testmode then ".test"), autoload: true})
 servers.ensureIndex({fieldName: "port", unique: true})
 
 os = require('os')

@@ -4,8 +4,8 @@ debug = require('debug')('northstream')
 require("coffee-script")
 serverspawn = require("./handlr_serverspawn")
 portlist    = require("./handlr_portlist")
-fs     = require('fs')
-Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
+
+Config = require("./handlr_config").conf
 
 conn = amqp.connect(Config.rabbitmq.url)
 

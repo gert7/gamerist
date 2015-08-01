@@ -20,4 +20,9 @@ servers:
     ip: 127.0.0.1
     production: false
     region: Europe
+  - name: opal
+    location: -0, 1.0
+    ip: 127.0.0.1
+    production: false
+    region: Europe
     
