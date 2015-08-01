@@ -26,6 +26,9 @@ portlist = require("./handlr_portlist")
 Futures  = require("futures")
 MQ       = require("./handlr_mq_sub")
 
+fs     = require('fs')
+Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
+
 read_to_character = (data, scursor, br) ->
   str = ""
   cursor = scursor
@@ -54,7 +57,13 @@ crunch_data = (client, data) ->
     msg_ind  = res[2]
     msg_body = res[3]
     if(msg_body[0] == 'I')
-      MQ.send_upstream('{"protocol_version":1, "type": "serverstarted", "port": "' + msg_port + '", "id": ' + data.roomid + '}')
+      Futures.sequence()
+      .then (next) ->
+        portlist.remove_timeout_ports(next)
+      .then (next) ->
+        portlist.get_port(msg_port, next)
+      .then (next, record) ->
+        MQ.send_upstream('{"protocol_version":1, "server": "' + Config.selfname + '", "type": "serverstarted", "port": "' + msg_port + '", "id": ' + record.roomid + '}')
       ackmsg(client, msg_ind, "I")
     else if(msg_body[0] == 'L')
       ind = msg_body.substring(1)

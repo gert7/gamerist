@@ -32,6 +32,7 @@ sendup = (data, callback) ->
 handle_mq_message = (data, callback) ->
   debug("Received MQ data!")
   debug(data)
+  debug("Data timed out!") if (data.timeout and data.timeout < unixtime())
   if(data.protocol_version == 1 and (!data.timeout or data.timeout > unixtime()))
     if(data.type == "spinup")
       Futures.sequence()

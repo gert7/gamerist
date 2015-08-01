@@ -207,6 +207,8 @@ class Room < ActiveRecord::Base
   # if 1) the room is full 2) everyone is ready.
   # This method may write to ActiveRecord
   def lock_if_ready(ruleset)
+    puts self.total_players(ruleset)
+    puts ruleset["playercount"]
     if((self.total_players(ruleset) == ruleset["playercount"]) and
        (self.is_public?) and
        (ruleset["players"].inject(true) {|acc, v| acc and (v["ready"].to_i == 1 or v["team"].to_s == "0")}))
@@ -433,23 +435,34 @@ class Room < ActiveRecord::Base
     self.acall($redis, :aappend_chatmessage, player.id, player.steam_name, message)
   end
   
+  def aadd_running_server(server)
+    cr = $redis.hget(rapidkey, "search_result")
+    c = JSON.parse(cr) if cr
+    c ||= {"servers" => []}
+    c["servers"] << server
+    $redis.hset rapidkey, "search_result", JSON.generate(c)
+  end
+  
+  def add_running_server(server)
+    self.acall($redis, :aadd_running_server, server)
+  end
+  
   def achug_room
-    return
     finalserver = $redis.hget rapidkey, "final_server_address"
     return if finalserver
     state       = $redis.hget rapidkey, "search_searching"
     tout        = $redis.hget rapidkey, "search_timeout"
     results     = $redis.hget rapidkey, "search_result"
-    if state == nil or (state == "yes" and tout.to_i < Time.now.to_i)
+    if state == nil or (state == "yes" and not results and tout.to_i < Time.now.to_i)
       DispatchMQ.send_room_requests(self)
       $redis.hset rapidkey, "search_searching", "yes"
       $redis.hset rapidkey, "search_timeout", Time.now.to_i + 20
-    elsif ((state == "yes") and results)
-      res = JSON.parse(results) # servername, ip, port
-      res["servers"][1..-1].each do |v|
+    elsif ((state == "yes") and results and tout.to_i < Time.now.to_i)
+      res = JSON.parse(results)["servers"] # servername, ip, port
+      res[1..-1].each do |v|
         DispatchMQ.send_room_cancel(self.id, v["servername"])
       end
-      $redis.hset rapidkey, "final_server_address", res["ip"] + ":" + res["port"].to_s
+      $redis.hset rapidkey, "final_server_address", res[0]["ip"] + ":" + res[0]["port"].to_s
     end
   end
   
@@ -485,6 +498,7 @@ class Room < ActiveRecord::Base
     agis_defm2(:aamend_player)
     agis_defm3(:aappend_chatmessage)
     agis_defm0(:achug_room)
+    agis_defm1(:aadd_running_server)
   end
 end
 

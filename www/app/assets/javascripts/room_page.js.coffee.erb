@@ -32,7 +32,7 @@ random_unique_signature = () ->
 
 CHANGED_WAGER = false
 STAGING_WAGER = null
-UPTIMEOUT     = 5000
+UPTIMEOUT     = 3000
 CHATRENDERED  = false
 
 fetchPlayer = (data, id) ->
@@ -150,7 +150,7 @@ updatePageObject = (data) ->
   else
     declareInRoom(false)
   renderPlayerList(data)
-  if(data.state != 1)
+  if(data and data.state != 1)
     console.log(data.state)
     UPTIMEOUT = 12000
 
