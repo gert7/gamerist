@@ -11,7 +11,12 @@ describe Room do
 
   shared_context("when players have money") do
     before {
-      User.any_instance.stubs(:total_balance).returns 25
+      Transaction.make_transaction(user_id: player1.id, amount: 25, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL, detail: 1)
+      Transaction.make_transaction(user_id: player2.id, amount: 25, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL, detail: 2)
+      Transaction.make_transaction(user_id: player3.id, amount: 25, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL, detail: 3)
+      Transaction.make_transaction(user_id: player4.id, amount: 25, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL, detail: 4)
+      Transaction.make_transaction(user_id: player5.id, amount: 25, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL, detail: 5)
+      #User.any_instance.stubs(:total_balance).returns 25
     }
   end
   
@@ -187,7 +192,7 @@ describe Room do
         room.amend_player! player4, "team" => 3, "ready" => 1
       }
       it "locks the room" do
-        expect(room.state).to eq Room::STATE_LOCKED
+        expect(room.rstate).to eq Room::STATE_LOCKED
       end
       it "saves the rules correctly" do
         expect(room.srules["players"].count).to eq 4
@@ -198,7 +203,7 @@ describe Room do
       room.amend_player! player2, "ready" => 1
       room.amend_player! player3, {}
       room.amend_player! player4, "ready" => 1
-      expect(room.state).to eq Room::STATE_PUBLIC
+      expect(room.rstate).to eq Room::STATE_PUBLIC
     end
   end
   
@@ -209,9 +214,9 @@ describe Room do
       room.amend_player! player2, "team" => 2, "ready" => 1
       room.amend_player! player3, "team" => 3, "ready" => 1
       room.amend_player! player4, {}
-      expect(room.state).to eq Room::STATE_PUBLIC
+      expect(room.rstate).to eq Room::STATE_PUBLIC
       room.amend_player! player5, "team" => 3, "ready" => 1
-      expect(room.state).to eq Room::STATE_LOCKED
+      expect(room.rstate).to eq Room::STATE_LOCKED
       expect(room.total_players(room.srules)).to eq 4
       expect(room.srules["players"].count).to eq 4
     end
@@ -297,6 +302,18 @@ describe Room do
       expect(room.srules["players"][1]["team"]).to eq 2
       expect(room.srules["players"][2]["team"]).to eq 0
       expect(room.srules["players"][3]["team"]).to eq 0
+    end
+  end
+  
+  describe "#declare_winning_team" do
+    include_context "when players have money"
+    it "distributes winnings" do
+      room.amend_player! player1, "team" => 2
+      room.amend_player! player2, "team" => 2
+      room.amend_player! player3, "team" => 3
+      room.amend_player! player4, "team" => 3
+      room.declare_winning_team(2)
+      expect(player1.total_balance).to eq 30
     end
   end
 end

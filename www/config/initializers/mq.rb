@@ -25,6 +25,7 @@ ch.queue("gamerist.dispatch.upstream", durable: true).subscribe do |delivery_inf
       ip = $gamerist_serverdata["servers"].select {|v| v["name"] == jdata["server"]}[0]["ip"]
       Room.new(id: jdata["id"]).add_running_server({"servername" => jdata["server"], "ip" => ip, "port" => jdata["port"]})
     when "teamwin" # team wins
+      Room.new(id: jdata['id']).declare_winning_team(jdata['winningteam'])
     when "playerscores" # player score data
     when "servererror" # server encountered an error
     else

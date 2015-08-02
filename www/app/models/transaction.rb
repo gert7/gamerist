@@ -77,7 +77,7 @@ class Transaction < ActiveRecord::Base
       #throw [self.amount >= 0, self.realized_kind?, lasttr != nil]
     #end
     
-    raise ActiveRecord::Rollback if (self.user.is_reserved? and self.user.reservation_lives? and self.amount < 0)
+    raise ActiveRecord::Rollback if ((self.kind == KIND_ROOM and self.user.reservation_lives? and not self.user.reservation_is_room?(self.detail)) or (self.kind == KIND_PAYPAL and self.user.reservation_lives? and not self.user.reservation_is_paypal?(self.detail)) and self.amount < 0)
     
     l = kind_handler()
     
@@ -95,10 +95,20 @@ class Transaction < ActiveRecord::Base
     self.user_id
   end
   
-  def amake_transaction(hash)
-    tr = Transaction.new(hash)
+  # Thread-unsafe method used in make_transaction and elsewhere
+  def self.perform_unique_transaction(hash)
+    puts hash
+    trf = Transaction.find_by(user_id: hash[:user_id], kind: hash[:kind], detail: hash[:detail])
+    return trf.id if trf
+    tr  = Transaction.new(hash)
     tr.save!
+    puts tr.id
     return tr.id
+  end
+  
+  def amake_transaction(hash)
+    # if it was already made
+    return Transaction.perform_unique_transaction(hash)
   end
   
   # Thread-safe version of Transaction#create
@@ -117,18 +127,13 @@ class Transaction < ActiveRecord::Base
     payp = Paypal.find(ppid)
     ux   = User.new(id: payp.user_id)
     return false unless ux.reserve_paypal!(ppid)
-    puts ppid
-    tr = Transaction.find_by(kind: Transaction::KIND_PAYPAL, detail: ppid)
-    unless tr
-      tr = Transaction.new(user_id: payp.user_id, amount: payp.amount, kind: Transaction::KIND_PAYPAL, detail: ppid, state: Transaction::STATE_FINAL)
-      tr.save!
-    end
+    trid = Transaction.perform_unique_transaction(user_id: payp.user_id, amount: payp.amount, kind: Transaction::KIND_PAYPAL, detail: ppid, state: Transaction::STATE_FINAL)
     payp.state = Paypal::STATE_EXECUTED
     payp.save!
     payment = PayPal::SDK::REST::Payment.find(payp.sid)
     payment.execute(payer_id: payerid)
     ux.unreserve_from_paypal(ppid)
-    return tr.id
+    return trid
   end
 
   def self.paypal_finalize(payerid, pp)

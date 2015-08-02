@@ -199,7 +199,9 @@ class Room < ActiveRecord::Base
   
   # Removes all players not in teams
   def remove_exo_players(mrules)
+    puts mrules["players"]
     mrules["players"].delete_if {|value| value["team"].to_s == "0"}
+    puts mrules["players"]
     return mrules
   end
   
@@ -462,11 +464,32 @@ class Room < ActiveRecord::Base
         DispatchMQ.send_room_cancel(self.id, v["servername"])
       end
       $redis.hset rapidkey, "final_server_address", res[0]["ip"] + ":" + res[0]["port"].to_s
+      self.rstate = STATE_ACTIVE
     end
   end
   
   def chug_room
     self.acall($redis, :achug_room)
+  end
+  
+  def adeclare_winning_team(team)
+    dself                 = Room.find(self.id)
+    mrules                = dself.srules
+    mrules["winningteam"] = team
+    mrules["players"].each do |v|
+      if v["team"].to_s == team.to_s
+        Transaction.make_transaction(user_id: v["id"], amount: mrules["wager"].to_i, state: Transaction::STATE_FINAL, kind: Transaction::KIND_ROOM, detail: dself.id)
+      else
+        Transaction.make_transaction(user_id: v["id"], amount: (0 - mrules["wager"].to_i), state: Transaction::STATE_FINAL, kind: Transaction::KIND_ROOM, detail: dself.id)
+      end
+    end
+    dself.srules = mrules
+    dself.rstate = STATE_OVER
+    dself.save(validate: false)
+  end
+  
+  def declare_winning_team(team)
+    self.acall($redis, :adeclare_winning_team, team)
   end
   
   def final_server_address
@@ -498,6 +521,7 @@ class Room < ActiveRecord::Base
     agis_defm3(:aappend_chatmessage)
     agis_defm0(:achug_room)
     agis_defm1(:aadd_running_server)
+    agis_defm1(:adeclare_winning_team)
   end
 end
 
