@@ -8,8 +8,11 @@ debug         = require("debug")("spinup")
 path          = require("path")
 destroy_port  = require("./destroy_port")
 
+Config        = require("./handlr_config").conf
+
 spawn_indep_async = (cmd, args, id, closecallback) ->
-  proc = child_process.spawn(cmd, args, {detached: true})
+  if !Config.travismode
+    proc = child_process.spawn(cmd, args, {detached: true})
   (closecallback || ->)()
 
 udp_getport = (port, errcallback) ->

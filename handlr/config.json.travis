@@ -1,7 +1,7 @@
 {
   "selfname": "centurion",
   "testmode": true,
-  "travismode": false,
+  "travismode": true,
   "rabbitmq":
   {
     "url": "amqp://127.0.0.1",
