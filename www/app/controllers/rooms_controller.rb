@@ -12,6 +12,13 @@ class RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
+    page         = params[:page].to_i
+    @rooms       = Room.roomlist_range(page, page + 30)
+    @roomslength = Room.roomlist_length
+    respond_to do |format|
+      format.json { render action: 'index' }
+      format.html { render action: 'index' }
+    end
   end
 
   # GET /rooms/1

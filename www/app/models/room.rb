@@ -96,13 +96,45 @@ class Room < ActiveRecord::Base
   end
   
   before_save do
-    self.rules ||= JSON.generate({server_region: @server_region, game: @game, map: @map, playercount: @playercount, wager: @wager, server: @server, players: []})
+    self.rules ||= JSON.generate({server_region: @server_region, game: @game, map: @map, playercount: @playercount, wager: @wager, players: []})
   end
   
   after_save do
-    $redis.hset rapidkey, "rules", self.rules
-    $redis.hset rapidkey, "state", self.state
-    $redis.hset rapidkey, "is_alive", "true"
+    if self.game # is this a new save?
+      $redis.hset rapidkey, "rules", self.rules
+      $redis.hset rapidkey, "state", self.state
+      $redis.hset rapidkey, "is_alive", "true"
+      Room.roomlist_add(self)
+    end
+  end
+  
+  def self.roomlist_add(room)
+    $redis.rpush "gamerist_roomlist_potential", room.id
+  end
+  
+  def self.roomlist_produce()
+    timeout = $redis.get("gamerist_roomlist_timeout")
+    if (not timeout or (timeout and timeout.to_i < Time.now.to_i))
+      $redis.del("gamerist_roomlist")
+      $redis.lrange("gamerist_roomlist_potential", 0, -1).each do |v|
+        r = Room.new(id: v.to_i)
+        next unless r.is_alive?
+        next unless r.rstate == Room::STATE_PUBLIC
+        puts JSON.generate({id: v, rules: r.srules})
+        $redis.rpush("gamerist_roomlist", JSON.generate({id: v, rules: r.srules}))
+      end
+      timeout = Time.now.to_i + 8
+    end
+  end
+  
+  def self.roomlist_length
+    roomlist_produce
+    $redis.llen "gamerist_roomlist"
+  end
+  
+  def self.roomlist_range(lrange, rrange)
+    roomlist_produce
+    $redis.lrange("gamerist_roomlist", lrange, rrange)
   end
   
   def rapidkey
