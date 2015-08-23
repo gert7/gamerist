@@ -12,6 +12,7 @@
 #  redirect   :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  country    :text
 #
 
 require 'spec_helper'

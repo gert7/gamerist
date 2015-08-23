@@ -12,6 +12,7 @@
 #  redirect   :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  country    :text
 #
 
 # PayPal transaction reference
@@ -140,9 +141,10 @@ class Paypal < ActiveRecord::Base
     pud = {user: user,
           amount: points,
           subtotal: data[:subtotal],
-          tax: data[:tax], 
-          state: Paypal::STATE_CREATED, 
-          sid: payment.id, 
+          tax: data[:tax],
+          country: data[:countrycode],
+          state: Paypal::STATE_CREATED,
+          sid: payment.id,
           redirect: get_redir(payment)
           }
     pp.update(pud)

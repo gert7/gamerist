@@ -11,27 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406090109) do
+ActiveRecord::Schema.define(version: 20150823075254) do
 
-  create_table "accounts", force: true do |t|
+  create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "countrycode"
-    t.string   "nickname"
+    t.string   "countrycode",   limit: 255
+    t.string   "nickname",      limit: 255
     t.date     "dob"
-    t.string   "firstname"
-    t.string   "lastname"
-    t.string   "paypaladdress"
+    t.string   "firstname",     limit: 255
+    t.string   "lastname",      limit: 255
+    t.string   "paypaladdress", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "active_admin_comments", force: true do |t|
-    t.string   "namespace"
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace",     limit: 255
     t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
+    t.string   "resource_id",   limit: 255, null: false
+    t.string   "resource_type", limit: 255, null: false
     t.integer  "author_id"
-    t.string   "author_type"
+    t.string   "author_type",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -40,17 +40,17 @@ ActiveRecord::Schema.define(version: 20150406090109) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
-  create_table "admins", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "admins", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -58,50 +58,51 @@ ActiveRecord::Schema.define(version: 20150406090109) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",               default: 0, null: false
+    t.integer  "attempts",               default: 0, null: false
+    t.text     "handler",                            null: false
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
-  create_table "games", force: true do |t|
-    t.string   "prettyname"
-    t.string   "enum"
+  create_table "games", force: :cascade do |t|
+    t.string   "prettyname", limit: 255
+    t.string   "enum",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "maps", force: true do |t|
-    t.string   "prefix"
-    t.string   "name"
+  create_table "maps", force: :cascade do |t|
+    t.string   "prefix",     limit: 255
+    t.string   "name",       limit: 255
     t.integer  "game_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "paypals", force: true do |t|
-    t.decimal  "amount",     precision: 8, scale: 2
-    t.decimal  "subtotal",   precision: 8, scale: 2
-    t.decimal  "tax",        precision: 8, scale: 2
+  create_table "paypals", force: :cascade do |t|
+    t.decimal  "amount",                 precision: 8, scale: 2
+    t.decimal  "subtotal",               precision: 8, scale: 2
+    t.decimal  "tax",                    precision: 8, scale: 2
     t.integer  "state"
     t.integer  "user_id"
-    t.string   "sid"
-    t.string   "redirect"
+    t.string   "sid",        limit: 255
+    t.string   "redirect",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "country"
   end
 
-  create_table "rooms", force: true do |t|
+  create_table "rooms", force: :cascade do |t|
     t.integer  "owner"
     t.integer  "game_id"
     t.integer  "ruleset_id"
@@ -112,30 +113,30 @@ ActiveRecord::Schema.define(version: 20150406090109) do
     t.text     "rules"
   end
 
-  create_table "rulesets", force: true do |t|
+  create_table "rulesets", force: :cascade do |t|
     t.integer  "map_id"
     t.integer  "playercount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "servers", force: true do |t|
+  create_table "servers", force: :cascade do |t|
     t.integer  "number"
-    t.string   "server_address"
-    t.string   "dispatch_address"
+    t.string   "server_address",   limit: 255
+    t.string   "dispatch_address", limit: 255
     t.integer  "dispatch_version"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "steamids", force: true do |t|
-    t.string   "steamid"
+  create_table "steamids", force: :cascade do |t|
+    t.string   "steamid",    limit: 255
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "transactions", force: true do |t|
+  create_table "transactions", force: :cascade do |t|
     t.integer  "state"
     t.integer  "user_id"
     t.integer  "lastref"
@@ -150,17 +151,17 @@ ActiveRecord::Schema.define(version: 20150406090109) do
 
   add_index "transactions", ["user_id"], name: "index_transactions_on_user_id"
 
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end

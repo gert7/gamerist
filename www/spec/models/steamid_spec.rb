@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: steamids
+#
+#  id         :integer          not null, primary key
+#  steamid    :string(255)
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'spec_helper'
 
 describe Steamid do
