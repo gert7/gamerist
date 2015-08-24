@@ -27,7 +27,9 @@ ch.queue("gamerist.dispatch.upstream", durable: true).subscribe do |delivery_inf
     when "teamwin" # team wins
       Room.new(id: jdata['id']).declare_winning_team(jdata['winningteam'])
     when "playerscores" # player score data
+      Room.new(id: jdata['id']).declare_team_scores(jdata['scores'])
     when "servererror" # server encountered an error
+      Room.new(id: jdata['id']).declare_error(jdata['errno'])
     else
     end
   end
@@ -51,7 +53,7 @@ module DispatchMQ
       json.id roomid
       json.roomdata roomrules
       json.type "spinup"
-      json.timeout Time.now.to_i + 10
+      json.timeout Time.now.to_i + 15 # TODO make sure this is a good timeout
     end
     
     puts req.target!

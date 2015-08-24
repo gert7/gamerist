@@ -35,6 +35,9 @@ class Room < ActiveRecord::Base
   attr_accessor :game, :map, :playercount, :wager, :spreadmode, :spread, :server, :server_region, :personal_messages
   include Agis
   
+  TIMEOUT_ROOMLIST = 8
+  TIMEOUT_PUBLIC   = 240
+  
   STATE_DRAFT   = 0  # draft --unused
   STATE_PUBLIC  = 1  # waiting for players in browser
   STATE_LOCKED  = 2  # everybody is ready, waiting for server
@@ -105,6 +108,7 @@ class Room < ActiveRecord::Base
       $redis.hset rapidkey, "state", self.state
       $redis.hset rapidkey, "is_alive", "true"
       Room.roomlist_add(self)
+      self.room_renew_timeout
     end
   end
   
@@ -123,7 +127,7 @@ class Room < ActiveRecord::Base
         puts JSON.generate({id: v, rules: r.srules})
         $redis.rpush("gamerist_roomlist", JSON.generate({id: v, rules: r.srules}))
       end
-      timeout = Time.now.to_i + 8
+      $redis.set("gamerist_roomlist_timeout", Time.now.to_i + Room::TIMEOUT_ROOMLIST)
     end
   end
   
@@ -141,10 +145,37 @@ class Room < ActiveRecord::Base
     "gamerist-room {" + self.id.to_s + "}"
   end
   
+  def room_renew_timeout
+    if (not room_timed_out? and Room::STATE_PUBLIC)
+      $redis.hset(rapidkey, "timeout", Time.now.to_i + Room::TIMEOUT_PUBLIC)
+    end
+  end
+  
+  def room_timed_out?
+    to = $redis.hget(rapidkey, "timeout")
+    puts "TIMEOUT::"
+    puts to
+    # dump_timeout_players
+    if to
+      if (to.to_i > Time.now.to_i)
+        return false
+      elsif (to.to_i < Time.now.to_i) and self.srules["players"].count == 0
+        dself = Room.find(self.id)
+        dself.rstate = Room::STATE_FAILED
+        dself.save(validate: false)
+        return true
+      end
+    end
+    false
+  end
+  
   # Check if the is_alive key is set for this room in Redis
   def is_alive?
     return true if Rails.env.development?
-    return true if $redis.hget(rapidkey, "is_alive") == "true"
+    if $redis.hget(rapidkey, "is_alive") == "true" and
+       ((self.rstate != Room::STATE_PUBLIC) or (not room_timed_out?))
+      return true
+    end
     false
   end
   
@@ -489,10 +520,10 @@ class Room < ActiveRecord::Base
     if state == nil or (state == "yes" and not results and tout.to_i < Time.now.to_i)
       DispatchMQ.send_room_requests(self)
       $redis.hset rapidkey, "search_searching", "yes"
-      $redis.hset rapidkey, "search_timeout", Time.now.to_i + 20
+      $redis.hset rapidkey, "search_timeout", Time.now.to_i + 25 # TODO make sure this is a good timeout - other half of mq.rb
     elsif ((state == "yes") and results and tout.to_i < Time.now.to_i)
       res = JSON.parse(results)["servers"] # servername, ip, port
-      res[0..-1].each do |v|
+      res[1..-1].each do |v|
         DispatchMQ.send_room_cancel(self.id, v["servername"])
       end
       $redis.hset rapidkey, "final_server_address", res[0]["ip"] + ":" + res[0]["port"].to_s
@@ -524,6 +555,21 @@ class Room < ActiveRecord::Base
     self.acall($redis, :adeclare_winning_team, team)
   end
   
+  def adeclare_team_scores(tscores)
+    dself  = Room.find(self.id)
+    mrules = dself.srules
+    tscores.each do |tv|
+      pi = mrules["players"].find_index {|pv| pv["steamid"] == tv["steamid"]}
+      mrules["players"][pi]["score"] = tv["score"]
+    end
+    dself.srules = mrules
+    dself.save(validate: false)
+  end
+  
+  def declare_team_scores(tscores)
+    self.acall($redis, :adeclare_team_scores, tscores)
+  end
+  
   def final_server_address
     $redis.hget rapidkey, "final_server_address"
   end
@@ -533,6 +579,7 @@ class Room < ActiveRecord::Base
   # @param [User] cuser ActiveRecord instance of the player
   # @param [Hash] params parameters sent through controller PATCH method
   def update_xhr(cuser, params)
+    return if room_timed_out?
     return unless self.is_alive?
     if params["upclass"] == "chatroom" and self.is_public?
       append_chatmessage!(cuser, params["message"]) unless params["message"].gsub(/\s+/, "") == ""
@@ -545,6 +592,7 @@ class Room < ActiveRecord::Base
         amend_player!(cuser, params)
       end
     end
+    room_renew_timeout if self.srules["players"].count > 0
   end
   
   after_initialize do
@@ -554,6 +602,7 @@ class Room < ActiveRecord::Base
     agis_defm0(:achug_room)
     agis_defm1(:aadd_running_server)
     agis_defm1(:adeclare_winning_team)
+    agis_defm1(:adeclare_team_scores)
   end
 end
 

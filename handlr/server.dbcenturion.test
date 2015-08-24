@@ -1,41 +1,73 @@
-{"port":27015,"roomid":193,"room":{"playercount":32},"timeout":1438542825,"_id":"AIXgk9BwGANo9Hhn"}
-{"port":27016,"roomid":194,"room":{"playercount":32},"timeout":1438542825,"_id":"KTc1a7vqGp4TJNYG"}
-{"port":27017,"roomid":196,"room":{"playercount":32},"timeout":1438542825,"_id":"oom6RnJYOkksnEdA"}
-{"port":27018,"roomid":197,"room":{"playercount":32},"timeout":1438542825,"_id":"w5TAS3TpsgQUkX6Q"}
 {"$$indexCreated":{"fieldName":"port","unique":true,"sparse":false}}
-{"$$deleted":true,"_id":"AIXgk9BwGANo9Hhn"}
-{"$$deleted":true,"_id":"KTc1a7vqGp4TJNYG"}
-{"$$deleted":true,"_id":"oom6RnJYOkksnEdA"}
-{"$$deleted":true,"_id":"w5TAS3TpsgQUkX6Q"}
-{"port":27015,"roomid":81,"room":{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","team":3,"steamid":"STEAM_0:1:18525940","timeout":1435667836}]},"timeout":1438542840,"_id":"Z7AbXkTaMqdITwJv"}
-{"$$deleted":true,"_id":"Z7AbXkTaMqdITwJv"}
-{"port":27015,"roomid":81,"room":{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","team":3,"steamid":"STEAM_0:1:18525940","timeout":1435667836}]},"timeout":1438542840,"_id":"CJG6ZCxpcSThhwtk"}
-{"$$deleted":true,"_id":"CJG6ZCxpcSThhwtk"}
-{"port":27015,"roomid":71,"room":{},"timeout":1438542840,"_id":"j88nKEiUt6tOGpS9"}
-{"$$deleted":true,"_id":"j88nKEiUt6tOGpS9"}
-{"port":27015,"roomid":72,"room":{},"timeout":1438542840,"_id":"s1O41AOzojXedVyP"}
-{"$$deleted":true,"_id":"s1O41AOzojXedVyP"}
-{"port":27015,"roomid":81,"room":{},"timeout":1438542840,"_id":"S3hJqApXz3clhUyY"}
-{"$$deleted":true,"_id":"S3hJqApXz3clhUyY"}
-{"port":27015,"roomid":101,"room":{},"timeout":1438542840,"_id":"dqBmksQ5vuXkMCOO"}
-{"$$deleted":true,"_id":"dqBmksQ5vuXkMCOO"}
-{"port":27015,"roomid":94,"room":{},"timeout":1438542840,"_id":"MKzZKXnf2jwxszvk"}
-{"$$deleted":true,"_id":"MKzZKXnf2jwxszvk"}
-{"port":27015,"roomid":95,"room":{},"timeout":1438542840,"_id":"4wzQpuIvhP2XJKzL"}
-{"$$deleted":true,"_id":"4wzQpuIvhP2XJKzL"}
-{"port":27015,"roomid":96,"room":{},"timeout":1438542840,"_id":"9S88smBiSITPAZgq"}
-{"$$deleted":true,"_id":"9S88smBiSITPAZgq"}
-{"port":27015,"roomid":192,"room":{"playercount":16},"timeout":1438542840,"_id":"S73vqzHGewbqT37h"}
-{"$$deleted":true,"_id":"S73vqzHGewbqT37h"}
-{"port":27015,"roomid":193,"room":{"playercount":32},"timeout":1438542840,"_id":"LFb4mDSb7Z9uaucQ"}
-{"port":27016,"roomid":194,"room":{"playercount":32},"timeout":1438542840,"_id":"tXdteQuHNM44Ow4T"}
-{"port":27017,"roomid":196,"room":{"playercount":32},"timeout":1438542840,"_id":"oEpAovsRHl8k8Ibq"}
-{"port":27018,"roomid":197,"room":{"playercount":32},"timeout":1438542840,"_id":"qd7rkLCUyBFiQS0O"}
-{"$$deleted":true,"_id":"LFb4mDSb7Z9uaucQ"}
-{"$$deleted":true,"_id":"tXdteQuHNM44Ow4T"}
-{"$$deleted":true,"_id":"oEpAovsRHl8k8Ibq"}
-{"$$deleted":true,"_id":"qd7rkLCUyBFiQS0O"}
-{"port":27015,"roomid":193,"room":{"playercount":32},"timeout":1438542840,"_id":"iXun8Tu1aewsrQS7"}
-{"port":27016,"roomid":194,"room":{"playercount":32},"timeout":1438542840,"_id":"u8s93YH2Af5fLDbq"}
-{"port":27017,"roomid":196,"room":{"playercount":32},"timeout":1438542840,"_id":"5E7U8Xxc7ivHcddL"}
-{"port":27018,"roomid":197,"room":{"playercount":32},"timeout":1438542840,"_id":"MYRqTkUeLzhbzOOJ"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328417,"_id":"7zUDfQzUiJOoSk1b"}
+{"$$deleted":true,"_id":"7zUDfQzUiJOoSk1b"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328443,"_id":"tUAT2ASLMK5y8QMU"}
+{"$$deleted":true,"_id":"tUAT2ASLMK5y8QMU"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328453,"_id":"l3IV4RPiPQaML2vm"}
+{"$$deleted":true,"_id":"l3IV4RPiPQaML2vm"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328463,"_id":"6jW0JrBSZnEhAnc3"}
+{"$$deleted":true,"_id":"6jW0JrBSZnEhAnc3"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328473,"_id":"6XLjqeI9pUY3f6NR"}
+{"$$deleted":true,"_id":"6XLjqeI9pUY3f6NR"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328483,"_id":"2kCPo4h1atYEI7uz"}
+{"$$deleted":true,"_id":"2kCPo4h1atYEI7uz"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328493,"_id":"tFfOfbgilfAOkMtY"}
+{"$$deleted":true,"_id":"tFfOfbgilfAOkMtY"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328503,"_id":"L4tNrxA4nEgjEAXU"}
+{"$$deleted":true,"_id":"L4tNrxA4nEgjEAXU"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328513,"_id":"YsVUokAJQ7ptL5Xk"}
+{"$$deleted":true,"_id":"YsVUokAJQ7ptL5Xk"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328523,"_id":"DfzWxQ1wWGaEvY9v"}
+{"$$deleted":true,"_id":"DfzWxQ1wWGaEvY9v"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328533,"_id":"rc4DKodFbGgs6yKb"}
+{"$$deleted":true,"_id":"rc4DKodFbGgs6yKb"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328543,"_id":"kDR56IvJNXDSAVg7"}
+{"$$deleted":true,"_id":"kDR56IvJNXDSAVg7"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328553,"_id":"HC2Mu7OIfYaDL3gW"}
+{"$$deleted":true,"_id":"HC2Mu7OIfYaDL3gW"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328564,"_id":"Xbvq55Fwqj64OGXX"}
+{"$$deleted":true,"_id":"Xbvq55Fwqj64OGXX"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328574,"_id":"LCiFRVztFUgv3lf5"}
+{"$$deleted":true,"_id":"LCiFRVztFUgv3lf5"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328584,"_id":"z8kWiRiG5CdlWVrO"}
+{"$$deleted":true,"_id":"z8kWiRiG5CdlWVrO"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328594,"_id":"g85PIVelHr6rmIr4"}
+{"$$deleted":true,"_id":"g85PIVelHr6rmIr4"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328604,"_id":"dHRnUse3G1goBU2W"}
+{"$$deleted":true,"_id":"dHRnUse3G1goBU2W"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328614,"_id":"NCkLOSksCyRSwrcn"}
+{"$$deleted":true,"_id":"NCkLOSksCyRSwrcn"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328624,"_id":"Yo0MQL2kJkhAQkmW"}
+{"$$deleted":true,"_id":"Yo0MQL2kJkhAQkmW"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328634,"_id":"ToSRMBwfaOl4RQcA"}
+{"$$deleted":true,"_id":"ToSRMBwfaOl4RQcA"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328644,"_id":"ZhbMCk3Vz0WIyp7U"}
+{"$$deleted":true,"_id":"ZhbMCk3Vz0WIyp7U"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328654,"_id":"EMQsNbk1xsRYWWGu"}
+{"$$deleted":true,"_id":"EMQsNbk1xsRYWWGu"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328664,"_id":"2ERY610AKEzDLAiQ"}
+{"$$deleted":true,"_id":"2ERY610AKEzDLAiQ"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328674,"_id":"VZd8P3uyXiCtNIOW"}
+{"$$deleted":true,"_id":"VZd8P3uyXiCtNIOW"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328684,"_id":"DEpG4gKi2BzOcXSS"}
+{"$$deleted":true,"_id":"DEpG4gKi2BzOcXSS"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328694,"_id":"7fL8HSdhBv3ZxY7m"}
+{"$$deleted":true,"_id":"7fL8HSdhBv3ZxY7m"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328704,"_id":"WIXXA2vEn4hstIMA"}
+{"$$deleted":true,"_id":"WIXXA2vEn4hstIMA"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328714,"_id":"XCzg95xWivYA9vyd"}
+{"$$deleted":true,"_id":"XCzg95xWivYA9vyd"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328724,"_id":"vdLUjNFpVcRDM8Fg"}
+{"$$deleted":true,"_id":"vdLUjNFpVcRDM8Fg"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328734,"_id":"isOZKXnvz0lLVAD2"}
+{"$$deleted":true,"_id":"isOZKXnvz0lLVAD2"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328744,"_id":"N0noF0mM4IOrsU9n"}
+{"$$deleted":true,"_id":"N0noF0mM4IOrsU9n"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328754,"_id":"YQzo6sA4dvP362KM"}
+{"$$deleted":true,"_id":"YQzo6sA4dvP362KM"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328765,"_id":"WMSbz9UpZXJTtU3W"}
+{"$$deleted":true,"_id":"WMSbz9UpZXJTtU3W"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328775,"_id":"5yP0lz12tZcnvfiQ"}
+{"$$deleted":true,"_id":"5yP0lz12tZcnvfiQ"}
+{"port":27015,"roomid":58,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":10,"players":[{"id":2,"ready":"1","wager":"10","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9d/9dd5f67450bf4779cc02e5e8a99e5278ed612c7b.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":3,"timeout":1440328326}]},"timeout":1440328785,"_id":"iJa09kjdRc4aJNmP"}
+{"$$deleted":true,"_id":"iJa09kjdRc4aJNmP"}

@@ -235,10 +235,17 @@ class User < ActiveRecord::Base
     end
   end
   
+  def convert_id(id)
+    return '765' + (id.to_i + 61197960265728).to_s
+  end
+  
   def load_steamplayer
     require 'open-uri'
     steamapik = $GAMERIST_API_KEYS["steam"]
-    response = JSON.parse(open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid.to_s}").read)
+    stid = (1 << 56) | (1 << 52) | (1 << 32) + (self.steamid.to_s.split(":").last.to_i) * 2 + 1 # SATAN
+    puts "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{stid}"
+    ru = open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{stid}").read
+    response = JSON.parse(ru)
     return response["response"]["players"][0]
   end
   
@@ -247,6 +254,7 @@ class User < ActiveRecord::Base
     $redis.hfetch hrapidkey, "steamapi" do
       return nil unless self.steamid
       player = load_steamplayer
+      return nil unless player
       $redis.hset hrapidkey, "avatar_urls", (player["avatar"] + " " + player["avatarmedium"] + " " + player["avatarfull"])
       $redis.hset hrapidkey, "steamname", player["personaname"]
       "1"

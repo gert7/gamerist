@@ -327,5 +327,17 @@ describe Room do
       expect(player1.total_balance).to eq 30
     end
   end
+  
+  describe "#declare_team_scores" do
+    include_context "when players have money"
+    it "specifies scores" do
+      room.amend_player! player1, "team" => 2
+      room.amend_player! player2, "team" => 2
+      room.amend_player! player3, "team" => 3
+      room.amend_player! player4, "team" => 3
+      room.declare_team_scores([{"steamid": player1.steamid.steamid, "score": 81}])
+      expect(room.srules["players"][0]["score"]).to eq 81
+    end
+  end
 end
 
