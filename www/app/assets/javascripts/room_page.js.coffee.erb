@@ -72,21 +72,67 @@ renderPlayerList = (data) ->
     $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_teambar_" + (if (isTeam and ply.team == 2) then "red" else if(isTeam and ply.team == 3) then "blu") + "'></div><div class='account_mini_avatar'>" + (if isTeam then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if isTeam then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if isTeam then ply.wager else "") + "</div></div></div>")
   $("#srules_players").replaceWith(srulesPlayers)
 
+animateRepeat = (t) ->
+  for i in [0..$("#srules_waiting").children().length]
+    col = ((Math.sin(t - (i / 3.0)) + 1.0) * 32.0) + 164.0
+    $("#srules_waiting").children().eq(i).css("color", ("rgb(" + Math.floor(col) + "," + Math.floor(col) + "," + Math.floor(col) + ")"))
+  setTimeout((-> animateRepeat(t + 0.1)), 66)
+
+ANIMATING = false
+
+animateWaiting = () ->
+  return false if ANIMATING
+  nuevo = document.createElement("div")
+  $(nuevo).attr("id", "srules_waiting")
+  for i in [0..$("#srules_waiting").text().length]
+    xi = document.createElement("span")
+    $(xi).text($("#srules_waiting").text()[i])
+    $(nuevo).append(xi)
+  $("#srules_waiting").replaceWith(nuevo)
+  animateRepeat(1)
+  ANIMATING = true
+
+CHIMESTATE = 1
+
+playChimeIfChanged = (state) ->
+  document.getElementById("srules_buttons_chime").play() unless CHIMESTATE == state
+  animateWaiting() if(state == 2 and CHIMESTATE != 2)
+  CHIMESTATE = state
+
+readyToIP = (data) ->
+  console.log(data.state)
+  if(data.state == 4)
+    playChimeIfChanged(4)
+    $("#srules_buttons_inner").animate({top:-85}, 800)
+  if(data.state == 2)
+    playChimeIfChanged(2)
+    $("#srules_play_game").click(() -> window.location.href = "steam://open/main/")
+    $("#srules_play_game_ip").text("IP Address: " + data.final_server_address)
+    $("#srules_buttons_inner").animate({top:0}, 800, (->))
+
 # Pop up an error message if the user isn't in the room
-declareInRoom = (t, roomIsPublic) ->
+declareInRoom = (t, roomIsPublic, data) ->
+  console.dir(t)
+  console.dir(roomIsPublic)
+  $("#srules_chatbox_insertzone").css("display", "none") unless roomIsPublic
+  $("#srules_ready").css("display", "inline-block") if t
+  readyToIP(data) if (t and data.state != 1)
   if(t and roomIsPublic)
     # $("#srules_notice").css("display", "none")
-    $("#srules_wagerselector").prop('disabled', false);
-    $("#srules_wagersubmit").prop('disabled', false);
-    $("#srules_readybutton").prop('disabled', false);
-    $("#srules_teamselect").css("display", "none");
-    $("#srules_team_leave").css("display", "block");
+    $("#srules_wagerselector").prop('disabled', false)
+    $("#srules_wagersubmit").prop('disabled', false)
+    $("#srules_readybutton").prop('disabled', false)
+    $("#srules_teamselect").css("display", "none")
+    $("#srules_team_leave").css("display", "block")
+    # $("#srules_buttons").css("display", "block")
   else
-    setUnready()
+    setUnready() if roomIsPublic
     # $("#srules_notice").css("display", "block")
     # $("#srules_notice").text("You are not in this room!")
-    $("#srules_teamselect").css("display", "block");
-    $("#srules_team_leave").css("display", "none");
+    $("#srules_teamselect").css("display", "block") if roomIsPublic
+    $("#srules_team_leave").css("display", "none")
+    # $("#srules_buttons").css("display", "none")
+    $("#srules_ready").css("display", "none") unless t
 
 chatLine = (steamname, message) ->
   name = $("<div/>").text(steamname).html()
@@ -100,7 +146,8 @@ renderChat = (data) ->
     for i in [0..(data.rules.messages.length - 1)]
       msg = data.rules.messages[i]
       # ply = fetchPlayer(data, msg.user_id)
-      $(srulesChat).append("<div class='srules_chatbox_message' index='" + msg.index + "'>" + chatLine(msg.steamname, msg) + "</div>")
+      if msg.steamname
+        $(srulesChat).append("<div class='srules_chatbox_message' index='" + msg.index + "'>" + chatLine(msg.steamname, msg) + "</div>")
     $("#srules_chatbox_text").replaceWith(srulesChat)
     $("#srules_chatbox_text").animate({ scrollTop: 9999999 }, 0)
 
@@ -142,13 +189,17 @@ updatePageObject = (data) ->
     CHANGED_WAGER = true
   curp = fetchCurrentPlayer(data)
   if curp and String(curp.team) != "0"
-    declareInRoom(true, true)
+    if Number(data.state) == 1
+      console.log("IST PUBLIK")
+      declareInRoom(true, true, data)
+    else
+      declareInRoom(true, false, data)
     if curp.ready == "1"
       setReady()
     else
       setUnready()
   else
-    declareInRoom(false)
+    declareInRoom(false, data.state == 1, data)
   renderPlayerList(data)
   if(data and data.state != 1)
     console.log(data.state)

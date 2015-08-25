@@ -58,6 +58,70 @@ form {
 #srules_buttons {
   background-color:#333;
   width:1024px;
+  overflow:hidden;
+  position:relative;
+  height:85px;
+}
+
+#srules_buttons_inner {
+  position:absolute;
+  height:170px;
+  top:-170px;
+}
+
+#srules_ip_address {
+  height:85px;
+  box-sizing:border-box;
+  text-align:center;
+}
+
+#srules_play_game {
+  margin-top:8px;
+  width:350px;
+  height:68px;
+  display:inline-block;
+  background:hsl(65,100,25);
+  border:1px solid hsl(65,66,50);
+  cursor:pointer;
+  box-sizing:border-box;
+  position:relative;
+}
+
+#srules_play_game:hover {
+  background:hsl(65,100,35);
+}
+
+#srules_play_game:active {
+  background:hsl(65,100,45);
+}
+
+#srules_play_game_label {
+  margin-top:20px;
+  font-size:1.3em;
+  color:white;
+  font-family: "Blue Highway Regular";
+}
+
+#srules_play_game_ip_container {
+  position:absolute;
+  bottom:0;
+  text-align:center;
+  width:100%;
+}
+
+#srules_play_game_ip {
+  font-family:sans-serif;
+  color:#333;
+  font-size:0.9em;
+}
+
+#srules_waiting {
+  height:85px;
+  color:white;
+  text-align:center;
+  font-size:1.1em;
+  padding:30px;
+  box-sizing:border-box;
 }
 
 #srules_wager {
@@ -72,9 +136,14 @@ form {
   background-color:#333;
   padding:12px;
   width:508px;
-  display:inline-block;
+  height:85px;
+  display:none;
   box-sizing:border-box;
   vertical-align:top;
+}
+
+#srules_ready_container {
+  width:484px;
 }
 
 #srules_wagerform {
@@ -184,6 +253,7 @@ form {
   color:white;
   font-family: "Blue Highway Regular";
   cursor:pointer;
+  
 }
 
 #srules_readybutton:hover {

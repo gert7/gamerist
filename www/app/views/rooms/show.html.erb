@@ -16,28 +16,40 @@
   <div id="srules_notice">&nbsp;</div>
   <div class="srules_hr saturatedBackground"></div>
   <div id="srules_buttons">
-    <div id="srules_wager">
-      <div class="srules_wagerselect srules_wagerselect_bg">
-          <div id="srules_wagerselector_outer">
-            <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" id="srules_wagerselector" class="pointsIcon" disabled="disabled"></input>
+    <div id="srules_buttons_inner">
+      <audio id="srules_buttons_chime" style="display:none;" src="<%= image_url("skowm001-1-tone-chime.wav") %>"></audio>
+      <div id="srules_ip_address">
+        <div id="srules_play_game">
+          <div id="srules_play_game_label">Play Game</div>
+          <div id="srules_play_game_ip_container">
+            <div id="srules_play_game_ip">IP ADDRESS</div>
           </div>
-          <div id="srules_wagersubmitc">
-            <input type="submit" id="srules_wagersubmit" value="Submit" disabled="disabled"></input>
-          </div>
-        <label id="srules_roomwager_label">Room wager:</label>
-        <div id="srules_roomwager">
-          5
         </div>
       </div>
-    </div>
-    <div id="srules_ready">
-      <div class="srules_wagerselect srules_wagerselect_bg">  
-        <label id="srules_readylabel">
-          Not Ready
-        </label>
-        <div id="srules_readybutton_outer">
-          <input type="hidden" id="srules_readystatus" name="room[ready]" value="0"></input>
-          <input type="button" id="srules_readybutton" value="Ready" disabled="disabled"></input>
+      <div id="srules_waiting">Waiting for server . . .</div>
+      <div id="srules_wager">
+        <div class="srules_wagerselect srules_wagerselect_bg">
+            <div id="srules_wagerselector_outer">
+              <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" id="srules_wagerselector" class="pointsIcon" disabled="disabled"></input>
+            </div>
+            <div id="srules_wagersubmitc">
+              <input type="submit" id="srules_wagersubmit" value="Submit" disabled="disabled"></input>
+            </div>
+          <label id="srules_roomwager_label">Room wager:</label>
+          <div id="srules_roomwager">
+            5
+          </div>
+        </div>
+      </div>
+      <div id="srules_ready">
+        <div class="srules_wagerselect srules_wagerselect_bg" id="srules_ready_container">  
+          <label id="srules_readylabel">
+            Not Ready
+          </label>
+          <div id="srules_readybutton_outer">
+            <input type="hidden" id="srules_readystatus" name="room[ready]" value="0"></input>
+            <input type="button" id="srules_readybutton" value="Ready" disabled="disabled"></input>
+          </div>
         </div>
       </div>
     </div>
