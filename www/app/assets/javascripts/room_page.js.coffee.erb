@@ -101,11 +101,11 @@ playChimeIfChanged = (state) ->
 
 readyToIP = (data) ->
   console.log(data.state)
-  if(data.state == 4)
-    playChimeIfChanged(4)
-    $("#srules_buttons_inner").animate({top:-85}, 800)
   if(data.state == 2)
     playChimeIfChanged(2)
+    $("#srules_buttons_inner").animate({top:-85}, 800)
+  if(data.state == 4)
+    playChimeIfChanged(4)
     $("#srules_play_game").click(() -> window.location.href = "steam://open/main/")
     $("#srules_play_game_ip").text("IP Address: " + data.final_server_address)
     $("#srules_buttons_inner").animate({top:0}, 800, (->))

@@ -89,11 +89,23 @@
   height:80px;
 }
 
-#account_maxi_steamname {
+#account_maxi_avatar_right {
   display:inline-block;
   vertical-align:top;
   box-sizing:border-box;
+  height:64px;
+}
+
+#account_maxi_steamname {
   font-family:"Blue Highway Regular";
   font-size:2em;
   color:white;
 }
+
+#account_maxi_current_place {
+  padding-top:6px;
+  color:white;
+  bottom:0;
+  width:100%;
+}
+

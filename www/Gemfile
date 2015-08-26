@@ -49,14 +49,14 @@ gem 'paypal-sdk-rest', require: false # 0.6.1
 gem 'geocoder', require: false # 1.2.0
 gem 'json_vat', github: 'adamcooke/json-vat', ref: 'dba4172', require: false
 gem 'google_currency', require: false
-gem 'steam-condenser', require: false
+gem 'lazy_high_charts', require: false
 
 gem 'rack-cache', require: false
 gem 'redis', require: false # 3.0.7
 gem 'redis-rails', require: false # 4.0.0
 gem 'mlanett-redis-lock', require: 'redis-lock'
 
-gem "bunny", "~> 1.7.0", require: false
+gem "bunny", "1.7.0", require: false
 #gem "march_hare", require: false
 
 gem 'ejs', require: 'ejs'

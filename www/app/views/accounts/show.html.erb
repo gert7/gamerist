@@ -3,8 +3,18 @@
     <div id="account_maxi_avatar">
       <img src="<%= @user.steam_avatar_urls.split(" ")[1] %>"/>
     </div>
-    <div id="account_maxi_steamname">
-      <%= @user.steam_name %>
+    <div id="account_maxi_avatar_right">
+      <div id="account_maxi_steamname">
+        <%= @user.steam_name %>
+      </div>
+      <div id="account_maxi_current_place">
+        <% @res = @user.get_reservation %>
+        <% if (@res and @user.reservation_is_room?(@res.id)) %>
+          User is in Room <a href="/rooms/<%= @res.id %>"><%= @res.id %>
+        <% end %>
+      </div>
     </div>
+  </div>
+  <div id="account_stats">
   </div>
 </div>

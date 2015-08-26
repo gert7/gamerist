@@ -57,7 +57,6 @@ describe 'Logged out' do
     end
     
     it 'flags the user as ready via button', js: true do
-      expect(page.find("#srules_readylabel")).to have_content("Not Ready")
       click_on("Join Red Team")
       click_on("Ready")
       expect(page.find("#srules_readylabel")).not_to have_content("Not Ready")
