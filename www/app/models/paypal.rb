@@ -38,9 +38,7 @@ class Paypal < ActiveRecord::Base
   end
   
   def self.margin_mult_pretty
-    $redis.fetch("GAMERIST_MULTI_PRETTY") do
-      Gamerist::MARGIN_MULT_PRETTY
-    end
+    $GAMERIST_MODIFIERS["MARGIN_MULT_PRETTY"].to_i
   end
   
   def self.margin_mult_rate
@@ -135,6 +133,7 @@ class Paypal < ActiveRecord::Base
     
     pt = Paypal.produce_pt(pp.id, data)
     payment = PayPal::SDK::REST::Payment.new(pt)
+    puts payment.state
     unless payment.create
       raise PaymentCreationFailedException, payment.error
     end

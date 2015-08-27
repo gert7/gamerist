@@ -59,8 +59,8 @@ class Room < ActiveRecord::Base
   ODDS_SIXTEENTH = 16 # best 1/16 win, min 16 players
   ODDS_SINGLE = 32 # best 1/32 (up to 1 player) wins, min 32 players
   
-  WAGER_MIN = 5
-  WAGER_MAX = 50
+  WAGER_MIN = $GAMERIST_MODIFIERS["ROOM_WAGER_MIN"]
+  WAGER_MAX = $GAMERIST_MODIFIERS["ROOM_WAGER_MAX"]
   
   MESSAGES_STORE_MAX = 40
   

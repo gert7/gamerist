@@ -36,7 +36,7 @@ class PaypalsController < ApplicationController
   def show
     pp = Paypal.find_by_id params[:id]
     pp.finalize_paypal_add(params[:PayerID]) ? flash[:notice] = pp.amount.to_i.to_s + " Points have been deposited to your account" : flash[:notice] = "Failed to deposit to account!"
-    redirect_to controller: :accounts, action: :show
+    redirect_to controller: :accounts, action: :index
   end
   
   def paydata

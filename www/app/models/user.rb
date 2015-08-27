@@ -160,6 +160,43 @@ class User < ActiveRecord::Base
     self.acall($redis, :aunreserve_from_paypal, paypal_id)
   end
   
+  #######
+  def areserve_payout (payout_id)
+    res = self.reservation
+    return false if (not reservation_is_payout?(payout_id) and reservation_lives?)
+    # return true if reservation_is_paypal?(paypal_id)
+    reserve! Transaction::RES_PAYOUT, payout_id
+    $redis.hset hrapidkey, "reservation", Transaction::RES_PAYOUT.to_s + ":" + payout_id.to_s
+    $redis.hset hrapidkey, "paypal_timeout", Time.now.to_i + PAYPAL_TIMEOUT
+    return true
+  end
+  
+  def reserve_payout! (payout_id)
+    self.acall($redis, :areserve_payout, payout_id)
+  end
+  
+  def reservation_is_payout?(payout_id)
+    res = self.reservation
+    (res and res[0].to_i == Transaction::RES_PAYOUT.to_i and res[1].to_i == payout_id.to_i and reservation_lives?)
+  end
+  
+  def payout_timed_out?
+    timeout = $redis.hget hrapidkey, "paypal_timeout"
+    return false if (timeout and timeout.to_i > Time.now.to_i)
+    true
+  end
+  
+  def aunreserve_from_payout(payout_id)
+    return false unless self.reservation_is_payout?(payout_id)
+    $redis.hdel hrapidkey, "reservation"
+    $redis.hdel hrapidkey, "paypal_timeout"
+    true
+  end
+  
+  def unreserve_from_payout(payout_id)
+    self.acall($redis, :aunreserve_from_payout, payout_id)
+  end
+  
   # Check if the Room associated with the User is alive.
   # Queries the Room's is_alive?
   # @param [Array] res The reservation provided by User#reservation
@@ -168,6 +205,7 @@ class User < ActiveRecord::Base
     res = self.reservation
     return true if (res and res[0].to_i == Transaction::KIND_ROOM.to_i and Room.new(id: res[1].to_i).is_alive?)
     return true if (res and res[0].to_i == Transaction::KIND_PAYPAL.to_i and not self.paypal_timed_out?)
+    return true if (res and res[0].to_i == Transaction::RES_PAYOUT.to_i and not self.payout_timed_out?)
     return false
   end
   
@@ -281,6 +319,8 @@ class User < ActiveRecord::Base
     agis_defm1(:aunreserve_from_room)
     agis_defm1(:areserve_paypal)
     agis_defm1(:aunreserve_from_paypal)
+    agis_defm1(:areserve_payout)
+    agis_defm1(:aunreserve_from_payout)
   end
 end
 

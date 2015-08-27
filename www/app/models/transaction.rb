@@ -32,6 +32,9 @@ class Transaction < ActiveRecord::Base
   KIND_PAYPAL     = 0b0010 # IN: R | OUT: R
   KIND_COUPON     = 0b0100 # OUT: U
   
+  RES_PAYPAL      = 0b0010 # same as KIND_PAYPAL
+  RES_PAYOUT      = 0b1000 # payout
+  
   belongs_to :user, inverse_of: :transactions
   
   def realized_kind?
@@ -125,26 +128,45 @@ class Transaction < ActiveRecord::Base
   
   def apaypal_finalize(payerid, ppid)
     payp = Paypal.find(ppid)
+    payment = PayPal::SDK::REST::Payment.find(payp.sid)
     ux   = User.new(id: payp.user_id)
     return false unless ux.reserve_paypal!(ppid)
-    trid = Transaction.perform_unique_transaction(user_id: payp.user_id, amount: payp.amount, kind: Transaction::KIND_PAYPAL, detail: ppid, state: Transaction::STATE_FINAL)
-    payp.state = Paypal::STATE_EXECUTED
-    payp.save!
-    payment = PayPal::SDK::REST::Payment.find(payp.sid)
-    payment.execute(payer_id: payerid)
+    if payment.execute(payer_id: payerid)
+      trid = Transaction.perform_unique_transaction(user_id: payp.user_id, amount: payp.amount, kind: Transaction::KIND_PAYPAL, detail: ppid, state: Transaction::STATE_FINAL)
+      payp.state = Paypal::STATE_EXECUTED
+      payp.save!
+    else
+      return false
+    end
     ux.unreserve_from_paypal(ppid)
     return trid
   end
 
   def self.paypal_finalize(payerid, pp)
     mh  = {user_id: 1, amount: 1, state: Transaction::STATE_INVALID, kind: 1, detail: 1}
-    dum = Transaction.new(mh)
-    return Transaction.find(dum.acall($redis, :apaypal_finalize, payerid, pp.id))
+    dum = Transaction.new(mh).acall($redis, :apaypal_finalize, payerid, pp.id)
+    if dum
+      return Transaction.find(dum)
+    else
+      return false
+    end
+  end
+  
+  def apaypal_payout(userid, amount, rid)
+    ux = User.new(id: userid)
+    po = (Payout.find_by(batchid: rid) or Payout.create(batchid: rid, points: amount, currency: "EUR"))
+    return false unless ux.reserve_payout!(po.id)
+    trid = Transaction.perform_unique_transaction(user_id: payp.user_id, amount: payp.amount, kind: Transaction::KIND_PAYPAL, detail: po.id, state: Transaction::STATE_FINAL)
+  end
+  
+  def self.paypal_payout(userid, amount)
+    Transaction.new(user_id: userid).acall(:apaypal_payout, userid, amount, userid.to_s + "E" + Time.now.to_s)
   end
   
   after_initialize do
     agis_defm1 :amake_transaction
     agis_defm2 :apaypal_finalize
+    agis_defm3 :apaypal_payout
   end
 end
 
