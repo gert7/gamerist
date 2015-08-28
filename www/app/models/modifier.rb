@@ -32,7 +32,7 @@ class Modifier < ActiveRecord::Base
         all_modifiers[mod.key] = mod.value if mod.active
       end
       $GAMERIST_MODIFIERS.each do |k, v|
-        if(all_modifiers[k] != v)
+        if(all_modifiers[k] != v.to_s)
           Modifier.renew_modifier(k, v)
         end
       end

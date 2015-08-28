@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: 6364302c2010f1f59f8ebbc917400ef8d2e7cbcc
+  revision: 5eb26b02bf63c4eb1df89f74a59e8395732470e8
   specs:
     activeadmin (1.0.0.pre1)
       arbre (~> 1.0, >= 1.0.2)
@@ -151,9 +151,9 @@ GEM
       has_scope (~> 0.6.0.rc)
       railties (>= 3.2, < 5)
       responders
-    jbuilder (1.5.3)
-      activesupport (>= 3.0.0)
-      multi_json (>= 1.2.0)
+    jbuilder (2.3.1)
+      activesupport (>= 3.0.0, < 5)
+      multi_json (~> 1.2)
     jdbc-postgres (9.4.1200)
     jdbc-sqlite3 (3.8.10.1)
     jquery-cdn (1.10.2)
@@ -210,8 +210,8 @@ GEM
       xml-simple
     polyamorous (1.2.0)
       activerecord (>= 3.0)
-    puma (2.12.3)
-    puma (2.12.3-java)
+    puma (2.13.4)
+    puma (2.13.4-java)
     rack (1.6.4)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -349,7 +349,7 @@ GEM
     tins (1.6.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.7.1)
+    uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unf (0.1.4)
@@ -389,7 +389,7 @@ DEPENDENCIES
   factory_girl_rails
   geocoder
   google_currency
-  jbuilder (~> 1.2)
+  jbuilder
   jquery-cdn (= 1.10.2)
   json_vat!
   lazy_high_charts
@@ -399,7 +399,7 @@ DEPENDENCIES
   omniauth
   omniauth-steam
   paypal-sdk-rest
-  puma (= 2.12.3)
+  puma (= 2.13.4)
   rack-cache
   rails (= 4.2.3)
   redis

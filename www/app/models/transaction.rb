@@ -130,8 +130,11 @@ class Transaction < ActiveRecord::Base
     payp = Paypal.find(ppid)
     payment = PayPal::SDK::REST::Payment.find(payp.sid)
     ux   = User.new(id: payp.user_id)
+    puts "RESERVING..."
     return false unless ux.reserve_paypal!(ppid)
-    if payment.execute(payer_id: payerid)
+    payment.execute(payer_id: payerid)
+    puts payment.state
+    if payment.state == "approved"
       trid = Transaction.perform_unique_transaction(user_id: payp.user_id, amount: payp.amount, kind: Transaction::KIND_PAYPAL, detail: ppid, state: Transaction::STATE_FINAL)
       payp.state = Paypal::STATE_EXECUTED
       payp.save!

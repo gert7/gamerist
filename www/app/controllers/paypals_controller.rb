@@ -3,6 +3,10 @@ class PaypalsController < ApplicationController
   before_filter :authenticate_user!
   
   def new
+    if current_user.reservation_lives?
+      flash[:alert] = "You are currently reserved!"
+      redirect_to controller: :welcome, action: :index 
+    end
   end
 
   # Accept a new PayPal query

@@ -128,6 +128,7 @@ class Paypal < ActiveRecord::Base
   # @param [String] countrycode Country code in three-letter ISO 3166-1
   # @return [Paypal] A new Paypal instance
   def self.start_paypal_add(user, points, countrycode)
+    return nil if user.is_reserved? and user.reservation_lives?
     data = Paypal.calculate_payment(points, countrycode)
     pp   = Paypal.create
     
