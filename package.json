@@ -24,8 +24,8 @@
     "async-for": ""
   },
   "devDependencies": {
-    "mocha": "~1.21.4",
-    "chai": "~3.0.0"
+    "mocha": "~2.3.0",
+    "chai": "~3.2.0"
   },
   "license": "GPL",
   "directories": {}
