@@ -14,7 +14,10 @@
 #
 
 class Payout < ActiveRecord::Base
-  before_save do
+  after_initialize :calculate_results
+  before_save      :calculate_results
+  
+  def calculate_results
     self.subtotal = BigDecimal.new(self.points.to_s)
     self.total    = self.subtotal
     self.margin   = self.total - self.subtotal

@@ -124,6 +124,10 @@ class User < ActiveRecord::Base
     $redis.hset hrapidkey, "reservation", kind.to_s + ":" + id.to_s
   end
   
+  ##########
+  # Paypal #
+  ##########
+  
   def areserve_paypal (paypal_id)
     res = self.reservation
     return false if (not reservation_is_paypal?(paypal_id) and reservation_lives?)
@@ -160,7 +164,9 @@ class User < ActiveRecord::Base
     self.acall($redis, :aunreserve_from_paypal, paypal_id)
   end
   
-  #######
+  ##########
+  # Payout #
+  ##########
   def areserve_payout (payout_id)
     res = self.reservation
     return false if (not reservation_is_payout?(payout_id) and reservation_lives?)

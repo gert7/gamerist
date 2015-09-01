@@ -30,6 +30,8 @@ class Transaction < ActiveRecord::Base
   KIND_NONE       = 0b0000
   KIND_ROOM       = 0b0001 # IN: U then R OUT: R
   KIND_PAYPAL     = 0b0010 # IN: R | OUT: R
+  # if amount is > 0, detail is of model Paypal
+  # if amount is < 0, detail is of model Payout
   KIND_COUPON     = 0b0100 # OUT: U
   
   RES_PAYPAL      = 0b0010 # same as KIND_PAYPAL
@@ -159,7 +161,17 @@ class Transaction < ActiveRecord::Base
     ux = User.new(id: userid)
     po = (Payout.find_by(batchid: rid) or Payout.create(batchid: rid, points: amount, currency: "EUR"))
     return false unless ux.reserve_payout!(po.id)
-    trid = Transaction.perform_unique_transaction(user_id: payp.user_id, amount: payp.amount, kind: Transaction::KIND_PAYPAL, detail: po.id, state: Transaction::STATE_FINAL)
+    if ux.balance_realized >= amount
+      trid = Transaction.perform_unique_transaction(user_id: userid, amount: (0 - amount), kind: Transaction::KIND_PAYPAL, detail: po.id, state: Transaction::STATE_FINAL)
+      @payout = PayPal::SDK::REST::Payout.new({:sender_batch_header => {:sender_batch_id => rid, :email_subject => 'You have a Payout!' }, :items => [{ :recipient_type => 'EMAIL', :amount => { :value => po.total, :currency => 'EUR' }, :note => 'Thanks for your patronage!', :sender_item_id => Time.now.to_s, :receiver => 'domo@domo.com' }]})
+      begin
+        @payout_batch = @payouts.create(true)
+        puts "PAYOUT BATCH ID" + @payout_batch.batch_header.payout_batch_id.to_s
+      rescue ResourceNotFound => err
+        puts @payouts.error.inspect
+      end
+    end
+    ux.unreserve_from_payout(po.id)
   end
   
   def self.paypal_payout(userid, amount)

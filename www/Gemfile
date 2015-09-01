@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.2.0', :engine => 'jruby', :engine_version => '9.0.0.0.pre1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.3' # 4.2.1
+gem 'rails', '4.2.4' # 4.2.1
 
 # PostgreSQL
 group :development, :production do
@@ -25,7 +25,7 @@ gem 'execjs', require: false
 gem 'therubyrhino', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-cdn', '1.10.2'
+gem 'jquery-cdn', '2.1.4'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'

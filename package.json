@@ -1,0 +1,33 @@
+{
+  "name": "Handlr",
+  "version": "0.1.0",
+  "description": "Gamerist Handlr.",
+  "main": "handlr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gert7/gamerist.git"
+  },
+  "keywords": [
+    "handlr"
+  ],
+  "dependencies": {
+    "amqplib": "~0.3.2",
+    "coffee-script": "~1.8.0",
+    "nedb": "~1.1.2",
+    "pm2": "~0.14.0",
+    "futures": "~2.3.3",
+    "debug": "~2.2.0",
+    "nactor": "0.2.0",
+    "async-for": ""
+  },
+  "devDependencies": {
+    "mocha": "~1.21.4",
+    "chai": "~3.0.0"
+  },
+  "license": "GPL",
+  "directories": {}
+}
+
