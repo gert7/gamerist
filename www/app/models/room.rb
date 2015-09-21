@@ -153,8 +153,6 @@ class Room < ActiveRecord::Base
   
   def room_timed_out?
     to = $redis.hget(rapidkey, "timeout")
-    puts "TIMEOUT::"
-    puts to
     # dump_timeout_players
     if to
       if (to.to_i > Time.now.to_i)
@@ -383,6 +381,15 @@ class Room < ActiveRecord::Base
     mrules
   end
   
+  def append_ip_address(pi, mrules, hash)
+    return mrules unless hash["requestip"]
+    mrules["players"][pi]["known_ips"] ||= Array.new
+    kips = mrules["players"][pi]["known_ips"].to_set
+    kips.add(hash["requestip"])
+    mrules["players"][pi]["known_ips"] = kips.to_a
+    mrules
+  end
+  
   # Modifies a player's hash in a ruleset
   # @param [Hash] mrules old version of srules
   # @param [User] player ActiveModel instance of the given player
@@ -392,14 +399,17 @@ class Room < ActiveRecord::Base
     return mrules unless ((hash["team"] and hash["team"].to_s != "0") or fetch_player(player.id, mrules))
     mrules = append_player_hash(mrules, player.id)
     pi     = fetch_player(player.id, mrules)
+    mrules = append_ip_address(pi, mrules, hash)
     mrules = assign_to_team(pi, mrules, hash)             if hash["team"]
     mrules = amend_player_wager(mrules, player, pi, hash) if hash["wager"]
     mrules = amend_player_ready(mrules, pi, hash)         if hash["ready"]
     mrules["players"][pi]["timeout"] = Time.now.to_i + ROOM_TIMEOUT
+    puts mrules
     mrules
   end
   
   def aamend_player(player_id, hash)
+    puts hash
     self.personal_messages ||= []
     mrules = self.srules
     player = User.new(id: player_id)
@@ -567,6 +577,15 @@ class Room < ActiveRecord::Base
   
   def final_server_address
     $redis.hget rapidkey, "final_server_address"
+  end
+  
+  def sanitized_srules
+    mrules = self.srules
+    mrules["players"].each_index do |pi|
+      mrules["players"][pi].delete("known_ips")
+    end
+    puts mrules
+    mrules
   end
   
   # XHR direct line to amending a player.

@@ -77,6 +77,7 @@ class RoomsController < ApplicationController
   # PATCH/PUT /rooms/1.json
   def update
     @room = Room.new(id: params[:id])
+    params[:requestip] = request.remote_ip
     
     @room.update_xhr(current_user, params)
     @uniquesignature = params["uniquesignature"]

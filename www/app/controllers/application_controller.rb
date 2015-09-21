@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   before_filter :reload_modifiers
   
   def reload_modifiers
-    puts "RELOADING MODIFIERS"
     Modifier.update_modifiers
   end
   
