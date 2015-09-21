@@ -336,22 +336,17 @@ class Room < ActiveRecord::Base
   def assign_to_team(pi, mrules, hash)
     return mrules unless hash["team"]
     mrules["players"][pi]["team"] = 0 if (hash["team"].to_s == "0")
-    return mrules if hash["team"].to_s == "0"
+    return mrules unless hash["team"].to_i.between?(2, 3)
     piteam = mrules["players"][pi]["team"]
     return mrules if piteam == hash["team"]
     tcount  = self.teamcounts(mrules)
     perteam = mrules["playercount"] / 2
-    perteam = 1 if mrules["playercount"].to_i == 1
+    perteam = 1 if mrules["playercount"].to_i == 1 # TODO possibly remove?
     if hash["team"]
-      if(hash["team"].to_i == 2)
-        if tcount[0] < perteam
+      hti = hash["team"].to_i
+      if hti.between?(2, 3)
+        if tcount[hti - 2] < perteam
           mrules["players"][pi]["team"] = 2
-        else
-          self.personal_messages << [1, "Team is not available!"]
-        end
-      elsif(hash["team"].to_i == 3)
-        if tcount[1] < perteam
-          mrules["players"][pi]["team"] = 3
         else
           self.personal_messages << [1, "Team is not available!"]
         end

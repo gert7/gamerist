@@ -61,6 +61,13 @@ describe 'Logged out' do
       click_on("Ready")
       expect(page.find("#srules_readylabel")).not_to have_content("Not Ready")
     end
+    
+    it 'joins a team, then leaves it', js: true do
+      click_on("Join Blu Team")
+      click_on("Leave Room")
+      expect(page).to have_content("Join Blu Team")
+      expect(Room.last.srules["players"].count.to_i).to eq 0
+    end
   end
 end
 
