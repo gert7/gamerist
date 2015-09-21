@@ -1,4 +1,5 @@
 sudo rm -rf node_modules
 sudo npm install
-export PATH=$PATH:./node_modules/.bin
+PATH="$PATH:$HOME/gamerist/handlr/node_modules/.bin"
+export PATH
 cp package.json ../package.json
