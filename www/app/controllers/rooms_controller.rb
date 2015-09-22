@@ -5,6 +5,15 @@ def get_continent(countryname)
   return $gamerist_continentdata["countries"][i]["continent"]
 end
 
+def fetch_continent(ipaddress)
+  require "geocoder"
+  Geocoder.configure(ip_lookup: :telize)
+  Geocoder.configure(:cache => Redis.new)
+  reported_country = Geocoder.search(ipaddress)[0].country
+  reported_country ||= "Reserved"
+  return get_continent(reported_country)
+end
+
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :destroy]
   before_filter :authenticate_user!
@@ -24,6 +33,8 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
+    @user_region = fetch_continent(request.remote_ip)
+    
     respond_to do |format|
       format.json { render action: 'show', location: @room }
       if current_user and (res = current_user.get_reservation) and res.id != @room.id
@@ -53,14 +64,7 @@ class RoomsController < ApplicationController
   # POST /rooms.json
   def create
     @room = Room.new(room_params)
-    
-    require "geocoder"
-    Geocoder.configure(ip_lookup: :telize)
-    Geocoder.configure(:cache => Redis.new)
-    reported_country = Geocoder.search(request.remote_ip)[0].country
-    reported_country ||= "Reserved"
-
-    @room.server_region = get_continent(reported_country)
+    @room.server_region = fetch_continent(request.remote_ip)
 
     respond_to do |format|
       if @room.save
@@ -78,6 +82,10 @@ class RoomsController < ApplicationController
   def update
     @room = Room.new(id: params[:id])
     params[:requestip] = request.remote_ip
+    
+    @user_region = fetch_continent(request.remote_ip)
+    
+    return unless @room.srules["server_region"] == @user_region
     
     @room.update_xhr(current_user, params)
     @uniquesignature = params["uniquesignature"]

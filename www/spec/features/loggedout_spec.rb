@@ -69,5 +69,38 @@ describe 'Logged out' do
       expect(Room.last.srules["players"].count.to_i).to eq 0
     end
   end
+  
+  context 'joining another room' do
+    before {
+      user = FactoryGirl.create(:user)
+      Transaction.create(user: user, detail: 10, kind: Transaction::KIND_PAYPAL, state: Transaction::STATE_FINAL, amount: 50)
+      login_as(user)
+    }
+  
+    it "doesn't show buttons for an off-region room" do
+      room = Room.create do |r|
+        r.game = "team fortress 2"
+        r.map  = "ctf_2fort"
+        r.playercount = 8
+        r.wager = 5
+        r.server_region = "North America"
+      end
+      
+      visit("/rooms/" + room.id.to_s)
+      expect(page).to have_content("Game: team fortress 2")
+      expect(page).not_to have_content("Join Blu Team")
+      expect(page).not_to have_content("Leave Room")
+    end
+    
+    it "doesn't allow you to create an overly expensive room" do
+      visit '/rooms/new'
+      #choose('room_game_team_fortress_2', visible: false)
+      find("label[for=room_playercount_16]").click
+      fill_in('room[wager]', with: 15)
+      select('ctf_2fort', from: "room[map]")
+      click_on("Create Room")
+      expect(page).not_to have_content("Game: team fortress 2")
+    end
+  end
 end
 

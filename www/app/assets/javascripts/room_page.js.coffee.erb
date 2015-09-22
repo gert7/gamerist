@@ -69,6 +69,7 @@ renderPlayerList = (data) ->
     ply    = data.rules.players[i]
     isTeam = false
     (if ply and String(ply.team) != "0" then isTeam = true)
+    console.dir(ply.team) if isTeam
     $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_teambar_" + (if (isTeam and ply.team == 2) then "red" else if(isTeam and ply.team == 3) then "blu") + "'></div><div class='account_mini_avatar'>" + (if isTeam then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if isTeam then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if isTeam then ply.wager else "") + "</div></div></div>")
   $("#srules_players").replaceWith(srulesPlayers)
 
@@ -129,6 +130,8 @@ declareInRoom = (t, roomIsPublic, data) ->
     setUnready() if roomIsPublic
     # $("#srules_notice").css("display", "block")
     # $("#srules_notice").text("You are not in this room!")
+    $("#srules_wagerselector").prop('disabled', true)
+    $("#srules_wagersubmit").prop('disabled', true)
     $("#srules_teamselect").css("display", "block") if roomIsPublic
     $("#srules_team_leave").css("display", "none")
     # $("#srules_buttons").css("display", "none")

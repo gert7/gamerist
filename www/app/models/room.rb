@@ -332,6 +332,7 @@ class Room < ActiveRecord::Base
   end
   
   def assign_to_team(pi, mrules, hash)
+    puts hash
     return mrules unless hash["team"]
     mrules["players"][pi]["team"] = 0 if (hash["team"].to_s == "0")
     return mrules unless hash["team"].to_i.between?(2, 3)
@@ -344,7 +345,7 @@ class Room < ActiveRecord::Base
       hti = hash["team"].to_i
       if hti.between?(2, 3)
         if tcount[hti - 2] < perteam
-          mrules["players"][pi]["team"] = 2
+          mrules["players"][pi]["team"] = hti
         else
           self.personal_messages << [1, "Team is not available!"]
         end
@@ -450,12 +451,13 @@ class Room < ActiveRecord::Base
     User.new(id: player_id).unreserve_from_room(self.id)
   end
   
-  def prejoindata(user)
-    if(user.total_balance < self.srules["wager"])
-      return "NW"
-    else
-      return "Y"
-    end
+  def prejoindata(user, region)
+    result = ""
+    #puts region
+    #puts self.srules["server_region"]
+    result += "NW" if(user.total_balance < self.srules["wager"])
+    result += "NR" if(region != self.srules["server_region"])
+    (result == "") ? "Y" : result
   end
   
   # Amend the given player's standing in the Room's ruleset
