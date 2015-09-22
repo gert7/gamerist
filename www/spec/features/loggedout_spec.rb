@@ -73,11 +73,11 @@ describe 'Logged out' do
   context 'joining another room' do
     before {
       user = FactoryGirl.create(:user)
-      Transaction.create(user: user, detail: 10, kind: Transaction::KIND_PAYPAL, state: Transaction::STATE_FINAL, amount: 50)
+      Transaction.create(user: user, detail: 10, kind: Transaction::KIND_PAYPAL, state: Transaction::STATE_FINAL, amount: 10)
       login_as(user)
     }
   
-    it "doesn't show buttons for an off-region room" do
+    it "doesn't show buttons for an off-region room", js: true do
       room = Room.create do |r|
         r.game = "team fortress 2"
         r.map  = "ctf_2fort"
@@ -92,7 +92,7 @@ describe 'Logged out' do
       expect(page).not_to have_content("Leave Room")
     end
     
-    it "doesn't allow you to create an overly expensive room" do
+    it "doesn't allow you to create an overly expensive room", js: true do
       visit '/rooms/new'
       #choose('room_game_team_fortress_2', visible: false)
       find("label[for=room_playercount_16]").click

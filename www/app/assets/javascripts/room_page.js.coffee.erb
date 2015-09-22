@@ -128,11 +128,13 @@ declareInRoom = (t, roomIsPublic, data) ->
     # $("#srules_buttons").css("display", "block")
   else
     setUnready() if roomIsPublic
-    # $("#srules_notice").css("display", "block")
-    # $("#srules_notice").text("You are not in this room!")
+    # $("#srules_notice").css("display", "block") # $("#srules_notice").text("You are not in this room!")
     $("#srules_wagerselector").prop('disabled', true)
+    $("#srules_wagerselector").css('opacity', 0)
     $("#srules_wagersubmit").prop('disabled', true)
-    $("#srules_teamselect").css("display", "block") if roomIsPublic
+    $("#srules_wagersubmit").css('display', 'none')
+    $("#srules_wagersubmitc").css('opacity', 0)
+    $("#srules_teamselect").css("display", "block") if (roomIsPublic and data.prejoindata == "Y")
     $("#srules_team_leave").css("display", "none")
     # $("#srules_buttons").css("display", "none")
     $("#srules_ready").css("display", "none") unless t

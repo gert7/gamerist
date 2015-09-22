@@ -65,14 +65,20 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(room_params)
     @room.server_region = fetch_continent(request.remote_ip)
-
+    
     respond_to do |format|
-      if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @room }
+      if room_params[:wager].to_i <= current_user.total_balance
+        if @room.save
+          format.html { redirect_to @room, notice: 'Room was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @room }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @room.errors, status: :unprocessable_entity }
+        end
       else
+        flash[:error] = "Wager too high for this user!"
         format.html { render action: 'new' }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
+        format.json { render json: "Wager too high for this user!", status: :unprocessable_entity }
       end
     end
   end
@@ -85,9 +91,7 @@ class RoomsController < ApplicationController
     
     @user_region = fetch_continent(request.remote_ip)
     
-    return unless @room.srules["server_region"] == @user_region
-    
-    @room.update_xhr(current_user, params)
+    @room.update_xhr(current_user, params, @user_region)
     @uniquesignature = params["uniquesignature"]
     respond_to do |format|
       format.html { redirect_to @room }
@@ -106,3 +110,4 @@ class RoomsController < ApplicationController
       params.require(:room).permit(:state, :map, :server, :game, :playercount, :wager)
     end
 end
+

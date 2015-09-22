@@ -89,7 +89,7 @@ class Room < ActiveRecord::Base
   end
   validates :wager, inclusion: {in: (WAGER_MIN-1)...(WAGER_MAX+1), message: "Wager of invalid size!!!"}
   #validates :server, inclusion: {in: [nil, ""].concat($gamerist_serverdata["servers"].map {|g| g["name"]}), message: "Server is not valid!!!"}
-  validate :server_in_serverlist
+  #validate :server_in_serverlist
   
   before_validation do
     self.state  ||= STATE_PUBLIC
@@ -332,7 +332,6 @@ class Room < ActiveRecord::Base
   end
   
   def assign_to_team(pi, mrules, hash)
-    puts hash
     return mrules unless hash["team"]
     mrules["players"][pi]["team"] = 0 if (hash["team"].to_s == "0")
     return mrules unless hash["team"].to_i.between?(2, 3)
@@ -405,12 +404,10 @@ class Room < ActiveRecord::Base
     mrules = amend_player_wager(mrules, player, pi, hash) if hash["wager"]
     mrules = amend_player_ready(mrules, pi, hash)         if hash["ready"]
     mrules["players"][pi]["timeout"] = Time.now.to_i + ROOM_TIMEOUT
-    puts mrules
     mrules
   end
   
   def aamend_player(player_id, hash)
-    puts hash
     self.personal_messages ||= []
     mrules = self.srules
     player = User.new(id: player_id)
@@ -594,14 +591,15 @@ class Room < ActiveRecord::Base
   # params upclass: readywager (default) or chatroom
   # @param [User] cuser ActiveRecord instance of the player
   # @param [Hash] params parameters sent through controller PATCH method
-  def update_xhr(cuser, params)
+  def update_xhr(cuser, params, region=nil)
     return if room_timed_out?
     return unless self.is_alive?
+    region ||= self.srules["server_region"]
     if params["upclass"] == "chatroom" and self.is_public?
       append_chatmessage!(cuser, params["message"]) unless params["message"].gsub(/\s+/, "") == ""
     elsif params["upclass"] == "generic"
       chug_room if self.rstate == STATE_LOCKED
-    elsif self.is_public? # readywager
+    elsif self.is_public? and region == self.srules["server_region"] # readywager
       if(params["wager"] and params["wager"].to_s == "0")
         remove_player!(cuser)
       else
