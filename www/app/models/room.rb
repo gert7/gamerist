@@ -260,9 +260,7 @@ class Room < ActiveRecord::Base
   
   # Removes all players not in teams
   def remove_exo_players(mrules)
-    puts mrules["players"]
     mrules["players"].delete_if {|value| value["team"].to_s == "0"}
-    puts mrules["players"]
     return mrules
   end
   
@@ -578,12 +576,14 @@ class Room < ActiveRecord::Base
     $redis.hget rapidkey, "final_server_address"
   end
   
-  def sanitized_srules
+  def sanitized_srules(user)
+    if (self.rstate >= STATE_LOCKED and fetch_player(user.id, self.srules) == nil)
+      return nil
+    end
     mrules = self.srules
     mrules["players"].each_index do |pi|
       mrules["players"][pi].delete("known_ips")
     end
-    puts mrules
     mrules
   end
   

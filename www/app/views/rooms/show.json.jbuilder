@@ -4,5 +4,5 @@ json.prejoindata (user_signed_in? ? @room.prejoindata(current_user, @user_region
 json.personal_messages @room.personal_messages if @room.personal_messages
 json.id @room.id
 json.state @room.rstate
-json.rules @room.sanitized_srules
+json.rules @room.sanitized_srules(current_user)
 json.final_server_address @room.final_server_address

@@ -87,10 +87,12 @@ class RoomsController < ApplicationController
   # PATCH/PUT /rooms/1.json
   def update
     @room = Room.new(id: params[:id])
+    @room = Room.find(params[:id]) if @room.rules == nil
+    
     params[:requestip] = request.remote_ip
     
     @user_region = fetch_continent(request.remote_ip)
-    
+
     @room.update_xhr(current_user, params, @user_region)
     @uniquesignature = params["uniquesignature"]
     respond_to do |format|

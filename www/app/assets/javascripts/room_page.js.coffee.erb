@@ -175,8 +175,12 @@ postErrorMessages = (data) ->
     for erm in data.personal_messages
       $("#srules_errormessages").append("<p>- " + erm[1] + "</p>")
 
+GameOver = () ->
+  $("#rooms").html("<br/><br/><center>Game has ended!</center><br/><br/>")
+
 updatePageObject = (data) ->
   return false if data.uniquesignature != CURRENT_UNIQUE_SIGNATURE
+  return GameOver() if data.rules == null
   $("#srules_info_column_game").text("Game: " + data.rules.game)
   $("#srules_info_column_map").text("Map: " + data.rules.map)
   $("#srules_info_column_playercount").text("Players: " + data.rules.playercount)
