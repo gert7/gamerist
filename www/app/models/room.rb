@@ -264,6 +264,14 @@ class Room < ActiveRecord::Base
     return mrules
   end
   
+  def update_relevant_users(mrules)
+    users = User.find(mrules["players"].map{|p| p["id"]})
+    users.each do |v|
+      v.relevantgames = (v.relevantgames or "") + self.id.to_s + ";"
+      v.save!
+    end
+  end
+  
   # Locks the room and saves it in ActiveRecord
   # if 1) the room is full 2) everyone is ready.
   # This method may write to ActiveRecord
@@ -275,6 +283,7 @@ class Room < ActiveRecord::Base
       ruleset     = remove_exo_players(ruleset)
       dself.rstate = STATE_LOCKED
       dself.save(validate: false)
+      update_relevant_users(ruleset)
     end
     ruleset
   end

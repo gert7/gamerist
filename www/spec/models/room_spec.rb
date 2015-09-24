@@ -337,5 +337,18 @@ describe Room do
       expect(room.srules["players"][0]["score"]).to eq 81
     end
   end
+  
+  describe "#update_relevant_users" do
+    include_context "when players have money"
+    it "updates relevant users" do
+      room.amend_player! player1, "team" => 2
+      room.amend_player! player2, "team" => 2
+      room.amend_player! player3, "team" => 3
+      room.amend_player! player4, "team" => 3
+      room.update_relevant_users(room.srules)
+      player1.reload
+      expect(player1.relevantgames).to eq (room.id.to_s + ";")
+    end
+  end
 end
 

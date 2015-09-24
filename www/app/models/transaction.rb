@@ -102,12 +102,10 @@ class Transaction < ActiveRecord::Base
   
   # Thread-unsafe method used in make_transaction and elsewhere
   def self.perform_unique_transaction(hash)
-    puts hash
     trf = Transaction.find_by(user_id: hash[:user_id], kind: hash[:kind], detail: hash[:detail])
     return trf.id if trf
     tr  = Transaction.new(hash)
     tr.save!
-    puts tr.id
     return tr.id
   end
   
