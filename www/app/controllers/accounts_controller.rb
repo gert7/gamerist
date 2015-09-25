@@ -33,9 +33,19 @@ class AccountsController < ApplicationController
   end
   
   def show
-    puts "NIG NOG"
-    @user = current_user
-    puts @user.to_s + " YORUEAOUROA"
+    @user  = current_user
+    if @user.relevantgames
+      @rooms = Room.find(@user.relevantgames.split(";").map do |gs|
+        gs.to_i
+      end)
+      @games = Array.new
+      @rooms.each do |r|
+        mrules = r.crules
+        pi     = mrules["players"].find_index{|p| p["id"].to_i == @user.id }
+        player = mrules["players"][pi]
+        @games << {winningteam: mrules["winningteam"].to_i, playerteam: player["team"].to_i, game: mrules["game"], map: mrules["map"], wager: mrules["wager"]}
+      end
+    end
   end
   
   private

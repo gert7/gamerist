@@ -33,5 +33,14 @@
     </div>
   </div>
   <div id="account_stats">
+    <h2>Games Played</h2>
+    <br/>
+    <% if @games %>
+      <% @games.each do |game| %>
+        <div id="heliu">pppp</div>
+      <% end %>
+    <% else %>
+      <div>You have not played any games!</div>
+    <% end %>
   </div>
 </div>

@@ -185,6 +185,11 @@ class Room < ActiveRecord::Base
     JSON.parse(a)
   end
   
+  # @return hash containing the ruleset for this room, without going through Redis cache
+  def crules
+    JSON.parse(self.rules)
+  end
+  
   # @param [Hash] a hash of rules that will be converted into JSON object
   def srules=(a)
     self.rules = JSON.generate(a)
