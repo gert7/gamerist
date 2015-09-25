@@ -3,7 +3,7 @@
 # Table name: steamids
 #
 #  id         :integer          not null, primary key
-#  steamid    :string(255)
+#  steamid    :string
 #  user_id    :integer
 #  created_at :datetime
 #  updated_at :datetime

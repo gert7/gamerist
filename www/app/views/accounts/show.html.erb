@@ -1,18 +1,35 @@
 <div id="account_page">
   <div id="account_maxi">
-    <div id="account_maxi_avatar">
-      <img src="<%= @user.steam_avatar_urls.split(" ")[1] %>"/>
+    <div id="account_maxi_top">
+      <div id="account_maxi_avatar">
+        <img src="<%= @user.steam_avatar_urls.split(" ")[1] %>"/>
+      </div>
+      <div id="account_maxi_avatar_right">
+        <div id="account_maxi_steamname">
+          <%= @user.steam_name %>
+        </div>
+        <div id="account_maxi_current_place">
+          <% @res = @user.get_reservation %>
+          <% if (@res and @user.reservation_is_room?(@res.id)) %>
+            in Room <a href="/rooms/<%= @res.id %>"><%= @res.id %>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div id="account_maxi_avatar_right">
-      <div id="account_maxi_steamname">
-        <%= @user.steam_name %>
+    <hr/>
+    <div id="account_maxi_realized">
+      <%= @user.balance_realized %>
+    </div>
+    <% if @user.balance_unrealized > 0 %>
+      <div id="account_maxi_unrealized">
+        <%= @user.balance_unrealized %> <span title="You have <%= @user.balance_unrealized %> Unrealized Points which cannot be withdrawn. These can be played in a game for Realized points, and have first priority over Realized points when wagering.">?</span>
       </div>
-      <div id="account_maxi_current_place">
-        <% @res = @user.get_reservation %>
-        <% if (@res and @user.reservation_is_room?(@res.id)) %>
-          in Room <a href="/rooms/<%= @res.id %>"><%= @res.id %>
-        <% end %>
-      </div>
+    <% end %>
+    <hr/>
+    <div id="account_maxi_options">
+      <%= link_to "Attach Steam Account", "/users/auth/steam" %>
+      <%= link_to "Buy Points", "/paypal/new" %>
+      <%= link_to "Withdraw Points", "/payout/new" %>
     </div>
   </div>
   <div id="account_stats">

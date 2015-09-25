@@ -3,7 +3,7 @@ class Users::OauthCallbacksController < Devise::OmniauthCallbacksController
   
   def attachsid(req)
     begin
-      Steamid.attach_by_steam_callback(req)
+      Steamid.attach_by_steam_callback(current_user, req)
     rescue Steamid::UserNotLoggedIn
       @err = "User not logged in!"
     rescue Steamid::SteamIDNotInRequest

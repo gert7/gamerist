@@ -78,7 +78,11 @@
   display:inline-block;
   vertical-align:top;
   box-sizing:border-box;
-  padding:12px;
+  padding:0px;
+}
+
+#account_maxi_top {
+  padding:16px;
 }
 
 #account_maxi_avatar {
@@ -123,5 +127,53 @@
 
 #account_maxi_current_place a:visited {
   color:hsl(240,50,60);
+}
+
+#account_maxi hr {
+  height:1px;
+  box-sizing:border-box;
+  width:100%;
+}
+
+#account_maxi_realized {
+  background-image: image-url("green_diamond.png");
+  background-repeat: no-repeat;
+  color:white;
+  font-family: "Blue Highway Regular";
+  margin-left:16px;
+  padding-left:24px;
+  display:inline-block;
+  height:21px;
+  font-size:1.2em;
+}
+
+#account_maxi_unrealized {
+  background-image: image-url("blue_diamond.png");
+  background-repeat: no-repeat;
+  color:white;
+  font-family: "Blue Highway Regular";
+  margin-left:16px;
+  padding-left:24px;
+  display:inline-block;
+  height:21px;
+  font-size:1.2em;
+}
+
+#account_maxi_unrealized span {
+  font-family: sans-serif;
+  border-bottom:1px dashed white;
+  font-size:0.9em;
+}
+
+#account_maxi_options {
+  box-sizing:border-box;
+  padding-left:16px;
+}
+
+#account_maxi_options a {
+  color: hsl(210, 50, 90);
+  text-decoration:none;
+  display:block;
+  line-height:32px;
 }
 

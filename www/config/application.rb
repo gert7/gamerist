@@ -6,7 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-require 'omniauth'
 require 'config/initializers/apikeys_accessor'
 
 module Gamerist
@@ -33,10 +32,6 @@ module Gamerist
     config.active_record.raise_in_transactional_callbacks = true
     #config.assets.initialize_on_precompile = false
     #config.assets.precompile += %w( active_admin.css active_admin/print.css active_admin.js )
-  end
-  
-  Rails.application.config.middleware.use OmniAuth::Builder do
-    provider :steam, $GAMERIST_API_KEYS["steam"]
   end
 end
 
