@@ -49,6 +49,9 @@ class RoomsController < ApplicationController
   def new
     @room = Room.new
     res = current_user.get_reservation
+    
+    @user_region = fetch_continent(request.remote_ip)
+    
     if res and res.class == Room and current_user.reservation_is_room?(res.id)
       respond_to do |format|
         format.html { redirect_to :controller => 'rooms', :action => 'show', :id => res.id }
@@ -67,18 +70,26 @@ class RoomsController < ApplicationController
     @room.server_region = fetch_continent(request.remote_ip)
     
     respond_to do |format|
-      if room_params[:wager].to_i <= current_user.total_balance
-        if @room.save
-          format.html { redirect_to @room, notice: 'Room was successfully created.' }
-          format.json { render action: 'show', status: :created, location: @room }
+      if($gamerist_serverdata["servers"].find_index do |s|
+        ((not Rails.env.production?) or s["production"] == true) and s["region"] == @room.server_region
+      end)
+        if room_params[:wager].to_i <= current_user.total_balance
+          if @room.save
+            format.html { redirect_to @room, notice: 'Room was successfully created.' }
+            format.json { render action: 'show', status: :created, location: @room }
+          else
+            format.html { render action: 'new' }
+            format.json { render json: @room.errors, status: :unprocessable_entity }
+          end
         else
+          flash[:alert] = "Wager too high for this user!"
           format.html { render action: 'new' }
-          format.json { render json: @room.errors, status: :unprocessable_entity }
+          format.json { render json: "Wager too high for this user!", status: :unprocessable_entity }
         end
-      else
-        flash[:error] = "Wager too high for this user!"
+      else # no such region available
+        flash[:alert] = "No server available for this region"
         format.html { render action: 'new' }
-        format.json { render json: "Wager too high for this user!", status: :unprocessable_entity }
+        format.json { render json: "No server available for this region", status: :unprocessable_entity }
       end
     end
   end
