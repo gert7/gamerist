@@ -10,6 +10,13 @@ $(document).ready ->
   if $("#roomslist_pagination").length
     $.get("/rooms.json", formatPage)
 
+setContinent = () ->
+  $("#room_continent_name").text($("#gamerist_data_continent").val())
+  console.dir($("#gamerist_data_continent_available").val())
+  if($("#gamerist_data_continent_available").val())
+   $("#room_continent_name").css("color", "hsl(0, 100%, 55%)")
+   $("#room_continent").attr("title", "No server available at this continent!")
+
 trigger_bigradio = (target) ->
   $("#room_playercount").children(".bigradiobutton").each () ->
     $(this).css("background-color", "hsl(65,50%,50%)")
@@ -27,4 +34,5 @@ $(document).ready () ->
   $(".field_bigradio").on 'change', (e) ->
     console.log("changed to " + e.target.value)
     trigger_bigradio(e.target)
-
+  
+  setTimeout(setContinent, 100)

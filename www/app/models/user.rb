@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
          
   devise :omniauthable, omniauth_providers: [:steam]
   
+  attr_accessor :terms_accepted
+  
   has_one :account, inverse_of: :user
   accepts_nested_attributes_for :account
   has_one :steamid, inverse_of: :user

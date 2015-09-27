@@ -8,7 +8,8 @@ class AccountsController < ApplicationController
     respond_to do |format|
       if current_user
         format.html { redirect_to "/accounts/" + current_user.id.to_s }
-        format.json { render json: { user_id: current_user.name, total_balance: current_user.total_balance } }
+        continent = fetch_continent(request.remote_ip)
+        format.json { render json: { user_id: current_user.name, total_balance: current_user.total_balance, country: fetch_continent_country(request.remote_ip), continent: continent, continent_available: Room.continent_exists?(continent) } }
       else
         format.html { redirect_to "/" }
         format.json { render json: { user_id: "nobody", total_balance: "nothing" } }

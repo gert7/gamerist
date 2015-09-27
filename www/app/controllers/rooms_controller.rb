@@ -1,19 +1,5 @@
 $gamerist_continentdata= JSON.parse(File.read(Rails.root.join("config", "continents.json")))
 
-def get_continent(countryname)
-  i = $gamerist_continentdata["countries"].find_index {|c| c["country"] == countryname }
-  return $gamerist_continentdata["countries"][i]["continent"]
-end
-
-def fetch_continent(ipaddress)
-  require "geocoder"
-  Geocoder.configure(ip_lookup: :telize)
-  Geocoder.configure(:cache => Redis.new)
-  reported_country = Geocoder.search(ipaddress)[0].country
-  reported_country ||= "Reserved"
-  return get_continent(reported_country)
-end
-
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :destroy]
   before_filter :authenticate_user!
@@ -62,7 +48,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1/edit
   def edit
   end
-
+  
   # POST /rooms
   # POST /rooms.json
   def create
@@ -70,9 +56,7 @@ class RoomsController < ApplicationController
     @room.server_region = fetch_continent(request.remote_ip)
     
     respond_to do |format|
-      if($gamerist_serverdata["servers"].find_index do |s|
-        ((not Rails.env.production?) or s["production"] == true) and s["region"] == @room.server_region
-      end)
+      if Room.continent_exists?(@room.server_region) or (not Rails.env.production?)
         if room_params[:wager].to_i <= current_user.total_balance
           if @room.save
             format.html { redirect_to @room, notice: 'Room was successfully created.' }

@@ -141,6 +141,15 @@ class Room < ActiveRecord::Base
     $redis.lrange("gamerist_roomlist", lrange, rrange)
   end
   
+  def self.continent_exists?(continent)
+    if($gamerist_serverdata["servers"].find_index do |s|
+      s["region"] == continent
+    end)
+      return true
+    end
+    false
+  end
+  
   def rapidkey
     "gamerist-room {" + self.id.to_s + "}"
   end

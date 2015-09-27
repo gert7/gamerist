@@ -42,9 +42,12 @@
         32
       <% end %>
     </div>
-    <div class="field_wagerselect", id="room_wager">
+    <div class="field_wagerselect" id="room_wager">
       <h4 class="saturatedBackground2">Wager</h4>
       <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" class="wagerselector"></input>
+    </div>
+    <div id="room_continent">
+      Region: <span id="room_continent_name"></span>
     </div>
   </div>
   <div class="actions">

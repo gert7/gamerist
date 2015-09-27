@@ -11,8 +11,15 @@
 
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
-
+  <br/>
+  <div><%= f.check_box :terms_accepted %> I have read and accept the <%=  %>Terms and Conditions</div>
+  <br/>
   <div><%= f.submit "Sign up" %></div>
+  <br/>
+  <div>Gamerist servers are currently only available in Europe and North America</div>
+  <br/>
+  
 <% end %>
-
+<div>
 <%= render "devise/shared/links" %>
+</div>
