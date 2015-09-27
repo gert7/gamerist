@@ -1,6 +1,15 @@
 class StaticController < ApplicationController
   def show
-    render template: "static/" + params[:page]
+    sp = safe_page
+    if sp
+      render template: "static/" + sp
+    else
+      redirect_to "/"
+    end
+  end
+  
+  def safe_page
+    params[:page] if ["terms"].include?(params[:page])
   end
 end
 
