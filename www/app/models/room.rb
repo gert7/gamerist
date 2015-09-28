@@ -85,7 +85,8 @@ class Room < ActiveRecord::Base
   end
   
   def ctf_playerlimit()
-    unless(@map[0..3] == "ctf_")
+    if(@map[0..3] == "ctf_")
+      puts "CTF MAP"
       errors.add(:playercount, "Playercount too high for CTF!") if @playercount > 16
     end
   end
@@ -106,10 +107,10 @@ class Room < ActiveRecord::Base
   before_validation do
     self.state  ||= STATE_PUBLIC
     self.server ||= $gamerist_serverdata["servers"][0]["name"]
+    puts @playercount
     @playercount = playercount.to_i
     @wager = wager.to_i.floor
     puts @playercount
-    puts @playercount.class
   end
   
   before_save do

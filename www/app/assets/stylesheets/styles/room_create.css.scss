@@ -63,6 +63,16 @@ label[for='room_game_tf2']::after {
 
 .room_optionsbox {background:hsl(244,1,40); height:400px; width:497px;position:relative;}
 
+#room_map {
+  font-size:1.05em;
+  padding:12px;
+  font-family:"Blue Highway Regular";
+}
+
+#room_map option {
+  padding:0px;
+}
+
 .bigradiobutton {
   display:block;
   float: left;
@@ -81,6 +91,29 @@ label[for='room_game_tf2']::after {
 #room_playercount label {
   width:25%;
   margin-left:-2px;
+}
+
+@keyframes room_playercount_selection {
+  from { background-color: hsl(242, 49%, 10%); }
+  to { background-color: hsl(242, 49%, 25%); }
+}
+
+@keyframes room_playercount_deselection {
+  from { background-color: hsl(242, 49%, 25%); }
+  to { background-color: hsl(242, 49%, 10%); }
+}
+
+.room_playercount_inactive {
+  background-color: hsl(242, 49%, 10%);
+  # animation: room_playercount_deselection 1s linear 1;
+}
+
+.room_playercount_active {
+  background-color: hsl(242, 49%, 25%);
+  background-image: image-url("selected_playercount.png");
+  background-position: center 0;
+  background-repeat:no-repeat;
+  # animation: room_playercount_selection 1s linear 1;
 }
 
 .bigradiobutton input[type=radio]:not(old) {

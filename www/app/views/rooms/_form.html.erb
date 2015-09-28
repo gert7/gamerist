@@ -19,7 +19,7 @@
   </div>
   <div id="room_gameoptions" class="room_optionsbox">
     <div class="options_header saturatedBackground2">Game options</div>
-    <div class="field_optionsbox" id="room_map">
+    <div class="field_optionsbox">
       <h4 class="saturatedBackground2">Map</h4>
       <%= f.select(:map, options_for_select([""].concat @map_options)) %>
     </div>
@@ -29,16 +29,16 @@
     <div class="field_bigradio" id="room_playercount">
       <h4 class="saturatedBackground2">Playercount</h4> <!-- #TODO switch this back -->
       <%= f.label(:playercount_1, "1", class: 'bigradiobutton saturatedBackgroundDim') do %>
-      <%= f.radio_button(:playercount, 1) %>
+      <%= f.radio_button(:playercount, "1") %>
         1
       <% end %><%= f.label(:playercount_8, "8", class: 'bigradiobutton saturatedBackgroundDim') do %>
-      <%= f.radio_button(:playercount, 8) %>
+      <%= f.radio_button(:playercount, "8") %>
         8
       <% end %><%= f.label(:playercount_24, "24", class: 'bigradiobutton saturatedBackgroundDim') do %>
-      <%= f.radio_button(:playercount, 24) %>
+      <%= f.radio_button(:playercount, "24") %>
         16
       <% end %><%= f.label(:playercount_32, "32", class: 'bigradiobutton saturatedBackgroundDim') do %>
-      <%= f.radio_button(:playercount, 32) %>
+      <%= f.radio_button(:playercount, "32") %>
         32
       <% end %>
     </div>

@@ -57,6 +57,8 @@ describe Room do
       expect(r3.new_record?).to eq true
       r4 = Room.create(game: "team fortress 2", map: "ctf_2fort", playercount: 8, wager: -1)
       expect(r4.new_record?).to eq true
+      r5 = Room.create(game: "team fortress 2", map: "ctf_2fort", playercount: 24, wager: 10)
+      expect(r4.new_record?).to eq true
     end
     
     it "has valid rules struct" do

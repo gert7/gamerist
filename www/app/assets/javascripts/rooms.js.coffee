@@ -21,21 +21,25 @@ trigger_bigradio = (target) ->
   console.dir("triggeré")
   console.dir(target)
   $("#room_playercount").children(".bigradiobutton").each () ->
-    $(this).css("background-color", "hsl(65,50%,50%)")
+    $(this).addClass("room_playercount_inactive")
+    $(this).removeClass("room_playercount_active")
     $(this).children("input").each () ->
-      $(this).attr("checked", false)
-  $(target).attr("checked", "checked")
-  $(target).parents(".bigradiobutton").css("background-color", "hsl(65,100%,50%)")
+      $(this).prop("checked", false)
+  $(target).prop("checked", true)
+  $(target).parents(".bigradiobutton").addClass("room_playercount_active")
+  $(target).parents(".bigradiobutton").removeClass("room_playercount_inactive")
+  console.dir("YES")
+  console.dir($('#room_playercount input[type="radio"]:checked').val())
 
 $(document).ready () ->
   $("input").parents("#room_playercount label").each () ->
-    $(this).css("background-color", "hsl(65,50%,50%)")
+    $(this).addClass("room_playercount_inactive")
     
   $("#room_playercount label").children("input").each () ->
     $(this).attr("checked", false)
   
   trigger_bigradio($("#room_playercount label").first().children("input"))
-  $("#room_playercount label").first().children("input").attr("checked", "checked")
+  $("#room_playercount label").first().children("input").prop("checked", "checked")
   
   $(".field_bigradio").on 'change', (e) ->
     console.log("changed to " + e.target.value)

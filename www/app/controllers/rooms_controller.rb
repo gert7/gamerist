@@ -52,18 +52,25 @@ class RoomsController < ApplicationController
   # POST /rooms
   # POST /rooms.json
   def create
+    puts params[:room][:playercount]
     @room = Room.new(room_params)
+    puts room_params[:playercount]
     @room.server_region = fetch_continent(request.remote_ip)
+    
+    @map_options = $gamerist_mapdata["games"][0]["maps"].map do |m| m["name"] end
     
     respond_to do |format|
       if Room.continent_exists?(@room.server_region) or (not Rails.env.production?)
         if room_params[:wager].to_i <= current_user.total_balance
-          if @room.save
+          x = @room.save
+          if x
             format.html { redirect_to @room, notice: 'Room was successfully created.' }
             format.json { render action: 'show', status: :created, location: @room }
           else
-            format.html { render action: 'new' }
-            format.json { render json: @room.errors, status: :unprocessable_entity }
+            puts "NIGGER"
+            puts @room.errors.full_messages
+            format.html { redirect_to '/rooms/new' }
+            format.json { redirect_to '/rooms/new' }
           end
         else
           flash[:alert] = "Wager too high for this user!"
