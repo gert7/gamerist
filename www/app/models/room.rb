@@ -83,6 +83,12 @@ class Room < ActiveRecord::Base
   def server_available_for_continent()
     Room.continent_exists?(@server_region)
   end
+  
+  def ctf_playerlimit()
+    unless(@map[0..3] == "ctf_")
+      errors.add(:playercount, "Playercount too high for CTF!") if @playercount > 16
+    end
+  end
 
   validates :game, inclusion: {in: $gamerist_mapdata["games"].map {|g| g["name"]}, message: "Game is not valid!!!"}
   validate :map_in_maplist
@@ -91,6 +97,7 @@ class Room < ActiveRecord::Base
   else
     validates :playercount, inclusion: {in: [8, 16, 24, 32], message: "Playercount is not valid!!!"}
   end
+  validate :ctf_playerlimit
   validates :wager, inclusion: {in: (WAGER_MIN-1)...(WAGER_MAX+1), message: "Wager of invalid size!!!"}
   #validates :server, inclusion: {in: [nil, ""].concat($gamerist_serverdata["servers"].map {|g| g["name"]}), message: "Server is not valid!!!"}
   #validate :server_in_serverlist

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: 105e70bc1a2630ffae8cc475985a972426f151ff
+  revision: b44b4f4896ef78b50c35c82a343356d68b937cde
   specs:
     activeadmin (1.0.0.pre2)
       arbre (~> 1.0, >= 1.0.2)
@@ -331,8 +331,8 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
-    sprockets (3.3.4)
-      rack (~> 1.0)
+    sprockets (3.3.5)
+      rack (> 1, < 3)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)

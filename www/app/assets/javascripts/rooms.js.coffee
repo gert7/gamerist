@@ -18,10 +18,13 @@ setContinent = () ->
    $("#room_continent").attr("title", "No server available at this continent!")
 
 trigger_bigradio = (target) ->
+  console.dir("triggeré")
   console.dir(target)
   $("#room_playercount").children(".bigradiobutton").each () ->
     $(this).css("background-color", "hsl(65,50%,50%)")
-  console.dir($(target).parents(".bigradiobutton"))
+    $(this).children("input").each () ->
+      $(this).attr("checked", false)
+  $(target).attr("checked", "checked")
   $(target).parents(".bigradiobutton").css("background-color", "hsl(65,100%,50%)")
 
 $(document).ready () ->
@@ -38,4 +41,20 @@ $(document).ready () ->
     console.log("changed to " + e.target.value)
     trigger_bigradio(e.target)
   
+  $("#room_map").on 'change', (e) ->
+    console.dir($("#room_map").find(":selected").text())
+    if($("#room_map").find(":selected").text().substring(0, 4) == "ctf_")
+      $(".bigradiobutton").each () ->
+        if($(this).children("input").val() > 16)
+          $(this).css("display", "none")
+          if($(this).children("input").attr("checked"))
+            trigger_bigradio($("#room_playercount input").first())
+        else
+          $(this).css("width", "50%")
+    else
+      $(".bigradiobutton").each () ->
+        $(this).css("display", "inline-block")
+        $(this).css("width", "25%")
+  
   setTimeout(setContinent, 100)
+  

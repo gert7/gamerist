@@ -21,7 +21,7 @@
     <div class="options_header saturatedBackground2">Game options</div>
     <div class="field_optionsbox" id="room_map">
       <h4 class="saturatedBackground2">Map</h4>
-      <%= f.select(:map, options_for_select(@map_options)) %>
+      <%= f.select(:map, options_for_select([""].concat @map_options)) %>
     </div>
   </div>
   <div id="room_roomoptions" class="room_optionsbox">
