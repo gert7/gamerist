@@ -36,7 +36,7 @@ class RoomsController < ApplicationController
     @room = Room.new
     res = current_user.get_reservation
     
-    @user_region = fetch_continent(request.remote_ip)
+    @map_options = $gamerist_mapdata["games"][0]["maps"].map do |m| m["name"] end
     
     if res and res.class == Room and current_user.reservation_is_room?(res.id)
       respond_to do |format|

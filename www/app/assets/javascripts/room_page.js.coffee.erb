@@ -35,6 +35,14 @@ STAGING_WAGER = null
 UPTIMEOUT     = 3000
 CHATRENDERED  = false
 
+STATE_PUBLIC  = 1
+STATE_LOCKED  = 2
+STATE_ACTIVE  = 4
+STATE_OVER    = 8
+STATE_ERRORED = 16
+
+MAPS_DATA = <%= JSON.generate($gamerist_mapdata) %>
+
 fetchPlayer = (data, id) ->
   return null if !data
   finder = (v) ->
@@ -178,20 +186,52 @@ postErrorMessages = (data) ->
 GameOver = () ->
   $("#rooms").html("<br/><br/><center>Game has ended!</center><br/><br/>")
 
+printWinners = (data) ->
+  $("#srules_chatbox").css("display", "none")
+  $("#srules_winners").css("display", "inline-block")
+  winmode = ""
+  for map in MAPS_DATA.games[0].maps
+    if(map.name == data.rules.map)
+      winmode = map.winmode
+  if(Number(data.rules.winningteam) == 2)
+    if winmode == "normal"
+      $("#srules_winners_summary").text("Red Team won this game by capturing the most points")
+    else if winmode == "red"
+      $("#srules_winners_summary").text("Red Team won this game by defending until time ran out")
+    else if winmode == "final" # distinction for maps like pipeline, not made in gamerist.sp
+      $("#srules_winners_summary").text("Red Team won this game by winning the last round")
+  if(Number(data.rules.winningteam) == 3)
+    if winmode == "normal"
+      $("#srules_winners_summary").text("Blu Team won this game by capturing the most points")
+    else if winmode == "red"
+      $("#srules_winners_summary").text("Blu Team won this game by defeating the Red Team's defenses")
+    else if winmode == "final"
+      $("#srules_winners_summary").text("Blu Team won this game by winning the last round")
+  redscore = 0
+  bluscore = 0
+  for player in data.rules.players
+    if player.team == 2
+      redscore += player.score
+    else if player.team == 3
+      bluscore += player.score
+  $("#srules_winners_red_points").text(redscore + " points")
+  $("#srules_winners_blu_points").text(bluscore + " points")
+
 updatePageObject = (data) ->
   return false if data.uniquesignature != CURRENT_UNIQUE_SIGNATURE
   return GameOver() if data.rules == null
   $("#srules_info_column_game").text("Game: " + data.rules.game)
   $("#srules_info_column_map").text("Map: " + data.rules.map)
   $("#srules_info_column_playercount").text("Players: " + data.rules.playercount)
-  $("#srules_info_column_server").text("Server: " + data.rules.server)
+  $("#srules_info_column_continent").text("Region: " + data.rules.server_region)
   $("#srules_roomwager").text(data.rules.wager)
   $("#srules_shybar_id").text(data.id)
   postErrorMessages(data)
-  if(!CHATRENDERED)
+  if(!CHATRENDERED and data.state != STATE_OVER)
     renderChat(data)
     CHATRENDERED = true
-  updateChat(data)
+  updateChat(data) if data.state != STATE_OVER
+  printWinners(data) if data.state == STATE_OVER
   if(!CHANGED_WAGER)
     $("#srules_wagerselector").val(data.rules.wager)
     STAGING_WAGER = data.rules.wager
@@ -199,7 +239,6 @@ updatePageObject = (data) ->
   curp = fetchCurrentPlayer(data)
   if curp and String(curp.team) != "0"
     if Number(data.state) == 1
-      console.log("IST PUBLIK")
       declareInRoom(true, true, data)
     else
       declareInRoom(true, false, data)

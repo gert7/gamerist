@@ -13,14 +13,16 @@ $(document).ready ->
 setContinent = () ->
   $("#room_continent_name").text($("#gamerist_data_continent").val())
   console.dir($("#gamerist_data_continent_available").val())
-  if($("#gamerist_data_continent_available").val())
+  if(!$("#gamerist_data_continent_available").val())
    $("#room_continent_name").css("color", "hsl(0, 100%, 55%)")
    $("#room_continent").attr("title", "No server available at this continent!")
 
 trigger_bigradio = (target) ->
+  console.dir(target)
   $("#room_playercount").children(".bigradiobutton").each () ->
     $(this).css("background-color", "hsl(65,50%,50%)")
-  $(target).parent().css("background-color", "hsl(65,100%,50%)")
+  console.dir($(target).parents(".bigradiobutton"))
+  $(target).parents(".bigradiobutton").css("background-color", "hsl(65,100%,50%)")
 
 $(document).ready () ->
   $("input").parents("#room_playercount label").each () ->
@@ -30,7 +32,8 @@ $(document).ready () ->
     $(this).attr("checked", false)
   
   trigger_bigradio($("#room_playercount label").first().children("input"))
-
+  $("#room_playercount label").first().children("input").attr("checked", "checked")
+  
   $(".field_bigradio").on 'change', (e) ->
     console.log("changed to " + e.target.value)
     trigger_bigradio(e.target)

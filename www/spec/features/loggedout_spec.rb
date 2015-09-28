@@ -42,7 +42,7 @@ describe 'Logged out' do
       visit '/rooms/new'
       expect(page.find("#headbar_loggedin_name")).to have_content("Sign out")
       #choose('room_game_team_fortress_2', visible: false)
-      find("label[for=room_playercount_16]").click
+      find("label[for=room_playercount_8]").click
       fill_in('room[wager]', with: 20)
       select('ctf_2fort', from: "room[map]")
       click_on("Create Room")
@@ -95,7 +95,7 @@ describe 'Logged out' do
     it "doesn't allow you to create an overly expensive room", js: true do
       visit '/rooms/new'
       #choose('room_game_team_fortress_2', visible: false)
-      find("label[for=room_playercount_16]").click
+      find("label[for=room_playercount_8]").click
       fill_in('room[wager]', with: 15)
       select('ctf_2fort', from: "room[map]")
       click_on("Create Room")

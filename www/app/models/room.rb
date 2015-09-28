@@ -79,23 +79,30 @@ class Room < ActiveRecord::Base
   def server_in_serverlist()
     errors.add(:server, "Server is invalid!!!") unless($gamerist_serverdata["servers"].find {|s| (s["name"] == @server) and (s["production"] == true or (not Rails.env.production?)) })
   end
+  
+  def server_available_for_continent()
+    Room.continent_exists?(@server_region)
+  end
 
   validates :game, inclusion: {in: $gamerist_mapdata["games"].map {|g| g["name"]}, message: "Game is not valid!!!"}
   validate :map_in_maplist
   if(Rails.env.test? or Rails.env.development?)
-    validates :playercount, inclusion: {in: [1, 4, 8, 16, 24, 32], message: "Playercount is not valid!!!"}
+    validates :playercount, inclusion: {in: [1, 4, 8, 16, 24, 32], message: "Playercount is not valid!!!111"}
   else
     validates :playercount, inclusion: {in: [8, 16, 24, 32], message: "Playercount is not valid!!!"}
   end
   validates :wager, inclusion: {in: (WAGER_MIN-1)...(WAGER_MAX+1), message: "Wager of invalid size!!!"}
   #validates :server, inclusion: {in: [nil, ""].concat($gamerist_serverdata["servers"].map {|g| g["name"]}), message: "Server is not valid!!!"}
   #validate :server_in_serverlist
+  validate :server_available_for_continent
   
   before_validation do
     self.state  ||= STATE_PUBLIC
     self.server ||= $gamerist_serverdata["servers"][0]["name"]
     @playercount = playercount.to_i
     @wager = wager.to_i.floor
+    puts @playercount
+    puts @playercount.class
   end
   
   before_save do
@@ -294,7 +301,8 @@ class Room < ActiveRecord::Base
     if((dself.total_players(ruleset) == ruleset["playercount"]) and
        (dself.is_public?) and
        (ruleset["players"].inject(true) {|acc, v| acc and (v["ready"].to_i == 1 or v["team"].to_s == "0")}))
-      ruleset     = remove_exo_players(ruleset)
+      ruleset      = remove_exo_players(ruleset)
+      dself.rules  = JSON.generate(ruleset)
       dself.rstate = STATE_LOCKED
       dself.save(validate: false)
       update_relevant_users(ruleset)
@@ -570,6 +578,7 @@ class Room < ActiveRecord::Base
       else
         Transaction.make_transaction(user_id: v["id"], amount: (0 - mrules["wager"].to_i), state: Transaction::STATE_FINAL, kind: Transaction::KIND_ROOM, detail: dself.id)
       end
+      User.new(id: v["id"]).unreserve_from_room(self.id)
     end
     dself.srules = mrules
     dself.rstate = STATE_OVER
