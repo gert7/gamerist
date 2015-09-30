@@ -39,6 +39,7 @@ class Modifier < ActiveRecord::Base
   
   # Update all modifiers in this server instance
   def self.update_modifiers
+    puts $GAMERIST_MODIFIERS
     if !$MODIFIERS_RELOADED # we have the most recent data
       all_modifiers = Hash.new
       Modifier.where(recent: true).each do |mod|
@@ -48,16 +49,24 @@ class Modifier < ActiveRecord::Base
         if(all_modifiers[k] != v.to_s)
           Modifier.renew_modifier(k, v)
         end
+        $redis.hset("gamerist_modifiers", k, v)
       end
       $MODIFIERS_RELOADED = true
-    else # we do not have the most recent data
-      Modifier.where(recent: true).each do |mod|
-        $GAMERIST_MODIFIERS[mod.key] = mod.value
-      end
+    # else # we do not have the most recent data
     end
+  end
+  
+  def self.get(k)
+    x = $redis.hget("gamerist_modifiers", k)
+    unless x
+      Modifier.update_modifiers
+      return $redis.hget("gamerist_modifiers", k)
+    end
+    return x
   end
   
   after_initialize do
     agis_defm2(:arenew_modifier)
   end
 end
+

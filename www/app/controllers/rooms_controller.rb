@@ -19,6 +19,8 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
+    expires_in 2.days, public: true
+    flash.delete :notice
     @user_region = fetch_continent(request.remote_ip)
     
     respond_to do |format|
@@ -33,6 +35,8 @@ class RoomsController < ApplicationController
 
   # GET /rooms/new
   def new
+    expires_in 1.days, public: true
+    flash.delete :notice
     @room = Room.new
     res = current_user.get_reservation
     
@@ -67,7 +71,6 @@ class RoomsController < ApplicationController
             format.html { redirect_to @room, notice: 'Room was successfully created.' }
             format.json { render action: 'show', status: :created, location: @room }
           else
-            puts "NIGGER"
             puts @room.errors.full_messages
             format.html { redirect_to '/rooms/new' }
             format.json { redirect_to '/rooms/new' }

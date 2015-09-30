@@ -173,7 +173,7 @@ ClientListIndex(const String:auth[])
 ClientListIndexI(client)
 {
   new String:sid[MAXIDSIZE];
-  GetClientAuthId(client, AuthId_Steam2, sid, MAXIDSIZE);
+  GetClientAuthId(client, AuthId_SteamID64, sid, MAXIDSIZE);
   return ClientListIndex(sid);
 }
 
@@ -359,7 +359,7 @@ public Action:Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroa
   new client = GetClientOfUserId(GetEventInt(event, "userid"));
   new team   = GetClientTeam(client);
   
-  GetClientAuthId(client, AuthId_Steam2, sid, MAXIDSIZE);
+  GetClientAuthId(client, AuthId_SteamID64, sid, MAXIDSIZE);
   new ind = ClientListIndex(sid);
   if(ind == -1 && TEST_ALONE == 0){
     KickClient(client, "Client not in list somehow!");
@@ -384,7 +384,7 @@ PushAllPlayerScores()
       new String:oneplayer[48];
       
       new String:stid[MAXIDSIZE];
-      GetClientAuthId(i, AuthId_Steam2, stid, MAXIDSIZE)
+      GetClientAuthId(i, AuthId_SteamID64, stid, MAXIDSIZE)
       Format(oneplayer, 48, "%s|%d|", stid, GetClientFrags(i));
       StrCat(playerScores, 2048, oneplayer);
     }

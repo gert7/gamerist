@@ -2,6 +2,7 @@ class Users::OauthCallbacksController < Devise::OmniauthCallbacksController
   protect_from_forgery except: [:steam, :failure]
   
   def attachsid(req)
+    puts "ATTACHEMENT STEAMIDA"
     begin
       Steamid.attach_by_steam_callback(current_user, req)
     rescue Steamid::UserNotLoggedIn

@@ -38,7 +38,7 @@ class Paypal < ActiveRecord::Base
   end
   
   def self.margin_mult_pretty
-    $GAMERIST_MODIFIERS["MARGIN_MULT_PRETTY"].to_i
+    Modifier.get("MARGIN_MULT_PRETTY").to_i
   end
   
   def self.margin_mult_rate

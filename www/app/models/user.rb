@@ -23,9 +23,10 @@ require 'agis'
 class User < ActiveRecord::Base
   include Agis
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :timeoutable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable
          
   devise :omniauthable, omniauth_providers: [:steam]
   
@@ -59,6 +60,7 @@ class User < ActiveRecord::Base
   # address
   def name
     steam_name or (self.email[0..3] + "...")
+    # puts "SSSS" + self.confirmed?.to_s
   end
   
   def rapidkey(s)
@@ -289,9 +291,7 @@ class User < ActiveRecord::Base
   def load_steamplayer
     require 'open-uri'
     steamapik = $GAMERIST_API_KEYS["steam"]
-    stid = (1 << 56) | (1 << 52) | (1 << 32) + (self.steamid.to_s.split(":").last.to_i) * 2 + 1 # SATAN
-    puts "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{stid}"
-    ru = open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{stid}").read
+    ru = open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid}").read
     response = JSON.parse(ru)
     return response["response"]["players"][0]
   end

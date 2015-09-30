@@ -2,11 +2,11 @@
   <div id="account_maxi">
     <div id="account_maxi_top">
       <div id="account_maxi_avatar">
-        <img src="<%= @user.steam_avatar_urls.split(" ")[1] %>"/>
+        <img src="<%= @user.steam_avatar_urls.split(" ")[1] if @user.steam_avatar_urls %>"/>
       </div>
       <div id="account_maxi_avatar_right">
         <div id="account_maxi_steamname">
-          <%= @user.steam_name %>
+          <%= @user.steam_name if @user.steam_name %>
         </div>
         <div id="account_maxi_current_place">
           <% @res = @user.get_reservation %>

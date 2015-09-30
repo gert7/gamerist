@@ -6,6 +6,9 @@ class PaypalsController < ApplicationController
     if current_user.reservation_lives?
       flash[:alert] = "You are currently reserved!"
       redirect_to controller: :welcome, action: :index 
+    else
+      expires_in 2.days, public: true
+      flash.delete :notice
     end
   end
 
