@@ -2,6 +2,8 @@ require 'config/initializers/apikeys_accessor'
 require 'config/initializers/gamerist'
 require 'bunny'
 
+# TODO set the address here
+
 $bunny = Bunny.new
 $bunny.start
 

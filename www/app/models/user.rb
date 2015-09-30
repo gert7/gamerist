@@ -291,7 +291,7 @@ class User < ActiveRecord::Base
   
   def load_steamplayer
     require 'open-uri'
-    steamapik = $GAMERIST_API_KEYS["steam"]
+    steamapik = GameristApiKeys.get("steam_api_key")
     ru = open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid}").read
     response = JSON.parse(ru)
     return response["response"]["players"][0]

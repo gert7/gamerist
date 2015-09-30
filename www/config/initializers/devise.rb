@@ -5,7 +5,7 @@ require 'omniauth-steam'
 require 'config/initializers/apikeys_accessor'
 
 Devise.setup do |config|
-  config.omniauth :steam, $GAMERIST_API_KEYS["steam"]
+  config.omniauth :steam, GameristApiKeys.get("steam_api_key")
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.

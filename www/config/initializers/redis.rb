@@ -33,7 +33,7 @@ class Redis
   end
 end
 
-redisuri = (Rails.env.production? ? $GAMERIST_API_KEYS["redis_production"] : $GAMERIST_API_KEYS["redis_development"])
+redisuri = (Rails.env.production? ? GameristApiKeys.get("redis_production") : GameristApiKeys.get("redis_development"))
 
 $redis = ConnectionPool::Wrapper.new(size: 5, timeout: 5) { Redis.new(:url => "redis://" + redisuri) }
 
