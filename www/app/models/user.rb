@@ -25,7 +25,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :timeoutable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
+         :recoverable, :rememberable, :trackable, :validatable
+  
   devise :confirmable if Rails.env.production? # TODO check email verification in Production mode
          
   devise :omniauthable, omniauth_providers: [:steam]

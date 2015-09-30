@@ -59,7 +59,7 @@ class Modifier < ActiveRecord::Base
   
   def self.get(k)
     x = $redis.hget("gamerist_modifiers", k)
-    return x
+    return (x or $GAMERIST_MODIFIERS[k])
   end
   
   after_initialize do
