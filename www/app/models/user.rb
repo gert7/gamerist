@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   # :timeoutable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable
+  devise :confirmable if Rails.env.production? # TODO check email verification in Production mode
          
   devise :omniauthable, omniauth_providers: [:steam]
   

@@ -53,15 +53,12 @@ class Modifier < ActiveRecord::Base
       end
       $MODIFIERS_RELOADED = true
     # else # we do not have the most recent data
+    # everything will come from redis anyway
     end
   end
   
   def self.get(k)
     x = $redis.hget("gamerist_modifiers", k)
-    unless x
-      Modifier.update_modifiers
-      return $redis.hget("gamerist_modifiers", k)
-    end
     return x
   end
   
