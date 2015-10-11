@@ -40,7 +40,11 @@ class User < ActiveRecord::Base
   has_many :paypals, inverse_of: :user
   
   validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true, :on => :create
-
+  validate :is_in_good_region
+  
+  def is_in_good_region
+    
+  end
   
   PAYPAL_TIMEOUT = 30
 
@@ -302,13 +306,15 @@ class User < ActiveRecord::Base
   
   # Load up steam_name and steam_avatar_urls for the User. They themselves call this implicitly
   def fetch_steamapi
-    $redis.hfetch hrapidkey, "steamapi" do
+    if (not $redis.hget hrapidkey, "avatar_urls" or
+        not $redis.hget hrapidkey, "steamname" or
+        not $redis.hget hrapidkey, "steamurl")
       return nil unless self.steamid
       player = load_steamplayer
       return nil unless player
       $redis.hset hrapidkey, "avatar_urls", (player["avatar"] + " " + player["avatarmedium"] + " " + player["avatarfull"])
       $redis.hset hrapidkey, "steamname", player["personaname"]
-      "1"
+      $redis.hset hrapidkey, "steamurl", player["profileurl"]
     end
   end
   
@@ -325,6 +331,12 @@ class User < ActiveRecord::Base
     return "http:// http:// http://" if Rails.env.test?
     fetch_steamapi
     return $redis.hget hrapidkey, "avatar_urls"
+  end
+  
+  def steam_profile_url
+    return "http://" if Rails.env.test?
+    fetch_steamapi
+    return $redis.hget hrapidkey, "steamurl"
   end
   
   after_initialize do

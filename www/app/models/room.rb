@@ -347,7 +347,7 @@ class Room < ActiveRecord::Base
   def append_player_hash(mrules, player_id)
     player = User.find(player_id)
     return mrules if fetch_player(player_id, mrules)
-    mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => mrules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "steamid" => player.steamid.steamid, "team" => 0})
+    mrules["players"].push({"id" => player_id, "ready" => 0, "wager" => mrules["wager"], "avatar" => player.steam_avatar_urls.split(" ")[0], "steamname" => player.steam_name, "steamid" => player.steamid.steamid, "team" => 0, "steamurl" => player.steam_profile_url})
     mrules
   end
   

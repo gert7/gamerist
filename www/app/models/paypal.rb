@@ -100,9 +100,9 @@ class Paypal < ActiveRecord::Base
   # @param [Hash] data Payment data hash from calculate_payment
   # @return [Hash] Hash to be sent into PayPal::SDK::REST::Payment.new
   def self.produce_pt(ppid, data)
-    subtotal_s = "%.2f" % data[:subtotal]
-    total_s    = "%.2f" % data[:total]
-    tax_s      = "%.2f" % data[:tax]
+    subtotal_s = "%.2f" % data[:subtotal_eur]
+    total_s    = "%.2f" % data[:total_eur]
+    tax_s      = "%.2f" % data[:tax_eur]
 
     pt = {
       intent: "sale",
@@ -114,7 +114,7 @@ class Paypal < ActiveRecord::Base
       transactions: [{
         amount: {
           total: total_s,
-          currency: data[:currency].to_s,
+          currency: :EUR,
           details: {
             subtotal: subtotal_s,
             tax: tax_s
