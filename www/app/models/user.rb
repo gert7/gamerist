@@ -25,7 +25,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :timeoutable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :traceable
   
   devise :confirmable if Rails.env.production? # TODO check email verification in Production mode
          
@@ -39,12 +40,7 @@ class User < ActiveRecord::Base
   has_many :transactions, inverse_of: :user
   has_many :paypals, inverse_of: :user
   
-  validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true, :on => :create
-  validate :is_in_good_region
-  
-  def is_in_good_region
-    
-  end
+  validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true, :on => :create unless Rails.env.test?
   
   PAYPAL_TIMEOUT = 30
 

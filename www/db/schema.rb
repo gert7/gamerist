@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924105620) do
+ActiveRecord::Schema.define(version: 20151011135213) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -135,6 +135,14 @@ ActiveRecord::Schema.define(version: 20150924105620) do
   end
 
   add_index "transactions", ["user_id"], name: "index_transactions_on_user_id"
+
+  create_table "user_tracings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "sign_in_at"
+    t.datetime "sign_out_at"
+  end
+
+  add_index "user_tracings", ["user_id"], name: "index_user_tracings_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
