@@ -52,12 +52,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def devise_mapping
-    m = Devise.mappings[:user]
-    m.omniauthable = false
-    m
-  end
-
   class NoSteamID < Exception
   end
   

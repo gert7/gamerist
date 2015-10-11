@@ -80,11 +80,15 @@ class Paypal < ActiveRecord::Base
     data      = Hash.new
     country   = Paypal::country(countrycode)
     data[:currency]    = country["currency"]
-    data[:subtotal]    = BigDecimal.new(points.to_s) * BigDecimal.new(country["pointcost"].to_f.to_s) * BigDecimal.new(Paypal.margin_mult_rate.to_f.to_s)
-    data[:subrate]     = Paypal.margin_mult_pretty
-    data[:total]       = data[:subtotal] * BigDecimal.new((1.0 + country["vat"].to_f).to_s)
-    data[:tax]         = data[:total] - data[:subtotal]
     data[:vat]         = (country["vat"] * 100).to_i
+    data[:subrate]     = Paypal.margin_mult_pretty
+    data[:pcost]     = BigDecimal.new(country["pointcost"].to_f.to_s)
+    data[:subtotal_eur]= BigDecimal.new(points.to_s) * BigDecimal.new(Paypal.margin_mult_rate.to_f.to_s)
+    data[:total_eur]   = data[:subtotal_eur] * BigDecimal.new((1.0 + country["vat"].to_f).to_s)
+    data[:tax_eur]     = data[:total_eur] - data[:subtotal_eur]
+    data[:subtotal]    = data[:subtotal_eur] * data[:pcost]
+    data[:total]       = data[:total_eur] * data[:pcost]
+    data[:tax]         = data[:tax_eur] * data[:pcost]
     data[:countrycode] = country["twocode"]
     data[:countryname] = country["name"]
     data

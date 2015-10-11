@@ -2,6 +2,7 @@ updatePriceNumbersCallback = (data) ->
   indata = data.data
   $("#paypal_country_small").html("<p>Subtotal: " + indata.subtotal + "</p><p>VAT: " + indata.tax + "</p>")
   $("#paypal_country_total").html(indata.total + " " + indata.currency)
+  $("#paypal_country_euro_total").html(indata.total_eur + " EUR")
   $("#paypal_country_vatrate").html(indata.vat + "% VAT")
   $("#paypal_country_vatcountry").html(indata.countryname)
   $("#paypal_country_right").children().first().attr("src", "/assets/48/" + indata.countrycode.toLowerCase() + ".png")

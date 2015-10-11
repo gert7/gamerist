@@ -96,6 +96,21 @@
   font-size:1.6em;
   margin-bottom:16px;
   text-align:right;
+  width:50%;
+  box-sizing:border-box;
+  display:inline-block;
+}
+
+#paypal_country_euro_total {
+  font-size:1.6em;
+  margin-bottom:16px;
+  text-align:right;
+  width:50%;
+  box-sizing:border-box;
+  display:inline-block;
+  background-image:image-url('green_right_arrow.png');
+  background-repeat:no-repeat;
+  background-position:24px 0px;
 }
 
 #paypal_country_left {
