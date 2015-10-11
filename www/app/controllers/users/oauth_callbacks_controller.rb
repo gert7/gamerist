@@ -17,7 +17,8 @@ class Users::OauthCallbacksController < Devise::OmniauthCallbacksController
       unless @err
         format.html { redirect_to "/" }
       else
-        format.html { redirect_to "/", :flash => { :error => @err } }
+        puts @err
+        format.html { redirect_to "/", :flash => { :alert => @err } }
       end
     end
   end

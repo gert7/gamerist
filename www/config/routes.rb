@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :paypals
 
   devise_for :users, controllers: { omniauth_callbacks: "users/oauth_callbacks" }
+  
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end

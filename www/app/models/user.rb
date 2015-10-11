@@ -38,7 +38,10 @@ class User < ActiveRecord::Base
   has_one :steamid, inverse_of: :user
   has_many :transactions, inverse_of: :user
   has_many :paypals, inverse_of: :user
+  
+  validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true, :on => :create
 
+  
   PAYPAL_TIMEOUT = 30
 
   after_save do
@@ -47,6 +50,12 @@ class User < ActiveRecord::Base
         a.user_id = self.id
       end
     end
+  end
+
+  def devise_mapping
+    m = Devise.mappings[:user]
+    m.omniauthable = false
+    m
   end
 
   class NoSteamID < Exception

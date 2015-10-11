@@ -12,7 +12,7 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
   <br/>
-  <div><%= f.check_box :terms_accepted %> I have read and accept the <%=  %>Terms and Conditions</div>
+  <div><%= f.check_box :terms_of_service %> I have read and accept the <%= link_to "Terms and Conditions", "/static/terms" %></div>
   <br/>
   <div><%= f.submit "Sign up" %></div>
   <br/>
