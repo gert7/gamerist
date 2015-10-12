@@ -131,16 +131,34 @@ class Room < ActiveRecord::Base
     $redis.rpush "gamerist_roomlist_potential", room.id
   end
   
+  def self.remove_from_potential(index)
+    $redis.lset("gamerist_roomlist_potential", index, "0")
+    $redis.lrem("gamerist_roomlist_potential", 0, "0")
+  end
+  
   def self.roomlist_produce()
     timeout = $redis.get("gamerist_roomlist_timeout")
     if (not timeout or (timeout and timeout.to_i < Time.now.to_i))
       $redis.del("gamerist_roomlist")
-      $redis.lrange("gamerist_roomlist_potential", 0, -1).each do |v|
+      $redis.smembers("gamerist_roomlist_continents").each do |continent|
+        $redis.del("gamerist_roomlist_continent_" + continent)
+      end
+      $redis.del("gamerist_roomlist_continents")
+      potens = $redis.lrange("gamerist_roomlist_potential", 0, -1)
+      potens.each_index do |i|
         r = Room.new(id: v.to_i)
-        next unless r.is_alive?
-        next unless r.rstate == Room::STATE_PUBLIC
+        unless r.is_alive?
+          Room.remove_from_potential(i)
+          next
+        end
+        unless r.rstate == Room::STATE_PUBLIC
+          Room.remove_from_potential(i)
+          next
+        end
         puts JSON.generate({id: v, rules: r.srules})
         $redis.rpush("gamerist_roomlist", JSON.generate({id: v, rules: r.srules}))
+        $redis.sadd("gamerist_roomlist_continents", r.srules["server_region"])
+        $redis.rpush("gamerist_roomlist_continent_" + r.srules["server_region"], {id: v, rules: r.srules})
       end
       $redis.set("gamerist_roomlist_timeout", Time.now.to_i + Room::TIMEOUT_ROOMLIST)
     end

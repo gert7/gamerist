@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     continent = fetch_continent(request.remote_ip)
     unless Room.continent_exists?(continent)
       respond_to do |format|
-        format.html { render "welcome/index", alert: "Gamerist is Not Available in Your Country" }
+        format.html { render :html => "<div style='font-family: sans-serif;'>Gamerist is not available in your country</div>".html_safe, alert: "Gamerist is Not Available in Your Country" }
         format.json { render :json => {:message => "Nothing"}, alert: "Gamerist is Not Available in Your Country" }
       end
     end

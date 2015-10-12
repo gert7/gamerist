@@ -8,8 +8,11 @@ class RoomsController < ApplicationController
   # GET /rooms.json
   def index
     page         = params[:page].to_i
-    @rooms       = Room.roomlist_range(page, page + 30)
+    @rooms       = Room.roomlist_range(0, -1)
     @roomslength = Room.roomlist_length
+    @user_region = fetch_continent(request.remote_ip)
+    
+    
     respond_to do |format|
       format.json { render action: 'index' }
       format.html { render action: 'index' }
