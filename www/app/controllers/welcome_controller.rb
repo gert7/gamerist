@@ -8,6 +8,7 @@ class WelcomeController < ApplicationController
     
     respond_to do |format|
       format.html { render action: 'index' }
+      format.json { render :json => {:message => "Nothing"} }
     end
   end
 end
