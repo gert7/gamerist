@@ -57,6 +57,7 @@ FactoryGirl.define do
     map "ctf_2fort"
     playercount "4"
     wager "5"
+    server_region "Europe"
   end
   
   factory :room2, class: :room do

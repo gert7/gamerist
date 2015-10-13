@@ -86,7 +86,6 @@ class Room < ActiveRecord::Base
   
   def ctf_playerlimit()
     if(@map[0..3] == "ctf_")
-      puts "CTF MAP"
       errors.add(:playercount, "Playercount too high for CTF!") if @playercount > 16
     end
   end
@@ -107,10 +106,8 @@ class Room < ActiveRecord::Base
   before_validation do
     self.state  ||= STATE_PUBLIC
     self.server ||= $gamerist_serverdata["servers"][0]["name"]
-    puts @playercount
     @playercount = playercount.to_i
     @wager = wager.to_i.floor
-    puts @playercount
   end
   
   before_save do
@@ -128,34 +125,33 @@ class Room < ActiveRecord::Base
   end
   
   def self.roomlist_add(room)
-    $redis.rpush "gamerist_roomlist_potential", room.id
+    $redis.sadd "gamerist_roomlist_potential", room.id
   end
   
   def self.remove_from_potential(index)
-    $redis.lset("gamerist_roomlist_potential", index, "0")
-    $redis.lrem("gamerist_roomlist_potential", 0, "0")
+    $redis.srem("gamerist_roomlist_potential", index)
   end
   
   def self.roomlist_produce()
     timeout = $redis.get("gamerist_roomlist_timeout")
-    if (not timeout or (timeout and timeout.to_i < Time.now.to_i))
+    if Rails.env.test? or (not timeout or (timeout and timeout.to_i < Time.now.to_i))
       $redis.del("gamerist_roomlist")
       $redis.smembers("gamerist_roomlist_continents").each do |continent|
         $redis.del("gamerist_roomlist_continent_" + continent)
       end
       $redis.del("gamerist_roomlist_continents")
-      potens = $redis.lrange("gamerist_roomlist_potential", 0, -1)
-      potens.each_index do |i|
+      potens = $redis.smembers("gamerist_roomlist_potential")
+      potens.each do |v|
         r = Room.new(id: v.to_i)
         unless r.is_alive?
-          Room.remove_from_potential(i)
+          Room.remove_from_potential(v)
           next
         end
         unless r.rstate == Room::STATE_PUBLIC
-          Room.remove_from_potential(i)
+          Room.remove_from_potential(v)
           next
         end
-        puts JSON.generate({id: v, rules: r.srules})
+        # puts JSON.generate({id: v, rules: r.srules})
         $redis.rpush("gamerist_roomlist", JSON.generate({id: v, rules: r.srules}))
         $redis.sadd("gamerist_roomlist_continents", r.srules["server_region"])
         $redis.rpush("gamerist_roomlist_continent_" + r.srules["server_region"], {id: v, rules: r.srules})
@@ -172,6 +168,11 @@ class Room < ActiveRecord::Base
   def self.roomlist_range(lrange, rrange)
     roomlist_produce
     $redis.lrange("gamerist_roomlist", lrange, rrange)
+  end
+  
+  def self.get_roomlist_by_continent(continent)
+    roomlist_produce
+    $redis.lrange(("gamerist_roomlist_continent_" + continent), 0, -1)
   end
   
   def self.continent_exists?(continent)

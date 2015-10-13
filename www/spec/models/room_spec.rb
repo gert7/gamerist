@@ -22,6 +22,7 @@ describe Room do
 
   shared_context("when players have money") do
     before {
+      room.save
       Transaction.make_transaction(user_id: player1.id, amount: 25, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL, detail: 1)
       Transaction.make_transaction(user_id: player2.id, amount: 25, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL, detail: 2)
       Transaction.make_transaction(user_id: player3.id, amount: 25, state: Transaction::STATE_FINAL, kind: Transaction::KIND_PAYPAL, detail: 3)
@@ -350,6 +351,36 @@ describe Room do
       room.update_relevant_users(room.srules)
       player1.reload
       expect(player1.relevantgames).to eq (room.id.to_s + ";")
+    end
+  end
+  
+  describe "#roomlist_produce" do
+    include_context "when players have money"
+    it "adds the room to the list" do
+      expect(Room.roomlist_length).to eq 1
+    end
+    
+    it "removes the room from the list" do
+      room.amend_player! player1, "team" => 2
+      room.amend_player! player2, "team" => 2
+      room.amend_player! player3, "team" => 3
+      room.amend_player! player4, "team" => 3
+      room.declare_winning_team(2)
+      expect(Room.roomlist_length).to eq 0
+    end
+    
+    it "puts the room on the continental list" do
+      expect(Room.get_roomlist_by_continent("Europe").length).to eq 1
+      expect(Room.get_roomlist_by_continent("North America").length).to eq 0
+    end
+    
+    it "removes the room from the continental list" do
+      room.amend_player! player1, "team" => 2
+      room.amend_player! player2, "team" => 2
+      room.amend_player! player3, "team" => 3
+      room.amend_player! player4, "team" => 3
+      room.declare_winning_team(2)
+      expect(Room.get_roomlist_by_continent("Europe").length).to eq 0
     end
   end
 end
