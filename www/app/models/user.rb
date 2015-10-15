@@ -13,6 +13,10 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :string(255)
 #  last_sign_in_ip        :string(255)
+#  confirmation_token     :string(255)
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
 #  relevantgames          :text
@@ -25,8 +29,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :timeoutable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :traceable
+         :recoverable, :rememberable, :trackable, :validatable
   
   devise :confirmable if Rails.env.production? # TODO check email verification in Production mode
          
@@ -39,6 +42,8 @@ class User < ActiveRecord::Base
   has_one :steamid, inverse_of: :user
   has_many :transactions, inverse_of: :user
   has_many :paypals, inverse_of: :user
+
+  has_many :usertraces, inverse_of :user
   
   validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true, :on => :create unless Rails.env.test?
   
