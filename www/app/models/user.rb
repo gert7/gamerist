@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
          
   devise :omniauthable, omniauth_providers: [:steam]
   
-  attr_accessor :terms_accepted
+  # attr_accessor :terms_of_service
   
   has_one :account, inverse_of: :user
   accepts_nested_attributes_for :account
@@ -43,9 +43,9 @@ class User < ActiveRecord::Base
   has_many :transactions, inverse_of: :user
   has_many :paypals, inverse_of: :user
 
-  has_many :usertraces, inverse_of :user
+  has_many :usertraces, inverse_of: :user
   
-  validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true, :on => :create unless Rails.env.test?
+  # validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true, :on => :create unless Rails.env.test?
   
   PAYPAL_TIMEOUT = 30
 

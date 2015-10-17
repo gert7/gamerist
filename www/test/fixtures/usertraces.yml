@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: usertraces
+#
+#  id        :integer          not null, primary key
+#  user_id   :integer
+#  timestamp :datetime
+#  ipaddress :string(255)
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:

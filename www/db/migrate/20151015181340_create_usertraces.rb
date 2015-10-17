@@ -1,9 +1,10 @@
 class CreateUsertraces < ActiveRecord::Migration
   def change
     create_table :usertraces do |t|
-      t.user      :integer
-      t.timestamp :datetime
-      t.ipaddress :string
+      t.integer   :user_id
+      t.datetime  :timestamp
+      t.string    :ipaddress
     end
   end
 end
+

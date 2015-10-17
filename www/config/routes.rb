@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/account/unfreeze' => 'accounts#unfreeze'
   resources :paypals
 
-  devise_for :users, controllers: { omniauth_callbacks: "users/oauth_callbacks" }
+  devise_for :users, controllers: { omniauth_callbacks: "users/oauth_callbacks", :sessions => "users/sessions" }
   
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
