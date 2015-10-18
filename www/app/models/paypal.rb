@@ -73,7 +73,7 @@ class Paypal < ActiveRecord::Base
   # the given country and point number
   # @param [Integer] points Number of points to be purchased
   # @param [Symbol] countrycode Three-letter country code, see ISO 3166-1
-  # @return [Hash] Resulting payment info + tax info in BigDecimals! :currency :vat, in local currency the keys :subtotal, :total, :tax
+  # @return [Hash] Resulting payment info + tax info in BigDecimals! :currency :vat, in local currency the keys :subtotal, :total, :tax and corresponding values followed by _eur
   def self.calculate_payment(points, countrycode)
     throw "Number too large!" if points.to_s.length > 6
     throw "Number out of range!" if points.to_i < Paypal::MIN_PURCHASE or points.to_i > Paypal::MAX_PURCHASE

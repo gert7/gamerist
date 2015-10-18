@@ -124,14 +124,18 @@ class Room < ActiveRecord::Base
     end
   end
   
+  # Add a Room to the potential roomlist Set in Redis
   def self.roomlist_add(room)
     $redis.sadd "gamerist_roomlist_potential", room.id
   end
   
-  def self.remove_from_potential(index)
-    $redis.srem("gamerist_roomlist_potential", index)
+  # Remove a specific Room from the potential list
+  # @param [Integer] id ID of the Room model
+  def self.remove_from_potential(id)
+    $redis.srem("gamerist_roomlist_potential", id)
   end
   
+  # Produce the roomlist if the roomlist is over time limit
   def self.roomlist_produce()
     timeout = $redis.get("gamerist_roomlist_timeout")
     if Rails.env.test? or (not timeout or (timeout and timeout.to_i < Time.now.to_i))
@@ -160,24 +164,28 @@ class Room < ActiveRecord::Base
     end
   end
   
+  # Retrieve the general roomlist's length
   def self.roomlist_length
     roomlist_produce
     $redis.llen "gamerist_roomlist"
   end
   
+  # Retrieve a specific range of rooms from the general roomlist
   def self.roomlist_range(lrange, rrange)
     roomlist_produce
     $redis.lrange("gamerist_roomlist", lrange, rrange)
   end
   
+  # Retrieve an entire roomlist of a specific continent
   def self.get_roomlist_by_continent(continent)
     roomlist_produce
     $redis.lrange(("gamerist_roomlist_continent_" + continent), 0, -1)
   end
   
+  # Check if a specific continent has a working server
   def self.continent_exists?(continent)
     if($gamerist_serverdata["servers"].find_index do |s|
-      s["region"] == continent
+      s["region"] == continent and (s["production"] == true or (not Rails.env.production?))
     end)
       return true
     end
@@ -194,6 +202,8 @@ class Room < ActiveRecord::Base
     end
   end
   
+  # Actively modifies the Room to become FAILED if 
+  # the Room has timed out
   def room_timed_out?
     to = $redis.hget(rapidkey, "timeout")
     # dump_timeout_players
