@@ -48,7 +48,7 @@ class Paypal < ActiveRecord::Base
   require 'json_vat'
   require 'money'
   require 'money/bank/google_currency'
-  require 'config/initializers/gamerist'
+  require Rails.root.join("config", "initializers", "gamerist")
   
   Money::Bank::GoogleCurrency.ttl_in_seconds = 600
   Money.default_bank = Money::Bank::GoogleCurrency.new

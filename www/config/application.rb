@@ -6,8 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-require 'config/initializers/apikeys_accessor'
-
 module Gamerist
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -21,12 +19,17 @@ module Gamerist
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    require "#{config.root}/config/initializers/apikeys_accessor"
+
+    puts config.root
+    puts File.join(config.root, "config", "initializers", "apikeys_accessor")
+    
     config.autoload_paths += Dir["#{config.root}/lib/workers/**/"]
     config.eager_load_paths += ["#{Rails.root}/lib"]
     if(Rails.env.production?)
-      config.cache_store = :redis_store, 'redis://' + $GAMERIST_API_KEYS["redis_production"] + '/0/cache', { expires_in: 90.minutes }
+      config.cache_store = :redis_store, 'redis://' + GameristApiKeys.get("redis_production") + '/0/cache', { expires_in: 90.minutes }
     else
-      config.cache_store = :redis_store, 'redis://' + $GAMERIST_API_KEYS["redis_development"] + '/0/cache', { expires_in: 90.minutes }
+      config.cache_store = :redis_store, 'redis://' + GameristApiKeys.get("redis_development") + '/0/cache', { expires_in: 90.minutes }
     end
     
     config.active_record.raise_in_transactional_callbacks = true

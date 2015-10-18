@@ -1,10 +1,10 @@
-require 'config/initializers/apikeys_accessor'
-require 'config/initializers/gamerist'
+require Rails.root.join("config", "initializers", "apikeys_accessor")
+require Rails.root.join("config", "initializers", "gamerist")
 require 'bunny'
 
 # TODO set the address here
 
-$bunny = Bunny.new
+$bunny = Bunny.new("amqp://gxjhkelj:kgk9O_NcOpEnFd-3C4Po6zJLqn7R6aIS@turtle.rmq.cloudamqp.com/gxjhkelj")
 $bunny.start
 
 ch = $bunny.create_channel

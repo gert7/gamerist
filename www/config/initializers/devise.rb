@@ -2,7 +2,7 @@
 # Many of these configuration options can be set straight in your model.
 require 'devise'
 require 'omniauth-steam'
-require 'config/initializers/apikeys_accessor'
+require Rails.root.join("config", "initializers", "apikeys_accessor")
 
 Devise.setup do |config|
   config.omniauth :steam, GameristApiKeys.get("steam_api_key")

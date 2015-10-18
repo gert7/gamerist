@@ -1,4 +1,4 @@
-require "config/initializers/gamerist"
+require Rails.root.join("config", "initializers", "gamerist")
 
 def get_continent(countryname)
   i = $gamerist_continentdata["countries"].find_index {|c| c["country"] == countryname }

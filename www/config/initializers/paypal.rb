@@ -1,5 +1,5 @@
 require "paypal-sdk-rest"
-require 'config/initializers/apikeys_accessor'
+require Rails.root.join("config", "initializers", "apikeys_accessor")
 
 PayPal::SDK::REST.set_config(
   :mode => "sandbox",
