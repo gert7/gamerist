@@ -39,7 +39,7 @@ class Modifier < ActiveRecord::Base
   
   # Update all modifiers in this server instance
   def self.update_modifiers
-    puts $GAMERIST_MODIFIERS
+    # puts $GAMERIST_MODIFIERS
     if !$MODIFIERS_RELOADED # we have the most recent data
       all_modifiers = Hash.new
       Modifier.where(recent: true).each do |mod|

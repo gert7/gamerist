@@ -27,9 +27,9 @@ module Gamerist
     config.autoload_paths += Dir["#{config.root}/lib/workers/**/"]
     config.eager_load_paths += ["#{Rails.root}/lib"]
     if(Rails.env.production?)
-      config.cache_store = :redis_store, 'redis://' + GameristApiKeys.get("redis_production") + '/0/cache', { expires_in: 90.minutes }
+      config.cache_store = :redis_store, GameristApiKeys.get("redis_production") + '/0/cache', { expires_in: 90.minutes }
     else
-      config.cache_store = :redis_store, 'redis://' + GameristApiKeys.get("redis_development") + '/0/cache', { expires_in: 90.minutes }
+      config.cache_store = :redis_store, GameristApiKeys.get("redis_development") + '/0/cache', { expires_in: 90.minutes }
     end
     
     config.active_record.raise_in_transactional_callbacks = true

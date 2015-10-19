@@ -4,7 +4,9 @@ require 'bunny'
 
 # TODO set the address here
 
-$bunny = Bunny.new("amqp://gxjhkelj:kgk9O_NcOpEnFd-3C4Po6zJLqn7R6aIS@turtle.rmq.cloudamqp.com/gxjhkelj")
+require Rails.root.join("config", "initializers", "apikeys_accessor")
+
+$bunny = Bunny.new(Rails.env.production? ? GameristApiKeys.get("rabbitmq_hostname") : nil)# : GameristApiKeys.get("rabbitmq_hostname_test"))
 $bunny.start
 
 ch = $bunny.create_channel

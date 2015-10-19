@@ -2,15 +2,13 @@ Api Keys:
 
 steam_api_key
 rabbitmq_hostname
-rabbitmq_username
-rabbitmq_vhost
-rabbitmq_password
+rabbitmq_hostname_test: amqp://127.0.0.1:5672/
 redis_production
-redis_development
-secret_key_base
+redis_development: redis://127.0.0.1
+secret_key_base: 3d911ad4c7fdb0a650550ed6abd0c749c7c838c20f949ebccd051c34219d5fc5ad8385d3ef140b251532ea141ae56e3a0d2fad310774b2330d99066820e3543e
 paypal_clid
 paypal_clsecret
-paypal_return_hostname
-devise_secret_key
+paypal_return_hostname: http://127.0.0.1:3000
+devise_secret_key: cdb288b9dc60d40e4d32933317f7258cb34657b9dbba9140e54b3703c9ce1902dcca1f197b4e5f1bff4bd7b8f80da6a04a16f5afd6a787add924f7f48b91ca8e
 bugsnag_api_key
 
