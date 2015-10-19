@@ -38,7 +38,7 @@ ch.queue("gamerist.dispatch.upstream", durable: true).subscribe do |delivery_inf
 end
 
 module DispatchMQ
-  require("config/initializers/mq")
+  # require Rails.root.join("config", "initializers", "mq")
   def self.send_room_requests(room)
     require "jbuilder"
     roomrules = room.srules
@@ -81,7 +81,7 @@ module DispatchMQ
   end
 end
 
-require "config/initializers/redis"
+# require "config/initializers/redis"
 
 #if Rails.env.test?
 #  User.destroy_all

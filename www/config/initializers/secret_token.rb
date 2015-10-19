@@ -9,6 +9,6 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-require 'config/initializers/apikeys_accessor'
+require Rails.root.join("config", "initializers", "apikeys_accessor")
 
-Gamerist::Application.config.secret_key_base = $GAMERIST_API_KEYS["secret_key_base"]
+Gamerist::Application.config.secret_key_base = GameristApiKeys.get("secret_key_base")
