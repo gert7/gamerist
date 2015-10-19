@@ -1,10 +1,10 @@
 {
-  "selfname": "centurion",
+  "selfname": "bebo",
   "testmode": true,
   "travismode": false,
   "rabbitmq":
   {
-    "url": "amqp://127.0.0.1",
+    "url": "amqp://dengo.com",
     "username": "",
     "vhost": "",
     "password": "",

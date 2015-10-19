@@ -4,5 +4,4 @@ steamcmd
 www/tmp/cache/assets/**
 www/public/assets/**
 www/log/**
-www/config/apikeys.yml
 

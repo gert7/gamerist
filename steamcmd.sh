@@ -11,11 +11,21 @@ mkdir cs_go
 sleep 5
 ./steamcmd.sh +runscript ../steams.txt
 sleep 1
-curl -O http://mirror.pointysoftware.net/alliedmodders/mmsource-1.10.5-linux.tar.gz $CURL_O
+
+if [ ! -f "mmsource-1.10.5-linux.tar.gz" ]; then
+  curl -O http://mirror.pointysoftware.net/alliedmodders/mmsource-1.10.5-linux.tar.gz $CURL_O
+fi
 tar -xvzf mmsource-1.10.5-linux.tar.gz -C tf/tf
-curl -O http://mirror.pointysoftware.net/alliedmodders/sourcemod-1.7.2-linux.tar.gz $CURL_O
+
+if [ ! -f "sourcemod-1.7.2-linux.tar.gz" ]; then
+  curl -O http://mirror.pointysoftware.net/alliedmodders/sourcemod-1.7.2-linux.tar.gz $CURL_O
+fi
 tar -xvzf sourcemod-1.7.2-linux.tar.gz -C tf/tf
-curl -O https://forums.alliedmods.net/attachment.php?attachmentid=83286\&d=1299423920 $CURL_O
+
+if [ ! -f "socket_3.0.1.zip" ]; then
+  curl -O https://forums.alliedmods.net/attachment.php?attachmentid=83286\&d=1299423920 $CURL_O
+fi
+
 mkdir s_ocket
 cp attachment.php?attachmentid=83286* socket_3.0.1.zip
 rm attachment.php?attachmentid=83286*
