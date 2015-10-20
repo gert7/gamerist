@@ -138,6 +138,8 @@ declareInRoom = (t, roomIsPublic, data) ->
     $("#srules_wagerselector_outer").css("display", "inline-block")
     $("#srules_wagersubmitc").css("display", "inline-block")
     $("#srules_roomwager_label").css("margin-left", 4)
+    $("#srules_wagerselector").prop('disabled', false)
+    $("#srules_wagersubmit").prop('disabled', false)
     
     $("#srules_readybutton").prop('disabled', false)
     $("#srules_teamselect").css("display", "none")
@@ -150,6 +152,8 @@ declareInRoom = (t, roomIsPublic, data) ->
     $("#srules_wagerselector_outer").css("display", "none")
     $("#srules_wagersubmitc").css("display", "none")
     $("#srules_roomwager_label").css("margin-left", 239)
+    $("#srules_wagerselector").prop('disabled', true)
+    $("#srules_wagersubmit").prop('disabled', true)
     
     $("#srules_teamselect").css("display", "block") if (roomIsPublic and data.prejoindata == "Y")
     $("#srules_team_leave").css("display", "none")

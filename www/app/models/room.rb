@@ -641,6 +641,18 @@ class Room < ActiveRecord::Base
     self.acall($redis, :adeclare_team_scores, tscores)
   end
   
+  def adeclare_error(err)
+    dself  = Room.find(self.id)
+    mrules = dself.srules
+    mrules["error"] = err
+    dself.srules = mrules
+    dself.save(validate: false)
+  end
+  
+  def declare_error(err)
+    self.acall($redis, :adeclare_error, err)
+  end
+  
   def final_server_address
     $redis.hget rapidkey, "final_server_address"
   end

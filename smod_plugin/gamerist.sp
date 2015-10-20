@@ -313,7 +313,7 @@ public Action:WaitingForPlayersReboot(Handle:timer)
     if(wfptries < WFP_MAX_TRIES)
     {
       wfptries++;
-      PrintToServer("WFP RESTAART");
+      PrintToServer("WFP RESTART");
       PrintToChatAll("[GAMERIST] Not enough players, waiting for players %d/%d...", wfptries, WFP_MAX_TRIES);
       ServerCommand("mp_waitingforplayers_restart 1");
       CreateTimer(25.0, WaitingForPlayersReboot);
