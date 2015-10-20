@@ -56,7 +56,7 @@ public Plugin:myinfo =
 #define RULESET_FINAL    8 // like plr_pipeline/ctf_2fort - whoever wins the last round, wins
 #define RULESET_RED      16 // like cp_dustbowl - if red wins any round, they win the game, otherwise blu
 
-#define TEST_ALONE        1
+#define TEST_ALONE       0
 
 new String:mapdata_names[MAPS_NUMBER][MAPNAME_MAXSIZE] = {"ctf_2fort", "cp_dustbowl", "plr_pipeline"};
 new mapdata_rulesets[MAPS_NUMBER] = {9, 20, 12};
@@ -127,6 +127,7 @@ public OnPluginStart()
   HookEvent("player_spawn", Event_PlayerSpawn, EventHookMode_Post);
   HookEvent("teamplay_round_win", Event_TeamplayRoundWin, EventHookMode_Post);
   HookEvent("player_say", Event_PlayerSay, EventHookMode_Post);
+  CreateTimer(25.0, WaitingForPlayersReboot);
 }
 
 DeclareError(errno)
@@ -312,6 +313,7 @@ public Action:WaitingForPlayersReboot(Handle:timer)
     if(wfptries < WFP_MAX_TRIES)
     {
       wfptries++;
+      PrintToServer("WFP RESTAART");
       PrintToChatAll("[GAMERIST] Not enough players, waiting for players %d/%d...", wfptries, WFP_MAX_TRIES);
       ServerCommand("mp_waitingforplayers_restart 1");
       CreateTimer(25.0, WaitingForPlayersReboot);
@@ -323,11 +325,12 @@ public Action:WaitingForPlayersReboot(Handle:timer)
 
 public TF2_OnWaitingForPlayersStart()
 {
-  CreateTimer(25.0, WaitingForPlayersReboot);
+  // CreateTimer(25.0, WaitingForPlayersReboot);
 }
 
 public TF2_OnWaitingForPlayersEnd()
 {
+  PrintToServer("WAITING FOR PLAYERS OVER");
   CheckPlayerCount(1);
 }
 
