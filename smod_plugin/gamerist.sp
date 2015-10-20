@@ -56,7 +56,7 @@ public Plugin:myinfo =
 #define RULESET_FINAL    8 // like plr_pipeline/ctf_2fort - whoever wins the last round, wins
 #define RULESET_RED      16 // like cp_dustbowl - if red wins any round, they win the game, otherwise blu
 
-#define TEST_ALONE        0
+#define TEST_ALONE        1
 
 new String:mapdata_names[MAPS_NUMBER][MAPNAME_MAXSIZE] = {"ctf_2fort", "cp_dustbowl", "plr_pipeline"};
 new mapdata_rulesets[MAPS_NUMBER] = {9, 20, 12};
@@ -116,6 +116,7 @@ atoi(String:numero[], base)
 public OnPluginStart()
 {
   PrintToChatAll("[GAMERIST] Gamerist starting up...");
+  PrintToServer("[GAMERIST] Gamerist starting up...");
   
   CreateTimer(2.0, RestartSocket);
   CreateTimer(10.0, HeartBeat);
@@ -173,7 +174,7 @@ ClientListIndex(const String:auth[])
 ClientListIndexI(client)
 {
   new String:sid[MAXIDSIZE];
-  GetClientAuthId(client, AuthId_SteamID64, sid, MAXIDSIZE);
+  GetClientAuthId(client, AuthId_Steam3, sid, MAXIDSIZE);
   return ClientListIndex(sid);
 }
 
@@ -359,7 +360,7 @@ public Action:Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroa
   new client = GetClientOfUserId(GetEventInt(event, "userid"));
   new team   = GetClientTeam(client);
   
-  GetClientAuthId(client, AuthId_SteamID64, sid, MAXIDSIZE);
+  GetClientAuthId(client, AuthId_Steam3, sid, MAXIDSIZE);
   new ind = ClientListIndex(sid);
   if(ind == -1 && TEST_ALONE == 0){
     KickClient(client, "Client not in list somehow!");
@@ -384,7 +385,7 @@ PushAllPlayerScores()
       new String:oneplayer[48];
       
       new String:stid[MAXIDSIZE];
-      GetClientAuthId(i, AuthId_SteamID64, stid, MAXIDSIZE)
+      GetClientAuthId(i, AuthId_Steam3, stid, MAXIDSIZE)
       Format(oneplayer, 48, "%s|%d|", stid, GetClientFrags(i));
       StrCat(playerScores, 2048, oneplayer);
     }

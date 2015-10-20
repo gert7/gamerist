@@ -47,6 +47,11 @@ class RoomsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to :controller => 'rooms', :action => 'show', :id => res.id }
       end
+    elsif current_user.steamid == nil
+      respond_to do |format|
+        flash[:alert] = "Please add a Steam ID!"
+        format.html { redirect_to controller: "accounts", action: "index" }
+      end
     end
   end
 

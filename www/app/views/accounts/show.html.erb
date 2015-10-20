@@ -11,7 +11,7 @@
         <div id="account_maxi_current_place">
           <% @res = @user.get_reservation %>
           <% if (@res and @user.reservation_is_room?(@res.id)) %>
-            in Room <a href="/rooms/<%= @res.id %>"><%= @res.id %>
+            in Room <a href="/rooms/<%= @res.id %>"><%= @res.id %></a>
           <% end %>
         </div>
       </div>

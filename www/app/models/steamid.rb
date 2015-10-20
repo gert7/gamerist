@@ -41,4 +41,12 @@ class Steamid < ActiveRecord::Base
       t.steamid = stid
     end
   end
+  
+  def steamid3
+    steam_id1 = 1
+    steam_id2 = self.steamid.to_i - 76561197960265728
+    steam_id2 = (steam_id2 - steam_id1) / 2
+    
+    "STEAM_0:#{steam_id1}:#{steam_id2}"
+  end
 end

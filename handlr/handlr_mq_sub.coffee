@@ -93,13 +93,6 @@ conn.then((conn) ->
 exports.handle_mq_message = (data, callback) ->
   northstream.handle_mq_message(data, callback)
 
-exports.send_upstream = (msg) ->
-  conn.then((conn) ->
-    chan = conn.createChannel()
-    chan = chan.then((ch) ->
-      ch.assertQueue(qu, {durable: true, manual_ack: true})
-      ch.sendToQueue(qu, new Buffer(msg))
-    )
-    return chan
-  ).then(null, console.warn)
+exports.send_upstream = (msg, callback) ->
+  sendup(msg, callback)
 

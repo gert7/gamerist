@@ -12,15 +12,15 @@ sleep 5
 ./steamcmd.sh +runscript ../steams.txt
 sleep 1
 
-if [ ! -f "mmsource-1.10.5-linux.tar.gz" ]; then
-  curl -O http://mirror.pointysoftware.net/alliedmodders/mmsource-1.10.5-linux.tar.gz $CURL_O
+if [ ! -f "mmsource-1.10.6-linux.tar.gz" ]; then
+  curl -O http://mirror.pointysoftware.net/alliedmodders/mmsource-1.10.6-linux.tar.gz $CURL_O
 fi
-tar -xvzf mmsource-1.10.5-linux.tar.gz -C tf/tf
+tar -xvzf mmsource-1.10.6-linux.tar.gz -C tf/tf
 
-if [ ! -f "sourcemod-1.7.2-linux.tar.gz" ]; then
-  curl -O http://mirror.pointysoftware.net/alliedmodders/sourcemod-1.7.2-linux.tar.gz $CURL_O
+if [ ! -f "sourcemod-1.7.3-git5265-linux.tar.gz" ]; then
+  curl -O https://www.sourcemod.net/smdrop/1.7/sourcemod-1.7.3-git5265-linux.tar.gz $CURL_O
 fi
-tar -xvzf sourcemod-1.7.2-linux.tar.gz -C tf/tf
+tar -xvzf sourcemod-1.7.3-git5265-linux.tar.gz -C tf/tf
 
 if [ ! -f "socket_3.0.1.zip" ]; then
   curl -O https://forums.alliedmods.net/attachment.php?attachmentid=83286\&d=1299423920 $CURL_O

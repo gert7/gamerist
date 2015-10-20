@@ -54,7 +54,16 @@ spin_up_port = (port, room, settings, errcallback) ->
 
 spin_up = (roomid, room, errcallback) ->
   vport = 0
+  
   Futures.sequence()
+  .then (next) ->
+    portlist.get_port_by_id(roomid, next)
+  .then (next, record) ->
+    if record
+      errcallback(true, -1)
+      debug("Room with this ID already exists")
+    else
+      next()
   .then (next) ->
     portlist.remember_a_port(roomid, room, next)
   .then (next, port, err) ->

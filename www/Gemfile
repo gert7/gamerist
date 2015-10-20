@@ -82,6 +82,7 @@ gem 'puma', '2.14.0', require: false
 # end
 
 group :development, :test do
+  # SQLite
   gem 'activerecord-jdbcsqlite3-adapter', require: false
   gem 'rspec', require: false
   gem 'rspec-rails', require: false
@@ -98,5 +99,4 @@ gem 'bugsnag'
 
 group :production do
   gem 'newrelic_rpm'
-  
 end

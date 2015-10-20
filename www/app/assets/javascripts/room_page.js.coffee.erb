@@ -73,12 +73,17 @@ renderPlayerList = (data) ->
   srulesPlayers = document.createElement("div")
   $(srulesPlayers).attr("id", "srules_players")
   console.dir(data)
+  console.dir(data.rules.playercount)
   for i in [0..(data.rules.playercount - 1)]
     ply    = data.rules.players[i]
     isTeam = false
     (if ply and String(ply.team) != "0" then isTeam = true)
     console.dir(ply.team) if isTeam
-    $(srulesPlayers).append("<a target='_blank' href='" + ply.steamurl + "'><div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_teambar_" + (if (isTeam and ply.team == 2) then "red" else if(isTeam and ply.team == 3) then "blu") + "'></div><div class='account_mini_avatar'>" + (if isTeam then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + (if isTeam then ply.steamname else "") + "</div><div class='account_mini_wager'>" + (if isTeam then ply.wager else "") + "</div></div></div></a>")
+    if isTeam
+      $(srulesPlayers).append("<a target='_blank' href='" + ply.steamurl + "'><div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'><div class='account_mini_teambar_" + (if (ply.team == 2) then "red" else if(isTeam and ply.team == 3) then "blu") + "'></div><div class='account_mini_avatar'>" + (if isTeam then ("<img src='" + ply.avatar + "'/>") else "") + "</div><div class='account_mini_name'>" + ply.steamname + "</div><div class='account_mini_wager'>" + ply.wager + "</div></div></div></a>")
+    else
+      $(srulesPlayers).append("<div id='srules_player_" + i + "' class='srules_player'><div class='account_mini'>&nbsp;</div></div>")
+      
   $("#srules_players").replaceWith(srulesPlayers)
 
 animateRepeat = (t) ->
@@ -115,7 +120,7 @@ readyToIP = (data) ->
     $("#srules_buttons_inner").animate({top:-85}, 800)
   if(data.state == 4)
     playChimeIfChanged(4)
-    $("#srules_play_game").click(() -> window.location.href = "steam://open/main/")
+    $("#srules_play_game").click(() -> window.location.href = "steam://connect/" + data.final_server_address)
     $("#srules_play_game_ip").text("IP Address: " + data.final_server_address)
     $("#srules_buttons_inner").animate({top:0}, 800, (->))
 
@@ -127,9 +132,13 @@ declareInRoom = (t, roomIsPublic, data) ->
   $("#srules_ready").css("display", "inline-block") if t
   readyToIP(data) if (t and data.state != 1)
   if(t and roomIsPublic)
+    console.dir("PUBLCI FUCK")
     # $("#srules_notice").css("display", "none")
-    $("#srules_wagerselector").prop('disabled', false)
-    $("#srules_wagersubmit").prop('disabled', false)
+    
+    $("#srules_wagerselector_outer").css("display", "inline-block")
+    $("#srules_wagersubmitc").css("display", "inline-block")
+    $("#srules_roomwager_label").css("margin-left", 4)
+    
     $("#srules_readybutton").prop('disabled', false)
     $("#srules_teamselect").css("display", "none")
     $("#srules_team_leave").css("display", "block")
@@ -137,11 +146,11 @@ declareInRoom = (t, roomIsPublic, data) ->
   else
     setUnready() if roomIsPublic
     # $("#srules_notice").css("display", "block") # $("#srules_notice").text("You are not in this room!")
-    $("#srules_wagerselector").prop('disabled', true)
-    $("#srules_wagerselector").css('opacity', 0)
-    $("#srules_wagersubmit").prop('disabled', true)
-    $("#srules_wagersubmit").css('display', 'none')
-    $("#srules_wagersubmitc").css('opacity', 0)
+    
+    $("#srules_wagerselector_outer").css("display", "none")
+    $("#srules_wagersubmitc").css("display", "none")
+    $("#srules_roomwager_label").css("margin-left", 239)
+    
     $("#srules_teamselect").css("display", "block") if (roomIsPublic and data.prejoindata == "Y")
     $("#srules_team_leave").css("display", "none")
     # $("#srules_buttons").css("display", "none")
