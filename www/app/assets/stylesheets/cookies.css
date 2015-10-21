@@ -1,0 +1,46 @@
+#cookie_warning_outer {
+  background: hsl(0, 0%, 85%);
+  position: absolute;
+  width:100%;
+  text-align:center;
+  height:98px;
+  box-sizing:border-box;
+  z-index:1;
+}
+
+#cookie_warning {
+  background: hsl(0, 0%, 85%);
+  width:1024px;
+  text-align:left;
+  margin:auto;
+  box-sizing:border-box;
+  padding-top:68px;
+}
+
+#cookie_warning_text {
+  font-size:0.9em;
+  box-sizing:border-box;
+  display:inline-block;
+  vertical-align:middle;
+}
+
+#cookie_warning_agree {
+  border:0;
+  margin-left:12px;
+  background:hsl(205, 92%, 35%);
+  cursor: pointer;
+  height:24px;
+  vertical-align:middle;
+  box-sizing:border-box;
+}
+
+#cookie_warning_disagree {
+  border:0;
+  margin-left:12px;
+  background:hsl(205, 2%, 75%);
+  cursor: pointer;
+  height: 24px;
+  vertical-align:middle;
+  box-sizing:border-box;
+}
+
