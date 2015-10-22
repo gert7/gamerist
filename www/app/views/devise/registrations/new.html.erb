@@ -4,15 +4,15 @@
   <%= devise_error_messages! %>
 
   <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+  <%= f.email_field :email, :required => true, :autofocus => true %></div>
 
   <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+  <%= f.password_field :password, :required => true %></div>
 
   <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+  <%= f.password_field :password_confirmation, :required => true %></div>
   <br/>
-  <div><%= f.check_box :terms_of_service %> I have read and accept the <%= link_to "Terms and Conditions", "/static/terms" %></div>
+  <div><input type="checkbox" required>I have read and accept the <%= link_to "Terms and Conditions", "/static/terms" %></input></div>
   <br/>
   <div><%= f.submit "Sign up" %></div>
   <br/>

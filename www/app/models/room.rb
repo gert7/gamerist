@@ -644,7 +644,8 @@ class Room < ActiveRecord::Base
   def adeclare_error(err)
     dself  = Room.find(self.id)
     mrules = dself.srules
-    mrules["error"] = err
+    mrules["errors"] ||= []
+    mrules["errors"] << err
     dself.srules = mrules
     dself.save(validate: false)
   end
