@@ -336,7 +336,7 @@ describe Room do
       room.amend_player! player2, "team" => 2
       room.amend_player! player3, "team" => 3
       room.amend_player! player4, "team" => 3
-      room.declare_team_scores([{"steamid": player1.steamid.steamid, "score": 81}])
+      room.declare_team_scores([{"steamid": player1.steamid.steamid2, "score": 81}])
       expect(room.srules["players"][0]["score"]).to eq 81
     end
   end

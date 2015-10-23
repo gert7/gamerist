@@ -23,3 +23,4 @@ class Payout < ActiveRecord::Base
     self.margin   = self.total - self.subtotal
   end
 end
+
