@@ -1,6 +1,5 @@
 $(document).ready () ->
   if($("#fg_slideshow").length)
-    console.log("il exist")
     smode = 0
     smodeCall = () ->
       smode++
@@ -13,7 +12,7 @@ $(document).ready () ->
       else
         $("#fg_slideshow_text_inner_content1").fadeIn()
         $("#fg_slideshow_text_inner_content2").fadeOut()
-    setInterval(smodeCall, 5000)
+    setInterval(smodeCall, 5000)  
   if(getCookie("gameristcookieapproval") != "approved")
     askCookieApproval()
 
@@ -38,4 +37,4 @@ appendCallbacksCookie = () ->
 askCookieApproval = () ->
   $("#header").before('<div id="cookie_warning_outer"><div id="cookie_warning"><div id="cookie_warning_text">This website uses browser cookies to improve your experience</div><button id="cookie_warning_agree">DISMISS</button><button id="cookie_warning_disagree">LEAVE</button></div></div>')
   setTimeout(appendCallbacksCookie, 2)
-
+  

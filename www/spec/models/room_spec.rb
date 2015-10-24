@@ -324,6 +324,7 @@ describe Room do
       room.amend_player! player2, "team" => 2
       room.amend_player! player3, "team" => 3
       room.amend_player! player4, "team" => 3
+      room.rstate = Room::STATE_ACTIVE
       room.declare_winning_team(2)
       expect(player1.total_balance).to eq 30
     end
@@ -365,6 +366,7 @@ describe Room do
       room.amend_player! player2, "team" => 2
       room.amend_player! player3, "team" => 3
       room.amend_player! player4, "team" => 3
+      room.rstate = Room::STATE_ACTIVE
       room.declare_winning_team(2)
       expect(Room.roomlist_length).to eq 0
     end
@@ -379,6 +381,7 @@ describe Room do
       room.amend_player! player2, "team" => 2
       room.amend_player! player3, "team" => 3
       room.amend_player! player4, "team" => 3
+      room.rstate = Room::STATE_ACTIVE
       room.declare_winning_team(2)
       expect(Room.get_roomlist_by_continent("Europe").length).to eq 0
     end

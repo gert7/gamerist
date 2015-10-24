@@ -90,18 +90,18 @@ class Room < ActiveRecord::Base
     end
   end
 
-  validates :game, inclusion: {in: $gamerist_mapdata["games"].map {|g| g["name"]}, message: "Game is not valid!!!"}
-  validate :map_in_maplist
+  validates :game, inclusion: {in: $gamerist_mapdata["games"].map {|g| g["name"]}, message: "Game is not valid!!!"}, on: :create
+  validate :map_in_maplist, on: :create
   if(Rails.env.test? or Rails.env.development?)
-    validates :playercount, inclusion: {in: [1, 4, 8, 16, 24, 32], message: "Playercount is not valid!!!111"}
+    validates :playercount, inclusion: {in: [1, 4, 8, 16, 24, 32], message: "Playercount is not valid!!!111"}, on: :create
   else
-    validates :playercount, inclusion: {in: [8, 16, 24, 32], message: "Playercount is not valid!!!"}
+    validates :playercount, inclusion: {in: [8, 16, 24, 32], message: "Playercount is not valid!!!"}, on: :create
   end
-  validate :ctf_playerlimit
-  validates :wager, inclusion: {in: (WAGER_MIN-1)...(WAGER_MAX+1), message: "Wager of invalid size!!!"}
+  validate :ctf_playerlimit, on: :create
+  validates :wager, inclusion: {in: (WAGER_MIN-1)...(WAGER_MAX+1), message: "Wager of invalid size!!!"}, on: :create
   #validates :server, inclusion: {in: [nil, ""].concat($gamerist_serverdata["servers"].map {|g| g["name"]}), message: "Server is not valid!!!"}
   #validate :server_in_serverlist
-  validate :server_available_for_continent
+  validate :server_available_for_continent, on: :create
   
   before_validation do
     self.state  ||= STATE_PUBLIC
@@ -196,24 +196,21 @@ class Room < ActiveRecord::Base
     "gamerist-room {" + self.id.to_s + "}"
   end
   
-  def room_renew_timeout
-    if (not room_timed_out? and Room::STATE_PUBLIC)
-      $redis.hset(rapidkey, "timeout", Time.now.to_i + Room::TIMEOUT_PUBLIC)
+  def room_renew_timeout(specific=nil)
+    if (not room_timed_out? and (Room::STATE_PUBLIC or Room::STATE_LOCKED))
+      $redis.hset(rapidkey, "timeout", (specific or (Time.now.to_i + Room::TIMEOUT_PUBLIC)))
     end
   end
-  
+
   # Actively modifies the Room to become FAILED if 
   # the Room has timed out
   def room_timed_out?
     to = $redis.hget(rapidkey, "timeout")
     # dump_timeout_players
     if to
-      if (to.to_i > Time.now.to_i)
-        return false
-      elsif (to.to_i < Time.now.to_i) and self.srules["players"].count == 0
-        dself = Room.find(self.id)
-        dself.rstate = Room::STATE_FAILED
-        dself.save(validate: false)
+      if (to.to_i < Time.now.to_i) and (self.srules["players"].count == 0 or self.rstate == Room::STATE_LOCKED)
+        self.rstate = Room::STATE_FAILED
+        self.save
         return true
       end
     end
@@ -226,8 +223,14 @@ class Room < ActiveRecord::Base
     if $redis.hget(rapidkey, "is_alive") == "true" and
        ((self.rstate != Room::STATE_PUBLIC) or (not room_timed_out?))
       return true
+    else
+      mrules = self.srules
+      mrules["errors"] ||= []
+      mrules["errors"] << "web_timeout"
+      self.rstate = Room::STATE_FAILED
+      self.save
+      return false
     end
-    false
   end
   
   # @return hash containing the ruleset for this room, includes all central data except state (see rstate)
@@ -334,14 +337,13 @@ class Room < ActiveRecord::Base
   # if 1) the room is full 2) everyone is ready.
   # This method may write to ActiveRecord
   def lock_if_ready(ruleset)
-    dself = Room.find(self.id)
-    if((dself.total_players(ruleset) == ruleset["playercount"]) and
-       (dself.is_public?) and
+    if((self.total_players(ruleset) == ruleset["playercount"]) and
+       (self.is_public?) and
        (ruleset["players"].inject(true) {|acc, v| acc and (v["ready"].to_i == 1 or v["team"].to_s == "0")}))
       ruleset      = remove_exo_players(ruleset)
-      dself.rules  = JSON.generate(ruleset)
-      dself.rstate = STATE_LOCKED
-      dself.save(validate: false)
+      self.rules  = JSON.generate(ruleset)
+      self.rstate = STATE_LOCKED
+      self.save
       update_relevant_users(ruleset)
     end
     ruleset
@@ -581,9 +583,20 @@ class Room < ActiveRecord::Base
     self.acall($redis, :aadd_running_server, server)
   end
   
-  def achug_room
+  def affirm_finalserver?()
     finalserver = $redis.hget rapidkey, "final_server_address"
-    return if finalserver
+    if finalserver
+      self.rstate = STATE_ACTIVE
+      self.save!
+      return true
+    end
+    false
+  end
+  
+  def achug_room
+    self.room_renew_timeout
+    return if room_timed_out?
+    return if affirm_finalserver
     state       = $redis.hget rapidkey, "search_searching"
     tout        = $redis.hget rapidkey, "search_timeout"
     results     = $redis.hget rapidkey, "search_result"
@@ -597,7 +610,6 @@ class Room < ActiveRecord::Base
         DispatchMQ.send_room_cancel(self.id, v["servername"])
       end
       $redis.hset rapidkey, "final_server_address", res[0]["ip"] + ":" + res[0]["port"].to_s
-      self.rstate = STATE_ACTIVE
     end
   end
   
@@ -606,20 +618,21 @@ class Room < ActiveRecord::Base
   end
   
   def adeclare_winning_team(team)
-    dself                 = Room.find(self.id)
-    mrules                = dself.srules
-    mrules["winningteam"] = team
-    mrules["players"].each do |v|
-      if v["team"].to_s == team.to_s
-        Transaction.make_transaction(user_id: v["id"], amount: mrules["wager"].to_i, state: Transaction::STATE_FINAL, kind: Transaction::KIND_ROOM, detail: dself.id)
-      else
-        Transaction.make_transaction(user_id: v["id"], amount: (0 - mrules["wager"].to_i), state: Transaction::STATE_FINAL, kind: Transaction::KIND_ROOM, detail: dself.id)
+    if self.rstate == STATE_ACTIVE and self.is_alive?
+      mrules                = self.srules
+      mrules["winningteam"] = team
+      mrules["players"].each do |v|
+        if v["team"].to_s == team.to_s
+          Transaction.make_transaction(user_id: v["id"], amount: mrules["wager"].to_i, state: Transaction::STATE_FINAL, kind: Transaction::KIND_ROOM, detail: self.id)
+        else
+          Transaction.make_transaction(user_id: v["id"], amount: (0 - mrules["wager"].to_i), state: Transaction::STATE_FINAL, kind: Transaction::KIND_ROOM, detail: self.id)
+        end
+        User.new(id: v["id"]).unreserve_from_room(self.id)
       end
-      User.new(id: v["id"]).unreserve_from_room(self.id)
+      self.srules = mrules
+      self.rstate = STATE_OVER
+      self.save
     end
-    dself.srules = mrules
-    dself.rstate = STATE_OVER
-    dself.save(validate: false)
   end
   
   def declare_winning_team(team)
@@ -627,14 +640,13 @@ class Room < ActiveRecord::Base
   end
   
   def adeclare_team_scores(tscores)
-    dself  = Room.find(self.id)
-    mrules = dself.srules
+    mrules = self.srules
     tscores.each do |tv|
       pi = mrules["players"].find_index {|pv| pv["steamid"] == tv["steamid"]}
       mrules["players"][pi]["score"] = tv["score"]
     end
-    dself.srules = mrules
-    dself.save(validate: false)
+    self.srules = mrules
+    self.save
   end
   
   def declare_team_scores(tscores)
@@ -642,12 +654,11 @@ class Room < ActiveRecord::Base
   end
   
   def adeclare_error(err)
-    dself  = Room.find(self.id)
-    mrules = dself.srules
+    mrules = self.srules
     mrules["errors"] ||= []
     mrules["errors"] << err
-    dself.srules = mrules
-    dself.save(validate: false)
+    self.srules = mrules
+    self.save(validate: false)
   end
   
   def declare_error(err)
