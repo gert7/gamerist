@@ -263,7 +263,7 @@ AreEnoughPlayers()
   }
   new maxplayers = GetMaxClients();
   // PrintToServer("ccount vs maxplayers: %d/%d", ccount, maxplayers);
-  if(ccount >= (maxplayers - 23)) // TODO: ensure this makes sense
+  if(ccount >= (maxplayers - 1)) // TODO: ensure this makes sense
     return 1;
   else
     return 0;

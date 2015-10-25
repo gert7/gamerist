@@ -34,7 +34,7 @@ public Plugin:myinfo =
 #define IDLIMIT         34
 #define MAXIDSIZE       32
 
-#define MAPS_NUMBER     3
+#define MAPS_NUMBER     2
 #define MAPNAME_MAXSIZE 16
 
 #define ERROR_GRACEFUL_SHUTDOWN           4
@@ -50,16 +50,16 @@ public Plugin:myinfo =
 #define TEAM_BLU 3
 
 // Enums for winning modes
-#define RULESET_ROUNDS_1 1
-#define RULESET_ROUNDS_2 2
-#define RULESET_ROUNDS_3 4
-#define RULESET_FINAL    8 // like plr_pipeline/ctf_2fort - whoever wins the last round, wins
-#define RULESET_RED      16 // like cp_dustbowl - if red wins any round, they win the game, otherwise blu
+#define RULESET_ROUNDS_6 1
+#define RULESET_ROUNDS_11 2
+#define RULESET_ROUNDS_16 4
+#define RULESET_FINAL 8
+#define RULESET_BESTOF 16
 
-#define TEST_ALONE       0
+#define TEST_ALONE       1
 
-new String:mapdata_names[MAPS_NUMBER][MAPNAME_MAXSIZE] = {"ctf_2fort", "cp_dustbowl", "plr_pipeline"};
-new mapdata_rulesets[MAPS_NUMBER] = {9, 20, 12};
+new String:mapdata_names[MAPS_NUMBER][MAPNAME_MAXSIZE] = {"de_dust", "cs_office"};
+new mapdata_rulesets[MAPS_NUMBER] = {2, 2};
 
 new String:allowedids[IDLIMIT][MAXIDSIZE]; // 1 string is 24 characters, null terminator included
 new teamnumbers[IDLIMIT];
@@ -76,9 +76,6 @@ new killingServer  = 0;
 new waitingForResponse = 0;
 
 new globalRoundsPlayed = 0;
-
-#define WFP_MAX_TRIES   10
-new wfptries = 1;
 
 new voteCancelAvailable = 1;
 new votedToCancel[32];
@@ -127,7 +124,8 @@ public OnPluginStart()
   HookEvent("player_spawn", Event_PlayerSpawn, EventHookMode_Post);
   HookEvent("teamplay_round_win", Event_TeamplayRoundWin, EventHookMode_Post);
   HookEvent("player_say", Event_PlayerSay, EventHookMode_Post);
-  CreateTimer(25.0, WaitingForPlayersReboot);
+  CreateTimer(10.0, ReportGameNotStarted);
+  CreateTimer(250.0, ExpireWaitTime)
 }
 
 DeclareError(errno)
@@ -263,7 +261,7 @@ AreEnoughPlayers()
   }
   new maxplayers = GetMaxClients();
   // PrintToServer("ccount vs maxplayers: %d/%d", ccount, maxplayers);
-  if(ccount >= (maxplayers - 23)) // TODO: ensure this makes sense
+  if(ccount >= (maxplayers - 1)) // TODO: ensure this makes sense
     return 1;
   else
     return 0;
@@ -277,10 +275,13 @@ CheckPlayerCount(fatalmode)
   {
     if(AreEnoughPlayers())
     {
-      gameStarted = 1;
       PrintToChatAll("[GAMERIST] Enough players have joined!");
       PrintToChatAll("[GAMERIST] The game will start soon");
       PrintToChatAll("[GAMERIST] !votecancel will be available for 2 minutes");
+      SetTeamScore(2, 0);
+      SetTeamScore(3, 0);
+      ServerCommand("mp_restartgame");
+      gameStarted = 1;
       CreateTimer(120.0, DisableVoteCancel);
     }
     else if(fatalmode)
@@ -290,6 +291,19 @@ CheckPlayerCount(fatalmode)
       CreateTimer(6.0, NotEnoughPlayers);
     }
   }
+}
+
+public Action:ReportGameNotStarted(Handle:timer)
+{
+  if(gameStarted == 0) {
+    PrintCenterTextAll("The game has not started yet!");
+    CreateTimer(10.0, ReportGameNotStarted);
+  }
+}
+
+public Action:ExpireWaitTime(Handle:timer)
+{
+  CheckPlayerCount(1);
 }
 
 //
@@ -309,42 +323,15 @@ public OnClientAuthorized(client, const String:auth[])
   CheckPlayerCount(0);
 }
 
-public Action:WaitingForPlayersReboot(Handle:timer)
-{
-  if(AreEnoughPlayers() == 0)
-  {
-    if(wfptries < WFP_MAX_TRIES)
-    {
-      wfptries++;
-      PrintToServer("WFP RESTART");
-      PrintToChatAll("[GAMERIST] Not enough players, waiting for players %d/%d...", wfptries, WFP_MAX_TRIES);
-      ServerCommand("mp_waitingforplayers_restart 1");
-      CreateTimer(25.0, WaitingForPlayersReboot);
-    }
-    else
-      CheckPlayerCount(1);
-  }
-}
-
-public TF2_OnWaitingForPlayersStart()
-{
-  // CreateTimer(25.0, WaitingForPlayersReboot);
-}
-
-public TF2_OnWaitingForPlayersEnd()
-{
-  PrintToServer("WAITING FOR PLAYERS OVER");
-  CheckPlayerCount(1);
-}
-
 //
 // Shut down the server, game is done
 //
 PreGracefulShutdown(winteam)
 {
-  new String:winteamStr[4];
-  if(winteam == TEAM_RED) winteamStr = "RED"; else winteamStr = "BLU";
-  PrintToChatAll("[GAMERIST] Game over! Winning team is team %s", winteamStr);
+  if(winteam == TEAM_RED) 
+    PrintToChatAll("[GAMERIST] Game over! Terrorists win");
+  else 
+    PrintToChatAll("[GAMERIST] Game over! Counter-Terrorists win");
   CreateTimer(30.0, GracefulShutdown);
 }
 
@@ -417,26 +404,22 @@ public Action:Event_TeamplayRoundWin(Handle:event, const String:name[], bool:don
   new ruleset = MapListEnum();
   globalRoundsPlayed++;
   new roundsMax;
-  if(ruleset & RULESET_ROUNDS_1)
-    roundsMax = 1;
-  else if(ruleset & RULESET_ROUNDS_2)
-    roundsMax = 2;
-  else if(ruleset & RULESET_ROUNDS_3)
-    roundsMax = 3;
-  if(ruleset & RULESET_FINAL) // CTF_2FORT/PLR_PIPELINE STYLE
+  if(ruleset & RULESET_ROUNDS_6) roundsMax = 6;
+  else if(ruleset & RULESET_ROUNDS_11) roundsMax = 11;
+  else if(ruleset & RULESET_ROUNDS_16) roundsMax = 16;
+  
+  if(ruleset & RULESET_FINAL) // THE TEAM WHO WINS THE LAST ROUND WINS THE GAME
   {
     if(globalRoundsPlayed == roundsMax)
       DeclareWinners(GetEventInt(event, "team"));
     else
       PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")));
   }
-  else if(ruleset & RULESET_RED) // CP_DUSTBOWL STYLE
+  else if(ruleset & RULESET_BESTOF) // THE TEAM WHO IS GUARANTEED TO HAVE THE MOST POINTS AT THE END WINS IMMEDIATELY
   {
     new rwinningTeam = GetEventInt(event, "team");
-    if(globalRoundsPlayed == roundsMax && rwinningTeam == TEAM_BLU)
-      DeclareWinners(TEAM_BLU);
-    else if(rwinningTeam == TEAM_RED)
-      DeclareWinners(TEAM_RED);
+    if(GetTeamScore(rwinningTeam) > (roundsMax - globalRoundsPlayed))
+      DeclareWinners(rwinningTeam);
     else
       PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")));
   }
