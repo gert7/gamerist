@@ -190,6 +190,14 @@ plistactor = nactor.actor ->
         get_port_by_id(data.roomid, next)
       .then (next, record) ->
         async.reply(record)
+        
+    get_all_ports: (data, async) ->
+      async.enable()
+      Futures.sequence()
+      .then (next) ->
+        get_all_ports(next)
+      .then (next, records) ->
+        async.reply(records)
     
     free_port: (data, async) ->
       async.enable()
@@ -245,6 +253,9 @@ exports.get_port       = (port, callback) ->
 
 exports.get_port_by_id = (roomid, callback) ->
   plistactor.get_port_by_id({roomid: roomid}, callback)
+  
+exports.get_all_ports = (callback) ->
+  plistactor.get_all_ports(null, callback)
 
 exports.free_port      = (port, callback) ->
   plistactor.free_port({port: port}, callback)
@@ -262,3 +273,4 @@ exports.remove_timeout_ports = (callback) ->
   plistactor.remove_timeout_ports(null, callback)
 
 setInterval((() -> plistactor.remove_timeout_ports(null, ->)), 7000)
+

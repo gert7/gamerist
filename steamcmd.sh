@@ -2,6 +2,7 @@ CURL_O="-# --max-time 20 --retry 4"
 
 mkdir steamcmd
 cd steamcmd # CD gamerist/steamcmd
+
 curl -O http://media.steampowered.com/installer/steamcmd_linux.tar.gz $CURL_O
 tar -xvzf steamcmd_linux.tar.gz
 rm steamcmd_linux.tar.gz
@@ -15,12 +16,30 @@ sleep 1
 if [ ! -f "mmsource-1.10.6-linux.tar.gz" ]; then
   curl -O http://mirror.pointysoftware.net/alliedmodders/mmsource-1.10.6-linux.tar.gz $CURL_O
 fi
-tar -xvzf mmsource-1.10.6-linux.tar.gz -C tf/tf
+
+mkdir mmsource_temp
+tar -xvzf mmsource-1.10.6-linux.tar.gz -C mmsource_temp
+rsync -aP mmsource_temp tf/tf
+rsync -aP mmsource_temp css/cstrike
+rm -rf mmsource_temp
 
 if [ ! -f "sourcemod-1.7.3-git5265-linux.tar.gz" ]; then
   curl -O https://www.sourcemod.net/smdrop/1.7/sourcemod-1.7.3-git5265-linux.tar.gz $CURL_O
 fi
-tar -xvzf sourcemod-1.7.3-git5265-linux.tar.gz -C tf/tf
+
+echo "MAKING SOURCEMOD TEMP FOLDER"
+
+mkdir sourcemod_temp
+
+echo "EXTRACTING SOURCEMOD INTO TEMP FOLDER"
+tar -xvzf sourcemod-1.7.3-git5265-linux.tar.gz -C sourcemod_temp
+
+echo "RSYNC SOURCEMOD TEMP FOLDER WITH TF/TF"
+rsync -avP sourcemod_temp/* tf/tf
+
+echo "RSYNC SOURCEMOD TEMP FOLDER WITH CSS/CSTRIKE"
+rsync -avP sourcemod_temp/* css/cstrike
+rm -rf sourcemod_temp
 
 if [ ! -f "socket_3.0.1.zip" ]; then
   curl -O https://forums.alliedmods.net/attachment.php?attachmentid=83286\&d=1299423920 $CURL_O
@@ -30,10 +49,13 @@ mkdir s_ocket
 cp attachment.php?attachmentid=83286* socket_3.0.1.zip
 rm attachment.php?attachmentid=83286*
 unzip socket_3.0.1.zip -d s_ocket
-rsync -aP s_ocket/* tf/tf/
+rsync -avP s_ocket/* tf/tf/
+rsync -avP s_ocket/* css/cstrike/
 rm -rf s_ocket
 cp tf/tf/addons/sourcemod/plugins/* tf/tf/addons/sourcemod/plugins/disabled
 rm tf/tf/addons/sourcemod/plugins/*
+cp css/cstrike/addons/sourcemod/plugins/* css/cstrike/addons/sourcemod/plugins/disabled
+rm css/cstrike/addons/sourcemod/plugins/*
 cd ../smod_plugin
 ./compile.sh
 cd ../steamcmd

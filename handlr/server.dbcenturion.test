@@ -1,3 +1,1 @@
-{"port":27015,"roomid":5,"room":{"server_region":"Europe","game":"team fortress 2","map":"ctf_2fort","playercount":1,"wager":5,"players":[{"id":1,"ready":"1","wager":"5","avatar":"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/b1/b16101a3599b265d59dec6912324dab8b0a5b86f.jpg","steamname":"gert7","steamid":"STEAM_0:1:18525940","team":2,"steamurl":"http://steamcommunity.com/id/gert7/","known_ips":["127.0.0.1"],"timeout":1445355778}],"messages":[{"message":"TOP","user_id":0,"addendum":["left:gert7 has left the room","left:gert7 has left the room"]}]},"timeout":1445356390,"_id":"Ivt54D604ZRqbxo6"}
 {"$$indexCreated":{"fieldName":"port","unique":true,"sparse":false}}
-{"$$deleted":true,"_id":"Ivt54D604ZRqbxo6"}

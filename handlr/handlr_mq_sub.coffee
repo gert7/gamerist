@@ -96,3 +96,12 @@ exports.handle_mq_message = (data, callback) ->
 exports.send_upstream = (msg, callback) ->
   sendup(msg, callback)
 
+pro_tempore_report = () ->
+  Futures.sequence()
+  .then (next) ->
+    portlist.get_all_ports(next)
+  .then (next, records) ->
+    sendup('{"protocol_version": 1, "type": "general_report", "timestamp":' + unixtime() + ', "contents":' + JSON.stringify(records) + '}')
+
+setInterval(pro_tempore_report, 7000)
+
