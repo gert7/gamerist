@@ -19,25 +19,17 @@ fi
 
 mkdir mmsource_temp
 tar -xvzf mmsource-1.10.6-linux.tar.gz -C mmsource_temp
-rsync -aP mmsource_temp tf/tf
-rsync -aP mmsource_temp css/cstrike
+rsync -aP mmsource_temp/* tf/tf
+rsync -aP mmsource_temp/* css/cstrike
 rm -rf mmsource_temp
 
 if [ ! -f "sourcemod-1.7.3-git5265-linux.tar.gz" ]; then
   curl -O https://www.sourcemod.net/smdrop/1.7/sourcemod-1.7.3-git5265-linux.tar.gz $CURL_O
 fi
 
-echo "MAKING SOURCEMOD TEMP FOLDER"
-
 mkdir sourcemod_temp
-
-echo "EXTRACTING SOURCEMOD INTO TEMP FOLDER"
 tar -xvzf sourcemod-1.7.3-git5265-linux.tar.gz -C sourcemod_temp
-
-echo "RSYNC SOURCEMOD TEMP FOLDER WITH TF/TF"
 rsync -avP sourcemod_temp/* tf/tf
-
-echo "RSYNC SOURCEMOD TEMP FOLDER WITH CSS/CSTRIKE"
 rsync -avP sourcemod_temp/* css/cstrike
 rm -rf sourcemod_temp
 

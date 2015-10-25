@@ -82,6 +82,8 @@ new votedToCancel[32];
 
 new Handle:sharedSocket;
 
+new gameStarted = 0;
+
 // Integer power
 power(x, y) // wow
 {
@@ -110,6 +112,12 @@ atoi(String:numero[], base)
   return result;
 }
 
+SetClientHealth(client, amount)
+{
+	new HealthOffs = FindDataMapOffs(client, "m_iHealth");
+	SetEntData(client, HealthOffs, amount, true);
+}
+
 public OnPluginStart()
 {
   PrintToChatAll("[GAMERIST] Gamerist starting up...");
@@ -122,7 +130,7 @@ public OnPluginStart()
   
   PrintToChatAll(mapdata_names[1]);
   HookEvent("player_spawn", Event_PlayerSpawn, EventHookMode_Post);
-  HookEvent("teamplay_round_win", Event_TeamplayRoundWin, EventHookMode_Post);
+  HookEvent("round_end", Event_TeamplayRoundEnd, EventHookMode_Post);
   HookEvent("player_say", Event_PlayerSay, EventHookMode_Post);
   CreateTimer(10.0, ReportGameNotStarted);
   CreateTimer(250.0, ExpireWaitTime)
@@ -267,8 +275,6 @@ AreEnoughPlayers()
     return 0;
 }
 
-new gameStarted = 0; // in case playercount falls to 0 and it goes back to wfp
-
 CheckPlayerCount(fatalmode)
 {
   if(gameStarted == 0)
@@ -297,7 +303,7 @@ public Action:ReportGameNotStarted(Handle:timer)
 {
   if(gameStarted == 0) {
     PrintCenterTextAll("The game has not started yet!");
-    CreateTimer(10.0, ReportGameNotStarted);
+    CreateTimer(4.0, ReportGameNotStarted);
   }
 }
 
@@ -362,6 +368,26 @@ public Action:Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroa
   // if(ind != -1) PrintToServer("%d has joined team %d, should be team %d", client, team, teamnumbers[ind]);
   if(ind != -1 && teamnumbers[ind] != team)
     ChangeClientTeam(client, teamnumbers[ind]);
+  if(gameStarted == 0)
+    CreateTimer(1.0, MockeryFeature);
+  return Plugin_Handled;
+}
+
+public Action:MockeryFeature(Handle:event)
+{
+  new clhealth, finalhealth;
+  for(new i = 1; i < (GetMaxClients() + 1); i++) {
+    if(IsClientConnected(i)) {
+      clhealth = GetClientHealth(i);
+      if(clhealth < 100) {
+        finalhealth = clhealth + 25;
+        if(finalhealth > 100) finalhealth = 100;
+        SetClientHealth(i, finalhealth);
+      }
+    }
+  }
+  if(gameStarted == 0)
+    CreateTimer(1.0, MockeryFeature);
   return Plugin_Handled;
 }
 
@@ -399,32 +425,38 @@ DeclareWinners(winningTeam)
   PreGracefulShutdown(winningTeam);
 }
 
-public Action:Event_TeamplayRoundWin(Handle:event, const String:name[], bool:dontBroadcast)
+public Action:Event_TeamplayRoundEnd(Handle:event, const String:name[], bool:dontBroadcast)
 {
-  new ruleset = MapListEnum();
-  globalRoundsPlayed++;
-  new roundsMax;
-  if(ruleset & RULESET_ROUNDS_6) roundsMax = 6;
-  else if(ruleset & RULESET_ROUNDS_11) roundsMax = 11;
-  else if(ruleset & RULESET_ROUNDS_16) roundsMax = 16;
-  
-  if(ruleset & RULESET_FINAL) // THE TEAM WHO WINS THE LAST ROUND WINS THE GAME
-  {
-    if(globalRoundsPlayed == roundsMax)
-      DeclareWinners(GetEventInt(event, "team"));
+  if(gameStarted == 1) {
+    new ruleset = MapListEnum();
+    globalRoundsPlayed++;
+    new roundsMax;
+    if(ruleset & RULESET_ROUNDS_6) roundsMax = 6;
+    else if(ruleset & RULESET_ROUNDS_11) roundsMax = 11;
+    else if(ruleset & RULESET_ROUNDS_16) roundsMax = 16;
+    
+    if(ruleset & RULESET_FINAL) // THE TEAM WHO WINS THE LAST ROUND WINS THE GAME
+    {
+      if(globalRoundsPlayed == roundsMax)
+        DeclareWinners(GetEventInt(event, "team"));
+      else
+        PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")));
+    }
+    else if(ruleset & RULESET_BESTOF) // THE TEAM WHO IS GUARANTEED TO HAVE THE MOST POINTS AT THE END WINS IMMEDIATELY
+    {
+      new rwinningTeam = GetEventInt(event, "team");
+      if(GetTeamScore(rwinningTeam) > (roundsMax - globalRoundsPlayed))
+        DeclareWinners(rwinningTeam);
+      else
+        PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")));
+    }
     else
-      PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")));
-  }
-  else if(ruleset & RULESET_BESTOF) // THE TEAM WHO IS GUARANTEED TO HAVE THE MOST POINTS AT THE END WINS IMMEDIATELY
-  {
-    new rwinningTeam = GetEventInt(event, "team");
-    if(GetTeamScore(rwinningTeam) > (roundsMax - globalRoundsPlayed))
-      DeclareWinners(rwinningTeam);
-    else
-      PrintToChatAll("[GAMERIST] Round over! Next round begins in %d seconds", GetConVarInt(FindConVar("mp_bonusroundtime")));
+      KillServer(ERROR_UNRECOGNIZED_MAP);
   }
   else
-    KillServer(ERROR_UNRECOGNIZED_MAP);
+  {
+    ServerCommand("mp_restartgame");
+  }
   return Plugin_Handled;
 }
 
