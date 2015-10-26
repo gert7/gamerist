@@ -1,0 +1,11 @@
+You are playing in a Gamerist match!
+
+The game is played for 11 rounds.
+
+You will be placed to the correct team automatically.
+
+The game will not start until almost all players have connected.
+
+!votecancel is available within the first 2 minutes of the first round after setup (if any)
+
+

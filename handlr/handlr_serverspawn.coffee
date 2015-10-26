@@ -48,7 +48,7 @@ spin_up_port = (port, room, settings, errcallback) ->
     srcfolder = settings.game
     ipath     = path.resolve("../steamcmd", srcfolder, "srcds_run")
     debug(ipath)
-    spawn_indep_async(ipath, ["-game", settings.game, "+map", settings.map, "+playercount", settings.playercount, "-port", port, "+exec", "server.cfg", "-norestart"], room, next)
+    spawn_indep_async(ipath, ["-game", settings.subname, "+map", settings.map, "+playercount", settings.playercount, "-port", port, "+exec", "server.cfg", "-norestart"], room, next)
   .then (next) ->
     errcallback()
 
@@ -70,9 +70,15 @@ spin_up = (roomid, room, errcallback) ->
     vport = port
     if port != 0
       gamename = ""
+      subname  = ""
       debug(room)
-      if room.game == "team fortress 2" then gamename = "tf"
-      spin_up_port(port, roomid, {game: gamename, map: room.map, playercount: room.playercount}, next)
+      if room.game == "team fortress 2" then 
+        gamename = "tf"
+        subname  = "tf"
+      if room.game == "counter strike source" then 
+        gamename = "css"
+        subname  = "cstrike"
+      spin_up_port(port, roomid, {game: gamename, subname: subname, map: room.map, playercount: room.playercount}, next)
     else
       errcallback(true, vport)
   .then ->

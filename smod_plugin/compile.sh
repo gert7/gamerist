@@ -1,4 +1,7 @@
 cd $HOME/gamerist/smod_plugin
+cp *.inc ../steamcmd/tf/tf/addons/sourcemod/scripting/include
+cp *.inc ../steamcmd/css/cstrike/addons/sourcemod/scripting/include
+
 cp gamerist_tf.sp ../steamcmd/tf/tf/addons/sourcemod/scripting
 cd ../steamcmd/tf/tf/addons/sourcemod/scripting
 chmod ugo=rwx compile.sh
