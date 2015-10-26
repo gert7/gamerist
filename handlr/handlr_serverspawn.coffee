@@ -72,10 +72,10 @@ spin_up = (roomid, room, errcallback) ->
       gamename = ""
       subname  = ""
       debug(room)
-      if room.game == "team fortress 2" then 
+      if room.game == "team fortress 2" 
         gamename = "tf"
         subname  = "tf"
-      if room.game == "counter strike source" then 
+      if room.game == "counter strike source"
         gamename = "css"
         subname  = "cstrike"
       spin_up_port(port, roomid, {game: gamename, subname: subname, map: room.map, playercount: room.playercount}, next)
