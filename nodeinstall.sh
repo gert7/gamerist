@@ -1,6 +1,8 @@
 NODE_PACKAGE_NAME=setup_4.x
 
-curl -sOL https://deb.nodesource.com/$NODE_PACKAGE_NAME
+if [ ! -f $NODE_PACKAGE_NAME ]; then
+  curl -sOL https://deb.nodesource.com/$NODE_PACKAGE_NAME
+fi
 
 sudo bash $NODE_PACKAGE_NAME
 
@@ -10,4 +12,3 @@ cd handlr
 
 ./npminstall.sh
 
-rm $NODE_PACKAGE_NAME
