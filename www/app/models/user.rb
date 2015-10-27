@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   has_one :steamid, inverse_of: :user
   has_many :transactions, inverse_of: :user
   has_many :paypals, inverse_of: :user
+  has_many :payouts, inverse_of: :user
 
   has_many :usertraces, inverse_of: :user
   
@@ -92,8 +93,8 @@ class User < ActiveRecord::Base
   end
   
   # Total balance exclusively of unrealized funds
-  def balance_unrealized
-    crunch_transactions
+  def balance_unrealized(crunch=true)
+    crunch_transactions if crunch
     $redis.hfetch hrapidkey, "balance_unrealized" do
       load_balance
       @unrealized
@@ -106,8 +107,8 @@ class User < ActiveRecord::Base
   end
   
   # Total balance for realized funds
-  def balance_realized
-    crunch_transactions
+  def balance_realized(crunch=true)
+    crunch_transactions if crunch
     $redis.hfetch hrapidkey, "balance_realized" do
       load_balance
       @realized
@@ -122,8 +123,8 @@ class User < ActiveRecord::Base
   # Total balance of unrealized + realized
   # funds. Realized funds can do everything
   # unrealized funds can do.
-  def total_balance
-    balance_unrealized + balance_realized
+  def total_balance(crunch=true)
+    balance_unrealized(crunch) + balance_realized(crunch)
   end
   
   # Reserve the User with an associated row in

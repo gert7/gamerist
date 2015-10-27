@@ -58,3 +58,4 @@ class PaypalsController < ApplicationController
       @paypal = Paypal.find(params[:id])
     end
 end
+

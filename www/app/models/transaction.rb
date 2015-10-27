@@ -82,7 +82,13 @@ class Transaction < ActiveRecord::Base
       #throw [self.amount >= 0, self.realized_kind?, lasttr != nil]
     #end
     
-    raise ActiveRecord::Rollback if ((self.kind == KIND_ROOM and self.user.reservation_lives? and not self.user.reservation_is_room?(self.detail)) or (self.kind == KIND_PAYPAL and self.user.reservation_lives? and not self.user.reservation_is_paypal?(self.detail)) and self.amount < 0)
+    raise ActiveRecord::Rollback if ((self.kind == KIND_ROOM and
+     self.user.reservation_lives? and
+     not self.user.reservation_is_room?(self.detail)) or
+     (self.kind == KIND_PAYPAL and
+     self.user.reservation_lives? and
+     not self.user.reservation_is_payout?(self.detail) and
+     self.amount < 0))
     
     l = kind_handler()
     
@@ -101,11 +107,13 @@ class Transaction < ActiveRecord::Base
   end
   
   # Thread-unsafe method used in make_transaction and elsewhere
-  def self.perform_unique_transaction(hash)
-    trf = Transaction.find_by(user_id: hash["user_id"], kind: hash["kind"], detail: hash["detail"])
+  def self.perform_unique_transaction(mhash)
+    hash = mhash.symbolize_keys
+    trf = Transaction.find_by(user_id: hash[:user_id], kind: hash[:kind], detail: hash[:detail])
     return trf.id if trf
     tr  = Transaction.new(hash)
     tr.save!
+    puts tr.to_json
     return tr.id
   end
   
@@ -155,25 +163,30 @@ class Transaction < ActiveRecord::Base
     end
   end
   
-  def apaypal_payout(userid, amount, rid)
+  def apaypal_payout(usrmail, samount, rid)
+    amount = samount.to_i
+    userid = usrmail[0]
+    email  = usrmail[1]
     ux = User.new(id: userid)
     po = (Payout.find_by(batchid: rid) or Payout.create(batchid: rid, points: amount, currency: "EUR"))
     return false unless ux.reserve_payout!(po.id)
-    if ux.balance_realized >= amount
-      trid = Transaction.perform_unique_transaction(user_id: userid, amount: (0 - amount), kind: Transaction::KIND_PAYPAL, detail: po.id, state: Transaction::STATE_FINAL)
-      @payout = PayPal::SDK::REST::Payout.new({:sender_batch_header => {:sender_batch_id => rid, :email_subject => 'You have a Payout!' }, :items => [{ :recipient_type => 'EMAIL', :amount => { :value => po.total, :currency => 'EUR' }, :note => 'Thanks for your patronage!', :sender_item_id => Time.now.to_s, :receiver => 'domo@domo.com' }]})
+    if ux.balance_realized(false) >= amount
+      @payout = PayPal::SDK::REST::Payout.new({:sender_batch_header => {:sender_batch_id => rid, :email_subject => 'You have a Payout!' }, :items => [{ :recipient_type => 'EMAIL', :amount => { :value => po.total, :currency => 'EUR' }, :note => 'Thanks for your patronage!', :sender_item_id => Time.now.to_s, :receiver => email }]})
       begin
-        @payout_batch = @payouts.create(true)
+        @payout_batch = @payout.create(true)
         puts "PAYOUT BATCH ID" + @payout_batch.batch_header.payout_batch_id.to_s
+        trid = Transaction.perform_unique_transaction(user_id: userid, amount: (0 - amount), kind: Transaction::KIND_PAYPAL, detail: po.id, state: Transaction::STATE_FINAL)
       rescue ResourceNotFound => err
         puts @payouts.error.inspect
+        return false
       end
     end
     ux.unreserve_from_payout(po.id)
+    return trid
   end
   
-  def self.paypal_payout(userid, amount)
-    Transaction.new(user_id: userid).acall(:apaypal_payout, userid, amount, userid.to_s + "E" + Time.now.to_s)
+  def self.paypal_payout(userid, email, amount)
+    Transaction.new(user_id: userid).acall($redis, :apaypal_payout, [userid, email], amount, userid.to_s + "E" + Time.now.to_s)
   end
   
   after_initialize do

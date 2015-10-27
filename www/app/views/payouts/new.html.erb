@@ -1,0 +1,33 @@
+<%= cache do %>
+<div id="payout_new">
+  <div id="paypal_new_box">
+    <div id="paypal_new_left">
+      <h3>Withdraw Points</h3>
+      <p>1 Point allows a withdrawal of <b>€1</b></p>
+      <p>The current withdrawal fee is:</p>
+      <div id="payout_withdrawal_fee" class="paypal_tickermark">X</div>
+    </div>
+    <div id="paypal_new_right">
+      <%= form_for(@payout, method: "post") do %>
+        <div class="paypal_pointselect", id="paypal_points">
+          <label>Points</label>
+          <input type="number" name="payout[points]" min="5" max="100" value="5" autocomplete="off" class="paypal_pointselector"></input>
+        </div>
+        <hr/>
+        <div id="payout_modifiers_list">
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+        </div>
+        <hr/>
+        <div id="payout_euro_total">
+          
+        </div>
+        <input type="text" style="width:100%;" name="payout[email]"></input>
+        <div id="paypal_new_submit">
+        <%= submit_tag("Withdraw") %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>

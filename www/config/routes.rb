@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
   
   resources :rooms
+  
   resources :accounts
   get '/account/unfreeze' => 'accounts#unfreeze'
+  
   resources :paypals
+  get "/paydata", to: "paypals#paydata"
+  
+  resources :payouts
+  get "/payoutdata", to: "payouts#paydata"
 
   devise_for :users, controllers: { omniauth_callbacks: "users/oauth_callbacks", :sessions => "users/sessions" }
   
@@ -15,21 +21,23 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   get Paypal::paypal_route, to: "accounts#paypal_callback"
-  get "/account", to: "accounts#show"
-  get "/index", to: "welcome#index"
   
-  get "/paydata", to: "paypals#paydata"
+  get "/account", to: "accounts#show"
+  
+  get "/index", to: "welcome#index"
   
   get "/static/:page", to: "static#show"
   
   get "/serverstatus", to: "serverstatus#index"
   
+  root 'welcome#index'
+  
+  # post "/", to: "welcome#enqueue"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
-  post "/", to: "welcome#enqueue"
   #require 'sidekiq/web'
   #mount Sidekiq::Web, :at => '/sidekiq'
   # The priority is based upon order of creation: first created -> highest priority.
