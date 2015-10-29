@@ -10,6 +10,8 @@ $(document).ready ->
   if $("#roomslist_pagination").length
     $.get("/rooms.json", formatPage)
 
+MAPS_DATA = <%= JSON.generate($gamerist_mapdata) %>
+
 setContinent = () ->
   $("#room_continent_name").text($("#gamerist_data_continent").val())
   console.dir($("#gamerist_data_continent_available").val())
@@ -18,8 +20,6 @@ setContinent = () ->
    $("#room_continent").attr("title", "No server available at this continent!")
 
 trigger_bigradio = (target) ->
-  console.dir("triggeré")
-  console.dir(target)
   $("#room_playercount").children(".bigradiobutton").each () ->
     $(this).addClass("room_playercount_inactive")
     $(this).removeClass("room_playercount_active")
@@ -28,8 +28,16 @@ trigger_bigradio = (target) ->
   $(target).prop("checked", true)
   $(target).parents(".bigradiobutton").addClass("room_playercount_active")
   $(target).parents(".bigradiobutton").removeClass("room_playercount_inactive")
-  console.dir("YES")
-  console.dir($('#room_playercount input[type="radio"]:checked').val())
+
+trigger_gameradio = (target) ->
+  $("#room_game").children(".gameradiobutton").each () ->
+    $(this).addClass("room_gamename_inactive")
+    $(this).removeClass("room_gamename_active")
+    $(this).children("input").each () ->
+      $(this).prop("checked", false)
+  $(target).prop("checked", true)
+  $(target).parents(".gameradiobutton").addClass("room_gamename_active")
+  $(target).parents("label").removeClass("room_gamename_inactive")
 
 $(document).ready () ->
   $("input").parents("#room_playercount label").each () ->
@@ -42,8 +50,12 @@ $(document).ready () ->
   $("#room_playercount label").first().children("input").prop("checked", "checked")
   
   $(".field_bigradio").on 'change', (e) ->
-    console.log("changed to " + e.target.value)
     trigger_bigradio(e.target)
+  
+  $(".field_room_game").on 'change', (e) ->
+    trigger_gameradio(e.target)
+  
+  trigger_gameradio($("#room_game label").first().children("input"))
   
   $("#room_map").on 'change', (e) ->
     console.dir($("#room_map").find(":selected").text())

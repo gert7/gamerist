@@ -41,7 +41,8 @@ class RoomsController < ApplicationController
     @room = Room.new
     res = current_user.get_reservation
     
-    @map_options = $gamerist_mapdata["games"][0]["maps"].map do |m| m["name"] end
+    @map_options_tf2 = $gamerist_mapdata["games"][0]["maps"].map do |m| m["name"] end
+    @map_options_css = $gamerist_mapdata["games"][1]["maps"].map do |m| m["name"] end
     
     if res and res.class == Room and current_user.reservation_is_room?(res.id)
       respond_to do |format|
@@ -66,8 +67,6 @@ class RoomsController < ApplicationController
     @room = Room.new(room_params)
     puts room_params[:playercount]
     @room.server_region = fetch_continent(request.remote_ip)
-    
-    @map_options = $gamerist_mapdata["games"][0]["maps"].map do |m| m["name"] end
     
     respond_to do |format|
       if Room.continent_exists?(@room.server_region) or (not Rails.env.production?)

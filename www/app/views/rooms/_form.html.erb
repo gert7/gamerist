@@ -1,3 +1,4 @@
+<%= cache do %>
 <%= form_for(@room) do |f| %>
   <% if @room.errors.any? %>
     <div id="error_explanation">
@@ -11,33 +12,38 @@
     </div>
   <% end %>
 
-  <div class="field" id="room_game">
-    <%= f.label "game_tf2" do %>
-      <%= f.radio_button(:game, "team fortress 2", checked: 'checked')%>
-      <p>Team Fortress 2</p>
-    <% end %>
-  </div>
   <div id="room_gameoptions" class="room_optionsbox">
-    <div class="options_header saturatedBackground2">Game options</div>
+    <div class="options_header">Game options</div>
     <div class="field_optionsbox">
+      <h4 class="saturatedBackground2">Game</h4>
+      <div class="field_room_game" id="room_game">
+        <%= f.label("game_team_fortress_2", class: 'gameradiobutton room_gamename_inactive') do %>
+          <%= f.radio_button(:game, "team fortress 2") %>
+          Team Fortress 2
+        <% end %>
+        <%= f.label("game_counter_strike_source", class: 'gameradiobutton room_gamename_inactive') do %>
+          <%= f.radio_button(:game, "counter strike source")%>
+          Counter-Strike: Source
+        <% end %>
+      </div>
       <h4 class="saturatedBackground2">Map</h4>
-      <%= f.select(:map, options_for_select([""].concat @map_options)) %>
+      <%= f.select(:map, options_for_select([""].concat @map_options_tf2)) %>
     </div>
   </div>
   <div id="room_roomoptions" class="room_optionsbox">
-    <div class="options_header saturatedBackground2">Room options</div>
+    <div class="options_header">Room options</div>
     <div class="field_bigradio" id="room_playercount">
       <h4 class="saturatedBackground2">Playercount</h4> <!-- #TODO switch this back -->
-      <%= f.label(:playercount_1, "1", class: 'bigradiobutton saturatedBackgroundDim') do %>
+      <%= f.label(:playercount_1, "1", class: 'bigradiobutton') do %>
       <%= f.radio_button(:playercount, "1") %>
         1
-      <% end %><%= f.label(:playercount_8, "8", class: 'bigradiobutton saturatedBackgroundDim') do %>
+      <% end %><%= f.label(:playercount_8, "8", class: 'bigradiobutton') do %>
       <%= f.radio_button(:playercount, "8") %>
         8
-      <% end %><%= f.label(:playercount_24, "24", class: 'bigradiobutton saturatedBackgroundDim') do %>
+      <% end %><%= f.label(:playercount_24, "24", class: 'bigradiobutton') do %>
       <%= f.radio_button(:playercount, "24") %>
         16
-      <% end %><%= f.label(:playercount_32, "32", class: 'bigradiobutton saturatedBackgroundDim') do %>
+      <% end %><%= f.label(:playercount_32, "32", class: 'bigradiobutton') do %>
       <%= f.radio_button(:playercount, "32") %>
         32
       <% end %>
@@ -53,4 +59,5 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+<% end %>
 <% end %>

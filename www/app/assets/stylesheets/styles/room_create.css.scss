@@ -30,10 +30,11 @@
 }
 
 #room_game label{
-  display      : inline-block;
-  background   : hsl(244, 13.5, 30);
-  width:997px;
-  margin-right:4px;
+  display: inline-block;
+  width:497px;
+  height:51px;
+  margin-top:-1px;
+  margin-right:0px;
   border: 1px solid hsl(244, 13.5, 33);
   font-size:1.6em;
   padding-top:8px; padding-bottom:8px;
@@ -41,8 +42,18 @@
   font-family:"Blue Highway Regular", sans-serif;
   text-align:center;
   position:relative;
+  box-sizing:border-box;
 }
 
+.room_gamename_inactive {
+  background-color: hsl(242, 49%, 10%);
+}
+
+.room_gamename_active {
+  background-color: hsl(242, 49%, 25%);
+}
+
+/*
 label[for='room_game_tf2']::after {
   content: "";
   background: image-url('games_selector.png');
@@ -56,10 +67,20 @@ label[for='room_game_tf2']::after {
   position: absolute;
   z-index: 1;
 }
+*/
 
 #room_gameoptions, #room_roomoptions {display:inline-block; vertical-align:top;}
 
-.options_header {padding:2px; font-family:sans-serif; font-size:0.8em; font-weight:bold; margin-top:10px; position:relative;}
+.options_header {
+  padding:4px;
+  font-family:"Blue Highway Regular", sans-serif;
+  font-size:1.6em;
+  margin-top:0px;
+  position:relative;
+  box-sizing:border-box;
+  background: hsl(246, 14, 30);
+  color:white;
+}
 
 .room_optionsbox {background:hsl(244,1,40); height:400px; width:497px;position:relative;}
 
@@ -74,11 +95,12 @@ label[for='room_game_tf2']::after {
 }
 
 .bigradiobutton {
-  display:block;
-  float: left;
+  display:inline-block;
   background:#e9ff00;
   border: 1px solid #999;
-  padding-bottom:20px; padding-top:20px;
+  padding-bottom:30px; padding-top:30px;
+  height:100px;
+  box-sizing:border-box;
   font-family:sans-serif;
   font-weight:bold;
   color:#fff;
@@ -88,8 +110,8 @@ label[for='room_game_tf2']::after {
   text-shadow:1px 1px hsl(0, 0%, 0%);
 }
 
-#room_playercount label {
-  width:25%;
+.bigradiobutton {
+  width:126px;
   margin-left:-2px;
 }
 
@@ -111,7 +133,7 @@ label[for='room_game_tf2']::after {
 .room_playercount_active {
   background-color: hsl(242, 49%, 25%);
   background-image: image-url("selected_playercount.png");
-  background-position: center 0;
+  background-position: center bottom;
   background-repeat:no-repeat;
   # animation: room_playercount_selection 1s linear 1;
 }
@@ -124,14 +146,7 @@ label[for='room_game_tf2']::after {
   width:100%;
 }
 
-.field_bigradio {
-  margin-bottom:100px;
-}
-
-#room_playercount label {}
-
 #room_timelimit label {display:inline;}
-#room_playercount label {display:inline;}
 
 #room_map {width:100%;}
 .wagerselector {width:492px;background:hsl(244,50,10);border:1px solid black;font-size:2em;padding:12px; color:white;}
