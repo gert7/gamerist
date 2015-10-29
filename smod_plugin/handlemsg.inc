@@ -138,8 +138,8 @@ handleMsg(String:str[], lpointer)
     
     PrintToServer("Response was %s", msg);
     handleMsgBody(msg);
-    waitingForResponse = 0;
-    return pointer; }
+    waitingForResponse = 0; }
+  return pointer;
 }
 
 public OnSocketReceive(Handle:socket, String:rdata[], const size, any:arg)
@@ -155,7 +155,7 @@ public OnSocketDisconnected(Handle:socket, any:arg)
 {
   PrintToServer("[GAMERIST] Socket has disconnected!");
   CloseHandle(socket);
-  sharedSocket = 0;
+  sharedSocket = Handle:0;
   CreateTimer(5.0, RestartSocket);
 }
 
@@ -164,36 +164,44 @@ public OnSocketError(Handle:socket, const errorType, const errorNum, any:arg)
   if(serverKilled == 0) {
     PrintToServer("[GAMERIST] Socket has disconnected!");
     CloseHandle(socket);
-    sharedSocket = 0;
+    sharedSocket = Handle:0;
     CreateTimer(5.0, RestartSocket); }
 }
 
 TryToPushMessages()
 {
-  if(TEST_ALONE == 0) {
-    if((nextmid - cmid) > MQLIMIT) {
-      KillServer(ERROR_MESSAGES_NOT_BEING_RECEIVED); }
-    if(waitingForResponse == 0 && serverKilled == 0 && killingServer == 0 && sharedSocket != 0) {
-      PrintToServer("Trying to push messages... There are %d messages to be acknowledged", nextmid - cmid);
-      if(!waitingForResponse && cmid < nextmid) {
-        new String:fstring[256];
-        PrintToServer("Pushing message %d#%s\n", cmid, messagequeue[clIndex]);
-        Format(fstring, 256, "%d;%d#%s\n", GetConVarInt(FindConVar("hostport")), cmid, messagequeue[clIndex]);
-        SocketSend(sharedSocket, fstring);
-        waitingForResponse = 1; } } }
+  #if TEST_ALONE == 0
+  if((nextmid - cmid) > MQLIMIT) {
+    KillServer(ERROR_MESSAGES_NOT_BEING_RECEIVED); }
+  if(waitingForResponse == 0 && serverKilled == 0 && killingServer == 0 && sharedSocket != Handle:0) {
+    PrintToServer("Trying to push messages... There are %d messages to be acknowledged", nextmid - cmid);
+    if(!waitingForResponse && cmid < nextmid) {
+      new String:fstring[256];
+      PrintToServer("Pushing message %d#%s\n", cmid, messagequeue[clIndex]);
+      Format(fstring, 256, "%d;%d#%s\n", GetConVarInt(FindConVar("hostport")), cmid, messagequeue[clIndex]);
+      SocketSend(sharedSocket, fstring);
+      waitingForResponse = 1; } }
+  #endif
+  #if TEST_ALONE == 1
+  ;
+  #endif
 }
 
 PushMessage(String:message[], any:...)
 {
-  if(TEST_ALONE == 0) {
-    if(serverKilled == 0) {
-      if(nextmid > 4000000) {
-        KillServer(ERROR_MESSAGE_LIMIT_REACHED);
-        return 0; }
-      VFormat(messagequeue[crIndex], MAX_MESSAGESIZE, message, 2);
-      crIndex = (crIndex + 1) % MQLIMIT;
-      nextmid = (nextmid + 1);
-      TryToPushMessages();
-    }
+  #if TEST_ALONE == 0
+  if(serverKilled == 0) {
+    if(nextmid > 4000000) {
+      KillServer(ERROR_MESSAGE_LIMIT_REACHED);
+      return 0; }
+    VFormat(messagequeue[crIndex], MAX_MESSAGESIZE, message, 2);
+    crIndex = (crIndex + 1) % MQLIMIT;
+    nextmid = (nextmid + 1);
+    TryToPushMessages();
   }
+  return 1;
+  #endif
+  #if TEST_ALONE == 1
+  ;
+  #endif
 }

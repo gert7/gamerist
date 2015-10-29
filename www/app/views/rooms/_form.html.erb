@@ -15,7 +15,7 @@
   <div id="room_gameoptions" class="room_optionsbox">
     <div class="options_header">Game options</div>
     <div class="field_optionsbox">
-      <h4 class="saturatedBackground2">Game</h4>
+      <h4>Game</h4>
       <div class="field_room_game" id="room_game">
         <%= f.label("game_team_fortress_2", class: 'gameradiobutton room_gamename_inactive') do %>
           <%= f.radio_button(:game, "team fortress 2") %>
@@ -26,14 +26,14 @@
           Counter-Strike: Source
         <% end %>
       </div>
-      <h4 class="saturatedBackground2">Map</h4>
+      <h4>Map</h4>
       <%= f.select(:map, options_for_select([""].concat @map_options_tf2)) %>
     </div>
   </div>
   <div id="room_roomoptions" class="room_optionsbox">
     <div class="options_header">Room options</div>
     <div class="field_bigradio" id="room_playercount">
-      <h4 class="saturatedBackground2">Playercount</h4> <!-- #TODO switch this back -->
+      <h4>Playercount</h4> <!-- #TODO switch this back -->
       <%= f.label(:playercount_1, "1", class: 'bigradiobutton') do %>
       <%= f.radio_button(:playercount, "1") %>
         1
@@ -49,7 +49,7 @@
       <% end %>
     </div>
     <div class="field_wagerselect" id="room_wager">
-      <h4 class="saturatedBackground2">Wager</h4>
+      <h4>Wager</h4>
       <input type="number" name="room[wager]" min="<%= Room::WAGER_MIN %>" max="<%= Room::WAGER_MAX %>" value="5" class="wagerselector"></input>
     </div>
     <div id="room_continent">

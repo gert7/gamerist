@@ -48,7 +48,7 @@ public Plugin:myinfo =
 #define TEAM_RED 2
 #define TEAM_BLU 3
 
-#define TEST_ALONE       1
+#define TEST_ALONE 0
 
 #define GAME_TF  1
 #define GAME_CSS 2

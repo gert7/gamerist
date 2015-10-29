@@ -36,10 +36,12 @@ public Action:Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroa
   
   GetClientAuthId(client, AuthId_Steam2, sid, MAXIDSIZE);
   new ind = ClientListIndex(sid);
-  if(ind == -1 && TEST_ALONE == 0){
+  #if TEST_ALONE == 0
+  if(ind == -1){
     KickClient(client, "Client not in list somehow!");
-    return 0;
+    return Plugin_Handled;
   }
+  #endif
   // if(ind != -1) PrintToServer("%d has joined team %d, should be team %d", client, team, teamnumbers[ind]);
   if(ind != -1 && teamnumbers[ind] != team)
     ChangeClientTeam(client, teamnumbers[ind]);

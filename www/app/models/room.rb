@@ -583,7 +583,7 @@ class Room < ActiveRecord::Base
     self.acall($redis, :aadd_running_server, server)
   end
   
-  def affirm_finalserver?()
+  def affirm_finalserver?
     finalserver = $redis.hget rapidkey, "final_server_address"
     if finalserver
       self.rstate = STATE_ACTIVE
@@ -596,7 +596,7 @@ class Room < ActiveRecord::Base
   def achug_room
     self.room_renew_timeout
     return if room_timed_out?
-    return if affirm_finalserver
+    return if affirm_finalserver?
     state       = $redis.hget rapidkey, "search_searching"
     tout        = $redis.hget rapidkey, "search_timeout"
     results     = $redis.hget rapidkey, "search_result"

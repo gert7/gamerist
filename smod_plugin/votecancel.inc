@@ -35,8 +35,12 @@ public Action:Event_PlayerSay(Handle:event, const String:name[], bool dontBroadc
   if(strcmp(text, "!votecancel") == 0)
     if(voteCancelAvailable == 1)
     {
-      if(TEST_ALONE == 0) votedToCancel[ClientListIndexI(client)] = 1;
-      else votedToCancel[0] = 1;
+      #if TEST_ALONE == 0
+      votedToCancel[ClientListIndexI(client)] = 1;
+      #endif
+      #if TEST_ALONE == 1
+      votedToCancel[0] = 1;
+      #endif
       new count = CountVoteCancels();
       PrintToChatAll("[GAMERIST] Number of votes to cancel game: %d/4", count); // TODO: ensure 4 is a good number
       if(count >= 4)
