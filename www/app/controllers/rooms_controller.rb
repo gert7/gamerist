@@ -9,7 +9,8 @@ class RoomsController < ApplicationController
   def index
     page         = params[:page].to_i
     @user_region = fetch_continent(request.remote_ip)
-    @rooms       = Room.get_roomlist_by_continent("Europe")
+    @rooms       = Room.get_roomlist_by_continent(@user_region)
+    @roomslength = @rooms.count
     
     respond_to do |format|
       format.json { render action: 'index' }

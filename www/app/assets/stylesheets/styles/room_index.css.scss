@@ -1,49 +1,51 @@
 #roomslist {
-  width:98%;
+  width:100%;
   margin:auto;
+  margin-top:0;
+  margin-bottom:0;
+  padding:12px;
+  box-sizing:border-box;
+  background:black;
 }
 
-#roomslist h2{
+#roomslist h1{
   font-family:"Blue Highway Regular", sans-serif;
+  color:white;
+  font-weight:normal;
 }
 
 #roomslist_header {
   width:100%;
 }
 
-#roomslist_header_left {
-  width:50%;
-  background:hsl(240, 30, 44);
+.roomslist_header_column {
+  background:hsl(246, 14, 30);
+  color:white;
   font-family:"Blue Highway Regular", sans-serif;
   padding:12px;
   display:inline-block;
   box-sizing:border-box;
+  font-size:1.4em;
+}
+
+#roomslist_header_left {
+  width:50%;
   border-right:1px solid hsl(10,40,20);
 }
 
 #roomslist_header_red {
   width:25%;
-  background:hsl(240, 30, 44);
-  font-family:"Blue Highway Regular", sans-serif;
-  padding:12px;
-  display:inline-block;
-  box-sizing:border-box;
   border-right:1px solid hsl(10,40,20);
 }
 
 #roomslist_header_blu {
   width:25%;
-  background:hsl(240, 30, 44);
-  font-family:"Blue Highway Regular", sans-serif;
-  padding:12px;
-  display:inline-block;
-  box-sizing:border-box;
 }
 
 .pag_room {
   width:100%;
   height:56px;
-  background:hsl(192,12,63);
+  background:hsl(0,0,80);
   border:1px ridge hsl(180, 40, 30);
   box-sizing:border-box;
 }
@@ -136,3 +138,26 @@
   font-size:1.4em;
   color:hsl(220,56,37);
 }
+
+#roomslist_new_room {
+  margin-top:8px;
+}
+
+#roomslist_new_room_button {
+  width:200px;
+  height:48px;
+  cursor:pointer;
+  background:hsl(180,2,90);
+  border:1px solid;
+  font-size:2em;
+  font-family:"Blue Highway Regular", sans-serif;
+}
+
+#roomslist_new_room_button:hover {
+  background:hsl(180,2,80);
+}
+
+#roomslist_new_room_button:active {
+  background:hsl(180,2,70);
+}
+

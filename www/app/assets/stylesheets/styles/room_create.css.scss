@@ -17,6 +17,7 @@
   font-family:"Blue Highway Regular", sans-serif;
   margin-bottom:12px;
   color:white;
+  font-weight:normal;
 }
 
 #new_room_page h4 {
@@ -162,10 +163,33 @@ label[for='room_game_tf2']::after {
 }
 
 #room_timelimit label {display:inline;}
-.wagerselector {width:492px;background:hsl(244,50,10);border:1px solid black;font-size:2em;padding:12px; color:white;}
+.wagerselector {width:100%;background:hsl(244,50,10);border:1px solid black;font-size:2em;padding:12px; color:white;}
 
 #room_continent {
   box-sizing:border-box;
   padding:16px;
   font-family:sans-serif;
+  display:inline-block;
+  width:50%;
 }
+
+#room_create_submit {
+  display:inline-block;
+  text-align:right;
+  width:50%;
+  box-sizing:border-box;
+  padding-right:16px;
+}
+
+#room_create_submit input {
+  width:200px;
+  height:48px;
+  cursor:pointer;
+  background:hsl(180,2,90);
+  border:1px solid;
+  font-size:2em;
+  font-family:"Blue Highway Regular", sans-serif;
+  margin-top:16px;
+}
+
+

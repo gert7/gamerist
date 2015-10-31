@@ -262,7 +262,7 @@ updatePageObject = (data) ->
   else
     declareInRoom(false, data.state == 1, data)
   renderPlayerList(data)
-  if(data and data.state != 1)
+  if(data and data.state > 2)
     console.log(data.state)
     UPTIMEOUT = 12000
 

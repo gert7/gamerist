@@ -158,7 +158,7 @@ class Room < ActiveRecord::Base
         # puts JSON.generate({id: v, rules: r.srules})
         $redis.rpush("gamerist_roomlist", JSON.generate({id: v, rules: r.srules}))
         $redis.sadd("gamerist_roomlist_continents", r.srules["server_region"])
-        $redis.rpush("gamerist_roomlist_continent_" + r.srules["server_region"], {id: v, rules: r.srules})
+        $redis.rpush("gamerist_roomlist_continent_" + r.srules["server_region"], JSON.generate({id: v, rules: r.srules}))
       end
       $redis.set("gamerist_roomlist_timeout", Time.now.to_i + Room::TIMEOUT_ROOMLIST)
     end
