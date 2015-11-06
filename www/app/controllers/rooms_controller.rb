@@ -69,6 +69,9 @@ class RoomsController < ApplicationController
     puts room_params[:playercount]
     @room.server_region = fetch_continent(request.remote_ip)
     
+    @map_options_tf2 = $gamerist_mapdata["games"][0]["maps"].map do |m| m["name"] end
+    @map_options_css = $gamerist_mapdata["games"][1]["maps"].map do |m| m["name"] end
+    
     respond_to do |format|
       if Room.continent_exists?(@room.server_region) or (not Rails.env.production?)
         if room_params[:wager].to_i <= current_user.total_balance
