@@ -169,15 +169,21 @@ class Transaction < ActiveRecord::Base
     email  = usrmail[1]
     ux = User.new(id: userid)
     po = (Payout.find_by(batchid: rid) or Payout.create(batchid: rid, points: amount, currency: "EUR"))
+    puts "adolf"
     return false unless ux.reserve_payout!(po.id)
     if ux.balance_realized(false) >= amount
       @payout = PayPal::SDK::REST::Payout.new({:sender_batch_header => {:sender_batch_id => rid, :email_subject => 'You have a Payout!' }, :items => [{ :recipient_type => 'EMAIL', :amount => { :value => po.total, :currency => 'EUR' }, :note => 'Thanks for your patronage!', :sender_item_id => Time.now.to_s, :receiver => email }]})
       begin
         @payout_batch = @payout.create(true)
+        phash = @payout_batch.to_hash
         puts "PAYOUT BATCH ID" + @payout_batch.batch_header.payout_batch_id.to_s
-        trid = Transaction.perform_unique_transaction(user_id: userid, amount: (0 - amount), kind: Transaction::KIND_PAYPAL, detail: po.id, state: Transaction::STATE_FINAL)
-      rescue ResourceNotFound => err
-        puts @payouts.error.inspect
+        if phash["batch_header"]["batch_status"] == "SUCCESS"
+          trid = Transaction.perform_unique_transaction(user_id: userid, amount: (0 - amount), kind: Transaction::KIND_PAYPAL, detail: po.id, state: Transaction::STATE_FINAL)
+        else
+          return ({"error" => phash["items"][0]["errors"]["message"]})
+        end
+      rescue PayPal::SDK::REST::ResourceNotFound => err
+        puts @payout.error.inspect
         return false
       end
     end
@@ -185,6 +191,8 @@ class Transaction < ActiveRecord::Base
     return trid
   end
   
+  # Returns id of new Transaction
+  # otherwise Hash containing "error" => Error message
   def self.paypal_payout(userid, email, amount)
     Transaction.new(user_id: userid).acall($redis, :apaypal_payout, [userid, email], amount, userid.to_s + "E" + Time.now.to_s)
   end

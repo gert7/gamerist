@@ -4,7 +4,14 @@ class PayoutsController < ApplicationController
   end
   
   def create
-    Transaction.paypal_payout(current_user.id, payout_params[:email], payout_params[:points])
+    x = Transaction.paypal_payout(current_user.id, payout_params[:email], payout_params[:points])
+    if x.class == Hash
+      flash[:alert] = "PayPal Fatal Error: " + x["error"] + ". Please contact Support"
+    elsif x.class == Fixnum and x > 0
+      flash[:notice] = payout_params[:points] + " Points have been withdrawn from Your account!"
+    end
+    
+    redirect_to "/payouts/new"
   end
   
   def paydata
