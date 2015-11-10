@@ -58,8 +58,12 @@ class Modifier < ActiveRecord::Base
   end
   
   def self.get(k)
-    x = $redis.hget("gamerist_modifiers", k)
-    return (x or $GAMERIST_MODIFIERS[k])
+    if Gamerist.rake?
+      return $GAMERIST_MODIFIERS[k]
+    else
+      x = $redis.hget("gamerist_modifiers", k)
+      return (x or $GAMERIST_MODIFIERS[k])
+    end
   end
   
   after_initialize do

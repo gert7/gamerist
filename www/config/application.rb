@@ -7,6 +7,14 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 module Gamerist
+  def self.rake?
+    !!@rake
+  end
+
+  def self.rake=(value)
+    @rake = !!value
+  end
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -27,7 +35,7 @@ module Gamerist
     config.autoload_paths += Dir["#{config.root}/lib/workers/**/"]
     config.eager_load_paths += ["#{Rails.root}/lib"]
     if(Rails.env.production?)
-      config.cache_store = :redis_store, GameristApiKeys.get("redis_production") + '/0/cache', { expires_in: 90.minutes }
+      config.cache_store = :redis_store, GameristApiKeys.get("redis_production").to_s + '/0/cache', { expires_in: 90.minutes }
     else
       config.cache_store = :redis_store, GameristApiKeys.get("redis_development") + '/0/cache', { expires_in: 90.minutes }
     end

@@ -5,6 +5,8 @@ require File.expand_path('../config/application', __FILE__)
 
 Gamerist::Application.load_tasks
 
+Gamerist.rake = true
+
 RDoc::Task.new :ardoc do |rdoc|
   rdoc.main = "README.rdoc"
 

@@ -6,35 +6,37 @@ require 'bunny'
 
 require Rails.root.join("config", "initializers", "apikeys_accessor")
 
-$bunny = Bunny.new(Rails.env.production? ? GameristApiKeys.get("rabbitmq_hostname") : nil)# : GameristApiKeys.get("rabbitmq_hostname_test"))
-$bunny.start
+unless Gamerist.rake?
+  $bunny = Bunny.new(Rails.env.production? ? GameristApiKeys.get("rabbitmq_hostname") : nil)# : GameristApiKeys.get("rabbitmq_hostname_test"))
+  $bunny.start
 
-ch = $bunny.create_channel
-puts "Using exchange gamerist.topic" + (Rails.env.test? ? "test" : "")
-x  = ch.direct("gamerist.direct" + (Rails.env.test? ? "test" : ""))
+  ch = $bunny.create_channel
+  puts "Using exchange gamerist.topic" + (Rails.env.test? ? "test" : "")
+  x  = ch.direct("gamerist.direct" + (Rails.env.test? ? "test" : ""))
 
-servers = $gamerist_serverdata["servers"]
+  servers = $gamerist_serverdata["servers"]
 
-# Manage the upstream wooooo
-ch.queue("gamerist.dispatch.upstream", durable: true).subscribe do |delivery_info, properties, payload|
-  require 'json'
-  jdata = JSON.parse payload
-  puts jdata
-  if(jdata["protocol_version"].to_i == 1)
-    case jdata["type"]
-    when "creating" # preliminary confirmation
-    when "pcanceled" # canceled by Rails
-    when "heartbeat" # node is responsive
-    when "serverstarted" # official confirmation from inside the gameserver
-      ip = $gamerist_serverdata["servers"].select {|v| v["name"] == jdata["server"]}[0]["ip"]
-      Room.new(id: jdata["id"]).add_running_server({"servername" => jdata["server"], "ip" => ip, "port" => jdata["port"]})
-    when "teamwin" # team wins
-      Room.new(id: jdata['id']).declare_winning_team(jdata['winningteam'])
-    when "playerscores" # player score data
-      Room.new(id: jdata['id']).declare_team_scores(jdata['scores'])
-    when "servererror" # server encountered an error
-      Room.new(id: jdata['id']).declare_error(jdata['errno'])
-    else
+  # Manage the upstream wooooo
+  ch.queue("gamerist.dispatch.upstream", durable: true).subscribe do |delivery_info, properties, payload|
+    require 'json'
+    jdata = JSON.parse payload
+    puts jdata
+    if(jdata["protocol_version"].to_i == 1)
+      case jdata["type"]
+      when "creating" # preliminary confirmation
+      when "pcanceled" # canceled by Rails
+      when "heartbeat" # node is responsive
+      when "serverstarted" # official confirmation from inside the gameserver
+        ip = $gamerist_serverdata["servers"].select {|v| v["name"] == jdata["server"]}[0]["ip"]
+        Room.new(id: jdata["id"]).add_running_server({"servername" => jdata["server"], "ip" => ip, "port" => jdata["port"]})
+      when "teamwin" # team wins
+        Room.new(id: jdata['id']).declare_winning_team(jdata['winningteam'])
+      when "playerscores" # player score data
+        Room.new(id: jdata['id']).declare_team_scores(jdata['scores'])
+      when "servererror" # server encountered an error
+        Room.new(id: jdata['id']).declare_error(jdata['errno'])
+      else
+      end
     end
   end
 end
