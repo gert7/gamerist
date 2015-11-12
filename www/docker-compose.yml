@@ -15,5 +15,6 @@ db:
 redis:
   image: redis
 rabbitmq:
+  hostname: rabbit
   image: rabbitmq
-
+  

@@ -84,7 +84,7 @@ class Room < ActiveRecord::Base
     Room.continent_exists?(@server_region)
   end
   
-  def ctf_playerlimit()
+  def ctf_playerlimit
     if(@map[0..3] == "ctf_")
       errors.add(:playercount, "Playercount too high for CTF!") if @playercount > 16
     end
@@ -202,6 +202,12 @@ class Room < ActiveRecord::Base
     end
   end
 
+  def expire_room!
+    self.rstate = Room::STATE_FAILED
+    self.save
+    $redis.del(rapidkey)
+  end
+
   # Actively modifies the Room to become FAILED if 
   # the Room has timed out
   def room_timed_out?
@@ -209,8 +215,7 @@ class Room < ActiveRecord::Base
     # dump_timeout_players
     if to
       if (to.to_i < Time.now.to_i) and (self.srules["players"].count == 0 or self.rstate == Room::STATE_LOCKED)
-        self.rstate = Room::STATE_FAILED
-        self.save
+        Room.find(self.id).expire_room!
         return true
       end
     end
@@ -224,11 +229,12 @@ class Room < ActiveRecord::Base
        ((self.rstate != Room::STATE_PUBLIC) or (not room_timed_out?))
       return true
     else
-      mrules = self.srules
+      dself  = Room.find(self.id)
+      mrules = dself.srules
       mrules["errors"] ||= []
       mrules["errors"] << "web_timeout"
-      self.rstate = Room::STATE_FAILED
-      self.save
+      dself.srules = mrules
+      dself.expire_room! # and save
       return false
     end
   end
@@ -632,6 +638,7 @@ class Room < ActiveRecord::Base
       self.srules = mrules
       self.rstate = STATE_OVER
       self.save
+      $redis.del(rapidkey)
     end
   end
   
