@@ -1,10 +1,10 @@
 #require 'simplecov'
-#require 'coveralls'
+require 'coveralls'
 #SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 #SimpleCov.start do
 #  add_filter 'app/admin'
 #end
-#Coveralls.wear!('rails')
+Coveralls.wear!('rails')
 
 #require 'spork'
 

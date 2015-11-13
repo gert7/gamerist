@@ -319,14 +319,23 @@ describe Room do
   
   describe "#declare_winning_team" do
     include_context "when players have money"
-    it "distributes winnings" do
+    before do
       room.amend_player! player1, "team" => 2
       room.amend_player! player2, "team" => 2
       room.amend_player! player3, "team" => 3
       room.amend_player! player4, "team" => 3
       room.rstate = Room::STATE_ACTIVE
+    end
+    
+    it "distributes winnings" do
       room.declare_winning_team(2)
       expect(player1.total_balance).to eq 30
+    end
+    
+    it "allows srules and rstate to be accessed" do
+      room.declare_winning_team(2)
+      expect(room.srules.class).to eq Hash
+      expect(room.rstate.class).to eq Fixnum
     end
   end
   
@@ -384,6 +393,14 @@ describe Room do
       room.rstate = Room::STATE_ACTIVE
       room.declare_winning_team(2)
       expect(Room.get_roomlist_by_continent("Europe").length).to eq 0
+    end
+  end
+  
+  describe "expire_room!" do
+    it "expires the room and allows srules and rstate to be read" do
+      room.expire_room!
+      expect(room.srules.class).to eq Hash
+      expect(room.rstate.class).to eq Fixnum
     end
   end
 end
