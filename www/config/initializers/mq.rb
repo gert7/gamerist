@@ -4,8 +4,6 @@ require 'bunny'
 
 # TODO set the address here
 
-require Rails.root.join("config", "initializers", "apikeys_accessor")
-
 unless Gamerist.rake?
   $bunny = Bunny.new(Rails.env.production? ? GameristApiKeys.get("rabbitmq_hostname") : nil)# : GameristApiKeys.get("rabbitmq_hostname_test"))
   $bunny.start

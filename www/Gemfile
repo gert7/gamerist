@@ -57,8 +57,8 @@ gem 'redis', require: false # 3.0.7
 gem 'redis-rails', require: false # 4.0.0
 gem 'mlanett-redis-lock', require: 'redis-lock'
 
-gem "bunny", "1.7.0", require: false
-#gem "march_hare", require: false
+gem "bunny", "1.7.0", require: false # 1.7.0
+#gem "march_hare", "2.15.0", require: false
 
 gem 'ejs', require: 'ejs'
 gem 'annotate', require: false
@@ -68,7 +68,7 @@ gem 'sinatra', require: false
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-gem 'puma', '2.14.0', require: false
+gem 'puma', '2.15.3', require: false
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
