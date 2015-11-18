@@ -35,6 +35,9 @@ end
 
 unless Gamerist.rake?
   redisuri = (Rails.env.production? ? GameristApiKeys.get("redis_production") : GameristApiKeys.get("redis_development"))
+  if(ENV["REDIS_PORT_6379_TCP_ADDR"] and ENV["REDIS_PORT_6379_TCP_PORT"])
+    redisuri = ("redis://" + ENV["REDIS_PORT_6379_TCP_ADDR"] + ":" + ENV["REDIS_PORT_6379_TCP_PORT"])
+  end
 
   $redis = ConnectionPool::Wrapper.new(size: 5, timeout: 5) { Redis.new(:url => redisuri) }
 end

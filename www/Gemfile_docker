@@ -2,10 +2,10 @@
 # if this is running outside the Docker environment, something has gone wrong!
 
 source 'https://rubygems.org'
-ruby '2.2.2', :engine => 'jruby', :engine_version => '9.0.3.0'
+ruby '2.2.2', :engine => 'jruby', :engine_version => '9.0.4.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4' # 4.2.1
+gem 'rails', '4.2.5'
 
 # PostgreSQL
 group :development, :production do
@@ -60,8 +60,8 @@ gem 'redis', require: false # 3.0.7
 gem 'redis-rails', require: false # 4.0.0
 gem 'mlanett-redis-lock', require: 'redis-lock'
 
-gem "bunny", "1.7.0", require: false
-#gem "march_hare", require: false
+gem "bunny", "1.7.0", require: false # 1.7.0
+#gem "march_hare", "2.15.0", require: false
 
 gem 'ejs', require: 'ejs'
 gem 'annotate', require: false
@@ -71,7 +71,7 @@ gem 'sinatra', require: false
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-gem 'puma', '2.14.0', require: false
+gem 'puma', '2.15.3', require: false
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -85,6 +85,7 @@ gem 'puma', '2.14.0', require: false
 # end
 
 group :development, :test do
+  # SQLite
   gem 'activerecord-jdbcsqlite3-adapter', require: false
   gem 'rspec', require: false
   gem 'rspec-rails', require: false
@@ -101,5 +102,4 @@ gem 'bugsnag'
 
 group :production do
   gem 'newrelic_rpm'
-  
 end

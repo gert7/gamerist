@@ -113,7 +113,6 @@ class Transaction < ActiveRecord::Base
     return trf.id if trf
     tr  = Transaction.new(hash)
     tr.save!
-    puts tr.to_json
     return tr.id
   end
   
@@ -138,10 +137,8 @@ class Transaction < ActiveRecord::Base
     payp = Paypal.find(ppid)
     payment = PayPal::SDK::REST::Payment.find(payp.sid)
     ux   = User.new(id: payp.user_id)
-    puts "RESERVING..."
     return false unless ux.reserve_paypal!(ppid)
     payment.execute(payer_id: payerid)
-    puts payment.state
     if payment.state == "approved"
       trid = Transaction.perform_unique_transaction(user_id: payp.user_id, amount: payp.amount, kind: Transaction::KIND_PAYPAL, detail: ppid, state: Transaction::STATE_FINAL)
       payp.state = Paypal::STATE_EXECUTED
@@ -169,7 +166,6 @@ class Transaction < ActiveRecord::Base
     email  = usrmail[1]
     ux = User.new(id: userid)
     po = (Payout.find_by(batchid: rid) or Payout.create(batchid: rid, points: amount, currency: "EUR"))
-    puts "adolf"
     return false unless ux.reserve_payout!(po.id)
     if ux.balance_realized(false) >= amount
       @payout = PayPal::SDK::REST::Payout.new({:sender_batch_header => {:sender_batch_id => rid, :email_subject => 'You have a Payout!' }, :items => [{ :recipient_type => 'EMAIL', :amount => { :value => po.total, :currency => 'EUR' }, :note => 'Thanks for your patronage!', :sender_item_id => Time.now.to_s, :receiver => email }]})

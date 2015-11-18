@@ -11,10 +11,9 @@ web:
 db:
   image: library/postgres:9.4.4
   ports:
-    - "13306:3306"
+    - ":5432"
 redis:
   image: redis
 rabbitmq:
-  hostname: rabbit
   image: rabbitmq
-  
+

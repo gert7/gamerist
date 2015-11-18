@@ -4,8 +4,16 @@ require 'bunny'
 
 # TODO set the address here
 
+rmqhostname = (Rails.env.production? ? GameristApiKeys.get("rabbitmq_hostname") : nil) # rabbitmq_hostname_test
+
+puts ENV.to_json
+
+if(ENV["RABBITMQ_PORT_5672_TCP_ADDR"] and ENV["RABBITMQ_PORT_5672_TCP_PORT"])
+  rmqhostname = ("amqp://guest:guest@" + ENV["RABBITMQ_PORT_5672_TCP_ADDR"] + ":" + ENV["RABBITMQ_PORT_5672_TCP_PORT"])
+end
+
 unless Gamerist.rake?
-  $bunny = Bunny.new(Rails.env.production? ? GameristApiKeys.get("rabbitmq_hostname") : nil)# : GameristApiKeys.get("rabbitmq_hostname_test"))
+  $bunny = Bunny.new(rmqhostname)# : GameristApiKeys.get("rabbitmq_hostname_test"))
   $bunny.start
 
   ch = $bunny.create_channel
