@@ -9,4 +9,4 @@ WORKDIR /myapp
 ADD . /myapp
 # RUN RAILS_ENV=production bundle exec rake assets:precompile --trace
 CMD bundle exec rake db:create db:migrate
-CMD ["./server_docker.sh"]
+CMD ./server_docker.sh
