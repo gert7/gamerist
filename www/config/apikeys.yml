@@ -1,7 +1,5 @@
 steam_api_key: 82141B7737012EE7BBC499B6A3EC7B17
-rabbitmq_hostname: 0
 rabbitmq_hostname_test: amqp://guest:guest@127.0.0.1:5672/
-redis_production: 0
 redis_development: redis://127.0.0.1
 secret_key_base: 3d911ad4c7fdb0a650550ed6abd0c749c7c838c20f949ebccd051c34219d5fc5ad8385d3ef140b251532ea141ae56e3a0d2fad310774b2330d99066820e3543e
 paypal_clid: AV4lGBB0twjUtkL7uJ2fkUjtUznWzb9QyexJeaLJV9AXKcRQ5n3F00tJdly6
