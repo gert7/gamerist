@@ -1,0 +1,2 @@
+CREATE ROLE gamerist WITH CREATEDB LOGIN PASSWORD 'password';
+

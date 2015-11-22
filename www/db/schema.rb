@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20151027122420) do
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                                   null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
@@ -62,9 +62,9 @@ ActiveRecord::Schema.define(version: 20151027122420) do
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",               null: false
-    t.integer  "attempts",               null: false
-    t.text     "handler",                null: false
+    t.integer  "priority",               default: 0, null: false
+    t.integer  "attempts",               default: 0, null: false
+    t.text     "handler",                            null: false
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20151027122420) do
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                                   null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255

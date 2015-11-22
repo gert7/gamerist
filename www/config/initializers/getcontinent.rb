@@ -1,4 +1,5 @@
 require Rails.root.join("config", "initializers", "gamerist")
+require Rails.root.join("config", "initializers", "geocoder")
 
 def get_continent(countryname)
   i = $gamerist_continentdata["countries"].find_index {|c| c["country"] == countryname }
@@ -6,13 +7,15 @@ def get_continent(countryname)
 end
 
 def fetch_continent_country(ipaddress)
-  return (Geocoder.search(ipaddress)[0].country or "Reserved")
+  puts Geocoder.search(ipaddress)
+  puts Geocoder.search(ipaddress)[0]
+  if(Geocoder.search(ipaddress)[0])
+    return (Geocoder.search(ipaddress)[0].country or "Reserved")
+  end
+  return "Reserved"
 end
 
 def fetch_continent(ipaddress)
-  require "geocoder"
-  Geocoder.configure(ip_lookup: :telize)
-  Geocoder.configure(:cache => Redis.new)
   reported_country = fetch_continent_country(ipaddress)
   return get_continent(reported_country)
 end

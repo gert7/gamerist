@@ -6,8 +6,6 @@ require 'bunny'
 
 rmqhostname = (Rails.env.production? ? GameristApiKeys.get("rabbitmq_hostname") : nil) # rabbitmq_hostname_test
 
-puts ENV.to_json
-
 if(ENV["RABBITMQ_PORT_5672_TCP_ADDR"] and ENV["RABBITMQ_PORT_5672_TCP_PORT"])
   rmqhostname = ("amqp://guest:guest@" + ENV["RABBITMQ_PORT_5672_TCP_ADDR"] + ":" + ENV["RABBITMQ_PORT_5672_TCP_PORT"])
 end
