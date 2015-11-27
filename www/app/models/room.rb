@@ -129,36 +129,49 @@ class Room < ActiveRecord::Base
     $redis.sadd "gamerist_roomlist_potential", room.id
   end
   
+  def self.roomlist_add_to_current(roomid, room)
+    res = {id: roomid, rules: room.srules}
+    $redis.rpush("gamerist_roomlist", JSON.generate(res))
+    $redis.sadd("gamerist_roomlist_continents", room.srules["server_region"])
+    $redis.rpush("gamerist_roomlist_continent_" + room.srules["server_region"], JSON.generate(res))
+  end
+  
   # Remove a specific Room from the potential list
   # @param [Integer] id ID of the Room model
   def self.remove_from_potential(id)
     $redis.srem("gamerist_roomlist_potential", id)
   end
   
+  def self.roomlist_clear
+    $redis.del("gamerist_roomlist")
+    $redis.smembers("gamerist_roomlist_continents").each do |continent|
+      $redis.del("gamerist_roomlist_continent_" + continent)
+    end
+    $redis.del("gamerist_roomlist_continents")
+  end
+  
+  def self.roomlist_try_potential(roomid)
+    room = Room.new(id: roomid.to_i)
+    unless (room.is_alive? and (room.rstate == Room::STATE_PUBLIC))
+      Room.remove_from_potential(roomid)
+      return
+    end
+    # puts JSON.generate({id: v, rules: r.srules})
+    Room.roomlist_add_to_current(roomid, room)
+  end
+  
+  def self.roomlist_potens
+    return $redis.smembers("gamerist_roomlist_potential")
+  end
+  
   # Produce the roomlist if the roomlist is over time limit
   def self.roomlist_produce()
     timeout = $redis.get("gamerist_roomlist_timeout")
     if Rails.env.test? or (not timeout or (timeout and timeout.to_i < Time.now.to_i))
-      $redis.del("gamerist_roomlist")
-      $redis.smembers("gamerist_roomlist_continents").each do |continent|
-        $redis.del("gamerist_roomlist_continent_" + continent)
-      end
-      $redis.del("gamerist_roomlist_continents")
-      potens = $redis.smembers("gamerist_roomlist_potential")
+      Room.roomlist_clear
+      potens = Room.roomlist_potens
       potens.each do |v|
-        r = Room.new(id: v.to_i)
-        unless r.is_alive?
-          Room.remove_from_potential(v)
-          next
-        end
-        unless r.rstate == Room::STATE_PUBLIC
-          Room.remove_from_potential(v)
-          next
-        end
-        # puts JSON.generate({id: v, rules: r.srules})
-        $redis.rpush("gamerist_roomlist", JSON.generate({id: v, rules: r.srules}))
-        $redis.sadd("gamerist_roomlist_continents", r.srules["server_region"])
-        $redis.rpush("gamerist_roomlist_continent_" + r.srules["server_region"], JSON.generate({id: v, rules: r.srules}))
+        Room.roomlist_try_potential(v)
       end
       $redis.set("gamerist_roomlist_timeout", Time.now.to_i + Room::TIMEOUT_ROOMLIST)
     end

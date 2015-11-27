@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: d787029e5523be2eb2ed99816eb0cecca2b72862
+  revision: 30b4e2a15ea431e44cf0a94346922d9aeae077b3
   specs:
     activeadmin (1.0.0.pre2)
       arbre (~> 1.0, >= 1.0.2)
@@ -70,7 +70,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    agis (0.2.9)
+    agis (0.3.0)
     amq-protocol (2.0.0)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
@@ -341,7 +341,7 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
-    sprockets (3.4.0)
+    sprockets (3.4.1)
       rack (> 1, < 3)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
