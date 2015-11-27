@@ -20,31 +20,23 @@ module RoomTransformations
   end
 
   def assign_to_team(pi, mrules, hash)
-    return mrules unless hash["team"]
-    mrules["players"][pi]["team"] = 0 if (hash["team"].to_s == "0")
-    return mrules unless hash["team"].to_i.between?(2, 3)
+    wteam = hash["team"].to_i
+    return mrules unless wteam
+    mrules["players"][pi]["team"] = 0 if (wteam.to_s == "0")
+    return mrules unless wteam.between?(2, 3)
     piteam = mrules["players"][pi]["team"]
-    return mrules if piteam == hash["team"]
+    return mrules if piteam == wteam
     tcount  = self.teamcounts(mrules)
     perteam = mrules["playercount"] / 2
-    perteam = 1 if mrules["playercount"].to_i == 1 # TODO possibly remove?
-    if hash["team"]
-      hti = hash["team"].to_i
-      if hti.between?(2, 3)
-        if tcount[hti - 2] < perteam
-          mrules["players"][pi]["team"] = hti
-        else
-          self.personal_messages << [1, "Team is not available!"]
-        end
+    perteam = 1 if (mrules["playercount"].to_i == 1) # TODO possibly remove?
+    if wteam.between?(2, 3)
+      if tcount[wteam - 2] < perteam
+        mrules["players"][pi]["team"] = wteam
       else
-        mrules["players"][pi]["team"] = 0
+        self.personal_messages << [1, "Team is not available!"]
       end
-    #else
-    #  if(tcount[0] > tcount[1])
-    #    give = 3
-    #  else
-    #    give = 2 # by default, move to red
-    #  end
+    else
+      mrules["players"][pi]["team"] = 0
     end
     mrules["players"][pi]["wager"] = mrules["wager"]
     return mrules

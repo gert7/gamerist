@@ -367,7 +367,7 @@ describe Room do
   describe "#roomlist_produce" do
     include_context "when players have money"
     it "adds the room to the list" do
-      expect(Room.roomlist_length).to eq 1
+      expect(RoomList.roomlist_length).to eq 1
     end
     
     it "removes the room from the list" do
@@ -377,12 +377,12 @@ describe Room do
       room.amend_player! player4, "team" => 3
       room.rstate = Room::STATE_ACTIVE
       room.declare_winning_team(2)
-      expect(Room.roomlist_length).to eq 0
+      expect(RoomList.roomlist_length).to eq 0
     end
     
     it "puts the room on the continental list" do
-      expect(Room.get_roomlist_by_continent("Europe").length).to eq 1
-      expect(Room.get_roomlist_by_continent("North America").length).to eq 0
+      expect(RoomList.get_roomlist_by_continent("Europe").length).to eq 1
+      expect(RoomList.get_roomlist_by_continent("North America").length).to eq 0
     end
     
     it "removes the room from the continental list" do
@@ -392,7 +392,7 @@ describe Room do
       room.amend_player! player4, "team" => 3
       room.rstate = Room::STATE_ACTIVE
       room.declare_winning_team(2)
-      expect(Room.get_roomlist_by_continent("Europe").length).to eq 0
+      expect(RoomList.get_roomlist_by_continent("Europe").length).to eq 0
     end
   end
   
