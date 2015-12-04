@@ -10,5 +10,5 @@ sudo apt-get install -y nodejs
 
 cd handlr
 
-./npminstall.sh
+source npminstall.sh
 

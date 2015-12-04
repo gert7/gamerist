@@ -14,7 +14,7 @@ rvm use jruby-9.0.4.0 --default
 
 gem install bundler
 
-./nodeinstall.sh
+source nodeinstall.sh
 
 \curl -O http://download.redis.io/releases/$REDIS_VERSION.tar.gz
 
