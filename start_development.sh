@@ -1,6 +1,6 @@
 REDIS_VERSION=redis-3.0.5
 
-sudo apt-get install curl -y
+sudo apt-get install curl postgresql -y
 
 command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 
