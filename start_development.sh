@@ -1,6 +1,6 @@
 REDIS_VERSION=redis-3.0.5
 
-sudo apt-get install curl postgresql -y
+sudo apt-get install curl postgresql build-essential -y
 
 command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 
@@ -26,7 +26,11 @@ tar -xvf $REDIS_VERSION.tar.gz
 
 rm $REDIS_VERSION.tar.gz
 
-cd $REDIS_VERSION
+cd $REDIS_VERSION/deps
+
+make hiredis lua jemalloc linenoise
+
+cd ..
 
 make
 
