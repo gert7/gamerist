@@ -34,3 +34,13 @@ cd ..
 
 make
 
+rm $HOME/Desktop/$REDIS_VERSION/redis.conf
+cp $HOME/gamerist/redis.conf $HOME/Desktop/$REDIS_VERSION/redis.conf
+
+echo ""
+
+echo "GAMERIST development setup complete"
+echo "You must now manually install and set up:"
+
+echo " * rabbitmq"
+echo " * handlr environment with steam servers"
