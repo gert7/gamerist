@@ -5,3 +5,4 @@ www/tmp/cache/assets/**
 www/public/assets/**
 www/log/**
 tmp
+handlr/.npm_path_remembered
