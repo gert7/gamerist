@@ -3,6 +3,7 @@ ruby '2.2.2', :engine => 'jruby', :engine_version => '9.0.4.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
+gem 'sprockets-rails', '2.3.3'
 
 # PostgreSQL
 group :development, :production do

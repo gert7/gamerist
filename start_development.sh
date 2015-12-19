@@ -1,6 +1,6 @@
 REDIS_VERSION=redis-3.0.5
 
-sudo apt-get install curl postgresql build-essential -y
+sudo apt-get install curl postgresql build-essential gdebi -y
 
 command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 
@@ -37,10 +37,15 @@ make
 rm $HOME/Desktop/$REDIS_VERSION/redis.conf
 cp $HOME/gamerist/redis.conf $HOME/Desktop/$REDIS_VERSION/redis.conf
 
+cd ~/gamerist
+
+curl -O https://www.rabbitmq.com/releases/rabbitmq-server/v3.5.7/rabbitmq-server_3.5.7-1_all.deb
+
+sudo gdebi rabbitmq-server_3.5.7-1_all.deb
+
 echo ""
 
 echo "GAMERIST development setup complete"
 echo "You must now manually install and set up:"
 
-echo " * rabbitmq"
 echo " * handlr environment with steam servers"
