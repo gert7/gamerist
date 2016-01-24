@@ -10,5 +10,8 @@ sed "s/centurion/$handlrname/g; s!amqp:\/\/127\.0\.0\.1!${mqhost}!g" handlr/conf
 # cp config_temp.json config.json
 
 source nodeinstall.sh
+
+cd ..
+
 ./steamcmd.sh
 

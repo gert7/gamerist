@@ -10,5 +10,7 @@ sudo apt-get install -y nodejs npm
 
 cd handlr
 
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+
 source npminstall.sh
 
