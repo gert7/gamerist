@@ -1,0 +1,20 @@
+check_server_status_cb = (data) ->
+  if(data)
+    if(data.database)
+      $("#s_triage_database_data").html(data.database[0] + "<br/>" + data.database[2] + " ago")
+    if(data.redis)
+      $("#s_triage_redis_data").html(data.redis[0] + "<br/>" + data.redis[2] + " ago")
+    if(data.mq)
+      $("#s_triage_mq_data").html(data.mq[0] + "<br/>" + data.mq[2] + " ago")
+    console.dir(data.servers)
+
+check_server_status = () ->
+  $.get(document.location + ".json", check_server_status_cb)
+
+SERVERS_DATA = <%= JSON.generate($gamerist_serverdata) %>
+
+$(document).ready () ->
+  if($("#serverstatus_center").length)
+    for server in SERVERS_DATA.servers
+      $("#servers_game").append('<div id="servers_game_of_' + server.name + '" class="servers_game_name"><div class="servers_game_name_label">' + server.name + '</div><div class="servers_game_name_lastseen">14 minutes ago</div><div class="server_game_list"></div></div>')
+    check_server_status()

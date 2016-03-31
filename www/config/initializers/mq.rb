@@ -23,9 +23,7 @@ unless Gamerist.rake?
 
   # Manage the upstream wooooo
   ch.queue("gamerist.dispatch.upstream", durable: true).subscribe do |delivery_info, properties, payload|
-    puts "MESSAGE RECEIVED"
     if payload.start_with?("self test completed @")
-      puts "SELF TEST DISCOVERED"
       $redis.set("sstatusMQlasttime", payload)
     else
       require 'json'
@@ -46,7 +44,7 @@ unless Gamerist.rake?
         when "servererror" # server encountered an error
           Room.new(id: jdata['id']).declare_error(jdata['errno'])
         when "general_report"
-          $redis.hset("GAMERIST [Reports]", jdata["server"], jdata["contents"].to_json)
+          $redis.hset("GAMERIST [Reports]", jdata["server"], payload) # throw the whole packet into the log
         else
         end
       end

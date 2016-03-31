@@ -10,6 +10,7 @@
   margin:0px;
   text-align:center;
   color:#333;
+  vertical-align:top;
 }
 
 #s_triage_database {
@@ -44,5 +45,40 @@
 
 #s_triage_mq_inner {
   background-image: image-url('rabbitmq.png');
+}
+
+.servers_game_name {
+  margin:32px;
+  background:#333;
+  height:160px;
+}
+
+.servers_game_name_label {
+  display:inline-block;
+  background:#666;
+  color:white;
+  padding:8px;
+  font-size:1.2em;
+  margin-left:-4px;
+  margin-top:-4px;
+}
+
+.servers_game_name_lastseen {
+  display:inline-block;
+  margin-left:12px;
+  color:white;
+}
+
+.servers_game_list {
+  width:100%;
+  height:64px;
+  margin-bottom:-4px;
+}
+
+.servers_game_single {
+  display:inline-block;
+  background:#222;
+  width:92px;
+  height:64px;
 }
 

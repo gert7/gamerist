@@ -11,6 +11,7 @@ class ServerStatusController < ApplicationController
     @database = self.status_database
     @redis    = self.status_redis
     @mqst     = self.status_mq
+    @server_status = self.status_servers
   end
   
   def status_database
@@ -36,5 +37,15 @@ class ServerStatusController < ApplicationController
       $redis.set("sstatusMQtimer", Time.now.to_i.to_s)
     end
     return [($redis.get("sstatusMQlasttime") or "none"), lcheck]
+  end
+  
+  def status_servers
+    x = Array.new
+    $gamerist_serverdata["servers"].each do |s|
+      raw  = $redis.hget("GAMERIST [Reports]", s["name"])
+      dat = JSON.parse(raw) if raw
+      x.push(dat) if dat
+    end
+    return x
   end
 end
