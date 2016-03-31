@@ -1,5 +1,6 @@
 require Rails.root.join("config", "initializers", "apikeys_accessor")
 require Rails.root.join("config", "initializers", "gamerist")
+require Rails.root.join("config", "initializers", "redis")
 require 'bunny'
 
 # TODO set the address here
@@ -22,24 +23,32 @@ unless Gamerist.rake?
 
   # Manage the upstream wooooo
   ch.queue("gamerist.dispatch.upstream", durable: true).subscribe do |delivery_info, properties, payload|
-    require 'json'
-    jdata = JSON.parse payload
-    puts jdata
-    if(jdata["protocol_version"].to_i == 1)
-      case jdata["type"]
-      when "creating" # preliminary confirmation
-      when "pcanceled" # canceled by Rails
-      when "heartbeat" # node is responsive
-      when "serverstarted" # official confirmation from inside the gameserver
-        ip = $gamerist_serverdata["servers"].select {|v| v["name"] == jdata["server"]}[0]["ip"]
-        Room.new(id: jdata["id"]).add_running_server({"servername" => jdata["server"], "ip" => ip, "port" => jdata["port"]})
-      when "teamwin" # team wins
-        Room.new(id: jdata['id']).declare_winning_team(jdata['winningteam'])
-      when "playerscores" # player score data
-        Room.new(id: jdata['id']).declare_team_scores(jdata['scores'])
-      when "servererror" # server encountered an error
-        Room.new(id: jdata['id']).declare_error(jdata['errno'])
-      else
+    puts "MESSAGE RECEIVED"
+    if payload.start_with?("self test completed @")
+      puts "SELF TEST DISCOVERED"
+      $redis.set("sstatusMQlasttime", payload)
+    else
+      require 'json'
+      jdata = JSON.parse payload
+      puts jdata
+      if(jdata["protocol_version"].to_i == 1)
+        case jdata["type"]
+        when "creating" # preliminary confirmation
+        when "pcanceled" # canceled by Rails
+        when "heartbeat" # node is responsive
+        when "serverstarted" # official confirmation from inside the gameserver
+          ip = $gamerist_serverdata["servers"].select {|v| v["name"] == jdata["server"]}[0]["ip"]
+          Room.new(id: jdata["id"]).add_running_server({"servername" => jdata["server"], "ip" => ip, "port" => jdata["port"]})
+        when "teamwin" # team wins
+          Room.new(id: jdata['id']).declare_winning_team(jdata['winningteam'])
+        when "playerscores" # player score data
+          Room.new(id: jdata['id']).declare_team_scores(jdata['scores'])
+        when "servererror" # server encountered an error
+          Room.new(id: jdata['id']).declare_error(jdata['errno'])
+        when "general_report"
+          $redis.hset("GAMERIST [Reports]", jdata["server"], jdata["contents"].to_json)
+        else
+        end
       end
     end
   end
@@ -86,6 +95,14 @@ module DispatchMQ
     
     ch.queue("gamerist.dispatch.down." + servername, durable: true).bind(x, routing_key: "gamerist.dispatch.down." + servername)
     x.publish(req.target!, routing_key: "gamerist.dispatch.down." + servername)
+  end
+  
+  def self.send_self_test
+    ch = $bunny.create_channel
+    x  = ch.direct("amq.direct" + (Rails.env.test? ? "test" : ""))
+    
+    ch.queue("gamerist.dispatch.upstream", durable: true).bind(x, routing_key: "gamerist.dispatch.upstream")
+    x.publish("self test completed @" + Time.now.to_i.to_s, routing_key: "gamerist.dispatch.upstream")
   end
 end
 

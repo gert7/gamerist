@@ -1,0 +1,48 @@
+#serverstatus_center {
+  width:100%;
+  box-sizing:border-box;
+}
+
+#s_triage_database, #s_triage_redis, #s_triage_mq {
+  display: inline-block;
+  width:341px;
+  height:160px;
+  margin:0px;
+  text-align:center;
+  color:#333;
+}
+
+#s_triage_database {
+  background:hsl(180, 75%, 75%);
+}
+
+#s_triage_redis {
+  background:hsl(0, 75%, 75%);
+}
+
+#s_triage_mq {
+  background:hsl(45, 75%, 75%);
+}
+
+#s_triage_database_inner, #s_triage_redis_inner, #s_triage_mq_inner {
+  background-repeat: no-repeat;
+  background-position: center;
+  width:100px;
+  height:80px;
+  margin:auto;
+  margin-top:12px;
+  margin-bottom:12px;
+}
+
+#s_triage_database_inner {
+  background-image: image-url('postgres.png');
+}
+
+#s_triage_redis_inner {
+  background-image: image-url('redis.png');
+}
+
+#s_triage_mq_inner {
+  background-image: image-url('rabbitmq.png');
+}
+

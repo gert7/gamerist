@@ -1,12 +1,10 @@
 # == Schema Information
 #
-# Table name: phone_verifications
+# Table name: permission_sets
 #
 #  id          :integer          not null, primary key
 #  user_id     :integer
-#  code        :string
-#  state       :integer
-#  phonenumber :string
+#  permissions :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
@@ -15,12 +13,8 @@
 
 one:
   user_id: 1
-  code: MyString
-  state: 1
-  phonenumber: MyString
+  permissions: 1
 
 two:
   user_id: 1
-  code: MyString
-  state: 1
-  phonenumber: MyString
+  permissions: 1

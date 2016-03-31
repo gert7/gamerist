@@ -8,7 +8,7 @@
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  sign_in_count          :integer          not null
+#  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :string(255)
@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
   has_many :transactions, inverse_of: :user
   has_many :paypals, inverse_of: :user
   has_many :payouts, inverse_of: :user
+  has_one :permission_set, inverse_of: :user
 
   has_many :usertraces, inverse_of: :user
   

@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: paypals
+#
+#  id         :integer          not null, primary key
+#  amount     :decimal(8, 2)
+#  subtotal   :decimal(8, 2)
+#  tax        :decimal(8, 2)
+#  state      :integer
+#  user_id    :integer
+#  sid        :string(255)
+#  redirect   :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  country    :text
+#
+
 class PaypalsController < ApplicationController
   before_action :set_paypal, only: [:show]
   before_filter :authenticate_user!

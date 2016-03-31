@@ -1,8 +1,9 @@
 <div id="account_page">
   <div id="account_maxi">
     <div id="account_maxi_top">
+      <% if @user.steam_avatar_urls %>
       <div id="account_maxi_avatar">
-        <img src="<%= @user.steam_avatar_urls.split(" ")[1] if @user.steam_avatar_urls %>"/>
+        <img src="<%= @user.steam_avatar_urls.split(" ")[1] %>"/>
       </div>
       <div id="account_maxi_avatar_right">
         <div id="account_maxi_steamname">
@@ -15,6 +16,9 @@
           <% end %>
         </div>
       </div>
+      <% else %>
+        <div id="account_maxi_avatar_none">No Steam Account added</div>
+      <% end %>
     </div>
     <hr/>
     <div id="account_maxi_realized">

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: fb452120ae02da8d3d8563476f3c445bd1a0df1f
+  revision: 988b34e77d1f69efa5fef97e0397b64b8656d11d
   specs:
     activeadmin (1.0.0.pre2)
       arbre (~> 1.0, >= 1.0.2)
@@ -308,7 +308,7 @@ GEM
     rspec-support (3.4.1)
     ruby-openid (2.7.0)
     rubyzip (1.2.0)
-    sass (3.4.21)
+    sass (3.4.22)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)

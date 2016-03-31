@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   
   get "/static/:page", to: "static#show"
   
-  get "/serverstatus", to: "serverstatus#index"
+  get "/serverstatus", to: "server_status#index"
   
   root 'welcome#index'
   

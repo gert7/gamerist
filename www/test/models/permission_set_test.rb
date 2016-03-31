@@ -1,15 +1,18 @@
 # == Schema Information
 #
-# Table name: phone_verifications
+# Table name: permission_sets
 #
 #  id          :integer          not null, primary key
 #  user_id     :integer
-#  code        :string
-#  state       :integer
-#  phonenumber :string
+#  permissions :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 
-class PhoneVerification < ActiveRecord::Base
+require 'test_helper'
+
+class PermissionSetTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

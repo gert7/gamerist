@@ -1,15 +1,18 @@
 # == Schema Information
 #
-# Table name: phone_verifications
+# Table name: permission_sets
 #
 #  id          :integer          not null, primary key
 #  user_id     :integer
-#  code        :string
-#  state       :integer
-#  phonenumber :string
+#  permissions :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 
-class PhoneVerification < ActiveRecord::Base
+# Permissions list:
+# 0 - none
+# 1 - administrator
+
+class PermissionSet < ActiveRecord::Base
+  belongs_to :user, inverse_of: :permission_set
 end
