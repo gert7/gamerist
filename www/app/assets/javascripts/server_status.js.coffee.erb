@@ -6,7 +6,8 @@ check_server_status_cb = (data) ->
       $("#s_triage_redis_data").html(data.redis[0] + "<br/>" + data.redis[2] + " ago")
     if(data.mq)
       $("#s_triage_mq_data").html(data.mq[0] + "<br/>" + data.mq[2] + " ago")
-    console.dir(data.servers)
+    for serd in data.servers
+      $("#servers_game_of_" + serd.server + " .servers_game_name_lastseen").html(serd.timeago + " ago")
 
 check_server_status = () ->
   $.get(document.location + ".json", check_server_status_cb)

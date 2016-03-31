@@ -65,12 +65,23 @@ remember_port = (port, roomid, room, callback) ->
     if err then debug("ERROR: Port " + port + " is still alive and in use!") else debug("Inserting room " + roomid + " into port " + port)
     (callback || ->)(err)
 
-enough_room = (records, playercount) ->
+calculate_put_ram = (records) ->
   put_ram_usage = 0
   for doc in records
     debug(records.length)
     pc = doc.room.playercount
     put_ram_usage += SINGLE_SERVER_BASE_RAM + (SINGLE_PLAYER_RAM * pc)
+  return put_ram_usage
+
+calculate_put_ram_ex = (cb) ->
+  seq = Futures.sequence()
+  .then (next) ->
+    servers.find({}, next)
+  .then (next, records) ->
+    (cb || ->)(calculate_put_ram(records))
+
+enough_room = (records, playercount) ->
+  put_ram_usage = calculate_put_ram(records)
   put_ram_usage += SINGLE_SERVER_BASE_RAM + (SINGLE_PLAYER_RAM * playercount)
   debug(put_ram_usage)
   debug(system_total_memory)
@@ -271,6 +282,9 @@ exports.remove_timeout_port = (record, all, callback) ->
 
 exports.remove_timeout_ports = (callback) ->
   plistactor.remove_timeout_ports(null, callback)
+  
+exports.calculate_put_ram = (callback) ->
+  calculate_put_ram_ex(callback)
 
 setInterval((() -> plistactor.remove_timeout_ports(null, ->)), 7000)
 
