@@ -1,9 +1,1 @@
-{"port":27018,"roomid":197,"room":{"playercount":32},"timeout":1450562584,"_id":"DzdVIQ8HOIW0NlQw"}
-{"port":27017,"roomid":196,"room":{"playercount":32},"timeout":1450562584,"_id":"OgHx7UN0ad4BhTEJ"}
-{"port":27016,"roomid":194,"room":{"playercount":32},"timeout":1450562584,"_id":"gH9bShRaz1N7r9e2"}
-{"port":27015,"roomid":193,"room":{"playercount":32},"timeout":1450562584,"_id":"lKEm6xkv5rt2oMPo"}
 {"$$indexCreated":{"fieldName":"port","unique":true,"sparse":false}}
-{"$$deleted":true,"_id":"lKEm6xkv5rt2oMPo"}
-{"$$deleted":true,"_id":"gH9bShRaz1N7r9e2"}
-{"$$deleted":true,"_id":"OgHx7UN0ad4BhTEJ"}
-{"$$deleted":true,"_id":"DzdVIQ8HOIW0NlQw"}

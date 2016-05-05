@@ -33,6 +33,7 @@ describe "MQ", ->
       .then (next, record) ->
         expect(record.roomid).to.equal 81
         expect(record.room.players[0].steamid).to.equal "STEAM_0:1:18525940"
+        portlist.remove_all_ports(next)
         done()
     it "cancels a server correctly", (done) ->
       Futures.sequence()
@@ -49,5 +50,6 @@ describe "MQ", ->
         portlist.get_port(27015, next)
       .then (next, record) ->
         expect(record).to.equal undefined
+        portlist.remove_all_ports(next)
         done()
         

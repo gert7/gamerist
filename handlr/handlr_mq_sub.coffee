@@ -101,7 +101,7 @@ pro_tempore_report = () ->
   .then (next) ->
     portlist.get_all_ports(next)
   .then (next, records) ->
-    sendup('{"protocol_version": 1, "server": Config.selfname, "type": "general_report", "timestamp":' + unixtime() + ', "contents":' + JSON.stringify(records) + '}')
+    sendup('{"protocol_version": 1, "server": "' + Config.selfname + '", "type": "general_report", "timestamp":' + unixtime() + ', "contents":' + JSON.stringify(records) + '}')
 
 setInterval(pro_tempore_report, 7000)
 

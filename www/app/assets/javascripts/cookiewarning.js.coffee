@@ -21,6 +21,6 @@ appendCallbacksCookie = () ->
     window.location = "http://www.duckduckgo.com"
 
 askCookieApproval = () ->
-  $("#header").before('<div id="cookie_warning_outer"><div id="cookie_warning"><div id="cookie_warning_text">This website uses browser cookies to improve your experience</div><button id="cookie_warning_agree">DISMISS</button><button id="cookie_warning_disagree">LEAVE</button></div></div>')
+  $("#header").before('<div id="cookie_warning_outer"><div id="cookie_warning"><div id="cookie_warning_text">This website uses browser cookies to improve your experience</div><button id="cookie_warning_agree">I UNDERSTAND</button><button id="cookie_warning_disagree">LEAVE</button></div></div>')
   setTimeout(appendCallbacksCookie, 2)
   

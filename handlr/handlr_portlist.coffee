@@ -47,6 +47,9 @@ remove_timeout_port = (record, all, callback) ->
     (callback || ->)()
 
 remove_timeout_ports = (all, callback) ->
+  if all
+    for port in Config.ports
+      remove_timeout_port({port: port}, true)
   get_all_ports (ports) ->
     iless  = (i) -> (i < ports.length)
     iadd   = (i) -> (i + 1)
@@ -134,7 +137,8 @@ get_port_by_id = (roomid, callback) ->
   servers.find({roomid: roomid}, (err, docs) ->
     if(docs[0]) then (callback || ->)(docs[0]) else (callback || ->)(undefined)
   )
-  
+
+# Retrieves all ports active according to the database
 get_all_ports = (callback) ->
   servers.find({port: { $in: Config.ports } }, (err, docs) ->
     (callback || ->)(docs)
