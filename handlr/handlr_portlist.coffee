@@ -47,10 +47,15 @@ remove_timeout_port = (record, all, callback) ->
     (callback || ->)()
 
 remove_timeout_ports = (all, callback) ->
-  if all
-    for port in Config.ports
-      remove_timeout_port({port: port}, true)
   get_all_ports (ports) ->
+    for portx in Config.ports
+      inport = false
+      for porty in ports
+        if(porty.port == portx)
+          inport = true
+      if(inport == false)
+        debug("inport is false")
+        destroy_port.destroy_port(portx)
     iless  = (i) -> (i < ports.length)
     iadd   = (i) -> (i + 1)
     iloop  = (i, _break, _continue) ->
