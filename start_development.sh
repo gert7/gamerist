@@ -6,13 +6,17 @@ command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 
 source $HOME/.rvm/scripts/rvm
 
-rvm install jruby-9.0.4.0
+rvm 
 
-rvm use jruby-9.0.4.0 --default
+rvm install jruby-9.1.0.0
+
+rvm use jruby-9.1.0.0 --default
 
 gem install bundler
 
 source nodeinstall.sh
+
+cd ~/gamerist
 
 source update_dev_redis.sh
 
