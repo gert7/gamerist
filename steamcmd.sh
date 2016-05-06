@@ -3,6 +3,8 @@ CURL_O="-# --max-time 20 --retry 4"
 mkdir steamcmd
 cd steamcmd # CD gamerist/steamcmd
 
+sudo apt-get install lib32z1 gcc-multilib -y
+
 curl -O http://media.steampowered.com/installer/steamcmd_linux.tar.gz $CURL_O
 tar -xvzf steamcmd_linux.tar.gz
 rm steamcmd_linux.tar.gz
