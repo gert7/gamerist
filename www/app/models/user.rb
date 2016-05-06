@@ -329,8 +329,12 @@ class User < ActiveRecord::Base
       css  = stats["games"].find do |x|
         x["appid"].to_i == 240
       end
-      (hvar_set "GAME team fortress 2", tf2["playtime_forever"]) if tf2
-      (hvar_set "GAME counter strike source", css["playtime_forever"]) if css
+      if tf2
+        hvar_set "GAME team fortress 2", tf2["playtime_forever"]
+      else $redis.hdel hrapidkey, "GAME team fortress 2" end
+      if css
+        hvar_set "GAME counter strike source", css["playtime_forever"]
+      else $redis.hdel hrapidkey, "GAME counter strike source" end
     end
   end
   
@@ -388,8 +392,6 @@ class User < ActiveRecord::Base
   end
   
   def has_game(gamename)
-    puts hvar_get("GAME " + gamename)
-    return true if Rails.env.test?
     return hvar_get("GAME " + gamename)
   end
   

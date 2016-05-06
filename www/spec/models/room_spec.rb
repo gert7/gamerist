@@ -51,6 +51,7 @@ describe Room do
     player2.save_game_stats(stats)
     player3.save_game_stats(stats)
     player4.save_game_stats(stats)
+    player5.save_game_stats(stats)
   }
 
   describe "#make_room" do
@@ -157,6 +158,15 @@ describe Room do
       it "will add the player from Europe" do
         room.update_xhr(player1, {"team" => 2}, "Europe")
         expect(room.srules["players"].count).to eq 1
+      end
+    end
+    context "when a player doesn't have a game" do
+      include_context "when players have money"
+      it "will not add the player without the game" do
+        player1.save_game_stats({"game_count" => 1, "games" => [{"appid" => 240, "playtime_forever" => 318}]})
+        room.update_xhr(player1, {"team" => 2})
+        expect(room.srules["players"].count).to eq 0
+        expect(room.personal_messages.count).to be > 0
       end
     end
   end
