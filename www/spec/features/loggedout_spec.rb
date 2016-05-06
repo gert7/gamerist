@@ -40,7 +40,9 @@ describe 'Logged out' do
       user = FactoryGirl.create(:user)
       Transaction.create(user: user, detail: 100, kind: Transaction::KIND_PAYPAL, state: Transaction::STATE_FINAL, amount: 50)
       login_as(user)#, :scope => :user, :run_callbacks => false)
-      
+      stats = {"game_count" => 2, "games" => [{"appid" => 240, "playtime_forever" => 318}, {"appid" => 440, "playtime_forever" => 129}]}
+      user.save_game_stats(stats)
+
       visit '/rooms/new'
       expect(page.find("#headbar_loggedin_name")).to have_content("Sign out")
       #choose('room_game_team_fortress_2', visible: false)
@@ -77,6 +79,8 @@ describe 'Logged out' do
       user = FactoryGirl.create(:user)
       Transaction.create(user: user, detail: 10, kind: Transaction::KIND_PAYPAL, state: Transaction::STATE_FINAL, amount: 10)
       login_as(user)
+      stats = {"game_count" => 2, "games" => [{"appid" => 240, "playtime_forever" => 318}, {"appid" => 440, "playtime_forever" => 129}]}
+      user.save_game_stats(stats)
     }
   
     it "doesn't show buttons for an off-region room", js: true do

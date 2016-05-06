@@ -322,6 +322,7 @@ class Room < ActiveRecord::Base
     player = User.new(id: player_id)
     if hash["team"] and hash["team"].to_i != 0
       return false unless (self.total_players(mrules) < mrules["playercount"])
+      return false unless player.has_game(mrules["game"])
       unless (player.reserve_room!(self.id, mrules))
         self.srules = _remove_player!(player_id, mrules)
         return false

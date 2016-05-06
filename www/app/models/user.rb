@@ -78,6 +78,14 @@ class User < ActiveRecord::Base
     "gamerist-user {}" + self.id.to_s
   end
   
+  def hvar_get(s)
+    $redis.hget hrapidkey, s
+  end
+  
+  def hvar_set(s, v)
+    $redis.hset hrapidkey, s, v
+  end
+  
   # Ask ActiveRecord for the user's most recent
   # transaction balance. Loads up both realized
   # and unrealized
@@ -85,8 +93,8 @@ class User < ActiveRecord::Base
     l = Transaction.where(user_id: self.id).last
     @unrealized = (l != nil ? l.balance_u : 0)
     @realized = (l != nil ? l.balance_r : 0)
-    $redis.hset hrapidkey, "balance_unrealized", @unrealized
-    $redis.hset hrapidkey, "balance_realized", @realized
+    hvar_set "balance_unrealized", @unrealized
+    hvar_set "balance_realized", @realized
   end
   
   def crunch_transactions
@@ -133,7 +141,7 @@ class User < ActiveRecord::Base
   # @param [Integer] kind Transaction::KIND_ enum for this reserver
   # @param [Integer] id ID for the row in this reserver type's table
   def reserve! (kind, id)
-    $redis.hset hrapidkey, "reservation", kind.to_s + ":" + id.to_s
+    hvar_set "reservation", kind.to_s + ":" + id.to_s
   end
   
   ##########
@@ -145,8 +153,8 @@ class User < ActiveRecord::Base
     return false if (not reservation_is_paypal?(paypal_id) and reservation_lives?)
     # return true if reservation_is_paypal?(paypal_id)
     reserve! Transaction::KIND_PAYPAL, paypal_id
-    $redis.hset hrapidkey, "reservation", Transaction::KIND_PAYPAL.to_s + ":" + paypal_id.to_s
-    $redis.hset hrapidkey, "paypal_timeout", Time.now.to_i + PAYPAL_TIMEOUT
+    hvar_set "reservation", Transaction::KIND_PAYPAL.to_s + ":" + paypal_id.to_s
+    hvar_set "paypal_timeout", Time.now.to_i + PAYPAL_TIMEOUT
     return true
   end
   
@@ -160,7 +168,7 @@ class User < ActiveRecord::Base
   end
   
   def paypal_timed_out?
-    timeout = $redis.hget hrapidkey, "paypal_timeout"
+    timeout = hvar_get hrapidkey, "paypal_timeout"
     return false if (timeout and timeout.to_i > Time.now.to_i)
     true
   end
@@ -184,8 +192,8 @@ class User < ActiveRecord::Base
     return false if (not reservation_is_payout?(payout_id) and reservation_lives?)
     # return true if reservation_is_paypal?(paypal_id)
     reserve! Transaction::RES_PAYOUT, payout_id
-    $redis.hset hrapidkey, "reservation", Transaction::RES_PAYOUT.to_s + ":" + payout_id.to_s
-    $redis.hset hrapidkey, "paypal_timeout", Time.now.to_i + PAYPAL_TIMEOUT
+    hvar_set "reservation", Transaction::RES_PAYOUT.to_s + ":" + payout_id.to_s
+    hvar_set "paypal_timeout", Time.now.to_i + PAYPAL_TIMEOUT
     return true
   end
   
@@ -199,7 +207,7 @@ class User < ActiveRecord::Base
   end
   
   def payout_timed_out?
-    timeout = $redis.hget hrapidkey, "paypal_timeout"
+    timeout = hvar_get "paypal_timeout"
     return false if (timeout and timeout.to_i > Time.now.to_i)
     true
   end
@@ -242,7 +250,7 @@ class User < ActiveRecord::Base
     vself = User.find(self.id) # now we have to load the data from the database
       return false unless vself.steamid
       return false unless vself.total_balance >= ruleset["wager"].to_i
-    $redis.hset hrapidkey, "reservation", Transaction::KIND_ROOM.to_s + ":" + room_id.to_s
+    hvar_set "reservation", Transaction::KIND_ROOM.to_s + ":" + room_id.to_s
     return true
   end
   
@@ -303,17 +311,58 @@ class User < ActiveRecord::Base
     return response["response"]["players"][0]
   end
   
+  def load_steam_gamestats
+    require 'open-uri'
+    steamapik = GameristApiKeys.get("steam_api_key")
+    ru = open("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{steamapik}&steamid=#{self.steamid}&format=json").read
+    response = JSON.parse(ru)
+    return response["response"]
+  end
+  
+  def save_game_stats(stats)
+    if(stats["game_count"] == 0)
+      return
+    else
+      tf2  = stats["games"].find do |x|
+        x["appid"].to_i == 440
+      end
+      css  = stats["games"].find do |x|
+        x["appid"].to_i == 240
+      end
+      (hvar_set "GAME team fortress 2", tf2["playtime_forever"]) if tf2
+      (hvar_set "GAME counter strike source", css["playtime_forever"]) if css
+    end
+  end
+  
+  # check if timed out
+  # set next timeout in absolute POSIX time
+  def steamapi_timeout(nextposix=nil)
+    if nextposix
+      hvar_set "steam_api_timeout", nextposix
+    else
+      if Time.now.to_i > hvar_get("steam_api_timeout").to_i
+        return true
+      else
+        return false
+      end
+    end
+  end
+  
   # Load up steam_name and steam_avatar_urls for the User. They themselves call this implicitly
   def fetch_steamapi
-    if (not $redis.hget hrapidkey, "avatar_urls" or
-        not $redis.hget hrapidkey, "steamname" or
-        not $redis.hget hrapidkey, "steamurl")
+    if (not hvar_get "avatar_urls" or
+        not hvar_get "steamname" or
+        not hvar_get "steamurl" or
+        not hvar_get "owned_games" or
+        steamapi_timeout)
       return nil unless self.steamid
       player = load_steamplayer
       return nil unless player
-      $redis.hset hrapidkey, "avatar_urls", (player["avatar"] + " " + player["avatarmedium"] + " " + player["avatarfull"])
-      $redis.hset hrapidkey, "steamname", player["personaname"]
-      $redis.hset hrapidkey, "steamurl", player["profileurl"]
+      hvar_set "avatar_urls", (player["avatar"] + " " + player["avatarmedium"] + " " + player["avatarfull"])
+      hvar_set "steamname", player["personaname"]
+      hvar_set "steamurl", player["profileurl"]
+      save_game_stats(load_steam_gamestats)
+      steamapi_timeout(Time.now)
     end
   end
   
@@ -336,6 +385,12 @@ class User < ActiveRecord::Base
     return "http://" if Rails.env.test?
     fetch_steamapi
     return $redis.hget hrapidkey, "steamurl"
+  end
+  
+  def has_game(gamename)
+    puts hvar_get("GAME " + gamename)
+    return true if Rails.env.test?
+    return hvar_get("GAME " + gamename)
   end
   
   after_initialize do

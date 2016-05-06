@@ -44,6 +44,14 @@ describe Room do
       User.any_instance.stubs(:total_balance).returns 0
     }
   end
+  
+  before {
+    stats = {"game_count" => 2, "games" => [{"appid" => 240, "playtime_forever" => 318}, {"appid" => 440, "playtime_forever" => 129}]}
+    player1.save_game_stats(stats)
+    player2.save_game_stats(stats)
+    player3.save_game_stats(stats)
+    player4.save_game_stats(stats)
+  }
 
   describe "#make_room" do
     it "successfully creates a new room" do

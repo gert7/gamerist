@@ -19,7 +19,7 @@ script:
   - cd ..
   - ./nodeinstall.sh
   - cd handlr
-  - source npminstall.sh
+  - source npm_grab.sh
   - cp config.json.travis config.json
   - mocha --compilers coffee:coffee-script/register
 before_script:
