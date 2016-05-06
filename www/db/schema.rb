@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331123205) do
+ActiveRecord::Schema.define(version: 20160506181737) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -73,6 +73,17 @@ ActiveRecord::Schema.define(version: 20160331123205) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+
+  create_table "maxmind_geolite_country", id: false, force: :cascade do |t|
+    t.string  "start_ip"
+    t.string  "end_ip"
+    t.integer "start_ip_num", limit: 8, null: false
+    t.integer "end_ip_num",   limit: 8, null: false
+    t.string  "country_code",           null: false
+    t.string  "country",                null: false
+  end
+
+  add_index "maxmind_geolite_country", ["start_ip_num"], name: "index_maxmind_geolite_country_on_start_ip_num", unique: true
 
   create_table "modifiers", force: :cascade do |t|
     t.string   "key"

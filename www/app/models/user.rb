@@ -168,7 +168,7 @@ class User < ActiveRecord::Base
   end
   
   def paypal_timed_out?
-    timeout = hvar_get hrapidkey, "paypal_timeout"
+    timeout = hvar_get "paypal_timeout"
     return false if (timeout and timeout.to_i > Time.now.to_i)
     true
   end

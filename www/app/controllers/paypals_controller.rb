@@ -64,9 +64,7 @@ class PaypalsController < ApplicationController
   end
   
   def paydata
-    require "geocoder"
     countrycode = Geocoder.search(request.remote_ip)[0].country_code
-#    puts params
     @data = Paypal.calculate_payment(params[:points], countrycode)
   end
 

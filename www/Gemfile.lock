@@ -414,5 +414,8 @@ DEPENDENCIES
   uglifier
   yard
 
+RUBY VERSION
+   ruby 2.3.0p0 (jruby 9.1.0.0)
+
 BUNDLED WITH
-   1.11.2
+   1.12.2
