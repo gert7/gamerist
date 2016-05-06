@@ -174,6 +174,8 @@ describe Transaction do
           t.amount  = 30
         end
         r = FactoryGirl.create(:room)
+        stats = {"game_count" => 2, "games" => [{"appid" => 240, "playtime_forever" => 318}, {"appid" => 440, "playtime_forever" => 129}]}
+        user.save_game_stats(stats)
         r.amend_player! user, "team" => 2
         Transaction.create do |t|
           t.state   = Transaction::STATE_FINAL,
