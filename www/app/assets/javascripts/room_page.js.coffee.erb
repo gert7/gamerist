@@ -193,8 +193,16 @@ CURRENT_UNIQUE_SIGNATURE = ""
 postErrorMessages = (data) ->
   if data.personal_messages and (data.personal_messages.length > 0)
     $("#srules_errormessages").css("display", "block")
+    $("#srules_errormessages").html("")
+    alreadys = []
     for erm in data.personal_messages
-      $("#srules_errormessages").append("<p>- " + erm[1] + "</p>")
+      ai = false
+      for a in alreadys
+        if a == erm[0]
+          ai = true
+      if !ai
+        alreadys[Number(erm[0])] = true
+        $("#srules_errormessages").append("<p>- " + erm[1] + "</p>")
 
 GameOver = () ->
   $("#rooms").html("<br/><br/><center>Game has ended!</center><br/><br/>")
@@ -302,6 +310,7 @@ $(document).ready () ->
       updatePageEdit("ready", $("#srules_readystatus").val())
     $("#srules_chatbox_inputsubmit").click () ->
       sendChatMessage()
+      $("#srules_chatbox_input").val("")
     $("#srules_chatbox_input").keydown (e) ->
       if(e.which == 13) # ENTER
         sendChatMessage()

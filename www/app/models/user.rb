@@ -314,6 +314,7 @@ class User < ActiveRecord::Base
   def load_steam_gamestats
     require 'open-uri'
     steamapik = GameristApiKeys.get("steam_api_key")
+    puts "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{steamapik}&steamid=#{self.steamid}&format=json"
     ru = open("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{steamapik}&steamid=#{self.steamid}&format=json").read
     response = JSON.parse(ru)
     return response["response"]
@@ -323,15 +324,16 @@ class User < ActiveRecord::Base
     if(stats["game_count"] == 0)
       return
     else
-      tf2  = stats["games"].find do |x|
-        x["appid"].to_i == 440
-      end
+      #tf2  = stats["games"].find do |x|
+      #  x["appid"].to_i == 440
+      #end
       css  = stats["games"].find do |x|
         x["appid"].to_i == 240
       end
-      if tf2
-        hvar_set "GAME team fortress 2", tf2["playtime_forever"]
-      else $redis.hdel hrapidkey, "GAME team fortress 2" end
+      #if tf2
+      #  hvar_set "GAME team fortress 2", tf2["playtime_forever"]
+      #else $redis.hdel hrapidkey, "GAME team fortress 2" end
+      hvar_set "GAME team fortress 2", 1000
       if css
         hvar_set "GAME counter strike source", css["playtime_forever"]
       else $redis.hdel hrapidkey, "GAME counter strike source" end
@@ -342,9 +344,9 @@ class User < ActiveRecord::Base
   # set next timeout in absolute POSIX time
   def steamapi_timeout(nextposix=nil)
     if nextposix
-      hvar_set "steam_api_timeout", nextposix
+      hvar_set "steam_api_timeout", nextposix.to_s
     else
-      if Time.now.to_i > hvar_get("steam_api_timeout").to_i
+      if Time.now.to_i > (hvar_get("steam_api_timeout").to_i or 0)
         return true
       else
         return false
@@ -354,6 +356,7 @@ class User < ActiveRecord::Base
   
   # Load up steam_name and steam_avatar_urls for the User. They themselves call this implicitly
   def fetch_steamapi
+    puts steamapi_timeout
     if (not hvar_get "avatar_urls" or
         not hvar_get "steamname" or
         not hvar_get "steamurl" or
@@ -366,7 +369,7 @@ class User < ActiveRecord::Base
       hvar_set "steamname", player["personaname"]
       hvar_set "steamurl", player["profileurl"]
       save_game_stats(load_steam_gamestats)
-      steamapi_timeout(Time.now)
+      steamapi_timeout(Time.now + 10)
     end
   end
   
@@ -392,6 +395,9 @@ class User < ActiveRecord::Base
   end
   
   def has_game(gamename)
+    puts "GAMEEMEMME"
+    fetch_steamapi
+    puts hvar_get("GAME " + gamename)
     return hvar_get("GAME " + gamename)
   end
   
