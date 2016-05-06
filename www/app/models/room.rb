@@ -90,6 +90,10 @@ class Room < ActiveRecord::Base
   end
   
   def ctf_playerlimit
+    unless @map
+      errors.add(:playercount, "No map!") 
+      return
+    end
     if(@map[0..3] == "ctf_")
       errors.add(:playercount, "Playercount too high for CTF!") if @playercount > 16
     end

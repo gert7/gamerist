@@ -34,6 +34,8 @@ $(document).ready () ->
   $("#room_playercount label").children("input").each () ->
     $(this).attr("checked", false)
   
+  $("#room_map>option:eq(0)").attr("selected", true)
+  
   trigger_bigradio($("#room_playercount label").first().children("input"))
   $("#room_playercount label").first().children("input").prop("checked", "checked")
   
@@ -46,19 +48,29 @@ $(document).ready () ->
   trigger_gameradio($("#room_game label").first().children("input"))
   
   $("#room_map").on 'change', (e) ->
-    console.dir($("#room_map").find(":selected").text())
     if($("#room_map").find(":selected").text().substring(0, 4) == "ctf_")
-      $(".bigradiobutton").each () ->
+      $(".bigradiobutton").each ->
+        if($(this).hasClass("room_playercount_active"))
+          curi = $(this).children("input").val()
+      $(".bigradiobutton").each ->
         if($(this).children("input").val() > 16)
-          $(this).css("display", "none")
-          if($(this).children("input").attr("checked"))
+          if($(this).hasClass("room_playercount_active"))
             trigger_bigradio($("#room_playercount input").first())
+          $(this).css("display", "none")
         else
           $(this).css("width", "50%")
     else
       $(".bigradiobutton").each () ->
         $(this).css("display", "inline-block")
-        $(this).css("width", "25%")
+        $(this).css("width", "126px")
   
+  $("#room_game").on 'change', (e) ->
+    $("#room_map").html("")
+    $("#room_map").append("<option></option>")
+    for game in MAPS_DATA.games
+      if(("room_game_" + game.name.replace(/\s/g, "_")) == $(".room_gamename_active").attr("for"))
+        for map in game.maps
+          $("#room_map").append("<option>" + map.name + "</option>")
+      
   setTimeout(setContinent, 100)
   
