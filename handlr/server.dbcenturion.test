@@ -1,41 +1,12 @@
-{"port":27015,"roomid":193,"room":{"playercount":32},"timeout":1462481781,"_id":"7qDuxCdeAD1U9Okg"}
-{"port":27016,"roomid":194,"room":{"playercount":32},"timeout":1462481781,"_id":"KhF5vI8ZnEeNW0Pu"}
-{"port":27017,"roomid":196,"room":{"playercount":32},"timeout":1462481781,"_id":"coJMhHy3Uh6dWe0O"}
-{"port":27018,"roomid":197,"room":{"playercount":32},"timeout":1462481781,"_id":"m0omVF0qNzp8PzKW"}
-{"$$indexCreated":{"fieldName":"port","unique":true,"sparse":false}}
-{"$$deleted":true,"_id":"7qDuxCdeAD1U9Okg"}
-{"$$deleted":true,"_id":"KhF5vI8ZnEeNW0Pu"}
-{"$$deleted":true,"_id":"coJMhHy3Uh6dWe0O"}
-{"$$deleted":true,"_id":"m0omVF0qNzp8PzKW"}
-{"port":27015,"roomid":81,"room":{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","team":3,"steamid":"STEAM_0:1:18525940","timeout":1435667836}]},"timeout":1462481810,"_id":"WAV1UEXf1V8OSLvQ"}
-{"$$deleted":true,"_id":"WAV1UEXf1V8OSLvQ"}
-{"port":27015,"roomid":81,"room":{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","team":3,"steamid":"STEAM_0:1:18525940","timeout":1435667836}]},"timeout":1462481811,"_id":"St4wAmiQv2WcEtZB"}
-{"$$deleted":true,"_id":"St4wAmiQv2WcEtZB"}
-{"port":27015,"roomid":71,"room":{},"timeout":1462481812,"_id":"RsVWhwJbuUcmNKLV"}
-{"$$deleted":true,"_id":"RsVWhwJbuUcmNKLV"}
-{"port":27015,"roomid":72,"room":{},"timeout":1462481812,"_id":"rkbBIMJLbytoR6R5"}
-{"$$deleted":true,"_id":"rkbBIMJLbytoR6R5"}
-{"port":27015,"roomid":81,"room":{},"timeout":1462481813,"_id":"rOyifJDlRjkFikDo"}
-{"$$deleted":true,"_id":"rOyifJDlRjkFikDo"}
-{"port":27015,"roomid":101,"room":{},"timeout":1462481813,"_id":"mY8lMOgqWSE4pmMc"}
-{"$$deleted":true,"_id":"mY8lMOgqWSE4pmMc"}
-{"port":27015,"roomid":94,"room":{},"timeout":1462481813,"_id":"XkLMEwPLAKRKFRKY"}
-{"$$deleted":true,"_id":"XkLMEwPLAKRKFRKY"}
-{"port":27015,"roomid":95,"room":{},"timeout":1462481814,"_id":"z2YnEpusQhK2jqJm"}
-{"$$deleted":true,"_id":"z2YnEpusQhK2jqJm"}
-{"port":27015,"roomid":96,"room":{},"timeout":1462481814,"_id":"dWEQfJBU5AGKmlp0"}
-{"$$deleted":true,"_id":"dWEQfJBU5AGKmlp0"}
-{"port":27015,"roomid":192,"room":{"playercount":16},"timeout":1462481815,"_id":"4kUedeUqnH9R6uKx"}
-{"$$deleted":true,"_id":"4kUedeUqnH9R6uKx"}
-{"port":27015,"roomid":193,"room":{"playercount":32},"timeout":1462481815,"_id":"4e7HU7qC89BULaRi"}
-{"port":27016,"roomid":194,"room":{"playercount":32},"timeout":1462481815,"_id":"RyS1kSIVwpEw6cez"}
-{"port":27017,"roomid":196,"room":{"playercount":32},"timeout":1462481816,"_id":"9ZEpDCSfG20kOYFi"}
-{"port":27018,"roomid":197,"room":{"playercount":32},"timeout":1462481816,"_id":"lySmZT9WhVOv5YpN"}
-{"$$deleted":true,"_id":"4e7HU7qC89BULaRi"}
-{"$$deleted":true,"_id":"RyS1kSIVwpEw6cez"}
-{"$$deleted":true,"_id":"9ZEpDCSfG20kOYFi"}
-{"$$deleted":true,"_id":"lySmZT9WhVOv5YpN"}
-{"port":27015,"roomid":193,"room":{"playercount":32},"timeout":1462481818,"_id":"hbELjJIzrOZXsvvB"}
 {"port":27016,"roomid":194,"room":{"playercount":32},"timeout":1462481818,"_id":"HxsUR0kxVQtJ1sgU"}
+{"port":27015,"roomid":193,"room":{"playercount":32},"timeout":1462481818,"_id":"hbELjJIzrOZXsvvB"}
 {"port":27017,"roomid":196,"room":{"playercount":32},"timeout":1462481819,"_id":"mr3GB8F52TJTdy5y"}
 {"port":27018,"roomid":197,"room":{"playercount":32},"timeout":1462481819,"_id":"yWB4WRKZKGEkEsHy"}
+{"$$indexCreated":{"fieldName":"port","unique":true,"sparse":false}}
+{"$$deleted":true,"_id":"hbELjJIzrOZXsvvB"}
+{"$$deleted":true,"_id":"HxsUR0kxVQtJ1sgU"}
+{"$$deleted":true,"_id":"mr3GB8F52TJTdy5y"}
+{"$$deleted":true,"_id":"yWB4WRKZKGEkEsHy"}
+{"port":27015,"roomid":81,"room":{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","team":3,"steamid":"STEAM_0:1:18525940","timeout":1435667836}]},"timeout":1462537960,"_id":"Obd8yjMOuwIh9CJm"}
+{"$$deleted":true,"_id":"Obd8yjMOuwIh9CJm"}
+{"port":27015,"roomid":81,"room":{"game":"team fortress 2","map":"ctf_2fort","playercount":16,"wager":5,"server":"centurion","players":[{"id":1,"ready":0,"wager":5,"avatar":"http://","steamname":"Hello","team":3,"steamid":"STEAM_0:1:18525940","timeout":1435667836}]},"timeout":1462537961,"_id":"435fEi4bU0hhlljk"}

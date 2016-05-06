@@ -4,7 +4,7 @@
   "travismode": false,
   "rabbitmq":
   {
-    "url": "amqp://127.0.0.1:5672",
+    "url": "amqp://127.0.0.1",
     "username": "",
     "vhost": "",
     "password": "",

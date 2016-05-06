@@ -1,4 +1,4 @@
-NODE_PACKAGE_NAME=setup_4.x
+NODE_PACKAGE_NAME=setup_6.1.0
 
 if [ ! -f $NODE_PACKAGE_NAME ]; then
   curl -sOL https://deb.nodesource.com/$NODE_PACKAGE_NAME
@@ -12,5 +12,5 @@ cd handlr
 
 sudo ln -s /usr/bin/nodejs /usr/bin/node
 
-source npminstall.sh
+source npm_grab.sh
 

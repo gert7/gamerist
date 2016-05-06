@@ -19,7 +19,7 @@ describe 'Logged out' do
     user = FactoryGirl.create(:user)
     login_as(user)
     visit '/'
-    click_button("DISMISS")
+    click_button("I UNDERSTAND")
     click_link("Sign out")
     visit '/'
     expect(page.find("#headbar_loggedin_name")).to have_content("Sign in")
