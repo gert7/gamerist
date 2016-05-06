@@ -9,6 +9,13 @@
 #  rules      :text
 #
 
+###################
+#    IMPORTANT    #
+###################
+
+# pay attention to included contexts:
+# 'when players have money'
+
 require 'spec_helper'
 
 describe Room do
@@ -131,6 +138,17 @@ describe Room do
         r1.append_player! player1
         r1.update_xhr(player1, {"team" => 2})
         expect(r2.srules["players"].count).to eq 1
+      end
+    end
+    context "when server region is Europe" do
+      include_context "when players have money"
+      it "will not add the player from America" do
+        room.update_xhr(player1, {"team" => 2}, "North America")
+        expect(room.srules["players"].count).to eq 0
+      end
+      it "will add the player from Europe" do
+        room.update_xhr(player1, {"team" => 2}, "Europe")
+        expect(room.srules["players"].count).to eq 1
       end
     end
   end

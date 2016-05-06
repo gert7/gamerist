@@ -6,7 +6,7 @@ fi
 
 sudo bash $NODE_PACKAGE_NAME
 
-sudo apt-get install -y nodejs npm
+sudo apt-get install -y nodejs
 
 cd handlr
 
