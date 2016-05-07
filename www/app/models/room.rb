@@ -175,7 +175,6 @@ class Room < ActiveRecord::Base
   
   # Check if the is_alive key is set for this room in Redis
   def is_alive?
-    return true if Rails.env.development?
     if $redis.hget(rapidkey, "is_alive") == "true" and
        ((self.rstate != Room::STATE_PUBLIC) or (not room_timed_out?))
       return true
@@ -509,6 +508,14 @@ class Room < ActiveRecord::Base
     mrules
   end
   
+  def clear_personal_messages_for(uid)
+    $redis.hset rapidkey, "personal_messages_" + uid.to_s, "[]"
+  end
+  
+  def personal_messages_for(uid)
+    $redis.hget rapidkey, "personal_messages_" + uid.to_s
+  end
+  
   # XHR direct line to amending a player.
   # params upclass: readywager (default) or chatroom
   # @param [User] cuser ActiveRecord instance of the player
@@ -522,6 +529,7 @@ class Room < ActiveRecord::Base
     elsif params["upclass"] == "generic"
       chug_room if self.rstate == STATE_LOCKED
     elsif self.is_public? and region == self.srules["server_region"] # readywager
+      clear_personal_messages_for(cuser.id)
       if(params["wager"] and params["wager"].to_s == "0")
         remove_player!(cuser)
       else
@@ -529,6 +537,7 @@ class Room < ActiveRecord::Base
       end
     end
     room_renew_timeout if self.srules["players"].count > 0
+    $redis.hset rapidkey, "personal_messages_" + cuser.id.to_s, self.personal_messages.to_json if self.personal_messages
   end
   
   after_initialize do

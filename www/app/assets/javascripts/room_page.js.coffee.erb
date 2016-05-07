@@ -191,7 +191,7 @@ updateChat = (data) ->
 CURRENT_UNIQUE_SIGNATURE = ""
 
 postErrorMessages = (data) ->
-  if data.personal_messages and (data.personal_messages.length > 0)
+  if data.personal_messages and data.personal_messages != null and (data.personal_messages.length > 0)
     $("#srules_errormessages").css("display", "block")
     $("#srules_errormessages").html("")
     alreadys = []

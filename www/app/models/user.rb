@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
   has_many :usertraces, inverse_of: :user
   
   PAYPAL_TIMEOUT = 30
+  STEAMAPI_TIMEOUT = 180
 
   after_save do
     unless(self.account)
@@ -369,7 +370,7 @@ class User < ActiveRecord::Base
       hvar_set "steamname", player["personaname"]
       hvar_set "steamurl", player["profileurl"]
       save_game_stats(load_steam_gamestats)
-      steamapi_timeout(Time.now + 10)
+      steamapi_timeout(Time.now + STEAMAPI_TIMEOUT)
     end
   end
   
