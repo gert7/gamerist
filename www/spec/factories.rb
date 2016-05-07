@@ -66,4 +66,11 @@ FactoryGirl.define do
     playercount "8"
     wager "5"
   end
+
+  factory :roomcs, class: :room do
+    game "counter strike source"
+    map "de_dust"
+    playercount "8"
+    wager "5"
+  end
 end

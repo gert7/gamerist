@@ -162,11 +162,16 @@ describe Room do
     end
     context "when a player doesn't have a game" do
       include_context "when players have money"
+      let(:roomcs) { FactoryGirl.create :roomcs }
+      before {
+        roomcs.save
+      }
       it "will not add the player without the game" do
-        player1.save_game_stats({"game_count" => 1, "games" => [{"appid" => 240, "playtime_forever" => 318}]})
-        room.update_xhr(player1, {"team" => 2})
-        expect(room.srules["players"].count).to eq 0
-        expect(room.personal_messages.count).to be > 0
+        # tf2 440 doesn't show up here actually because it's f2p
+        player1.save_game_stats({"game_count" => 1, "games" => [{"appid" => 440, "playtime_forever" => 318}]})
+        roomcs.update_xhr(player1, {"team" => 2})
+        expect(roomcs.srules["players"].count).to eq 0
+        expect(roomcs.personal_messages.count).to be > 0
       end
     end
   end

@@ -314,7 +314,6 @@ class User < ActiveRecord::Base
   def load_steam_gamestats
     require 'open-uri'
     steamapik = GameristApiKeys.get("steam_api_key")
-    puts "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{steamapik}&steamid=#{self.steamid}&format=json"
     ru = open("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{steamapik}&steamid=#{self.steamid}&format=json").read
     response = JSON.parse(ru)
     return response["response"]
@@ -356,12 +355,13 @@ class User < ActiveRecord::Base
   
   # Load up steam_name and steam_avatar_urls for the User. They themselves call this implicitly
   def fetch_steamapi
-    puts steamapi_timeout
+    return if Rails.env.test?
     if (not hvar_get "avatar_urls" or
         not hvar_get "steamname" or
         not hvar_get "steamurl" or
         not hvar_get "owned_games" or
         steamapi_timeout)
+      puts "Fetching Steam data"
       return nil unless self.steamid
       player = load_steamplayer
       return nil unless player
@@ -395,9 +395,7 @@ class User < ActiveRecord::Base
   end
   
   def has_game(gamename)
-    puts "GAMEEMEMME"
     fetch_steamapi
-    puts hvar_get("GAME " + gamename)
     return hvar_get("GAME " + gamename)
   end
   
