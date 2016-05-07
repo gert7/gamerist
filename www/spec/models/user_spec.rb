@@ -74,5 +74,19 @@ describe User do
       expect(user.is_reserved?).to eq false
     end
   end
+  
+  describe "#steamapi_timeout" do
+    it "adds a timeout in the future" do
+      user = User.create(FactoryGirl.attributes_for(:user))
+      user.steamapi_timeout(Time.now.to_i + 30)
+      expect(user.steamapi_timeout).to eq false
+    end
+    
+    it "times out properly" do
+      user = User.create(FactoryGirl.attributes_for(:user))
+      user.steamapi_timeout(Time.now.to_i - 30)
+      expect(user.steamapi_timeout).to eq true
+    end
+  end
 end
 
