@@ -1,4 +1,4 @@
-sudo apt-get install curl postgresql build-essential gdebi -y
+sudo apt-get install curl postgresql build-essential gdebi libpq-dev -y
 
 command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 

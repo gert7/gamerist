@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.3.0', :engine => 'jruby', :engine_version => '9.1.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'
@@ -7,7 +7,7 @@ gem 'sprockets-rails', '2.3.3'
 
 # PostgreSQL
 group :development, :production do
-  gem 'pg'
+  gem 'activerecord-jdbcpostgresql-adapter', '1.3.19', require: false
 end
 
 gem 'connection_pool'
@@ -23,7 +23,7 @@ gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'execjs', require: false
-gem 'therubyracer', platforms: :ruby
+gem 'therubyrhino', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-cdn', '2.1.4'
@@ -69,7 +69,7 @@ gem 'sinatra', require: false
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-gem 'unicorn'
+gem 'puma', '2.15.3', require: false
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -84,7 +84,7 @@ gem 'unicorn'
 
 group :development, :test do
   # SQLite
-  gem 'sqlite3', require: false
+  gem 'activerecord-jdbcsqlite3-adapter', require: false
   gem 'rspec', require: false
   gem 'rspec-rails', require: false
   gem 'capybara', require: false

@@ -1,8 +1,8 @@
 require 'yaml'
 
-$gamerist_mapdata      = YAML.load(Rails.root.join("config", "games.yml"))
-$gamerist_serverdata   = YAML.load(Rails.root.join("config", "servers.yml"))
-$gamerist_countrydata  = YAML.load(Rails.root.join("config", "countries.yml"))
+$gamerist_mapdata      = YAML.load(open(Rails.root.join("config", "games.yml")))
+$gamerist_serverdata   = YAML.load(open(Rails.root.join("config", "servers.yml")))
+$gamerist_countrydata  = YAML.load(open(Rails.root.join("config", "countries.yml")))
 $gamerist_continentdata= JSON.parse(File.read(Rails.root.join("config", "continents.json")))
 
 def get_continent(countryname)

@@ -345,8 +345,11 @@ class User < ActiveRecord::Base
   def steamapi_timeout(nextposix=nil)
     if nextposix
       hvar_set "steam_api_timeout", nextposix.to_s
+      puts "NEW TIMEOUT " + nextposix.to_s
     else
       if Time.now.to_i > (hvar_get("steam_api_timeout").to_i or 0)
+        puts Time.now.to_i
+        puts hvar_get("steam_api_timeout").to_i
         return true
       else
         return false
@@ -360,7 +363,6 @@ class User < ActiveRecord::Base
     if (not hvar_get "avatar_urls" or
         not hvar_get "steamname" or
         not hvar_get "steamurl" or
-        not hvar_get "owned_games" or
         steamapi_timeout)
       puts "Fetching Steam data"
       return nil unless self.steamid
@@ -370,7 +372,7 @@ class User < ActiveRecord::Base
       hvar_set "steamname", player["personaname"]
       hvar_set "steamurl", player["profileurl"]
       save_game_stats(load_steam_gamestats)
-      steamapi_timeout(Time.now + STEAMAPI_TIMEOUT)
+      steamapi_timeout(Time.now.to_i + STEAMAPI_TIMEOUT)
     end
   end
   
