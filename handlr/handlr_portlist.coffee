@@ -27,10 +27,13 @@ unixtime = ->
   return Math.floor(Date.now() / 1000)
 
 free_port = (port, callback) ->
-  servers.remove({port: port}, ->
-    debug("Freed port " + port + " in datastore")
-    (callback || ->)()
-  )
+  Futures.sequence()
+  .then (next) ->
+    servers.update({port: port}, {$set: {extant: false}}, {multi: true}, next)
+  .then (next) ->
+    servers.remove {port: port}, ->
+      debug("Freed port " + port + " in datastore")
+      (callback || ->)()
 
 afor = require("async-for")
 
@@ -144,7 +147,7 @@ get_port_by_id = (roomid, callback) ->
 
 # Retrieves all ports active according to the database
 get_all_ports = (callback) ->
-  servers.find({port: { $in: Config.ports } }, (err, docs) ->
+  servers.find({port: { $in: Config.ports }}, (err, docs) ->
     (callback || ->)(docs)
   )
 
