@@ -18,7 +18,6 @@ exports.destroy_port = (port, callback) ->
   .then (next) ->
     spawn_indep("fuser", ["-n", "udp", "-k", port], null, next)
   .then (next) ->
-    debug("Destroyed process on port " + port)
     (callback || ->)()
 
 exports.destroy_port_async = (port, endcallback) ->

@@ -150,5 +150,7 @@ describe "portlist", ->
       .then (next, err) ->
         portlist.get_port(iport, next)
       .then (next, record) ->
+        expect(record.room.playercount).to.equal 32
         expect(record.timeout).to.equal 400
         done()
+        

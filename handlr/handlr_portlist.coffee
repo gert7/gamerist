@@ -54,7 +54,6 @@ remove_timeout_ports = (all, callback) ->
         if(porty.port == portx)
           inport = true
       if(inport == false)
-        debug("inport is false")
         destroy_port.destroy_port(portx)
     iless  = (i) -> (i < ports.length)
     iadd   = (i) -> (i + 1)
@@ -165,9 +164,7 @@ heartbeat_port = (port, callback, newTimeout) ->
       debug("can't find temp on port " + port)
       (callback || -> )(true)
   .then (next, err, docs) ->
-    servers.remove({port: port}, {multi: true}, next)
-  .then (next) ->
-    servers.insert({port: temp.port, roomid: temp.roomid, room: temp.room, timeout: (newTimeout or (unixtime() + Config.timeouts.timeout))}, next)
+    servers.update({port: port}, { $set: {timeout: (newTimeout or (unixtime() + Config.timeouts.timeout))}}, {}, next)
   .then (next, err) ->
     debug("Heartbeat for server on port " + port)
     (callback || -> )(err)

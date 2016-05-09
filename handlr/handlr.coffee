@@ -12,4 +12,4 @@ Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
 
 require('./handlr_mq_sub')
 require('./handlr_downward')
-
+require('./handlr_maintain')

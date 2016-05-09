@@ -1,9 +1,11 @@
 amqp  = require("amqplib")
 debug = require('debug')('northstream')
+Futures = require("futures")
 
 require("coffee-script")
 serverspawn = require("./handlr_serverspawn")
 portlist    = require("./handlr_portlist")
+maintain    = require("./handlr_maintain")
 
 Config = require("./handlr_config").conf
 
@@ -53,6 +55,9 @@ handle_mq_message = (data, callback) ->
         sendup('{"protocol_version":1, "server": "' + Config.selfname + '", "type": "pcanceled", "id": ' + data.id + '}', callback)
     else if (data.type == "heartbeat")
       sendup('{"protocol_version":1, "server": "' + Config.selfname + '", "type": "heartbeat", "signature": "' + data.signature + '}', callback)
+    else if (data.type == "game_update")
+      maintain.update_game(data.game)
+      sendup('{"protocol_version":1, "server": "' + Config.selfname + '", "type": "game_updating", "date": ' + unixtime() + '}')
     else
       callback()
   else
