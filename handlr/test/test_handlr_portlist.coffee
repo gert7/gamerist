@@ -133,4 +133,22 @@ describe "portlist", ->
       .then (next, port) ->
         expect(port).not.to.equal Config.ports[4]
         done()
-        
+  describe "heartbeat_port", ->
+    it "heartbeats a port", (done) ->
+      iport =
+      seq = Futures.sequence()
+      .then (next) ->
+        portlist.remember_a_port(198, {playercount: 32}, next)
+      .then (next, port) ->
+        iport = port
+        portlist.get_port(port, next)
+      .then (next, record) ->
+        expect(record.timeout).not.to.equal undefined
+        next(record.port)
+      .then (next, port) ->
+        portlist.heartbeat_port(port, next, 400)
+      .then (next, err) ->
+        portlist.get_port(iport, next)
+      .then (next, record) ->
+        expect(record.timeout).to.equal 400
+        done()

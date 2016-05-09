@@ -149,7 +149,7 @@ get_all_ports = (callback) ->
     (callback || ->)(docs)
   )
 
-heartbeat_port = (port, callback) ->
+heartbeat_port = (port, callback, newTimeout) ->
   seq = Futures.sequence()
   temp = 
   seq
@@ -167,7 +167,7 @@ heartbeat_port = (port, callback) ->
   .then (next, err, docs) ->
     servers.remove({port: port}, {multi: true}, next)
   .then (next) ->
-    servers.insert({port: temp.port, roomid: temp.roomid, room: temp.room, timeout: (unixtime() + Config.timeouts.timeout)}, next)
+    servers.insert({port: temp.port, roomid: temp.roomid, room: temp.room, timeout: (newTimeout or (unixtime() + Config.timeouts.timeout))}, next)
   .then (next, err) ->
     debug("Heartbeat for server on port " + port)
     (callback || -> )(err)
@@ -231,7 +231,7 @@ plistactor = nactor.actor ->
       async.enable()
       Futures.sequence()
       .then (next) ->
-        heartbeat_port(data.port, next)
+        heartbeat_port(data.port, next, data.timeout)
       .then (next, err) ->
         async.reply(err)
         
@@ -280,8 +280,8 @@ exports.get_all_ports = (callback) ->
 exports.free_port      = (port, callback) ->
   plistactor.free_port({port: port}, callback)
   
-exports.heartbeat_port = (port, callback) ->
-  plistactor.heartbeat_port({port: port}, callback)
+exports.heartbeat_port = (port, callback, timeout) ->
+  plistactor.heartbeat_port({port: port, timeout: timeout}, callback)
   
 exports.remove_all_ports= (callback) ->
   plistactor.remove_all_ports(null, callback)
