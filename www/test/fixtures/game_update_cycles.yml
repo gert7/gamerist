@@ -1,12 +1,10 @@
 # == Schema Information
 #
-# Table name: modifiers
+# Table name: game_update_cycles
 #
 #  id         :integer          not null, primary key
-#  key        :string
-#  value      :string
-#  active     :boolean
-#  recent     :boolean
+#  game       :string
+#  state      :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -14,13 +12,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  key: MyString
-  value: MyString
-  active: false
-  recent: false
+  game: MyString
+  state: 1
 
 two:
-  key: MyString
-  value: MyString
-  active: false
-  recent: false
+  game: MyString
+  state: 1

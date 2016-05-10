@@ -3,8 +3,8 @@
 # Table name: modifiers
 #
 #  id         :integer          not null, primary key
-#  key        :string(255)
-#  value      :string(255)
+#  key        :string
+#  value      :string
 #  active     :boolean
 #  recent     :boolean
 #  created_at :datetime         not null

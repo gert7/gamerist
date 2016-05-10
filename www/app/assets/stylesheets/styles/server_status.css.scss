@@ -50,7 +50,7 @@
 .servers_game_name {
   margin:32px;
   background:#333;
-  height:160px;
+  min-height:160px;
 }
 
 .servers_game_name_label {
@@ -80,5 +80,22 @@
   background:#222;
   width:92px;
   height:64px;
+}
+
+.servers_room {
+  display:inline-block;
+  width:192px;
+  box-sizing:border-box;
+  border:4px solid transparent;
+  background:#666;
+  margin:16px;
+  padding:16px;
+  font-size:0.8em;
+  color:white;
+  cursor:pointer;
+}
+
+.servers_room:hover {
+  border:4px solid hsl(65, 70%, 50%);
 }
 

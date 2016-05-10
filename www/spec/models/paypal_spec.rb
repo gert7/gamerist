@@ -8,8 +8,8 @@
 #  tax        :decimal(8, 2)
 #  state      :integer
 #  user_id    :integer
-#  sid        :string(255)
-#  redirect   :string(255)
+#  sid        :string
+#  redirect   :string
 #  created_at :datetime
 #  updated_at :datetime
 #  country    :text

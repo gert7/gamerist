@@ -1,2 +1,1 @@
-bundle exec rails server puma -p 3000
-
+unicorn -p 3000

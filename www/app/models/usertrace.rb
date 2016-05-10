@@ -5,7 +5,7 @@
 #  id        :integer          not null, primary key
 #  user_id   :integer
 #  timestamp :datetime
-#  ipaddress :string(255)
+#  ipaddress :string
 #
 
 class Usertrace < ActiveRecord::Base

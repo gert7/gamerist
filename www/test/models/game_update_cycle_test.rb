@@ -1,19 +1,17 @@
 # == Schema Information
 #
-# Table name: modifiers
+# Table name: game_update_cycles
 #
 #  id         :integer          not null, primary key
-#  key        :string
-#  value      :string
-#  active     :boolean
-#  recent     :boolean
+#  game       :string
+#  state      :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 require 'test_helper'
 
-class ModifierTest < ActiveSupport::TestCase
+class GameUpdateCycleTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

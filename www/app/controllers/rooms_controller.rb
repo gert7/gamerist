@@ -37,11 +37,16 @@ class RoomsController < ApplicationController
     @user_region = fetch_continent(request.remote_ip)
     
     respond_to do |format|
-      format.json { render action: 'show', location: @room }
-      if current_user and (res = current_user.get_reservation) and res.id != @room.id
-        format.html { redirect_to :controller => 'rooms', :action => 'show', :id => res.id }
+      if @room
+        format.json { render action: 'show', location: @room }
+        if current_user and (res = current_user.get_reservation) and res.id != @room.id
+          format.html { redirect_to :controller => 'rooms', :action => 'show', :id => res.id }
+        else
+          format.html { render action: 'show', location: @room }
+        end
       else
-        format.html { render action: 'show', location: @room }
+        format.json { redirect_to "/" }
+        format.html { redirect_to "/" }
       end
     end
   end
@@ -75,9 +80,7 @@ class RoomsController < ApplicationController
   # POST /rooms
   # POST /rooms.json
   def create
-    puts params[:room][:playercount]
     @room = Room.new(room_params)
-    puts room_params[:playercount]
     @room.server_region = fetch_continent(request.remote_ip)
     
     @map_options_tf2 = $gamerist_mapdata["games"][0]["maps"].map do |m| m["name"] end
@@ -129,7 +132,11 @@ class RoomsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_room
-      @room = Room.find(params[:id])
+      begin
+        @room = Room.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        @room = nil
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

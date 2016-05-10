@@ -8,6 +8,9 @@ check_server_status_cb = (data) ->
       $("#s_triage_mq_data").html(data.mq[0] + "<br/>" + data.mq[2] + " ago")
     for serd in data.servers
       $("#servers_game_of_" + serd.server + " .servers_game_name_lastseen").html(serd.timeago + " ago")
+      for room in [{port: 27015, roomid: 67, room: {wager: 5, game: "team fortress 2", map: "ctf_2fort", playercount: 32}, timeout: 1474273184}]
+        $("#servers_game_of_" + serd.server).append('<div class="servers_room" id="servers_room_of_' + room.roomid + '"><p>Room ' + room.roomid + '</p><p>Game: ' + room.room.game + '</p><p>Map: ' + room.room.map + '</p><p>Wager: ' + room.room.wager + '</p></div>')
+        $("#servers_room_of_" + room.roomid).click -> window.location = "/rooms/" + room.roomid
 
 check_server_status = () ->
   $.get(document.location + ".json", check_server_status_cb)
@@ -17,5 +20,6 @@ SERVERS_DATA = <%= JSON.generate($gamerist_serverdata) %>
 $(document).ready () ->
   if($("#serverstatus_center").length)
     for server in SERVERS_DATA.servers
-      $("#servers_game").append('<div id="servers_game_of_' + server.name + '" class="servers_game_name"><div class="servers_game_name_label">' + server.name + '</div><div class="servers_game_name_lastseen">14 minutes ago</div><div class="server_game_list"></div></div>')
+      $("#servers_game").append('<div id="servers_game_of_' + server.name + '" class="servers_game_name"><div class="servers_game_name_label">' + server.name + '</div><div class="servers_game_name_lastseen"></div><div class="server_game_list"></div></div>')
     check_server_status()
+

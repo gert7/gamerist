@@ -7,10 +7,13 @@ def get_continent(countryname)
 end
 
 def fetch_continent_country(ipaddress)
-  puts Geocoder.search(ipaddress)
-  puts Geocoder.search(ipaddress)[0]
   if(Geocoder.search(ipaddress)[0])
-    return (Geocoder.search(ipaddress)[0].country or "Reserved")
+    pc = Geocoder.search(ipaddress)[0].country
+    if ((not pc) or (pc and pc == ""))
+      return "Reserved"
+    else
+      return pc
+    end
   end
   return "Reserved"
 end

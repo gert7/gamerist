@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506181737) do
+ActiveRecord::Schema.define(version: 20160509203701) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -73,6 +73,13 @@ ActiveRecord::Schema.define(version: 20160506181737) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+
+  create_table "game_update_cycles", force: :cascade do |t|
+    t.string   "game"
+    t.integer  "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "maxmind_geolite_country", id: false, force: :cascade do |t|
     t.string  "start_ip"

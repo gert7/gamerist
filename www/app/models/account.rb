@@ -4,12 +4,12 @@
 #
 #  id            :integer          not null, primary key
 #  user_id       :integer
-#  countrycode   :string(255)
-#  nickname      :string(255)
+#  countrycode   :string
+#  nickname      :string
 #  dob           :date
-#  firstname     :string(255)
-#  lastname      :string(255)
-#  paypaladdress :string(255)
+#  firstname     :string
+#  lastname      :string
+#  paypaladdress :string
 #  created_at    :datetime
 #  updated_at    :datetime
 #
