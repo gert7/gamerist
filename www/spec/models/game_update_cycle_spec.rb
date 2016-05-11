@@ -46,5 +46,15 @@ describe GameUpdateCycle do
       expect(GameUpdateCycle.new.get_state_tf2).to eq GameUpdateCycle::STATE_GAME_LOCKING
       expect(GameUpdateCycle.new.get_last_updated_tf2.to_i).to eq 0
     end
+    
+    it "starts a new updated cycle after previously updated" do
+      $tf2_needs_updating_force = true
+      gu = GameUpdateCycle.create(game: "team fortress 2", state: GameUpdateCycle::STATE_FINISHED)
+      GameUpdateCycle.start_cycle
+      expect(GameUpdateCycle.new.get_state_tf2).to eq GameUpdateCycle::STATE_GAME_LOCKING
+      expect(GameUpdateCycle.new.get_last_updated_tf2.to_i).to eq gu.updated_at.to_i
+    end
   end
 end
+
+

@@ -7,7 +7,7 @@ fi
 sudo bash $NODE_PACKAGE_NAME
 
 sudo apt-get install -y nodejs
-sudo apt-get dist-upgrade nodejs
+sudo apt-get upgrade nodejs
 
 cd handlr
 

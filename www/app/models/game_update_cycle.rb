@@ -51,7 +51,7 @@ class GameUpdateCycle < ActiveRecord::Base
   def get_state_tf2
     xti = h_get("tf2_state")
     xte = h_get("tf2_last_updated")
-    return xti if (xti and xte)
+    return xti.to_i if (xti and xte)
     t_cycle, f_cycle = nil, nil
     GameUpdateCycle.transaction do
       t_cycle = GameUpdateCycle.where(game: "team fortress 2", state: STATE_GAME_LOCKING).last
