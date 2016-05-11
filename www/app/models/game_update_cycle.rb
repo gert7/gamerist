@@ -51,15 +51,13 @@ class GameUpdateCycle < ActiveRecord::Base
   def get_state_tf2
     xti = h_get("tf2_state")
     xte = h_get("tf2_last_updated")
-    puts "STATE: " + xti.to_s
-    puts "TIMER: " + xte.to_s
     return xti if (xti and xte)
     t_cycle, f_cycle = nil, nil
     GameUpdateCycle.transaction do
       t_cycle = GameUpdateCycle.where(game: "team fortress 2", state: STATE_GAME_LOCKING).last
       f_cycle = GameUpdateCycle.where(game: "team fortress 2", state: STATE_FINISHED).last
     end
-    h_set("tf2_last_updated", f_cycle.updated_at) if f_cycle
+    h_set("tf2_last_updated", f_cycle.updated_at.to_i) if f_cycle
     if t_cycle and t_cycle.state == STATE_GAME_LOCKING
       h_set("tf2_state", STATE_GAME_LOCKING)
       return STATE_GAME_LOCKING
@@ -68,19 +66,18 @@ class GameUpdateCycle < ActiveRecord::Base
   end
   
   # Only run after get_state_tf2
-  def get_last_updated
+  def get_last_updated_tf2
     return (h_get("tf2_last_updated").to_i or 0)
   end
   
   def cycle_part_tf2
     puts "Checking for TF2 updates..."
     xti = get_state_tf2
-    if xti == nil
-      temp = get_last_updated
-      if tf2_needs_updating?(temp)
+    if xti == STATE_NONE
+      if tf2_needs_updating?(get_last_updated_tf2)
         puts "TF2 NEEDS UPDATING!!"
-        # h_set("tf2_state", STATE_GAME_LOCKING)
-        # GameUpdateCycle.create(game: "team fortress 2", state: STATE_GAME_LOCKING)
+        h_set("tf2_state", STATE_GAME_LOCKING)
+        GameUpdateCycle.create(game: "team fortress 2", state: STATE_GAME_LOCKING)
       end
     elsif xti == STATE_GAME_LOCKING
     end
@@ -91,15 +88,13 @@ class GameUpdateCycle < ActiveRecord::Base
   end
   
   def astartcycle
-    puts "Czechking for update timer..."
     xt = h_get("timer_global")
     if xt and (xt.to_i > Time.now.to_i)
       return
     end
-    puts "Checking for updates..."
     cycle_part_tf2
     # cycle_part_css
-    # h_set("timer_global", Time.now.to_i)
+    h_set("timer_global", Time.now.to_i)
   end
   
   def check_allowed_tf2
@@ -114,8 +109,8 @@ class GameUpdateCycle < ActiveRecord::Base
     self.new.acall($redis, :astartcycle)
   end
   
-  def initialize
-    agis_defm0 :astartcycle
+  after_initialize do
+    agis_defm0(:astartcycle)
   end
 end
 
