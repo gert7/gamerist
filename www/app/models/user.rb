@@ -304,40 +304,41 @@ class User < ActiveRecord::Base
     return '765' + (id.to_i + 61197960265728).to_s
   end
   
-  def load_steamplayer
+  def steam_api_key
+    GameristApiKeys.get("steam_api_key")
+  end
+  
+  def load_steam_api_address(urid)
     require 'open-uri'
-    steamapik = GameristApiKeys.get("steam_api_key")
-    ru = open("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{steamapik}&steamids=#{self.steamid}").read
-    response = JSON.parse(ru)
-    return response["response"]["players"][0]
+    ru = open(urid).read
+    return JSON.parse(ru)
+  end
+  
+  def load_steamplayer
+    load_steam_api_address("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{self.steam_api_key}&steamids=#{self.steamid}")["response"]["players"][0]
   end
   
   def load_steam_gamestats
-    require 'open-uri'
-    steamapik = GameristApiKeys.get("steam_api_key")
-    ru = open("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{steamapik}&steamid=#{self.steamid}&format=json").read
-    response = JSON.parse(ru)
-    return response["response"]
+    load_steam_api_address("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{self.steam_api_key}&steamid=#{self.steamid}&format=json")["response"]
   end
   
   def save_game_stats(stats)
     if(stats["game_count"] == 0)
       return
-    else
-      #tf2  = stats["games"].find do |x|
-      #  x["appid"].to_i == 440
-      #end
-      css  = stats["games"].find do |x|
-        x["appid"].to_i == 240
-      end
-      #if tf2
-      #  hvar_set "GAME team fortress 2", tf2["playtime_forever"]
-      #else $redis.hdel hrapidkey, "GAME team fortress 2" end
-      hvar_set "GAME team fortress 2", 1000
-      if css
-        hvar_set "GAME counter strike source", css["playtime_forever"]
-      else $redis.hdel hrapidkey, "GAME counter strike source" end
     end
+    #tf2  = stats["games"].find do |x|
+    #  x["appid"].to_i == 440
+    #end
+    css  = stats["games"].find do |x|
+      x["appid"].to_i == 240
+    end
+    #if tf2
+    #  hvar_set "GAME team fortress 2", tf2["playtime_forever"]
+    #else $redis.hdel hrapidkey, "GAME team fortress 2" end
+    hvar_set "GAME team fortress 2", 1000
+    if css
+      hvar_set "GAME counter strike source", css["playtime_forever"]
+    else $redis.hdel hrapidkey, "GAME counter strike source" end
   end
   
   # check if timed out

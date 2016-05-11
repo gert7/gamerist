@@ -15,23 +15,23 @@ ActiveRecord::Schema.define(version: 20160509203701) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "countrycode"
-    t.string   "nickname"
+    t.string   "countrycode",   limit: 255
+    t.string   "nickname",      limit: 255
     t.date     "dob"
-    t.string   "firstname"
-    t.string   "lastname"
-    t.string   "paypaladdress"
+    t.string   "firstname",     limit: 255
+    t.string   "lastname",      limit: 255
+    t.string   "paypaladdress", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "active_admin_comments", force: :cascade do |t|
-    t.string   "namespace"
+    t.string   "namespace",     limit: 255
     t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
+    t.string   "resource_id",   limit: 255, null: false
+    t.string   "resource_type", limit: 255, null: false
     t.integer  "author_id"
-    t.string   "author_type"
+    t.string   "author_type",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,16 +41,16 @@ ActiveRecord::Schema.define(version: 20160509203701) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
   create_table "admins", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -59,15 +59,15 @@ ActiveRecord::Schema.define(version: 20160509203701) do
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
   create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
+    t.integer  "priority",               default: 0, null: false
+    t.integer  "attempts",               default: 0, null: false
+    t.text     "handler",                            null: false
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -93,34 +93,34 @@ ActiveRecord::Schema.define(version: 20160509203701) do
   add_index "maxmind_geolite_country", ["start_ip_num"], name: "index_maxmind_geolite_country_on_start_ip_num", unique: true
 
   create_table "modifiers", force: :cascade do |t|
-    t.string   "key"
-    t.string   "value"
+    t.string   "key",        limit: 255
+    t.string   "value",      limit: 255
     t.boolean  "active"
     t.boolean  "recent"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "payouts", force: :cascade do |t|
-    t.string   "batchid"
+    t.string   "batchid",    limit: 255
     t.integer  "points"
-    t.decimal  "subtotal",   precision: 16, scale: 2
-    t.decimal  "total",      precision: 16, scale: 2
-    t.decimal  "margin",     precision: 16, scale: 2
-    t.string   "currency"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.decimal  "subtotal",               precision: 16, scale: 2
+    t.decimal  "total",                  precision: 16, scale: 2
+    t.decimal  "margin",                 precision: 16, scale: 2
+    t.string   "currency",   limit: 255
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.integer  "user_id"
   end
 
   create_table "paypals", force: :cascade do |t|
-    t.decimal  "amount",     precision: 8, scale: 2
-    t.decimal  "subtotal",   precision: 8, scale: 2
-    t.decimal  "tax",        precision: 8, scale: 2
+    t.decimal  "amount",                 precision: 8, scale: 2
+    t.decimal  "subtotal",               precision: 8, scale: 2
+    t.decimal  "tax",                    precision: 8, scale: 2
     t.integer  "state"
     t.integer  "user_id"
-    t.string   "sid"
-    t.string   "redirect"
+    t.string   "sid",        limit: 255
+    t.string   "redirect",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "country"
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 20160509203701) do
   end
 
   create_table "steamids", force: :cascade do |t|
-    t.string   "steamid"
+    t.string   "steamid",    limit: 255
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -172,20 +172,20 @@ ActiveRecord::Schema.define(version: 20160509203701) do
   add_index "transactions", ["user_id"], name: "index_transactions_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
+    t.string   "unconfirmed_email",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "relevantgames"
@@ -197,7 +197,7 @@ ActiveRecord::Schema.define(version: 20160509203701) do
   create_table "usertraces", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "timestamp"
-    t.string   "ipaddress"
+    t.string   "ipaddress", limit: 255
   end
 
 end

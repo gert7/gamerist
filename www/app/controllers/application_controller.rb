@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
   end
 
   def check_game_updates
-    
+    puts "do some"
+    GameUpdateCycle.start_cycle
   end
   
   def check_country

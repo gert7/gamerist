@@ -44,6 +44,7 @@ unless Gamerist.rake?
         when "servererror" # server encountered an error
           Room.new(id: jdata['id']).declare_error(jdata['errno'])
         when "general_report"
+          DispatchMQ.check_doomed_games(jdata)
           $redis.hset("GAMERIST [Reports]", jdata["server"], payload) # throw the whole packet into the log
         else
         end
@@ -54,6 +55,15 @@ end
 
 module DispatchMQ
   # require Rails.root.join("config", "initializers", "mq")
+  def self.check_doomed_games(jdata)
+    jdata["contents"].each do |r|
+      unless Room.new(id: r["roomid"].to_i).is_alive?
+        puts "Room was DROPPED!! Room ID " + r["roomid"].to_s
+        DispatchMQ.send_room_cancel(r["roomid"].to_i, jdata["server"])
+      end
+    end
+  end
+  
   def self.send_room_requests(room)
     require "jbuilder"
     roomrules = room.srules

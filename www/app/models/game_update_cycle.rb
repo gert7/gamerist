@@ -15,13 +15,12 @@ class GameUpdateCycle < ActiveRecord::Base
   include Agis
   
   # for games
-  STATE_DRAFT         = 1
+  STATE_NONE          = 1
   STATE_GAME_LOCKING  = 2
-  STATE_HANDLR_RETURN = 16
+  STATE_FINISHED      = 4
   
   # for individual servers
   STATE_HANDLR_KNOWS = 4
-  STATE_HANDLR_DONE  = 8
   
   def h_get(k)
     $redis.hget("GAMERIST_UPDATE_CYCLE", k)
@@ -31,15 +30,59 @@ class GameUpdateCycle < ActiveRecord::Base
     $redis.hset("GAMERIST_UPDATE_CYCLE", k, v)
   end
   
-  def cycle_part_tf2
-    xti = h_get("tf2_state")
-    unless xti
-      t_cycle = GameUpdateCycle.where(game: "team fortress 2").where.not(state: STATE_HANDLR_DONE).last
-      xti = t_cycle.state
+  def scan_tf2_news(response, timestamp_from = 0)
+    response["appnews"]["newsitems"].each do |it|
+      if((it["date"].to_i > timestamp_from) and (it["feedname"] == "steam_updates") and (it["title"].match(/Team Fortress 2.*[Uu]pdate [Rr]eleased/)))
+        return true
+      end
     end
-    if xti == STATE_DRAFT
+    return false
+  end
+  
+  def tf2_needs_updating?(timestamp_from = 0)
+    if Rails.env.test?
+      return $tf2_needs_updating_force
+    end
+    require 'open-uri'
+    ru = open("http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=440&count=30&maxlength=12&format=json").read
+    return scan_tf2_news(JSON.parse(ru), timestamp_from)
+  end
+  
+  def get_state_tf2
+    xti = h_get("tf2_state")
+    xte = h_get("tf2_last_updated")
+    puts "STATE: " + xti.to_s
+    puts "TIMER: " + xte.to_s
+    return xti if (xti and xte)
+    t_cycle, f_cycle = nil, nil
+    GameUpdateCycle.transaction do
+      t_cycle = GameUpdateCycle.where(game: "team fortress 2", state: STATE_GAME_LOCKING).last
+      f_cycle = GameUpdateCycle.where(game: "team fortress 2", state: STATE_FINISHED).last
+    end
+    h_set("tf2_last_updated", f_cycle.updated_at) if f_cycle
+    if t_cycle and t_cycle.state == STATE_GAME_LOCKING
+      h_set("tf2_state", STATE_GAME_LOCKING)
+      return STATE_GAME_LOCKING
+    end
+    return STATE_NONE
+  end
+  
+  # Only run after get_state_tf2
+  def get_last_updated
+    return (h_get("tf2_last_updated").to_i or 0)
+  end
+  
+  def cycle_part_tf2
+    puts "Checking for TF2 updates..."
+    xti = get_state_tf2
+    if xti == nil
+      temp = get_last_updated
+      if tf2_needs_updating?(temp)
+        puts "TF2 NEEDS UPDATING!!"
+        # h_set("tf2_state", STATE_GAME_LOCKING)
+        # GameUpdateCycle.create(game: "team fortress 2", state: STATE_GAME_LOCKING)
+      end
     elsif xti == STATE_GAME_LOCKING
-    elsif xti == STATE_HANDLR_RETURN
     end
   end
   
@@ -48,13 +91,19 @@ class GameUpdateCycle < ActiveRecord::Base
   end
   
   def astartcycle
+    puts "Czechking for update timer..."
     xt = h_get("timer_global")
     if xt and (xt.to_i > Time.now.to_i)
       return
     end
+    puts "Checking for updates..."
     cycle_part_tf2
-    cycle_part_css
-    h_set("timer_global", Time.now.to_i)
+    # cycle_part_css
+    # h_set("timer_global", Time.now.to_i)
+  end
+  
+  def check_allowed_tf2
+    xt = get_state_tf2
   end
   
   def agis_id
@@ -69,3 +118,4 @@ class GameUpdateCycle < ActiveRecord::Base
     agis_defm0 :astartcycle
   end
 end
+
