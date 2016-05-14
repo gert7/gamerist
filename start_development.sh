@@ -1,4 +1,4 @@
-sudo apt-get install curl build-essential gdebi gdebi-core -y
+sudo apt-get install curl build-essential gdebi gdebi-core libpq-dev -y
 
 if [ ! -d ~/.rvm ]; then
   command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
