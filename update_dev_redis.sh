@@ -1,6 +1,6 @@
-REDIS_VERSION=redis-3.0.7
+REDIS_VERSION=redis-3.2.0
 
-mkdir ~/Desktop
+mkdir -p ~/Desktop
 
 if [ ! -d ~/Desktop/$REDIS_VERSION ]; then
   \curl -O http://download.redis.io/releases/$REDIS_VERSION.tar.gz
