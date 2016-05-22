@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5.2'
+gem 'rails', '4.2.6'
 gem 'sprockets-rails', '2.3.3'
 
 # PostgreSQL
@@ -38,6 +38,7 @@ gem 'activeadmin', github: 'activeadmin'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'rdoc', require: false
   gem 'sdoc', require: false
   gem 'yard', require: false
 end

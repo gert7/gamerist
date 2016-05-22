@@ -43,6 +43,7 @@ class GameUpdateCycle < ActiveRecord::Base
     if Rails.env.test?
       return $tf2_needs_updating_force
     end
+    puts "Querying Steam API for TF2 update..."
     require 'open-uri'
     ru = open("http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=440&count=30&maxlength=12&format=json").read
     return scan_tf2_news(JSON.parse(ru), timestamp_from)
