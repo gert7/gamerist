@@ -1,5 +1,3 @@
-// tf2
-//
 login anonymous
 force_install_dir tf
 app_update 232250
