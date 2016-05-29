@@ -17,10 +17,6 @@ mkdir cs_go
 
 ./steamcmd.sh +runscript ../steams.txt
 
-export MOMENT_DATUM=$(date +%s)
-
-echo $MOMENT_DATUM > LAST_DATUM
-
 if [ ! -f $MMSOURCE_TARBALL ]; then
   curl -O http://mirror.pointysoftware.net/alliedmodders/$MMSOURCE_TARBALL $CURL_O
 fi
@@ -60,9 +56,4 @@ cd ../smod_plugin
 ./compile.sh
 cd ../steamcmd
 rsync -aP ../game_content/* .
-
-mkdir tf_$MOMENT_DATUM
-mkdir css_$MOMENT_DATUM
-rsync -aP tf tf_$MOMENT_DATUM
-rsync -aP css css_$MOMENT_DATUM
 
