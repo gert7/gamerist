@@ -4,6 +4,7 @@ ruby '2.3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 gem 'sprockets-rails', '2.3.3'
+gem 'nokogiri', '>= 1.6.8'
 
 # PostgreSQL
 group :development, :production do
