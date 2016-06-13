@@ -50,6 +50,8 @@ gem 'devise' #, "~> 3.4.1" # 3.2.4
 gem 'omniauth'
 gem 'omniauth-steam'
 gem 'paypal-sdk-rest', require: false # 0.6.1
+gem 'devise-authy'
+
 gem 'geocoder', require: false # 1.2.0
 gem 'json_vat', github: 'adamcooke/json-vat', ref: 'dba4172', require: false
 gem 'google_currency', require: false

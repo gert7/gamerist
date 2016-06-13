@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   resources :payouts
   get "/payoutdata", to: "payouts#paydata"
 
-  devise_for :users, controllers: { omniauth_callbacks: "users/oauth_callbacks", :sessions => "users/sessions" }
+  devise_for :users, controllers: { omniauth_callbacks: "users/oauth_callbacks", :sessions => "users/sessions" }, :path_names => {
+    :verify_authy => "/verify-token",
+    :enable_authy => "/enable-two-factor",
+    :verify_authy_installation => "/verify-installation"
+}
   
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'

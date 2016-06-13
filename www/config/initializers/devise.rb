@@ -5,6 +5,11 @@ require 'omniauth-steam'
 require Rails.root.join("config", "initializers", "apikeys_accessor")
 
 Devise.setup do |config|
+
+  # ==> Devise Authy Authentication Extension
+  # How long should the user's device be remembered for.
+  # config.authy_remember_device = 1.month
+
   config.omniauth :steam, GameristApiKeys.get("steam_api_key")
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing

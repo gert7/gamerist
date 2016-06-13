@@ -7,4 +7,4 @@ paypal_clsecret: EAbDQxAKVcIew8bnIShscCU4-xqE3lm-ckRu1fN8pIRwjSj4fKkPFwVcC4cz
 paypal_return_hostname: http://127.0.0.1:3000
 devise_secret_key: cdb288b9dc60d40e4d32933317f7258cb34657b9dbba9140e54b3703c9ce1902dcca1f197b4e5f1bff4bd7b8f80da6a04a16f5afd6a787add924f7f48b91ca8e
 bugsnag_api_key: b61eea10829504a1da9762e193649943
-
+authy_api_key: 0cd08abec2e9b9641e40e9470a7fc336

@@ -28,12 +28,11 @@ class User < ActiveRecord::Base
   include Agis
   # Include default devise modules. Others available are:
   # :timeoutable
-  devise :database_authenticatable, :registerable,
+  devise :authy_authenticatable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   
-  devise :confirmable if Rails.env.production? # TODO check email verification in Production mode
-         
-  devise :omniauthable, omniauth_providers: [:steam]
+  devise :authy_authenticatable, :confirmable if Rails.env.production? # TODO check email verification in Production mode
+  devise :authy_authenticatable, :omniauthable, omniauth_providers: [:steam]
   
   has_one :account, inverse_of: :user
   accepts_nested_attributes_for :account
