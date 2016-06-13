@@ -3,10 +3,17 @@ $(document).ready () ->
     askCookieApproval()
 
 getCookie = (cn) ->
+  console.dir(document.cookie)
   cookies = document.cookie.split(";")
   for c in cookies
     partial = c.split("=")
-    if partial[0] == cn
+    spart   = ""
+    if partial[0][0] == " "
+      console.log("Partial starts with space: " + partial[0])
+      spart = partial[0].substring(1)
+    else
+      spart = partial[0]
+    if spart == cn
       return partial[1]
   return ""
 
@@ -18,7 +25,7 @@ appendCallbacksCookie = () ->
     )
     document.cookie = "gameristcookieapproval=approved"
   $("#cookie_warning_disagree").click ->
-    window.location = "http://www.duckduckgo.com"
+    window.location = "https://www.duckduckgo.com"
 
 askCookieApproval = () ->
   $("#header").before('<div id="cookie_warning_outer"><div id="cookie_warning"><div id="cookie_warning_text">This website uses browser cookies to improve your experience</div><button id="cookie_warning_agree">I UNDERSTAND</button><button id="cookie_warning_disagree">LEAVE</button></div></div>')
