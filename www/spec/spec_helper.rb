@@ -109,7 +109,13 @@ Coveralls.wear!('rails')
   end
 
   ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
-  
+
+  Capybara.register_driver :selenium do |app|
+    require 'selenium/webdriver'
+    Selenium::WebDriver::Firefox::Binary.path = "/opt/firefox42/firefox"
+    Capybara::Selenium::Driver.new(app, :browser => :firefox)
+  end
+
   Capybara.default_wait_time = 7
 #end
 

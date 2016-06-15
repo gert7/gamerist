@@ -10,24 +10,19 @@ describe 'Logged out' do
     user = FactoryGirl.build(:user)
     visit '/'
     expect(page.find("#headbar_loggedin_name")).to have_content("Sign in")
-    login_as(user)
+    login_as user
     visit '/'
     expect(page.find("#headbar_loggedin_name")).to have_content("Sign out")
   end
   
   it 'logs in the user then logs out', js: true do
     user = FactoryGirl.create(:user)
-    login_as(user)
+    login_as user
     visit '/'
     click_button("I UNDERSTAND")
     click_link("Sign out")
     visit '/'
     expect(page.find("#headbar_loggedin_name")).to have_content("Sign in")
-  end
-
-  it 'shows guest currently available rooms' do
-    visit '/rooms'
-    expect(page.status_code).to be 200
   end
   
   it 'fails to access the new room form' do

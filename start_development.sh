@@ -22,6 +22,8 @@ bundle config --global jobs 8
 
 bundle
 
+source update_mozilla.sh
+
 echo ""
 
 echo "GAMERIST development setup complete"
