@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_filter :reload_modifiers, :check_country, :check_game_updates
+  before_filter :reload_modifiers, :check_game_updates # check_country
   
   def reload_modifiers
     Modifier.update_modifiers

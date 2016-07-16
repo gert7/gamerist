@@ -1,4 +1,4 @@
-REDIS_VERSION=redis-3.2.0
+REDIS_VERSION=redis-3.2.1
 
 mkdir -p ~/Desktop
 

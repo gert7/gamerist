@@ -1,0 +1,25 @@
+#static_availa {
+	padding: 32px;
+	box-sizing:border-box;
+}
+
+.availa_column {
+	display:inline-block;
+	width:300px;
+	vertical-align:top;
+	line-height:24px;
+	padding-left:4px;
+}
+
+#static_availa p {
+	line-height:24px;
+}
+
+#static_availa h2 {
+	color: hsl(180, 75%, 30%);
+}
+
+#static_availa h3 {
+	color: hsl(180, 75%, 35%);
+}
+

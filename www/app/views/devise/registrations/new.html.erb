@@ -12,11 +12,11 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation, :required => true %></div>
   <br/>
-  <div><input type="checkbox" required>I have read and accept the <%= link_to "Terms and Conditions", "/static/terms" %></input></div>
+  <div><input type="checkbox" required>I have read and accept the <%= link_to "Terms and Conditions", "/static/terms" %> and am in one of the <%= link_to "26 regions where Gamerist is provided.", "/static/regions" %></input></div>
   <br/>
   <div><%= f.submit "Sign up" %></div>
   <br/>
-  <div>Gamerist servers are currently only available in Europe and North America</div>
+  <div>Gamerist is currently only available in the United Kingdom and 25 states in the United States of America.</div>
   <br/>
   
 <% end %>

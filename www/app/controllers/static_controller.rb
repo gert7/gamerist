@@ -9,7 +9,7 @@ class StaticController < ApplicationController
   end
   
   def safe_page
-    params[:page] if ["terms"].include?(params[:page])
+    params[:page] if ["terms", "regions"].include?(params[:page])
   end
 end
 

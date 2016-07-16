@@ -3,7 +3,7 @@
 # Discussion, issues and change requests at:
 #   https://github.com/nodesource/distributions
 #
-# Script to install the NodeSource Node.js 6.x repo onto a
+# Script to install the NodeSource Node.js v6.x repo onto a
 # Debian or Ubuntu system.
 #
 # Run as root or insert `sudo -E` before `bash`:
@@ -36,7 +36,9 @@ exec_cmd() {
 }
 
 
-print_status "Installing the NodeSource Node.js 6.x repo..."
+setup() {
+
+print_status "Installing the NodeSource Node.js v6.x repo..."
 
 
 PRE_INSTALL_PKGS=""
@@ -85,6 +87,7 @@ check_alt "Linux Mint"    "qiana"    "Ubuntu" "trusty"
 check_alt "Linux Mint"    "rafaela"  "Ubuntu" "trusty"
 check_alt "Linux Mint"    "rebecca"  "Ubuntu" "trusty"
 check_alt "Linux Mint"    "rosa"     "Ubuntu" "trusty"
+check_alt "Linux Mint"    "sarah"    "Ubuntu" "xenial" 
 check_alt "LMDE"          "betsy"    "Debian" "jessie"
 check_alt "elementaryOS"  "luna"     "Ubuntu" "precise"
 check_alt "elementaryOS"  "freya"    "Ubuntu" "trusty"
@@ -135,7 +138,7 @@ else
     exec_cmd 'wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -'
 fi
 
-print_status 'Creating apt sources list file for the NodeSource Node.js 6.x repo...'
+print_status 'Creating apt sources list file for the NodeSource Node.js v6.x repo...'
 
 exec_cmd "echo 'deb https://deb.nodesource.com/node_6.x ${DISTRO} main' > /etc/apt/sources.list.d/nodesource.list"
 exec_cmd "echo 'deb-src https://deb.nodesource.com/node_6.x ${DISTRO} main' >> /etc/apt/sources.list.d/nodesource.list"
@@ -144,4 +147,9 @@ print_status 'Running `apt-get update` for you...'
 
 exec_cmd 'apt-get update'
 
-print_status 'Run `apt-get install nodejs` (as root) to install Node.js 6.x and npm'
+print_status 'Run `apt-get install nodejs` (as root) to install Node.js v6.x and npm'
+
+}
+
+## Defer setup until we have the complete script
+setup
