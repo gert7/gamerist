@@ -114,7 +114,8 @@
 }
 
 #paypal_country_left {
-  width:150px;
+	box-sizing: border-box;
+  width:100%;
   padding:6px;
   display:inline-block;
   vertical-align:top;
@@ -134,5 +135,35 @@
   padding:6px;
   display:inline-block;
   vertical-align:top;
+}
+
+#paypal_country_miniprint {
+	font-size:0.8em;
+	color:#666;
+	font-style: italic;
+}
+
+.paypal_right_selector {
+	display:inline-block;
+	box-sizing: border-box;
+	width:50%;
+	padding:8px;
+	background: hsl(65, 12%, 40%);
+	border-bottom:4px solid hsl(65, 12%, 50%);
+	color:white;
+	text-decoration:none;
+	font-family:"Blue Highway Regular";
+}
+
+.paypal_right_selector_active {
+	display:inline-block;
+	box-sizing: border-box;
+	width:50%;
+	padding:8px;
+	background: hsl(65, 12%, 40%);
+	border-bottom:4px solid hsl(65, 100%, 50%);
+	color:white;
+	text-decoration:none;
+	font-family:"Blue Highway Regular";
 }
 

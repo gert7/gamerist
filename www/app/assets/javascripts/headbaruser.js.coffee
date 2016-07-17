@@ -1,6 +1,7 @@
 $(document).ready () ->
   console.log("yo")
-  $.ajax({url: "/accounts.json"}).done (text, textStatus, xhr) ->
+  accgrab = $.ajax({url: "/accounts.json"})
+  accgrab.done (text, textStatus, xhr) ->
     current_user = text
     console.dir(current_user)
     if(current_user.user_id and current_user.user_id != "nobody")
@@ -13,4 +14,7 @@ $(document).ready () ->
       console.log("flop")
     else if(current_user.user_id == "nobody")
       $("#headbar_loggedin_name").html('<a data-method="get" href="/users/sign_in" rel="nofollow">Sign in</a>')
+  accgrab.error (jq) ->
+  	if jq.status == 401
+	  	$("#headbar_loggedin_name").html('<a data-method="get" href="/users/sign_in" rel="nofollow">Sign in</a>')
       

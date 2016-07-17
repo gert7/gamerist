@@ -22,6 +22,8 @@ class GameUpdateCycle < ActiveRecord::Base
   # for individual servers
   STATE_HANDLR_KNOWS = 4
   
+  UPDATE_CHECK_TIMEOUT = 300
+  
   def h_get(k)
     $redis.hget("GAMERIST_UPDATE_CYCLE", k)
   end
@@ -90,12 +92,14 @@ class GameUpdateCycle < ActiveRecord::Base
   
   def astartcycle
     xt = h_get("timer_global")
+    puts xt.to_i
+    puts Time.now.to_i
     if xt and (xt.to_i > Time.now.to_i)
       return
     end
     cycle_part_tf2
     # cycle_part_css
-    h_set("timer_global", Time.now.to_i)
+    h_set("timer_global", Time.now.to_i + UPDATE_CHECK_TIMEOUT)
   end
   
   def check_allowed_tf2

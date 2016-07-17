@@ -65,7 +65,9 @@ class PaypalsController < ApplicationController
   
   def paydata
     countrycode = Geocoder.search(request.remote_ip)[0].country_code
+    # countrycode = "SE"
     @data = Paypal.calculate_payment(params[:points], countrycode)
+    @usig = params[:unique_signature]
   end
 
   private

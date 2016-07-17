@@ -17,6 +17,7 @@
   height:50px;
   width:16px;
   background-color:hsl(0, 60, 50);
+  background-image:image-url("teambar.png");
   display:inline-block;
 }
 
@@ -26,6 +27,28 @@
   height:50px;
   width:16px;
   background-color:hsl(180, 40, 50);
+  background-image:image-url("teambar.png");
+  background-position: -32px 0px;
+  display:inline-block;
+}
+
+.account_mini_teambar_red_ready {
+	margin:0;
+  height:50px;
+  width:16px;
+  background-color:hsl(0, 60, 50);
+  background-image:image-url("teambar.png");
+  background-position: -16px 0px;
+  display:inline-block;
+}
+
+.account_mini_teambar_blu_ready {
+	margin:0;
+  height:50px;
+  width:16px;
+  background-color:hsl(180, 40, 50);
+  background-image:image-url("teambar.png");
+  background-position: -48px 0px;
   display:inline-block;
 }
 
